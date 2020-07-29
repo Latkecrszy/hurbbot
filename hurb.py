@@ -358,7 +358,8 @@ async def on_error(err, *args):
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
-        await ctx.send(f"I could not find that command, {ctx.author}")
+        print("Error: Command not found.")
+        # await ctx.send(f"I could not find that command, {ctx.author}")
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(f'''Error: Missing one or more required argument.''')
     else:

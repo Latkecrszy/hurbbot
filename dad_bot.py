@@ -178,7 +178,6 @@ async def on_command_error(ctx, error):
         raise error.original
 
 
-
 @bot.command(aliases=["COVID", "Covid", "covid-19", "COVID-19", "Covid-19"])
 async def covid(ctx):
     await ctx.send("Oh shit, oh no, we're all gonna die!")

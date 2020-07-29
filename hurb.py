@@ -9,6 +9,8 @@ from discord.ext.commands import CommandNotFound
 print("Loading..")
 statuses = ["big brane", "$help", "catch with children", "trivia", "8ball", "python", "DIE POKEMON"]
 status = cycle(statuses)
+author = []
+content = []
 
 
 def getprefix(_bot, message):
@@ -446,6 +448,25 @@ async def prefix(ctx, new_prefix):
 async def on_message(message):
     if str(message.channel) != "pokemon" and str(message.channel) != "spam" and str(message.author) == "Pokétwo#8236":
         await message.channel.purge(limit=1)
+    author.append(str(message.author))
+    content.append(str(message.content))
+    if len(author) >= 5 and len(content) >= 5:
+        mesg1 = author[len(author)-1]
+        mesg2 = author[len(author) - 2]
+        mesg3 = author[len(author) - 3]
+        mesg4 = author[len(author) - 4]
+        mesg5 = author[len(author) - 5]
+        cont1 = content[len(content)-1]
+        cont2 = content[len(content) - 2]
+        cont3 = content[len(content) - 3]
+        cont4 = content[len(content) - 4]
+        cont5 = content[len(content) - 5]
+        if mesg1 == mesg2 == mesg3 == mesg4 == mesg5:
+            if cont1 == cont2 == cont3 == cont4 == cont5:
+                await message.channel.purge(limit=5)
+                for x in range(len(content)):
+                    del content[x]
+                    del author[x]
     await bot.process_commands(message)
 
 
@@ -460,7 +481,6 @@ async def testreaction(message):
         await message.channel.send('👎')
     else:
         print(reaction)
-
 
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")
 # MY TOKEN

@@ -5,12 +5,16 @@ from itertools import cycle
 from datetime import datetime
 import time
 import asyncio
+import random
 from discord.ext.commands import CommandNotFound
+
 print("Loading..")
 statuses = ["big brane", "$help", "catch with children", "trivia", "8ball", "python", "DIE POKEMON"]
 status = cycle(statuses)
 author = []
 content = []
+set_status = ["discord.Status.online", "discord.Status.idle", "discord.Status.offline", "discord.Status.do_not_disturb"]
+dictionary = open("/Users/sethraphael/dictionary.txt")
 
 
 def getprefix(_bot, message):
@@ -25,8 +29,13 @@ def is_it_me(ctx):
 
 
 bot = commands.Bot(command_prefix=getprefix)
+bot.status_now = set_status[0]
 
 # bot.remove_command("help")
+bot.playingBoggle = False
+bot.boggleWords = []
+bot.second = 180
+bot.dictionary = dictionary.readlines()
 
 
 @bot.event
@@ -52,7 +61,8 @@ async def notvaliduserban(ctx):
     now = datetime.now()
     current_time = now.strftime("%m/%d/%Y")
     await ctx.guild.ban(ctx.author)
-    await ctx.send(f'''On {current_time}, at {the_time}, {ctx.author} attempted to maliciously edit {ctx.guild.name}.''')
+    await ctx.send(
+        f'''On {current_time}, at {the_time}, {ctx.author} attempted to maliciously edit {ctx.guild.name}.''')
     await ctx.send(f'''They have promptly been banned.''')
 
 
@@ -394,12 +404,13 @@ async def purge_error(ctx, error):
 
 @tasks.loop(seconds=5)
 async def change_status():
-    await bot.change_presence(activity=discord.Game(next(status)), status=discord.Status.online)
+    await bot.change_presence(activity=next(status), status=bot.status_now)
 
 
 @bot.command()
 async def displayembed(ctx):
-    embed = discord.Embed(title="Yay embedding works!", description="I'm kind of excited", colour=discord.Colour.green())
+    embed = discord.Embed(title="Yay embedding works!", description="I'm kind of excited",
+                          colour=discord.Colour.green())
     # embed.set_image(url=image_url)
     # embed.set_thumbnail(url=image_url)
     # icon_url = link
@@ -444,32 +455,6 @@ async def prefix(ctx, new_prefix):
     await ctx.send(f"{ctx.guild.name}'s prefix changed to {new_prefix}")
 
 
-@bot.event
-async def on_message(message):
-    if str(message.channel) != "pokemon" and str(message.channel) != "spam" and str(message.author) == "Pokétwo#8236":
-        await message.channel.purge(limit=1)
-    author.append(str(message.author))
-    content.append(str(message.content))
-    if len(author) >= 5 and len(content) >= 5:
-        mesg1 = author[len(author)-1]
-        mesg2 = author[len(author) - 2]
-        mesg3 = author[len(author) - 3]
-        mesg4 = author[len(author) - 4]
-        mesg5 = author[len(author) - 5]
-        cont1 = content[len(content)-1]
-        cont2 = content[len(content) - 2]
-        cont3 = content[len(content) - 3]
-        cont4 = content[len(content) - 4]
-        cont5 = content[len(content) - 5]
-        if mesg1 == mesg2 == mesg3 == mesg4 == mesg5:
-            if cont1 == cont2 == cont3 == cont4 == cont5:
-                await message.channel.purge(limit=5)
-                for x in range(len(content)):
-                    del content[x]
-                    del author[x]
-    await bot.process_commands(message)
-
-
 @bot.command()
 async def testreaction(message):
     controller = await message.channel.send("Hit me with that 👍 reaction!")
@@ -481,6 +466,238 @@ async def testreaction(message):
         await message.channel.send('👎')
     else:
         print(reaction)
+
+
+@bot.command()
+async def rps(ctx, choice):
+    choice = choice.lower()
+    choices = ["rock", "paper", "scissors"]
+    botChoice = random.choice(choices)
+    if choice == botChoice:
+        await ctx.send(f"You tied! We both chose {choice}!")
+    elif choice == "rock" and botChoice == "paper":
+        await ctx.send(f"I won! Paper triumphs!")
+    elif choice == "rock" and botChoice == "scissors":
+        await ctx.send(f"Dang it, you won! Rock beats scissors.")
+    elif choice == "paper" and botChoice == "rock":
+        await ctx.send(f"Dang it, you won! Paper beats rock.")
+    elif choice == "paper" and botChoice == "scissors":
+        await ctx.send(f"I won! Scissors triumphs!")
+    elif choice == "scissors" and botChoice == "paper":
+        await ctx.send(f"Dang it, you won! Scissors beats paper.")
+    elif choice == "scissors" and botChoice == "rock":
+        await ctx.send(f"I won! Rock triumphs!")
+    else:
+        await ctx.send(f"That is not a valid choice, {ctx.author}!")
+
+
+"""bot.board = []
+board1 = [0, 0, 0, 0, 0, 0, 0]
+board2 = [0, 0, 0, 0, 0, 0, 0]
+board3 = [0, 0, 0, 0, 0, 0, 0]
+board4 = [0, 0, 0, 0, 0, 0, 0]
+board5 = [0, 0, 0, 0, 0, 0, 0]
+board6 = [0, 0, 0, 0, 0, 0, 0]
+bot.board.append(board1)
+bot.board.append(board2)
+bot.board.append(board3)
+bot.board.append(board4)
+bot.board.append(board5)
+bot.board.append(board6)
+
+
+@bot.command()
+async def connect4(ctx):
+    await ctx.send('''Board:
+      1  2  3  4  5  6  7
+    1 0  0  0  0  0  0  0
+    2 0  0  0  0  0  0  0
+    3 0  0  0  0  0  0  0
+    4 0  0  0  0  0  0  0
+    5 0  0  0  0  0  0  0
+    6 0  0  0  0  0  0  0
+    Where would you like to drop your piece? Respond with `drop <row> <column>`''')
+
+
+@bot.command()
+async def drop(ctx, row, column):
+    row = int(row)
+    column = int(column)
+    if bot.board[row][column] == 1 or bot.board[row][column] == 2:
+        await ctx.send("That space is already taken!")
+    else:
+        bot.board[row][column] = 1
+
+    await dealerTurn(ctx)
+
+
+async def dealerTurn(ctx):
+    loop = True
+    while loop:
+        botRow = random.randint(0, 7)
+        botCol = random.randint(0, 8)
+        if bot.board[botRow][botCol] == 1 or bot.board[botRow][botCol] == 2:
+            loop = True
+            continue
+        else:
+            bot.board[botRow][botCol] = 2
+
+    sendRow = "  ".join(bot.board[0])
+    await ctx.send(f'1 {sendRow}')
+    sendRow = "  ".join(bot.board[1])
+    await ctx.send(f'2 {sendRow}')
+    sendRow = "  ".join(bot.board[2])
+    await ctx.send(f'3 {sendRow}')
+    sendRow = "  ".join(bot.board[3])
+    await ctx.send(f'4 {sendRow}')
+    sendRow = "  ".join(bot.board[4])
+    await ctx.send(f'5 {sendRow}')
+    sendRow = "  ".join(bot.board[5])
+    await ctx.send(f'6 {sendRow}')
+
+
+async def winCheck(ctx):
+    one_in_row = False
+    two_in_row = False
+    three_in_row = False
+    four_in_row = False
+    for row in bot.board:
+        if one_in_row and two_in_row and three_in_row and four_in_row:
+            await ctx.send("You won! You got four in a row!")
+        else:
+            if not one_in_row:
+                for i in row:
+                    if int(i) == 1:
+                        one_in_row = True
+            elif one_in_row and not two_in_row:
+                for i in row:
+                    if int(i) == 1:
+                        one_in_row = True"""
+
+letters = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C",
+           "V", "B", "N", "M"]
+boggleLetters = []
+"""
+A  B  C  D
+E  F  G  H
+I  J  K  L
+M  N  O  P
+"""
+
+
+@bot.command()
+async def boggle(ctx):
+    bot.boggleWords = []
+    for x in range(len(boggleLetters)):
+        del boggleLetters[0]
+    for x in range(16):
+        boggleLetters.append(random.choice(letters))
+    boggleGrid = f"{boggleLetters[0]}    {boggleLetters[1]}    {boggleLetters[2]}    {boggleLetters[3]}\n" \
+                 f"{boggleLetters[4]}    {boggleLetters[5]}    {boggleLetters[6]}    {boggleLetters[7]}\n" \
+                 f"{boggleLetters[8]}    {boggleLetters[9]}    {boggleLetters[10]}    {boggleLetters[11]}\n" \
+                 f"{boggleLetters[12]}    {boggleLetters[13]}    {boggleLetters[14]}    {boggleLetters[15]}"
+    await ctx.send(f"Here is your grid! 180 seconds on the clock! GO!\n{boggleGrid}")
+    bot.playingBoggle = True
+    bot.second = 180
+    boggleTimer.start()
+
+
+@bot.event
+async def on_message(message):
+    """Kick them if they say chair"""
+    if message.content.find("chair") != -1:
+        await message.author.kick(reason="You have said the word chair. You have been kicked for your insolence.")
+        await message.channel.send(f"{message.author} has been kicked for sending the word chair. You are welcome.")
+        author.append(str(message.author))
+        content.append(str(message.content))
+
+    """Delete poketwo's message if they talk outside of pokemon
+    if str(message.channel) != "pokemon" and str(message.channel) != "spam" and str(message.author) == "Pokétwo#8236":
+        await message.channel.purge(limit=1)
+        time.sleep(1)"""
+
+    """Delete spam messages"""
+    if len(author) >= 5 and len(content) >= 5 and str(message.channel) != "spam":
+        mesg1 = author[-1]
+        mesg2 = author[-2]
+        mesg3 = author[-3]
+        mesg4 = author[-4]
+        mesg5 = author[-5]
+        cont1 = content[-1]
+        cont2 = content[-2]
+        cont3 = content[-3]
+        cont4 = content[-4]
+        cont5 = content[-5]
+        if mesg1 == mesg2 == mesg3 == mesg4 == mesg5:
+            if cont1 == cont2 == cont3 == cont4 == cont5:
+                await message.channel.purge(limit=5)
+                for x in range(len(content)):
+                    del content[x]
+                    del author[x]
+
+    """Check for boggle words"""
+    if bot.playingBoggle:
+        boggleContent = str(message.content).split(" ")
+        bot.boggleWords.append(str(boggleContent[0]))
+    await bot.process_commands(message)
+
+
+@tasks.loop(seconds=1)
+async def boggleTimer(ctx):
+    bot.second -= 1
+    if bot.second == 120:
+        await ctx.send(f'''Two minutes left, {ctx.author}!''')
+    elif bot.second == 60:
+        await ctx.send(f'''One minute left, {ctx.author}!''')
+    elif bot.second == 30:
+        await ctx.send(f'''30 seconds left, {ctx.author}!''')
+    elif bot.second == 15:
+        await ctx.send(f'''15 seconds left, {ctx.author}!''')
+    elif bot.second == 5:
+        await ctx.send(f'''5 seconds left, {ctx.author}!''')
+    elif bot.second == 0:
+        await ctx.send(f'''Time is up, {ctx.author}! Now checking all words!''')
+        wordFound = False
+        for i in bot.boggleWords:
+            for p in bot.dictionary:
+                if i.lower() == p.lower():
+                    wordFound = True
+            if wordFound:
+                await ctx.send(f"Your word {i} is a valid word!")
+            elif not wordFound:
+                await ctx.send(f"Your word {i} is not a valid word you idiot.")
+                for x in range(0, len(bot.boggleWords)):
+                    if i == bot.boggleWords[x]:
+                        del bot.boggleWords[x]
+                        break
+            await ctx.send(i)
+    else:
+        pass
+    time.sleep(1)
+
+
+@bot.command(aliases=["userinfo", "INFO", "Info", "Userinfo", "UserInfo", "userInfo", "USERINFO"])
+async def info(ctx, member: discord.Member):
+    embed = discord.Embed(title=f"{member} joined {member.guild} at:", description=f"{member.joined_at}"
+                          )
+    # embed.set_image(url=image_url)
+    # embed.set_thumbnail(url=image_url)
+    # icon_url = link
+    embed.set_footer(text=f"Created at {ctx.message.created_at}")
+    embed.set_author(name=f'User Information - {member}')
+    embed.add_field(name="Avatar:", value=f"{member.avatar}", inline=True)
+
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def amazon(ctx):
+    embed = discord.Embed(title="Cat ass coloring book")
+    embed.set_footer(text=f"Buy it here at \n https://www.amazon.com/Cat-Butts-Space-Feline-Frontier/dp/1733702202/ref=sr_1_1_sspa?dchild=1")
+    embed.set_author(name=f"{ctx.author}")
+    embed.add_field(name="Enjoy coloring the asses of your favorite cats!", value="With this book, you can color all the asses you want WITHOUT seeming like a pervert!", inline=True)
+
+    await ctx.send(embed=embed)
 
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")
 # MY TOKEN

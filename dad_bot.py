@@ -1,6 +1,5 @@
 from discord.ext import commands
 import random
-from datetime import datetime
 from discord.ext.commands import CommandNotFound
 import time
 

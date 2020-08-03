@@ -3,7 +3,17 @@ import webbrowser
 from cyphertext import cipherText
 from cyphertext import normalText
 import random as rand
-bot = commands.Bot(command_prefix='$')
+import json
+
+
+def getprefix(_bot, message):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch_1.json', 'r') as f:
+        prefixes = json.load(f)
+
+        return prefixes[str(message.guild.id)]
+
+
+bot = commands.Bot(command_prefix=getprefix)
 # botcommands = [".hello", ".users", ".encrypt <message here>", ".authorize <password here>", ".bothelp",
 # ".8ball <question here>", ".lawrence", ".blackjack <bet here>", ".trivia", ".triviabattle", ".join", ".startgame"]
 validusers = [line.rstrip('\n') for line in open("/Users/sethraphael/validusers.txt")]
@@ -127,5 +137,39 @@ async def on_command_error(ctx, error):
         pass
     else:
         raise error.original
+
+
+@bot.event
+async def on_guild_join(guild):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch_1.json', 'r') as f:
+        prefixes = json.load(f)
+
+    prefixes[str(guild.id)] = '$'
+
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch_1.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+
+@bot.event
+async def on_guild_remove(guild):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch_1.json', 'r') as f:
+        prefixes = json.load(f)
+
+    prefixes.pop(str(guild.id))
+
+    with open('//Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch_1.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+
+@bot.command()
+async def prefix(ctx, new_prefix):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch_1.json', 'r') as f:
+        prefixes = json.load(f)
+    prefixes[str(ctx.guild.id)] = str(new_prefix)
+
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch_1.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+    await ctx.send(f"{ctx.guild.name}'s prefix changed to {new_prefix}")
 
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")

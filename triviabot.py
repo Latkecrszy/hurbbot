@@ -1,9 +1,19 @@
 from discord.ext import commands, tasks
 import random as rand
 import webbrowser
+import json
+
+
+def getprefix(_bot, message):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+        prefixes = json.load(f)
+
+        return prefixes[str(message.guild.id)]
+
+
 storage = '/Users/sethraphael/accounts.txt'
 streak = '/Users/sethraphael/streak.txt'
-bot = commands.Bot(command_prefix="$")
+bot = commands.Bot(command_prefix=getprefix)
 bot.validusers = [line.rstrip('\n') for line in open("/Users/sethraphael/validusers.txt")]
 print(bot.validusers)
 players = {}
@@ -30,6 +40,13 @@ bot.playersgone = 0
 howmany = 0
 how_many = 0
 extra_lives = {}
+
+
+def getprefix(_bot, message):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+        prefixes = json.load(f)
+
+        return prefixes[str(message.guild.id)]
 
 
 def read_text(storage_space):
@@ -941,6 +958,39 @@ async def on_command_error(ctx, error):
     else:
         raise error.original
 
+
+@bot.event
+async def on_guild_join(guild):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+        prefixes = json.load(f)
+
+    prefixes[str(guild.id)] = '$'
+
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+
+@bot.event
+async def on_guild_remove(guild):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+        prefixes = json.load(f)
+
+    prefixes.pop(str(guild.id))
+
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+
+@bot.command()
+async def prefix(ctx, new_prefix):
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+        prefixes = json.load(f)
+    prefixes[str(ctx.guild.id)] = str(new_prefix)
+
+    with open('//Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+    await ctx.send(f"{ctx.guild.name}'s prefix changed to {new_prefix}")
 
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")
 # TRIVIA BOT TOKEN:

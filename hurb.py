@@ -699,6 +699,22 @@ async def amazon(ctx):
 
     await ctx.send(embed=embed)
 
+
+@bot.event
+async def on_member_join(member):
+    for channel in member.guild.text_channels:
+        if str(channel) == "welcome-and-goodbye":
+            await channel.send(f"Please welcome {member.mention} to {member.guild.name}! Check out the <#701640063770951730> page for server etiquette, "
+            f"and the <#735875189509718137> page to see who people are.")
+
+
+@bot.event
+async def on_member_remove(member):
+    for channel in member.guild.text_channels:
+        if str(channel) == "welcome-and-goodbye":
+            await channel.send(f"Fffffffuuuuuuccccckkkkkk... another member gone. Can we get an f in the chat for {member}?")
+
+
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")
 # MY TOKEN
 # NzMzMTI1NzEwNDAyODE0MDAy.Xx3qWg.ZL_vsrT5-gH2FpkI78psGO3nCdA

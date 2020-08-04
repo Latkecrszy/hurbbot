@@ -35,7 +35,6 @@ async def update_stats():
             await asyncio.sleep(5)
 
 
-
 @client.event
 async def on_member_update(before, after):
     n = after.nick

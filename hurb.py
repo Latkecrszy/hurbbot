@@ -13,6 +13,7 @@ statuses = ["big brane", "$help", "catch with children", "trivia", "8ball", "pyt
 status = cycle(statuses)
 author = []
 content = []
+nonoWords = ["shit", "fuck", "bitch", "ass", "dick", "fuk", "dik", "dic", "sht", "btch", "seth"]
 set_status = ["discord.Status.online", "discord.Status.idle", "discord.Status.offline", "discord.Status.do_not_disturb"]
 dictionary = open("/Users/sethraphael/dictionary.txt")
 
@@ -491,89 +492,6 @@ async def rps(ctx, choice):
         await ctx.send(f"That is not a valid choice, {ctx.author}!")
 
 
-"""bot.board = []
-board1 = [0, 0, 0, 0, 0, 0, 0]
-board2 = [0, 0, 0, 0, 0, 0, 0]
-board3 = [0, 0, 0, 0, 0, 0, 0]
-board4 = [0, 0, 0, 0, 0, 0, 0]
-board5 = [0, 0, 0, 0, 0, 0, 0]
-board6 = [0, 0, 0, 0, 0, 0, 0]
-bot.board.append(board1)
-bot.board.append(board2)
-bot.board.append(board3)
-bot.board.append(board4)
-bot.board.append(board5)
-bot.board.append(board6)
-
-
-@bot.command()
-async def connect4(ctx):
-    await ctx.send('''Board:
-      1  2  3  4  5  6  7
-    1 0  0  0  0  0  0  0
-    2 0  0  0  0  0  0  0
-    3 0  0  0  0  0  0  0
-    4 0  0  0  0  0  0  0
-    5 0  0  0  0  0  0  0
-    6 0  0  0  0  0  0  0
-    Where would you like to drop your piece? Respond with `drop <row> <column>`''')
-
-
-@bot.command()
-async def drop(ctx, row, column):
-    row = int(row)
-    column = int(column)
-    if bot.board[row][column] == 1 or bot.board[row][column] == 2:
-        await ctx.send("That space is already taken!")
-    else:
-        bot.board[row][column] = 1
-
-    await dealerTurn(ctx)
-
-
-async def dealerTurn(ctx):
-    loop = True
-    while loop:
-        botRow = random.randint(0, 7)
-        botCol = random.randint(0, 8)
-        if bot.board[botRow][botCol] == 1 or bot.board[botRow][botCol] == 2:
-            loop = True
-            continue
-        else:
-            bot.board[botRow][botCol] = 2
-
-    sendRow = "  ".join(bot.board[0])
-    await ctx.send(f'1 {sendRow}')
-    sendRow = "  ".join(bot.board[1])
-    await ctx.send(f'2 {sendRow}')
-    sendRow = "  ".join(bot.board[2])
-    await ctx.send(f'3 {sendRow}')
-    sendRow = "  ".join(bot.board[3])
-    await ctx.send(f'4 {sendRow}')
-    sendRow = "  ".join(bot.board[4])
-    await ctx.send(f'5 {sendRow}')
-    sendRow = "  ".join(bot.board[5])
-    await ctx.send(f'6 {sendRow}')
-
-
-async def winCheck(ctx):
-    one_in_row = False
-    two_in_row = False
-    three_in_row = False
-    four_in_row = False
-    for row in bot.board:
-        if one_in_row and two_in_row and three_in_row and four_in_row:
-            await ctx.send("You won! You got four in a row!")
-        else:
-            if not one_in_row:
-                for i in row:
-                    if int(i) == 1:
-                        one_in_row = True
-            elif one_in_row and not two_in_row:
-                for i in row:
-                    if int(i) == 1:
-                        one_in_row = True"""
-
 letters = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C",
            "V", "B", "N", "M"]
 boggleLetters = []
@@ -607,7 +525,7 @@ async def on_message(message):
     """Kick them if they say chair"""
     if message.content.find("chair") != -1:
         await message.author.kick(reason="You have said the word chair. You have been kicked for your insolence.")
-        await message.channel.send(f"{message.author} has been kicked for sending the word chair. You are welcome.")
+        await message.channel.send(f"{message.author.nick} has been kicked for sending the word chair. You are welcome.")
         author.append(str(message.author))
         content.append(str(message.content))
 
@@ -639,6 +557,24 @@ async def on_message(message):
     if bot.playingBoggle:
         boggleContent = str(message.content).split(" ")
         bot.boggleWords.append(str(boggleContent[0]))
+
+    """Checks for no-no words"""
+    for i in nonoWords:
+        if message.content.find(str(i)) != -1:
+            print("NOt nice")
+            await message.channel.send("That ain't nice. Don't swear peeps.")
+    """if message.content.find("fuck") != -1:
+        await message.channel.send("That ain't nice. Don't swear peeps.")
+    elif message.content.find("shit") != -1:
+        await message.channel.send("That ain't nice. Don't swear peeps.")
+    elif message.content.find("dick") != -1:
+        await message.channel.send("That ain't nice. Don't swear peeps.")
+    elif message.content.find("bitch") != -1:
+        await message.channel.send("That ain't nice. Don't swear peeps.")
+    elif message.content.find("ass") != -1:
+        await message.channel.send("That ain't nice. Don't swear peeps.")
+    elif message.content.find("fuk") != -1:
+        await message.channel.send("That ain't nice. Don't swear peeps.")"""
     await bot.process_commands(message)
 
 
@@ -712,7 +648,32 @@ async def on_member_join(member):
 async def on_member_remove(member):
     for channel in member.guild.text_channels:
         if str(channel) == "welcome-and-goodbye":
-            await channel.send(f"Fffffffuuuuuuccccckkkkkk... another member gone. Can we get an f in the chat for {member}?")
+            await channel.send(f"Fffffffuuuuuuccccckkkkkk... another member gone. Can we get an f in the chat for {member.nick}?")
+
+
+@bot.command()
+async def addnono(ctx, *, word):
+    wordAlready = False
+    for i in nonoWords:
+        if str(word) == str(i):
+            await ctx.send("That word is already in the no no words list!")
+            wordAlready = True
+    if not wordAlready:
+        nonoWords.append(str(word))
+        await ctx.send("Your word has been added to the no no words list!")
+
+
+@bot.command()
+async def delnono(ctx, *, word):
+    wordAlready = False
+    for i in nonoWords:
+        if str(word) == str(i):
+            wordAlready = True
+    if wordAlready:
+        for x in range(len(nonoWords)):
+            if nonoWords[x] == word:
+                del nonoWords[x]
+        await ctx.send("Your word has been deleted from the no no words list!")
 
 
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")

@@ -2,15 +2,21 @@ from discord.ext import commands, tasks
 import random as rand
 import webbrowser
 import json
+import time
+import asyncio
 
 
 def getprefix(_bot, message):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'r') as f:
         prefixes = json.load(f)
 
         return prefixes[str(message.guild.id)]
 
 
+qotdWinners = open("/Users/sethraphael/PycharmProject/Bots/qotd winners")
+winners = qotdWinners.readlines()
+qotdWinners.close()
 storage = '/Users/sethraphael/accounts.txt'
 streak = '/Users/sethraphael/streak.txt'
 bot = commands.Bot(command_prefix=getprefix)
@@ -43,7 +49,8 @@ extra_lives = {}
 
 
 def getprefix(_bot, message):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'r') as f:
         prefixes = json.load(f)
 
         return prefixes[str(message.guild.id)]
@@ -161,6 +168,15 @@ class Questions(object):
                 await triviabattlewrong(ctx)
             else:
                 await wrong(ctx)
+
+    async def checkqotdanswer(self, ctx, response, author):
+        if response == self.anser:
+            qotdwinners = open("/Users/sethraphael/PycharmProject/Bots/qotd winners", "a")
+            qotdwinners.write(f"{author}\n")
+            qotdwinners.close()
+        elif response != self.anser:
+            pass
+        await ctx.send(f"Thank you for submitting your answer, {author}! Check back next time to see if you got it correct!")
 
 
 questions = [
@@ -961,36 +977,70 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_guild_join(guild):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'r') as f:
         prefixes = json.load(f)
 
     prefixes[str(guild.id)] = '$'
 
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'w') as f:
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'w') as f:
         json.dump(prefixes, f, indent=4)
 
 
 @bot.event
 async def on_guild_remove(guild):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'r') as f:
         prefixes = json.load(f)
 
     prefixes.pop(str(guild.id))
 
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'w') as f:
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'w') as f:
         json.dump(prefixes, f, indent=4)
 
 
 @bot.command()
 async def prefix(ctx, new_prefix):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'r') as f:
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'r') as f:
         prefixes = json.load(f)
     prefixes[str(ctx.guild.id)] = str(new_prefix)
 
-    with open('//Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json', 'w') as f:
+    with open('//Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+              'w') as f:
         json.dump(prefixes, f, indent=4)
 
     await ctx.send(f"{ctx.guild.name}'s prefix changed to {new_prefix}")
+
+
+bot.quesnum = 0
+
+
+@bot.command()
+async def qotdstart(ctx):
+    startNum = 0
+    await questions[bot.num].ask(ctx)
+    await asyncio.sleep(86400)
+    bot.quesnum += startNum
+    for ques in range(len(questions)):
+        bot.quesnum += 1
+        await questions[ques + startNum].ask(ctx)
+        await asyncio.sleep(86400)
+        correctpeeps = 0
+        for i in open("/Users/sethraphael/PycharmProject/Bots/qotd winners").readlines():
+            correctpeeps += 1
+        await ctx.send(f"Hey @here - guess what? A whole {correctpeeps} got this question right!")
+        correctos = ", ".join(open("/Users/sethraphael/PycharmProject/Bots/qotd winners").readlines())
+        await ctx.send(f"Good job to {correctos}! They are the ones that got it right!")
+
+
+@bot.command(aliases=["qa", "qotdans"])
+async def qotdanswer(ctx, response):
+    response = response.upper()
+    await questions[bot.quesnum].checkqotdanswer(ctx, response, str(ctx.author))
+
 
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")
 # TRIVIA BOT TOKEN:

@@ -6,7 +6,6 @@ import random as rand
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='$')
-
 # Create the card images
 ace = '''--------------------
 |        /\        |
@@ -238,7 +237,7 @@ def deal(carddeck):
     return hand
 
 
-async def hithand(hand):
+def hithand(hand):
     card = deck.pop()
     hand.append(card)
     return hand

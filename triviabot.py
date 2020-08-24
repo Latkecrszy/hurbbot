@@ -3,7 +3,6 @@ import random as rand
 import webbrowser
 import json
 import time
-import asyncio
 
 
 def getprefix(_bot, message):
@@ -171,11 +170,9 @@ class Questions(object):
 
     async def checkqotdanswer(self, ctx, response, author):
         if response == self.anser:
-            qotdwinners = open("/Users/sethraphael/PycharmProject/Bots/qotd winners", "a")
-            qotdwinners.write(f"{author}\n")
-            qotdwinners.close()
-        elif response != self.anser:
-            pass
+            qotdWinners = open("/Users/sethraphael/PycharmProject/Bots/qotd winners", "a")
+            qotdWinners.write(f"{author}\n")
+            qotdWinners.close()
         await ctx.send(f"Thank you for submitting your answer, {author}! Check back next time to see if you got it correct!")
 
 
@@ -215,7 +212,7 @@ questions = [
     Questions(question="The city of Chico, California has made a $500 fine for doing what in the city?", anser="B",
               options="A: Eat bread\nB: Set off an atomic bomb\nC: Sell pineapples\nD: Make a multi-million dollar industry"),
     Questions(question="What food was served as a medicinal product in the 1800s?", anser="B",
-              options="A: Chicken\nB: Tomato Sauce\nC: Plaintain\nD: Apple Juice"),
+              options="A: Chicken\nB: Tomato Sauce\nC: Plantain\nD: Apple Juice"),
     Questions(question="How many pleats (folds) does a chef's hat have?", anser="C",
               options="A: 238\nB: 138\nC: 100\nD: 120"),
     Questions(question="Which fruit is not a natural fruit, but a hybrid of two others?", anser="B",
@@ -1022,12 +1019,12 @@ bot.quesnum = 0
 async def qotdstart(ctx):
     startNum = 0
     await questions[bot.num].ask(ctx)
-    await asyncio.sleep(86400)
+    time.sleep(86400)
     bot.quesnum += startNum
     for ques in range(len(questions)):
         bot.quesnum += 1
         await questions[ques + startNum].ask(ctx)
-        await asyncio.sleep(86400)
+        time.sleep(86400)
         correctpeeps = 0
         for i in open("/Users/sethraphael/PycharmProject/Bots/qotd winners").readlines():
             correctpeeps += 1

@@ -1,5 +1,4 @@
 import discord
-from discord import errors
 import json
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -7,16 +6,20 @@ from datetime import datetime
 import time
 import asyncio
 import random
-from discord.ext.commands import CommandNotFound
+from discord.ext.commands import CommandNotFound, BadArgument
+
 swears = []
 print("Loading..")
 statuses = ["big brane", "$help", "catch with children", "trivia", "8ball", "python", "DIE POKEMON"]
 status = cycle(statuses)
 author = []
 content = []
-nonoWords = ["shit", "fuck", "bitch", "ass", "dick", "fuk", "dik", "dic", "sht", "btch", "seth"]
+nonoWords = ["shit", "fuck", "bitch", "dick", "fuk", "dik", "dic", "sht", "btch"]
 set_status = ["discord.Status.online", "discord.Status.idle", "discord.Status.offline", "discord.Status.do_not_disturb"]
 dictionary = open("/Users/sethraphael/dictionary.txt")
+letters = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C",
+           "V", "B", "N", "M"]
+boggleLetters = []
 
 
 def getprefix(_bot, message):
@@ -139,10 +142,10 @@ async def mall(ctx, *, message):
         the_time = time.strftime("%H:%M:%S", t)
         now = datetime.now()
         current_time = now.strftime("%m/%d/%Y")
-        await ctx.guild.kick(ctx.author)
+        await mute(ctx.author, rename="Why would you dm everyone from this server? u bully")
         await ctx.send(
             f'''On {current_time}, at {the_time}, {ctx.author} attempted to direct message everyone from {ctx.guild.name}.''')
-        await ctx.send(f'''They have promptly been kicked.''')
+        await ctx.send(f'''They have promptly been muted.''')
 
 
 @bot.command(pass_context=True)
@@ -292,45 +295,84 @@ async def purge(message, number):
 
 
 @bot.command()
-async def mute(ctx, member: discord.Member = None, *, reason=None):
+async def mute(ctx, member: discord.Member = None, *, reason="There was no reason for this muting."):
     muted = False
+    alreadyMuted = False
     if member is not None:
         if member in list(ctx.guild.members):
-            for role in list(ctx.guild.roles):
-                if str(role).lower() == "muted":
-                    if reason is None:
-                        await member.add_roles(role, reason="There was no specified reason for this muting.")
-                    elif reason is not None:
-                        await member.add_roles(role, reason=reason)
-                    await ctx.send(f'''Success! {member} has been muted.''')
-                    muted = True
-                    break
-            if not muted:
-                overwrite = discord.Permissions(send_messages=False)
-                newRole = await ctx.guild.create_role(name="Muted")
-                for channel in ctx.guild.text_channels:
-                    await channel.set_permissions(newRole, overwrite=overwrite)
-                await member.add_roles(newRole)
-                await ctx.send(f'''Success! {member} has been muted.''')
+            if not member.guild_permissions.administrator:
+                for roles in list(member.roles):
+                    if str(roles).lower() == "muted":
+                        alreadyMuted = True
+                if not alreadyMuted:
+                    for role in list(ctx.guild.roles):
+                        if str(role).lower() == "muted":
+                            await member.add_roles(role, reason=reason)
+                            embed = discord.Embed(title=f"\U00002705  Success! {member} has been muted!",
+                                                  description=f"Reason: {reason}", colour=discord.Colour.green())
+                            await ctx.send(embed=embed)
+                            muted = True
+                            break
+                    if not muted:
+                        overwrite = discord.Permissions(send_messages=False)
+                        newRole = await ctx.guild.create_role(name="Muted")
+                        for channel in ctx.guild.text_channels:
+                            await channel.set_permissions(newRole, overwrite=overwrite)
+                        await member.add_roles(newRole)
+                        embed = discord.Embed(title=f"\U00002705  Success! {member} has been muted!",
+                                              description=f"Reason: {reason}", colour=discord.Colour.green())
+                        await ctx.send(embed=embed)
+                elif alreadyMuted:
+                    if member.nick is None:
+                        embed = discord.Embed(title=f"\U0000274c  {member} is already muted!", description=None,
+                                              colour=discord.Colour.red())
+                    else:
+                        embed = discord.Embed(title=f"\U0000274c  {member.nick} is already muted!", description=None,
+                                              colour=discord.Colour.red())
+                    await ctx.send(embed=embed)
+            elif member.guild_permissions.administrator:
+                embed = discord.Embed(
+                    title=f"\U0000274c  I can't do that, as {member} is an administrator.",
+                    description=None, colour=discord.Colour.red())
+                await ctx.send(embed=embed)
         elif member not in list(ctx.guild.members):
-            await ctx.send(f"Sorry, I couldn't find a user by the name of {member}.")
+            embed = discord.Embed(title=f"\U0000274c  I could not find a member by the name of {member} \U0001f914.",
+                                  description=None, colour=discord.Colour.red())
+            await ctx.send(embed=embed)
     elif member is None:
-        await ctx.send(f'''You need to specify a member to mute, {ctx.author}.''')
+        embed = discord.Embed(title=f"\U0000274c  You need to specify a member to mute, {ctx.author} \U0001f914.",
+                              description=None, colour=discord.Colour.red())
+        await ctx.send(embed=embed)
 
 
 @bot.command()
 async def unmute(ctx, member: discord.Member = None):
     if member is not None:
+        alreadyMuted = False
         if member in list(ctx.guild.members):
-            for role in ctx.guild.roles:
-                if str(role).lower() == "muted":
-                    await member.remove_roles(role)
-                    await ctx.send(f'''Success! member {member} has been unmuted.''')
-                    break
+            if member in list(ctx.guild.members):
+                for roles in list(member.roles):
+                    if str(roles).lower() == "muted":
+                        alreadyMuted = True
+            if alreadyMuted:
+                for role in ctx.guild.roles:
+                    if str(role).lower() == "muted":
+                        await member.remove_roles(role)
+                        embed = discord.Embed(title=f"\U00002705  Success! {member} has been unmuted!",
+                                              description=None, colour=discord.Colour.green())
+                        await ctx.send(embed=embed)
+            elif not alreadyMuted:
+                embed = discord.Embed(title=f"\U0000274c  {member} is not muted!", description=None,
+                                      colour=discord.Colour.red())
+                await ctx.send(embed=embed)
         elif member not in list(ctx.guild.members):
-            await ctx.send(f"Sorry, I couldn't find a user by the name of {member}.")
+            embed = discord.Embed(title=f"\U0000274c  I could not find a member by the name of {member} \U0001f914.",
+                                  description=None, colour=discord.Colour.red())
+            await ctx.send(embed=embed)
     elif member is None:
-        await ctx.send(f'''You need to specify a member to unmute, {ctx.author}.''')
+        embed = discord.Embed(title=f"\U0000274c  You need to specify a member to mute, {ctx.author} \U0001f914.",
+                              description=None, colour=discord.Colour.red())
+        await ctx.send(embed=embed)
 
 
 @bot.command(pass_context=True)
@@ -376,12 +418,14 @@ async def on_command_error(ctx, error):
         await ctx.send(f'''Error: Missing one or more required argument.''')
     elif isinstance(error, PermissionError):
         await ctx.send("Sorry, I don't have adequate permissions to accomplish that task.")
+    elif isinstance(error, BadArgument):
+        await ctx.send("Please enter a proper argument for this command.")
     else:
-        raise error.original
+        raise error
 
 
 @PermissionError
-async def permerr(ctx, error):
+async def permerr(ctx):
     await ctx.send("Sorry, I don't have adequate permissions to accomplish that task.")
 
 
@@ -498,17 +542,6 @@ async def rps(ctx, choice):
         await ctx.send(f"That is not a valid choice, {ctx.author}!")
 
 
-letters = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C",
-           "V", "B", "N", "M"]
-boggleLetters = []
-"""
-A  B  C  D
-E  F  G  H
-I  J  K  L
-M  N  O  P
-"""
-
-
 @bot.command()
 async def boggle(ctx):
     bot.boggleWords = []
@@ -577,26 +610,46 @@ async def info(ctx, member: discord.Member):
 @bot.command()
 async def amazon(ctx):
     embed = discord.Embed(title="Cat ass coloring book")
-    embed.set_footer(text=f"Buy it here at \n https://www.amazon.com/Cat-Butts-Space-Feline-Frontier/dp/1733702202/ref=sr_1_1_sspa?dchild=1")
+    embed.set_footer(
+        text=f"Buy it here at \n https://www.amazon.com/Cat-Butts-Space-Feline-Frontier/dp/1733702202/ref=sr_1_1_sspa?dchild=1")
     embed.set_author(name=f"{ctx.author}")
-    embed.add_field(name="Enjoy coloring the asses of your favorite cats!", value="With this book, you can color all the asses you want WITHOUT seeming like a pervert!", inline=True)
+    embed.add_field(name="Enjoy coloring the asses of your favorite cats!",
+                    value="With this book, you can color all the asses you want WITHOUT seeming like a pervert!",
+                    inline=True)
 
     await ctx.send(embed=embed)
 
 
 @bot.event
 async def on_member_join(member):
+
+    for role in list(member.guild.roles):
+        if str(role).lower() == "unverified":
+            await member.add_roles(role)
     for channel in member.guild.text_channels:
         if str(channel) == "welcome-and-goodbye":
-            await channel.send(f"Please welcome {member.mention} to {member.guild.name}! Check out the <#701640063770951730> page for server etiquette, "
-            f"and the <#735875189509718137> page to see who people are.")
+            await channel.send(f"Please welcome {member} to the server!")
+        elif str(channel) == "verification":
+            await channel.send(
+                f'''Please welcome {member.mention} to {member.guild.name}! Please read the rules below and type agree to agree to them.
+                                           ```1. No spamming outside of #spam or spam pinging anyone or everyone in any channel.
+            2. No implied pornography outside of NSFW channel. No porn in any channel, take that somewhere else. (You pervert.)
+            3. Please keep everything in its respective channels. This won't be strictly enforced but it would be nice if you would try.
+            4. Don’t test the boundaries of the rules, and respect the admin and mods' decisions. It is okay to question unfair punishments, but do so in a respectful manner.
+            5. If you are nice enough and tend to help people and obey these rules, you may eventually receive a promotion! But only if you work hard for it.
+            6. Be nice in general! Don’t spread hate speech and keep this a friendly environment.
+
+            Punishments for breaking these rules will be decided accordingly. Most aren't too strict, just don’t be excessively rude and annoying and you’ll be fine.```
+
+            Once you have read and agreed to these rules, please type agree in the chat below. This will give you access to the rest of the server.''')
 
 
 @bot.event
 async def on_member_remove(member):
     for channel in member.guild.text_channels:
         if str(channel) == "welcome-and-goodbye":
-            await channel.send(f"Fffffffuuuuuuccccckkkkkk... another member gone. Can we get an f in the chat for {member.nick}?")
+            await channel.send(
+                f"Fffffffuuuuuuccccckkkkkk... another member gone. Can we get an f in the chat for {member.nick}?")
 
 
 @bot.command()
@@ -619,9 +672,25 @@ async def delnono(ctx, *, word):
             wordAlready = True
     if wordAlready:
         for x in range(len(nonoWords)):
-            if nonoWords[x] == word:
-                del nonoWords[x]
-        await ctx.send("Your word has been deleted from the no no words list!")
+            if nonoWords[0] == word:
+                del nonoWords[0]
+                await ctx.send("Your word has been deleted from the no no words list!")
+
+
+async def mutedrole(message, sleep):
+    for role in list(message.guild.roles):
+        if str(role).lower() == "muted":
+            await message.author.add_roles(role, reason="Don't swear you fucking idiot.")
+    await asyncio.sleep(int(sleep))
+    await message.channel.send(f"You have been unmuted, {message.author.mention}. Now stop fucking swearing already.")
+    for role in list(message.guild.roles):
+        if str(role).lower() == "muted":
+            await message.author.remove_roles(role=role)
+
+
+@bot.command()
+async def test(message):
+    await discord.TextChannel.edit(message.channel)
 
 
 @bot.event
@@ -673,37 +742,41 @@ async def on_message(message):
                 if msgAuthor == p:
                     swearCount += 1
             if swearCount == 5:
-                await message.channel.send(f"You have sworn 5 times, {message.author.mention}. If you continue, there will be punishment.")
+                await message.channel.send(
+                    f"You have sworn 5 times, {message.author.mention}. If you continue, there will be punishment.")
             elif swearCount == 10:
-                await message.channel.send(f"You have sworn 10 times, {message.author.mention}. If you swear 20 times, you will be muted for 10 minutes.")
+                await message.channel.send(
+                    f"You have sworn 10 times, {message.author.mention}. If you swear 20 times, you will be muted for 10 minutes.")
             elif swearCount == 20:
-                await message.channel.send(f"You have sworn 20 times, {message.author.mention}. You have been muted for 10 minutes.")
+                await message.channel.send(
+                    f"You have sworn 20 times, {message.author.mention}. You have been muted for 10 minutes.")
                 await mutedrole(message, 600)
             elif swearCount == 25:
-                await message.channel.send(f"{message.author.mention}, bro, you gotta stop swearing already. That's 25 swears! If it reaches 30, I'm muting you for half an hour.")
+                await message.channel.send(
+                    f"{message.author.mention}, bro, you gotta stop swearing already. That's 25 swears! If it reaches 30, I'm muting you for half an hour.")
             elif swearCount == 30:
                 await message.channel.send(
                     f"You have sworn 30 times, {message.author.mention}. You have been muted for 30 minutes.")
                 await mutedrole(message, 1800)
             elif swearCount == 40:
-                await message.channel.send(f"{message.author.mention}, bro, what's it going to take to get through to you? STOP SWEARING!!! If you swear 50 times, I'm gonna mute you for an hour.")
+                await message.channel.send(
+                    f"{message.author.mention}, bro, what's it going to take to get through to you? STOP SWEARING!!! If you swear 50 times, I'm gonna mute you for an hour.")
             elif swearCount == 50:
                 await message.channel.send(
                     f"You fucking, fucking idiot. Why do you insist upon swearing so much??? I'm muting you for an hour to teach you a lesson.")
                 await mutedrole(message, 3600)
             break
+    agreeing = False
+    for roles in list(message.author.roles):
+        if str(roles).lower() == "unverified":
+            agreeing = True
+    if agreeing:
+        if message.content.lower() == "agree" or message.content.lower() == "i agree":
+            await message.channel.send(f"Welcome to the {message.author.guild}, {message.author.mention}!")
+            for roles in list(message.author.roles):
+                if str(roles).lower() == "unverified":
+                    await message.author.remove_roles(roles)
     await bot.process_commands(message)
-
-
-async def mutedrole(message, sleep):
-    for role in list(message.guild.roles):
-        if str(role).lower() == "muted":
-            await message.author.add_roles(role, reason="Don't swear you fucking idiot.")
-    await asyncio.sleep(int(sleep))
-    await message.channel.send(f"You have been unmuted, {message.author.mention}. Now stop fucking swearing already.")
-    for role in list(message.guild.roles):
-        if str(role).lower() == "muted":
-            await message.author.remove_roles(role=role)
 
 bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.B5eSdENH1GLRT7CkMLACTw7KpGE")
 # MY TOKEN

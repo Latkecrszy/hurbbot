@@ -54,7 +54,7 @@ async def on_ready():
 async def on_message(message):
     if message.content.lower() == "im dad" or message.content.lower() == "i'm dad" or message.content.lower() == "i am dad":
         await message.channel.send(f'''You're not dad, I'm dad!''')
-    elif message.content.startswith("im"):
+    elif message.content.startswith("im "):
         name_list = []
         for char in str(message.content):
             name_list.append(str(char))
@@ -62,7 +62,7 @@ async def on_message(message):
         del name_list[0]
         name = "".join(name_list)
         await message.channel.send(f'''Hi,{str(name)}, I'm dad!''')
-    if message.content.startswith("Im"):
+    if message.content.startswith("Im "):
         name_list = []
         for char in str(message.content):
             name_list.append(str(char))
@@ -70,16 +70,7 @@ async def on_message(message):
         del name_list[0]
         name = "".join(name_list)
         await message.channel.send(f'''Hi,{str(name)}, I'm dad!''')
-    elif message.content.startswith("i'm"):
-        name_list = []
-        for char in str(message.content):
-            name_list.append(str(char))
-        del name_list[0]
-        del name_list[0]
-        del name_list[0]
-        name = "".join(name_list)
-        await message.channel.send(f'''Hi,{str(name)}, I'm dad!''')
-    elif message.content.startswith("I'm"):
+    elif message.content.startswith("i'm "):
         name_list = []
         for char in str(message.content):
             name_list.append(str(char))
@@ -88,7 +79,16 @@ async def on_message(message):
         del name_list[0]
         name = "".join(name_list)
         await message.channel.send(f'''Hi,{str(name)}, I'm dad!''')
-    elif message.content.startswith("i am"):
+    elif message.content.startswith("I'm "):
+        name_list = []
+        for char in str(message.content):
+            name_list.append(str(char))
+        del name_list[0]
+        del name_list[0]
+        del name_list[0]
+        name = "".join(name_list)
+        await message.channel.send(f'''Hi,{str(name)}, I'm dad!''')
+    elif message.content.startswith("i am "):
         name_list = []
         for char in str(message.content):
             name_list.append(str(char))
@@ -98,7 +98,7 @@ async def on_message(message):
         del name_list[0]
         name = "".join(name_list)
         await message.channel.send(f'''Hi,{str(name)}, I'm dad!''')
-    elif message.content.startswith("I am"):
+    elif message.content.startswith("I am "):
         name_list = []
         for char in str(message.content):
             name_list.append(str(char))

@@ -1,0 +1,13 @@
+{
+    "mute": "True",
+    "unmute": "True",
+    "kick": "True",
+    "ban": "True",
+    "rall": "True",
+    "rename": "True",
+    "warn": "True",
+    "rps": "True",
+    "purge": "True",
+    "testreaction": "True",
+    "quiz": "True"
+}

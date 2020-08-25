@@ -35,6 +35,7 @@ def is_it_me(ctx):
 bot = commands.Bot(command_prefix=getprefix)
 
 bot.remove_command("help")
+bot.author = ""
 swears = []
 print("Loading..")
 bot.statuses = ["big brane", "$help", "catch with children", "trivia", "8ball", "python", "DIE POKEMON"]
@@ -69,6 +70,8 @@ async def on_error(err, *args):
         await args[0].send("Something went wrong.")
     elif isinstance(err, PermissionError):
         await args[0].send("Sorry, I don't have adequate permissions to accomplish that task.")
+    elif isinstance(err, AttributeError):
+        bot.author = onmessagecommands.numCheck(args[0], bot.author)
     raise
 
 
@@ -132,7 +135,7 @@ async def on_member_join(member):
 @bot.event
 async def on_member_remove(member):
     for channel in member.guild.text_channels:
-        if str(channel) == "welcome-and-goodbye":
+        if str(channel) == "welcome-and-goodbye" or str(channel) == "wehlcome-and-goodbye":
             await channel.send(
                 f"Fffffffuuuuuuccccckkkkkk... another member gone. Can we get an f in the chat for {member.name}?")
 
@@ -159,6 +162,15 @@ async def on_guild_join(guild):
     with open('/Users/sethraphael/PycharmProject/Bots/prefixes.json', 'w') as f:
         json.dump(prefixes, f, indent=4)
 
+    with open('/Users/sethraphael/PycharmProject/Bots/points.json', 'r') as f:
+        users = json.load(f)
+    users[guild.id] = {}
+    for user in list(guild.members):
+        users[guild.id][str(user)] = 0
+
+    with open('/Users/sethraphael/PycharmProject/Bots/points.json', 'r') as f:
+        json.dump(users, f, indent=4)
+
 
 @bot.event
 async def on_guild_remove(guild):
@@ -183,7 +195,10 @@ async def on_message(message):
         await onmessagecommands.chairCheck(message)
         await onmessagecommands.checkSpam(message, author, content)
         await onmessagecommands.nonocheck(message, swears, nonoWords)
+        bot.author = await onmessagecommands.numCheck(message, bot.author)
+        await onmessagecommands.nightCheck(message)
         await bot.process_commands(message)
+
 
 
 async def mutedrole(message, sleep):

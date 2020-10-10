@@ -1,4 +1,4 @@
-from discord.ext import commands
+from discord.ext import commands, tasks
 import random as rand
 import json
 import discord
@@ -7,7 +7,7 @@ import random
 
 def is_me(command):
     def predicate(ctx):
-        with open('/commands.json', 'r') as f:
+        with open('/Volumes/TOSHIBA/PycharmProject/Bots/commands.json', 'r') as f:
             commandsList = json.load(f)
             return commandsList[command] == "True"
 
@@ -32,6 +32,9 @@ class TriviaCog(commands.Cog):
         self.num = 0
         self.bot = bot
         self.streak = 0
+        self.hours = 0
+        self.firstAnswered = None
+        self.eventTime = False
 
     @commands.command(aliases=["Trivia", "TRIVIA", "t", "T"])
     async def trivia(self, ctx):
@@ -47,6 +50,7 @@ class TriviaCog(commands.Cog):
 
     async def sendquestion(self, ctx, question, options):
         embed = discord.Embed(title=question, description=options, color=random.choice(embedColors))
+        await embed.footer("Type `%answer <letter of answer>` to answer the question!")
         await ctx.send(embed=embed)
 
     async def right(self, ctx):
@@ -79,8 +83,17 @@ class TriviaCog(commands.Cog):
             await ctx.send(embed=embed)
             self.playing = False
 
+    async def event(self, ctx):
+        rand.shuffle(questions)
+        await questions[0].ask(ctx)
+        self.firstAnswered = None
+        self.eventTime = True
+        self.eventloop.start()
+
     @commands.command()
-    async def answer(self, ctx, *, response):
+    async def answer(self, ctx, response):
+        if self.eventTime:
+            await questions[0].checkeventanswer(ctx, response)
         response = response.upper()
         if self.playing:
             await questions[0].checkanswer(ctx, response)
@@ -92,6 +105,25 @@ class TriviaCog(commands.Cog):
         else:
             await ctx.send(f'''Error!''')
 
+    @tasks.loop(hours=1)
+    async def eventloop(self, ctx):
+        if self.hours == 1:
+            self.eventTime = False
+            with open("/Volumes/TOSHIBA/PycharmProject/Bots/triviaeventwinners.json", "r") as f:
+                winners = json.load(f)
+            winNum = 0
+            winList = []
+            for key, value in winners.json:
+                winNum += 1
+                winList.append(key.mention)
+            ", ".join(winList)
+            embed = discord.Embed(title=f"CONGRATS! A whole {winNum} people got it right!",
+                                  description=f"Congrats to {winList} for getting it right!",
+                                  color=discord.Color.green())
+            await ctx.send(embed=embed)
+            self.eventloop.stop()
+        self.hours += 1
+
 
 triviaCog = TriviaCog(commands.Cog)
 
@@ -102,6 +134,7 @@ class Questions(object):
         self.options = options
         self.anser = anser
 
+
     async def ask(self, ctx):
         await triviaCog.sendquestion(ctx, self.question, self.options)
 
@@ -110,6 +143,20 @@ class Questions(object):
             await triviaCog.right(ctx)
         elif response != self.anser:
             await triviaCog.wrong(ctx)
+
+    async def checkeventanswer(self, ctx, response):
+        if response == self.anser:
+            await ctx.message.delete
+            embed = discord.Embed(description=f"Good job {ctx.author.mention}! You got it correct!", color=discord.Color.green())
+            with open("/Volumes/TOSHIBA/PycharmProject/Bots/triviaeventwinners.json", "r") as f:
+                winners = json.load(f)
+            winners[ctx.author] = True
+            with open("/Volumes/TOSHIBA/PycharmProject/Bots/triviaeventwinners.json", "w") as f:
+                json.dump(winners, f, indent=4)
+            await ctx.send(embed=embed)
+
+
+
 
 
 questions = [

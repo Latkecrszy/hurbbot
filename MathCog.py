@@ -37,6 +37,25 @@ class MathCog(commands.Cog):
         await ctx.send(embed=discord.Embed(title=f"{num1} to the power of {num2} equals {num1**num2}",
                                            color=random.choice(embedColors)))
 
+    @commands.command()
+    async def point_slope(self, ctx, point, slope):
+        if slope.find("/") != -1:
+            slope = slope.split("/")
+        pointList = []
+        for char in point:
+            if char != "(" and char != ")":
+                pointList.append(char)
+        point = "".join(pointList)
+        point = point.split(",")
+        if isinstance(slope, list):
+            await ctx.send(embed=discord.Embed(title=f"y - {point[0]} = {slope[0]}/{slope[1]}(x-{point[1]})"))
+        else:
+            await ctx.send(embed=discord.Embed(title=f"y - {point[0]} = {slope}(x-{point[1]})"))
+
+    @commands.command()
+    async def slope_intercept(self, ctx):
+        pass
+
 
 def setup(bot):
     bot.add_cog(MathCog(bot))

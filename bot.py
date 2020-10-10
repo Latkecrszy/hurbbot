@@ -2,7 +2,7 @@ import discord
 import time
 import asyncio
 from discord.ext import commands
-import cyphertext
+import Bots.cyphertext as cyphertext
 
 # Id = 715450088947712000
 messages = joined = 0

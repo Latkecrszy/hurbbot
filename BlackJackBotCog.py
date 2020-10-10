@@ -5,6 +5,8 @@ import json
 import random
 import asyncio
 
+moneyFile = '/Users/sethraphael/PycharmProject/Hurb/Bots/money.json'
+
 
 class BlackJackCog(commands.Cog):
     def __init__(self, bot):
@@ -113,12 +115,12 @@ class BlackJackCog(commands.Cog):
                             value=f"Total ==> `{dealerTotal}`", inline=True)
             embed.add_field(name="The dealer got a higher value than you. You lost.", value=f"You lost ${self.bet}.",
                             inline=False)
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+            with open('/Users/sethraphael/PycharmProject/Hurb/Bots/money.json', 'r') as f:
                 money = json.load(f)
             myMoney = money[str(ctx.author)]
             myMoney -= int(self.bet)
             money[str(ctx.author)] = myMoney
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+            with open('/Users/sethraphael/PycharmProject/Hurb/Bots/money.json', 'w') as f:
                 json.dump(money, f, indent=4)
             self.playing = ""
             await ctx.send(embed=embed)
@@ -131,12 +133,12 @@ class BlackJackCog(commands.Cog):
                             value=f"Total ==> `{dealerTotal}`", inline=True)
             embed.add_field(name="You won! Your score was higher than the dealer's!", value=f"You won ${self.bet}!",
                             inline=False)
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+            with open('/Users/sethraphael/PycharmProject/Hurb/Bots/money.json', 'r') as f:
                 money = json.load(f)
             myMoney = money[str(ctx.author)]
             myMoney += int(self.bet)
             money[str(ctx.author)] = myMoney
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+            with open('/Users/sethraphael/PycharmProject/Hurb/Bots/money.json', 'w') as f:
                 json.dump(money, f, indent=4)
             self.playing = ""
             await ctx.send(embed=embed)
@@ -221,12 +223,12 @@ class BlackJackCog(commands.Cog):
                 embed.add_field(name="You won! You reached 21 before the dealer!", value=f"You won ${self.bet}!",
                                 inline=False)
                 await ctx.send(embed=embed)
-                with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+                with open(moneyFile, 'r') as f:
                     money = json.load(f)
                 myMoney = money[str(ctx.author)]
                 myMoney += int(self.bet)
                 money[str(ctx.author)] = myMoney
-                with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+                with open(moneyFile, 'w') as f:
                     json.dump(money, f, indent=4)
                 self.playing = ""
 
@@ -241,12 +243,12 @@ class BlackJackCog(commands.Cog):
             embed.add_field(name="The dealer reached 21 before you did. You lost.", value=f"You lost ${self.bet}.",
                             inline=False)
             await ctx.send(embed=embed)
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+            with open(moneyFile, 'r') as f:
                 money = json.load(f)
             myMoney = money[str(ctx.author)]
             myMoney -= int(self.bet)
             money[str(ctx.author)] = myMoney
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+            with open(moneyFile, 'w') as f:
                 json.dump(money, f, indent=4)
             self.playing = ""
 
@@ -274,12 +276,12 @@ class BlackJackCog(commands.Cog):
             embed.add_field(name=f"**hurb**:\nCards ==> {dealerDisplayHand}",
                             value=f"Total ==> `{dealerTotal}`", inline=True)
             embed.add_field(name="You busted! You lost.", value=f"You lost ${self.bet}.", inline=False)
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+            with open(moneyFile, 'r') as f:
                 money = json.load(f)
             myMoney = money[str(ctx.author)]
             myMoney -= int(self.bet)
             money[str(ctx.author)] = myMoney
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+            with open(moneyFile, 'w') as f:
                 json.dump(money, f, indent=4)
             await ctx.send(embed=embed)
             self.playing = ""
@@ -293,22 +295,15 @@ class BlackJackCog(commands.Cog):
                             value=f"Total ==> `{dealerTotal}`", inline=True)
             embed.add_field(name="The dealer busted! You won!", value=f"You won ${self.bet}.", inline=False)
 
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+            with open(moneyFile, 'r') as f:
                 money = json.load(f)
             myMoney = money[str(ctx.author)]
             myMoney += int(self.bet)
             money[str(ctx.author)] = myMoney
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+            with open(moneyFile, 'w') as f:
                 json.dump(money, f, indent=4)
             await ctx.send(embed=embed)
             self.playing = ""
-
-    @commands.command()
-    async def split(self, ctx):
-        activeHands = []
-        for hand in self.playerHands:
-            if hand:
-                activeHands.append(hand)
 
     async def game(self, ctx, dealerHand, playerHand):
         playerDisplayHand = ""
@@ -331,31 +326,22 @@ class BlackJackCog(commands.Cog):
     @commands.cooldown(1, 5, BucketType.user)
     @commands.command(aliases=["bj", "BJ", "Blackjack", "BLACKJACK", "BlackJack", "blackJack"])
     async def blackjack(self, ctx, bet):
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+        bet = int(bet)
+        with open(moneyFile, 'r') as f:
             money = json.load(f)
         myMoney = money[str(ctx.author)]
-        if isinstance(bet, int):
-            if int(bet) > int(myMoney):
-                embed = discord.Embed(title="Bro, you don't have that much money in your bank lmao. Come back to me when you have more money.")
-                await ctx.send(embed=embed)
-        if self.playing == str(ctx.author):
-            embed = discord.Embed(
-                title=f"You are already playing a game of blackjack, {ctx.author.display_name}! Please don't break me :(",
-                color=discord.Color.red())
-            await ctx.send(embed=embed)
-        elif self.playing != "":
-            embed = discord.Embed(
-                title=f"Someone is already playing a game of blackjack, {ctx.author.display_name}! Please don't break me :(",
-                color=discord.Color.red())
-            await ctx.send(embed=embed)
-        elif self.playing == "":
-            if bet.lower() == "all":
-                bet = int(myMoney)
-            if int(bet) > int(myMoney):
+        if await self.tooMuchCheck(ctx, bet):
+            if self.playing == str(ctx.author):
                 embed = discord.Embed(
-                    title="Bro, you don't have that much money in your bank lmao. Come back to me when you have more money.")
+                    title=f"You are already playing a game of blackjack, {ctx.author.display_name}! Please don't break me :(",
+                    color=discord.Color.red())
                 await ctx.send(embed=embed)
-            elif int(bet) <= int(myMoney):
+            elif self.playing != "":
+                embed = discord.Embed(
+                    title=f"Someone is already playing a game of blackjack, {ctx.author.display_name}! Please don't break me :(",
+                    color=discord.Color.red())
+                await ctx.send(embed=embed)
+            elif self.playing == "":
                 self.seconds = 0
                 self.timeOut.start(ctx)
                 self.playing = str(ctx.author)
@@ -366,10 +352,7 @@ class BlackJackCog(commands.Cog):
                 self.hand = []
                 self.playerValue = 0
                 self.dealerValue = 0
-                if bet == "all" or bet == "ALL" or bet == "All":
-                    self.bet = int(myMoney)
-                else:
-                    self.bet = int(bet)
+                self.bet = int(bet)
                 self.deal(self.dealerHand)
                 self.deal(self.playerHand)
                 self.total(self.dealerHand)
@@ -381,13 +364,13 @@ class BlackJackCog(commands.Cog):
                     await self.game(ctx, self.dealerHand, self.playerHand)
 
     @commands.command()
-    async def start(self ,ctx):
+    async def start(self, ctx):
         money_given = random.randint(500, 10000)
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+        with open(moneyFile, 'r') as f:
             money = json.load(f)
         if str(ctx.author) not in money.keys():
             money[str(ctx.author)] = money_given
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+            with open(moneyFile, 'w') as f:
                 json.dump(money, f, indent=4)
             embed = discord.Embed(title=f"Welcome to the bot, {ctx.author.display_name}! I've added {money_given} to your account!", color=discord.Color.green())
             await ctx.send(embed=embed)
@@ -397,7 +380,7 @@ class BlackJackCog(commands.Cog):
             
     @commands.command(aliases=["B", "balance", "Balance", "bal", "Bal"])
     async def b(self, ctx, member: discord.Member = None):
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+        with open(moneyFile, 'r') as f:
             money = json.load(f)
         if member is None:
             myMoney = money[str(ctx.author)]
@@ -414,12 +397,12 @@ class BlackJackCog(commands.Cog):
     @commands.command()
     async def beg(self, ctx):
         newMoney = random.randint(0, 1000)
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+        with open(moneyFile, 'r') as f:
             money = json.load(f)
         myMoney = money[str(ctx.author)]
         myMoney += newMoney
         money[str(ctx.author)] = myMoney
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+        with open(moneyFile, 'w') as f:
             json.dump(money, f, indent=4)
         if newMoney <= 100:
             embed = discord.Embed(title=f"You spend the day on the streets scrounging for coins, and only end up with {newMoney} to show for it.",
@@ -448,12 +431,12 @@ It doesn't look as if he particularly wants it, so you treat yourself to a bit, 
         self.seconds += 1
         if self.seconds == 90:
             self.playing = ""
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+            with open(moneyFile, 'r') as f:
                 money = json.load(f)
             myMoney = money[str(ctx.author)]
             myMoney -= int(self.bet)
             money[str(ctx.author)] = myMoney
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+            with open(moneyFile, 'w') as f:
                 json.dump(money, f, indent=4)
             embed = discord.Embed(title=f"{ctx.author.display_name}, your game of blackjack has timed out after 90 seconds of inactivity. Your bet has NOT been returned, because you should know better than to leave me waiting like that you asshole.",
                                   color=discord.Color.red())
@@ -466,18 +449,18 @@ It doesn't look as if he particularly wants it, so you treat yourself to a bit, 
         found = False
         place = place.lower()
         newMoney = random.randint(0, 1000)
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+        with open(moneyFile, 'r') as f:
             money = json.load(f)
         myMoney = money[str(ctx.author)]
         myMoney += newMoney
         money[str(ctx.author)] = myMoney
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
+        with open(moneyFile, 'w') as f:
             json.dump(money, f, indent=4)
         places = {"desk": f"You searched the desk and found ${newMoney}, why would you leave this here?,",
                   "table": f"You search the table top and bottom, and found ${newMoney}, where did this come from?",
                   "book": f"You flip through the pages and ${newMoney} falls out. Lucky!",
                   "bathroom": f"There's shit in the toilet, but a crisp {newMoney} dollar bill too.",
-                  "computer": f"You find ${newMoney} in bitCoin on your computer, who the fuck even uses bitCoin though smh",
+                  "computer": f"You find ${newMoney} in bitcoin on your computer, who the fuck even uses bitcoin though smh",
                   "cup": f"There's a ${newMoney} coin sitting at the bottom of your diet coke, why would you drink diet coke tho loser"}
         for key, value in places.items():
             if place == key:
@@ -496,52 +479,45 @@ It doesn't look as if he particularly wants it, so you treat yourself to a bit, 
 
     @commands.command(aliases=["Donate", "give", "d", "D", "G", "g", "Give", "DONATE", "GIVE"])
     async def donate(self, ctx, member: discord.Member, amount):
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+        with open(moneyFile, 'r') as f:
             money = json.load(f)
         giverMoney = money[str(ctx.author)]
-        if int(giverMoney) >= giverMoney:
-            takerMoney = money[str(member)]
-            takerMoney += int(amount)
-            giverMoney -= int(amount)
-            money[str(member)] = takerMoney
-            money[str(ctx.author)] = giverMoney
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
-            json.dump(money, f, indent=4)
-        embed = discord.Embed(title=f"Ok, ${amount} has been given to {member.display_name} from {ctx.author.display_name}.",
-                              color=discord.Color.green())
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def testslots(self, ctx):
-        await ctx.send("https://media.discordapp.net/attachments/510176094872403978/743945764224368690/510176094872403978_670493561921208320_Slots.gif")
-
-    @commands.command()
-    async def slots(self, ctx, bet):
-        pass
+        if int(amount) <= 0:
+            await ctx.send("Bruh don't try to steal money from people lmfao")
+        else:
+            if int(giverMoney) >= int(amount):
+                takerMoney = money[str(member)]
+                takerMoney += int(amount)
+                giverMoney -= int(amount)
+                money[str(member)] = takerMoney
+                money[str(ctx.author)] = giverMoney
+            with open(moneyFile, 'w') as f:
+                json.dump(money, f, indent=4)
+            embed = discord.Embed(title=f"${amount} has been given to {member.display_name} from {ctx.author.display_name}.",
+                                  color=discord.Color.green())
+            await ctx.send(embed=embed)
 
     @commands.command(aliases=["Coinflip", "COINFLIP", "coin", "COIN", "Coin", "flip", "Flip", "FLIP"])
     async def coinflip(self, ctx, bet: int, choice):
-        choices = ["heads", "tails"]
-        choice = choice.lower()
-        if bet >= 2**31:
-            embed = discord.Embed(title=f"Bro, that number is WAY to large come back when its smaller lmfao", color=discord.Color.red())
-            await ctx.send(embed=embed)
-        else:
-            botChoice = random.choice(choices)
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
-                money = json.load(f)
-            playerMoney = money[str(ctx.author)]
-            if botChoice == choice:
-                embed = discord.Embed(title=f"Congrats, {ctx.author.display_name}! It was {botChoice}! You won ${bet}.", color=discord.Color.green())
-                playerMoney += int(bet)
-                await ctx.send(embed=embed)
-            elif botChoice != choice:
-                embed = discord.Embed(title=f"Sorry, {ctx.author.display_name} the coin came out to {botChoice}. You lose ${bet}.", color=discord.Color.red())
-                playerMoney -= int(bet)
-                await ctx.send(embed=embed)
-            money[str(ctx.author)] = playerMoney
-            with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
-                json.dump(money, f, indent=4)
+        with open(moneyFile, 'r') as f:
+            money = json.load(f)
+        playerMoney = money[str(ctx.author)]
+        if await self.tooMuchCheck(ctx, bet):
+            choices = ["heads", "tails"]
+            choice = choice.lower()
+            if not await self.allCheck(ctx, bet):
+                botChoice = random.choice(choices)
+                if botChoice == choice:
+                    embed = discord.Embed(title=f"Congrats, {ctx.author.display_name}! It was {botChoice}! You won ${bet}.", color=discord.Color.green())
+                    playerMoney += int(bet)
+                    await ctx.send(embed=embed)
+                elif botChoice != choice:
+                    embed = discord.Embed(title=f"Sorry, {ctx.author.display_name} the coin came out to {botChoice}. You lose ${bet}.", color=discord.Color.red())
+                    playerMoney -= int(bet)
+                    await ctx.send(embed=embed)
+                money[str(ctx.author)] = playerMoney
+                with open(moneyFile, 'w') as f:
+                    json.dump(money, f, indent=4)
 
     @commands.command(aliases=["8ball"])
     async def _8ball(self, ctx, *, question):
@@ -554,65 +530,36 @@ It doesn't look as if he particularly wants it, so you treat yourself to a bit, 
                          "Don't count on it.", "My reply is no.", "My sources say no.", "Outlook not so good.",
                          "Very doubtful."]
 
-            await ctx.send(f'''Question: {question}\nAnswer: {random.choice(responses)}''')
+            await ctx.send(embed=discord.Embed(title=f'''Question: {question}\nAnswer: {random.choice(responses)}'''))
 
-    @commands.command(aliases=["r", "R", "Roulette", "ROULETTE"])
-    async def roulette(self, ctx, bet, number):
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'r') as f:
+    async def allCheck(self, ctx, bet: int):
+        if bet >= 2**31:
+            embed = discord.Embed(title="Bro, that number is WAY too big; come back to me when it's smaller.")
+            await ctx.send(embed=embed)
+            return True
+
+    async def tooMuchCheck(self, ctx, bet: int):
+        with open(moneyFile, 'r') as f:
             money = json.load(f)
-
         playerMoney = money[str(ctx.author)]
-        if bet.lower() == "all":
-            bet = playerMoney
-        numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 0, 00]
-        numberHit = random.choice(numbers)
-        if numberHit != 0 and numberHit != 00:
-            if numberHit % 2 == 1:
-                numberColor = "black"
-            else:
-                numberColor = "red"
+        if playerMoney <= 0:
+            playerMoney = 0
+        if bet > playerMoney:
+            embed = discord.Embed(title=f"Bro, don't try to bet more than you have. I don't want to break ;(")
+            await ctx.send(embed=embed)
+            return False
         else:
-            numberColor = numberHit
-        if numberHit != 0 and numberHit != 00:
-            if numberHit < 18:
-                numberPlace = "low"
-            else:
-                numberPlace = "high"
-        else:
-            numberPlace = numberHit
-        if isinstance(number, int):
-            if int(number) in numbers:
-                if numberHit == number.lower():
-                    playerMoney += int(bet) * 35
-                    if numberHit != 0 and numberHit != 00:
-                        embed = discord.Embed(title=f"Congrats, {ctx.author.display_name}! It was {numberColor} {numberHit}! You just won ${bet*35}!", color=discord.Color.green())
-                    else:
-                        embed = discord.Embed(title=f"Congrats, {ctx.author.display_name}! It was {numberHit}! You just won ${bet*35}!", color=discord.Color.green())
+            return True
 
-                else:
-                    playerMoney -= int(bet)
-                    if numberHit != 0 and numberHit != 00:
-                        embed = discord.Embed(title=f"Sorry, {ctx.author.display_name}. It was {numberColor} {numberHit}. You lost ${bet}.", color=discord.Color.red())
-                    else:
-                        embed = discord.Embed(title=f"Sorry, {ctx.author.display_name}. It was {numberHit}. You lost ${bet}.", color=discord.Color.red())
-                await ctx.send(embed=embed)
-            else:
-                embed = discord.Embed(title=f"That is not a number you can bet on, {ctx.author.display_name}!", color=discord.Color.red())
-
+    @commands.command()
+    async def roll(self, ctx, number: int):
+        roll = random.randint(0, number)
+        if roll == 1:
+            await ctx.send(f"Your roll of a d{number} was {roll}, {ctx.author.mention}! You got a critical FAIL hahaha loser")
+        elif roll == int(number):
+            await ctx.send(f"Your roll of a d{number} was {roll}, {ctx.author.mention}! You got a critical hit!")
         else:
-            if numberPlace == number or numberColor == number:
-                embed = discord.Embed(title=f"Congrats, {ctx.author.display_name}! It was {number} {numberHit}! You won ${bet}!", color=discord.Color.green())
-                playerMoney += int(bet)
-            else:
-                playerMoney -= int(bet)
-                if number.lower() == "black" or number.lower() == "red":
-                    embed = discord.Embed(title=f"Sorry, {ctx.author.display_name}, it was {numberColor} {numberHit}. You lost ${bet}.", color=discord.Color.red())
-                else:
-                    embed = discord.Embed(title=f"Sorry, {ctx.author.display_name}, it was {numberPlace} {numberHit}. You lost ${bet}.", color=discord.Color.red())
-        money[str(ctx.author)] = playerMoney
-        with open('/Users/sethraphael/PycharmProject/Bots/money.json', 'w') as f:
-            json.dump(money, f, indent=4)
-        await ctx.send(embed=embed)
+            await ctx.send(f"Your roll of a d{number} was {roll}, {ctx.author.mention}!")
 
 
 def setup(bot):

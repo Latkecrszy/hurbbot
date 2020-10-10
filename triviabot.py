@@ -4,21 +4,12 @@ import webbrowser
 import json
 import time
 
-
-def getprefix(_bot, message):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
-              'r') as f:
-        prefixes = json.load(f)
-
-        return prefixes[str(message.guild.id)]
-
-
 qotdWinners = open("/Users/sethraphael/PycharmProject/Bots/qotd winners")
 winners = qotdWinners.readlines()
 qotdWinners.close()
 storage = '/Users/sethraphael/accounts.txt'
 streak = '/Users/sethraphael/streak.txt'
-bot = commands.Bot(command_prefix=getprefix)
+bot = commands.Bot(command_prefix="$")
 bot.validusers = [line.rstrip('\n') for line in open("/Users/sethraphael/validusers.txt")]
 print(bot.validusers)
 players = {}
@@ -48,7 +39,7 @@ extra_lives = {}
 
 
 def getprefix(_bot, message):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
+    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/welcome.json',
               'r') as f:
         prefixes = json.load(f)
 
@@ -961,55 +952,6 @@ async def fifthround(ctx):
         await ctx.send(f'''Question 5, for player {current_player}:''')
         await questions[bot.playersgone].ask(ctx)
 
-
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(f'''Error: Missing one or more required argument.''')
-    elif isinstance(error, commands.CommandNotFound):
-        pass
-    else:
-        raise error.original
-
-
-@bot.event
-async def on_guild_join(guild):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
-              'r') as f:
-        prefixes = json.load(f)
-
-    prefixes[str(guild.id)] = '$'
-
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
-              'w') as f:
-        json.dump(prefixes, f, indent=4)
-
-
-@bot.event
-async def on_guild_remove(guild):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
-              'r') as f:
-        prefixes = json.load(f)
-
-    prefixes.pop(str(guild.id))
-
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
-              'w') as f:
-        json.dump(prefixes, f, indent=4)
-
-
-@bot.command()
-async def prefix(ctx, new_prefix):
-    with open('/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
-              'r') as f:
-        prefixes = json.load(f)
-    prefixes[str(ctx.guild.id)] = str(new_prefix)
-
-    with open('//Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/scratch.json',
-              'w') as f:
-        json.dump(prefixes, f, indent=4)
-
-    await ctx.send(f"{ctx.guild.name}'s prefix changed to {new_prefix}")
 
 
 bot.quesnum = 0

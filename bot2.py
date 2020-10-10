@@ -1,8 +1,7 @@
 import discord
 import asyncio
 import random as rand
-import cyphertext
-import blackjackbot
+import Bots.cyphertext as cyphertext
 from discord.ext import commands
 
 # Create the variables

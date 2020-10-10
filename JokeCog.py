@@ -404,7 +404,21 @@ As the teacher takes him there, pulling him by the hand, he shouts, "HIT HER WIT
 
 Once they get there, he recites his fourth letter to the principal: "WHAT ARE YOU FUCKING DOING IN HERE? GO THE FUCK AWAY RIGHT NOW!" The principal says,
 
-"Ok, that's it. I'm calling your parents right now. When they pick up the phone, the principal hands it to little Johnny. He says one thing: "E".'''
+"Ok, that's it. I'm calling your parents right now. When they pick up the phone, the principal hands it to little Johnny. He says one thing: "E".''',
+
+    '''What's the difference between a jeweler, a vendor and a bottle of glue?
+
+A jeweler sells watches.
+ 
+A vendor watches what he sells
+
+As for the glue I figured you would get stuck on that one.''',
+
+    '''The first time I used an elevator was uplifting.
+    
+But the second time let me down.''',
+
+    ''''''
 
 
 
@@ -425,10 +439,13 @@ class JokeCog(commands.Cog):
         self.bot = bot
         self.jokes = jokes
         self.spam = False
+        random.shuffle(self.jokes)
+        self.jokeNum = 0
 
     @commands.command()
     async def joke(self, ctx):
-        joke = random.choice(self.jokes)
+        joke = self.jokes[self.jokeNum]
+        self.jokeNum += 1
         embed = discord.Embed(description=f"**{joke}**", color=random.choice(embedColors))
         embed.set_footer(text="Credit for joke goes to: https://kickasshumor.com")
         await ctx.send(embed=embed)

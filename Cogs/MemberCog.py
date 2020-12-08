@@ -52,7 +52,7 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
 
 def is_me(command):
     def predicate(ctx):
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json', 'r') as f:
+        with open('/Bots/commands.json', 'r') as f:
             commandsList = json.load(f)
             return commandsList[str(ctx.guild.id)][command] == "True"
 
@@ -269,7 +269,7 @@ class MemberCog(commands.Cog):
                     if str(roles).lower() == "muted":
                         await member.add_roles(roles)
                         del mutedMembers[x]
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/welcome.json", "r") as f:
+        with open("../Bots/welcome.json", "r") as f:
             welcomeChannels = json.load(f)
         welcomeMessage = welcomeChannels[str(member.guild.id)]
         if welcomeMessage != "None" and welcomeMessage != "False":
@@ -294,7 +294,7 @@ class MemberCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json", "r") as f:
+        with open("../Bots/goodbye.json", "r") as f:
             goodbyeChannels = json.load(f)
         goodbyeMessage = goodbyeChannels[str(member.guild.id)]
         if goodbyeMessage != "None" and goodbyeMessage != "False":

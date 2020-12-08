@@ -9,19 +9,11 @@ import aiohttp
 
 def is_me(command):
     def predicate(ctx):
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json', 'r') as f:
+        with open('../Bots/commands.json', 'r') as f:
             commandsList = json.load(f)
             return commandsList[str(ctx.guild.id)][command] == "True"
 
     return commands.check(predicate)
-
-
-async def getrank():
-    async with aiohttp.ClientSession() as cs:
-        link = "http://api.giphy.com/v1/gifs/search?q=" + img + "&api_key=HIxNUDiCJmENIyZimfquvn7g20ILt4Dc&limit=15"
-        async with cs.get(link) as r:
-            num -= 1
-            res = await r.json()  # returns dict
 
 
 class MessageCog(commands.Cog):
@@ -48,11 +40,11 @@ class MessageCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json', 'r') as f:
+        with open('../Bots/commands.json', 'r') as f:
             commandsList = json.load(f)
         if commandsList[str(message.guild.id)]["ranking"] == "True":
             if not message.author.bot:
-                with open("rank.json") as f:
+                with open("../Bots/rank.json") as f:
                     messages = json.load(f)
                 if str(message.guild.id) in messages.keys():
                     if str(message.author.id) in messages[str(message.guild.id)].keys():
@@ -61,11 +53,11 @@ class MessageCog(commands.Cog):
                     else:
                         messages[str(message.guild.id)][str(message.author.id)] = {"messages": 1, "xp": random.randint(1, 5),
                                                                                    "level": 1}
-                        with open("rank.json", "w") as f:
+                        with open("../Bots/rank.json", "w") as f:
                             json.dump(messages, f, indent=4)
                 else:
                     messages[str(message.guild.id)] = {}
-                    with open("rank.json", "w") as f:
+                    with open("../Bots/rank.json", "w") as f:
                         json.dump(messages, f, indent=4)
                     await self.on_message(message)
                 if await self.cog_check(message):
@@ -77,18 +69,18 @@ class MessageCog(commands.Cog):
                             await self.levelupcheck(message, messages)
                         else:
                             messages[str(message.guild.id)][str(message.author.id)] = {"messages": 1, "xp": random.randint(1, 5), "level": 1}
-                            with open("rank.json", "w") as f:
+                            with open("../Bots/rank.json", "w") as f:
                                 json.dump(messages, f, indent=4)
                     else:
                         messages[str(message.guild.id)] = {}
-                        with open("rank.json", "w") as f:
+                        with open("../Bots/rank.json", "w") as f:
                             json.dump(messages, f, indent=4)
                         await self.on_message(message)
 
     async def levelupcheck(self, message, messages):
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json', 'r') as f:
+        with open('../Bots/commands.json', 'r') as f:
             commandsList = json.load(f)
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/levelups.json") as f:
+        with open("../Bots/levelups.json") as f:
             channels = json.load(f)
         if str(message.guild.id) in channels.keys():
             channel = discord.utils.get(message.guild.channels, name=str(channels[str(message.guild.id)]))
@@ -104,7 +96,7 @@ class MessageCog(commands.Cog):
                 await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.guild.id)][str(message.author.id)]['level']+1}!")
             messages[str(message.guild.id)][str(message.author.id)]["level"] += 1
             messages[str(message.guild.id)][str(message.author.id)]["xp"] = 0
-        with open("rank.json", "w") as f:
+        with open("../rank.json", "w") as f:
             json.dump(messages, f, indent=4)
 
 
@@ -119,7 +111,7 @@ class Rank(commands.Cog):
     async def rank(self, ctx, member: discord.Member = None):
         if member is None:
             member = ctx.author
-        with open("rank.json") as f:
+        with open("../Bots/rank.json") as f:
 
             messages = json.load(f)
         level = int(messages[str(ctx.guild.id)][str(member.id)]["level"])
@@ -140,7 +132,7 @@ class Rank(commands.Cog):
 
     @commands.command()
     async def levelupchannel(self, ctx, *, channel):
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/levelups.json") as f:
+        with open("../Bots/levelups.json") as f:
             channels = json.load(f)
             if str(channel).lower() == "none" or str(channel).lower() == "off" or str(channel).lower() == "current":
                 channels.pop(str(ctx.guild.id))
@@ -154,14 +146,14 @@ class Rank(commands.Cog):
                 else:
                     channels[str(ctx.guild.id)] = str(channel)
                     await ctx.send(f"The level up channel for this guild has been set to {channel.mention}!")
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/levelups.json", "w") as f:
+        with open("../Bots/levelups.json", "w") as f:
             json.dump(channels, f, indent=4)
 
     def convert(self, channel: discord.TextChannel):
         return str(channel)
 
     def position(self, member):
-        with open("rank.json") as f:
+        with open("../Bots/rank.json") as f:
             messages = json.load(f)
         level = int(messages[str(member.guild.id)][str(member.id)]["level"])
         maxXP = level * 200 + (200*(int(level / 5) if int(level / 5) >= 1 else 0))
@@ -184,7 +176,7 @@ class Rank(commands.Cog):
         return numCount
 
     def calcspot(self, member):
-        with open("rank.json") as f:
+        with open("../Bots/rank.json") as f:
             messages = json.load(f)
         messages = messages[str(member.guild.id)]
         xp = messages[str(member.id)]["xp"]
@@ -206,11 +198,11 @@ class Rank(commands.Cog):
 
     @commands.command()
     async def rankcolor(self, ctx, color):
-        with open("rank.json") as f:
+        with open("../Bots/rank.json") as f:
             messages = json.load(f)
         messages[str(ctx.guild.id)][str(ctx.author.id)]["color"] = color
         await ctx.send(f"Your rank color has been updated to {color}!")
-        with open("rank.json", "w") as f:
+        with open("../Bots/rank.json", "w") as f:
             json.dump(messages, f, indent=4)
 
     @is_me("ranking")
@@ -222,7 +214,7 @@ class Rank(commands.Cog):
             embed = discord.Embed(title=f"{guild}'s leaderboard:")
             memberOrder = {}
             newMemberOrder = {}
-            with open("rank.json") as f:
+            with open("../Bots/rank.json") as f:
                 messages = json.load(f)
             members = messages[str(guild.id)]
             for member in members.keys():
@@ -258,7 +250,7 @@ class Rank(commands.Cog):
     @commands.command()
     async def highest(self, ctx):
         top = {"user": "", "level": 0, "xp": 0, "server": ""}
-        with open("rank.json") as f:
+        with open("../Bots/rank.json") as f:
             levels = json.load(f)
 
         for keys, value in levels.items():
@@ -292,11 +284,11 @@ class Rank(commands.Cog):
         if self.resetting is not None:
             if message.author == self.resetting["reseter"] and message.guild == self.resetting["guild"]:
                 if str(message.content).lower() == "yes":
-                    with open("rank.json") as f:
+                    with open("../Bots/rank.json") as f:
                         levels = json.load(f)
 
                     levels[str(message.guild.id)].pop(str(self.resetting["member"].id))
-                    with open("rank.json", "w") as f:
+                    with open("../Bots/rank.json", "w") as f:
                         json.dump(levels, f, indent=4)
                     await message.channel.send(f"{self.resetting['member'].mention}'s XP has been reset.")
                     self.resetting = None

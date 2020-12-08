@@ -147,6 +147,10 @@ class NQNCog(commands.Cog):
                                 await asyncio.sleep(1)
                 break
 
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        await self.NQNCheck(message)
+
 
     @commands.command()
     async def alt(self, ctx, altName, *, message):
@@ -154,7 +158,7 @@ class NQNCog(commands.Cog):
             await ctx.channel.create_webhook(name=str(altName))
         for webhook in await ctx.channel.webhooks():
             await ctx.message.delete()
-            with open("/Users/sethraphael/PycharmProject/Hurb/Bots/alts.json", "r") as f:
+            with open("/Bots/alts.json", "r") as f:
                 alts = json.load(f)
             alt = alts[str(ctx.author.id)]
             found = False
@@ -172,14 +176,14 @@ class NQNCog(commands.Cog):
 
     @commands.command()
     async def createalt(self, ctx, avatar_url, altName):
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/alts.json", "r") as f:
+        with open("/Bots/alts.json", "r") as f:
             alts = json.load(f)
         if str(ctx.author.id) in alts.keys():
 
             alts[str(ctx.author.id)].append({str(altName).lower(): str(avatar_url)})
         else:
             alts[str(ctx.author.id)] = [{str(altName): str(avatar_url)}]
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/alts.json", "w") as f:
+        with open("/Bots/alts.json", "w") as f:
             json.dump(alts, f, indent=4)
         await ctx.send(f"Ok, I've created an alt by the name of {altName}!")
 

@@ -1,7 +1,6 @@
 import discord
-from discord.ext import commands, tasks
-from Bots.players import saveMoney, refreshBalance
-import json
+from discord.ext import commands
+from Bots.Cogs.players import saveMoney, refreshBalance
 import random
 
 

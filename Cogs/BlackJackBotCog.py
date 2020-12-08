@@ -1,10 +1,8 @@
 import discord
-from discord.ext import commands, tasks
-import asyncio
-import sys
+from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 import random
-from Bots.players import saveMoney, refreshBalance
+from Bots.Cogs.players import saveMoney, refreshBalance
 
 
 class BlackJackCog(commands.Cog):

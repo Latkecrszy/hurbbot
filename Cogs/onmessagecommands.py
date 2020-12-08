@@ -1,9 +1,8 @@
 import asyncio
-import time
 import discord
 from discord.ext import commands
 import json
-from Bots.NQNCog import NQNCog
+
 agreeing = False
 WCI = False
 WCIAsk = False
@@ -15,7 +14,7 @@ nonoWords = ["shit", "fuck", "bitch", "dick", "fuk", "dik", "sht", "btch", " ass
 
 def is_me(command):
     def predicate(ctx):
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json', 'r') as f:
+        with open('../Bots/commands.json', 'r') as f:
             commandsList = json.load(f)
             if commandsList[command] == "True":
                 return True
@@ -26,7 +25,7 @@ def is_me(command):
 
 
 def predicate(message, command):
-    with open('/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json', 'r') as f:
+    with open('../Bots/commands.json', 'r') as f:
         commandsList = json.load(f)
         activeList = commandsList[str(message.guild.id)]
         return activeList[command] == "True"
@@ -110,14 +109,17 @@ async def nonocheck(message, nonoWords):
         for i in nonoWords:
             if message.content.lower().find(str(i)) != -1:
                 await message.delete()
-                sent = await message.channel.send(embed=discord.Embed(description=f"Swearing is disabled in this server {message.author.mention}.", color=discord.Color.red()))
+                sent = await message.channel.send(
+                    embed=discord.Embed(description=f"Swearing is disabled in this server {message.author.mention}.",
+                                        color=discord.Color.red()))
                 await asyncio.sleep(5)
                 await sent.delete()
                 break
 
 
 async def linkcheck(message):
-    if message.content.find("https://") != -1 and message.content.find("discord.gg/") or message.content.find("http://") != -1 and message.content.find("discord.gg/"):
+    if message.content.find("https://") != -1 and message.content.find("discord.gg/") or message.content.find(
+            "http://") != -1 and message.content.find("discord.gg/"):
         if message.content.find("https://cdn.discordapp.com") and message.content.find("https://tenor.com"):
             await message.delete()
             embed = discord.Embed(description=f"Link sharing is disabled in {message.guild} {message.author.mention}!",
@@ -130,13 +132,16 @@ async def linkcheck(message):
 async def invitecheck(message):
     if not message.content.find("https://discord.gg/"):
         await message.delete()
-        warning = await message.channel.send(embed=discord.Embed(description=f"You are not allowed to post invites in {message.guild.name} {message.author.mention}!", color=discord.Color.red()))
+        warning = await message.channel.send(embed=discord.Embed(
+            description=f"You are not allowed to post invites in {message.guild.name} {message.author.mention}!",
+            color=discord.Color.red()))
         await asyncio.sleep(5)
         await warning.delete()
 
 
 async def modMuteCheck(message):
-    with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/mutedMods.json", "r") as f:
+    with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/mutedMods.json",
+              "r") as f:
         mutedMods = json.load(f)
 
     if str(message.author) in mutedMods.keys():
@@ -150,15 +155,15 @@ class MessageCommands(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.guild is not None:
+        if message.guild is not None and message.guild.id == 770776810837245962:
+            print("working")
             if predicate(message, "nonocheck"):
                 await nonocheck(message, nonoWords)
-            if predicate(message, "nitro"):
-                NQN = NQNCog(self.bot)
-                await NQN.NQNCheck(message)
+            print("working")
             if predicate(message, "linkcheck"):
                 await linkcheck(message)
             if predicate(message, "invitecheck"):
+                print("working")
                 await invitecheck(message)
             await modMuteCheck(message)
 

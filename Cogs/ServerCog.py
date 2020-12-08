@@ -84,13 +84,13 @@ class ServerCog(commands.Cog):
     @commands.command(aliases=["setwelcomechannel"])
     @commands.has_permissions(administrator=True)
     async def welcome(self, ctx, channel: discord.TextChannel, *, message=None):
-        with open("servers.json", "r") as f:
+        with open("../servers.json", "r") as f:
             storage = json.load(f)
         if message is not None:
             if str(ctx.guild.id) in storage["welcome"]:
                 storage["welcome"].pop(str(ctx.guild.id))
             storage["welcome"][str(ctx.guild.id)] = {str(channel.id): str(message)}
-            with open("servers.json", "w") as f:
+            with open("../servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
             await ctx.send(
                 f"Ok, {ctx.author.mention}, I've set the welcome channel for this server to {channel.mention}!")
@@ -100,7 +100,7 @@ class ServerCog(commands.Cog):
     @commands.command(aliases=["setgoodbyechannel"])
     @commands.has_permissions(administrator=True)
     async def goodbye(self, ctx, channelName: discord.TextChannel, *, message=None):
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json", "r") as f:
+        with open("/Bots/goodbye.json", "r") as f:
             goodbyeChannels = json.load(f)
         if message is not None and str(channelName).lower() != "none":
             if channelName in ctx.guild.text_channels:
@@ -112,7 +112,7 @@ class ServerCog(commands.Cog):
                 await ctx.send(
                     "Hmm, I couldn't find that channel on this server. Try checking the spelling, and making sure that you are using a text channel, and try again!")
 
-            with open("/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json", "w") as f:
+            with open("/Bots/goodbye.json", "w") as f:
                 json.dump(goodbyeChannels, f, indent=4)
         elif str(channelName).lower() == "none":
             goodbyeChannels.pop(str(ctx.guild.id))
@@ -122,12 +122,12 @@ class ServerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/prefixes.json', 'r') as h:
+        with open('/Bots/prefixes.json', 'r') as h:
             prefixes = json.load(h)
 
         prefixes[str(guild.id)] = '%'
 
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/prefixes.json', 'w') as g:
+        with open('/Bots/prefixes.json', 'w') as g:
             json.dump(prefixes, g, indent=4)
         with open(commandsFile, 'r') as f:
             commandsList = json.load(f)
@@ -136,46 +136,46 @@ class ServerCog(commands.Cog):
         with open(commandsFile, 'w') as f:
             json.dump(commandsList, f, indent=4)
 
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/welcome.json', 'r') as a:
+        with open('/Bots/welcome.json', 'r') as a:
             welcomeChannels = json.load(a)
 
         welcomeChannels[str(guild.id)] = "None"
 
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/welcome.json', 'w') as b:
+        with open('/Bots/welcome.json', 'w') as b:
             json.dump(welcomeChannels, b, indent=4)
 
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json', 'r') as c:
+        with open('/Bots/goodbye.json', 'r') as c:
             goodbyeChannels = json.load(c)
 
         goodbyeChannels[str(guild.id)] = "None"
 
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json', 'w') as d:
+        with open('/Bots/goodbye.json', 'w') as d:
             json.dump(goodbyeChannels, d, indent=4)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/prefixes.json', 'r') as f:
+        with open('/Bots/prefixes.json', 'r') as f:
             prefixes = json.load(f)
 
         prefixes.pop(str(guild.id))
 
-        with open('/Users/sethraphael/PycharmProject/Hurb/Bots/prefixes.json', 'w') as a:
+        with open('/Bots/prefixes.json', 'w') as a:
             json.dump(prefixes, a, indent=4)
 
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/welcome.json", "r") as b:
+        with open("/Bots/welcome.json", "r") as b:
             welcomeChannels = json.load(b)
 
         welcomeChannels.pop(str(guild.id))
 
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/welcome.json", "w") as c:
+        with open("/Bots/welcome.json", "w") as c:
             json.dump(welcomeChannels, c, indent=4)
 
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json", "r") as d:
+        with open("/Bots/goodbye.json", "r") as d:
             goodbyeChannels = json.load(d)
 
         goodbyeChannels.pop(str(guild.id))
 
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json", "w") as e:
+        with open("/Bots/goodbye.json", "w") as e:
             json.dump(goodbyeChannels, e, indent=4)
 
         with open(commandsFile, "r") as g:

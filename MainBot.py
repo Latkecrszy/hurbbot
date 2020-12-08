@@ -163,10 +163,10 @@ async def fixfile(ctx):
     await ctx.send("All done fixing the file :)")
 
 
-extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "TriviaBotCog", "JokeCog", "MathCog", "ErrorCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
+extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "JokeCog", "MathCog", "ErrorCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
               "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "onmessagecommands", "pong"]
 
 for extension in extensions:
-    bot.load_extension(extension)
+    bot.load_extension(f"Cogs.{extension}")
 
 bot.run(TOKEN, bot=True, reconnect=True)

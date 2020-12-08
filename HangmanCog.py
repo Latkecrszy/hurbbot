@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import random
 import asyncio
+from Bots.players import refreshBalance, saveMoney
 
 hang1 = '''           ---------------------|
             |                   |
@@ -284,31 +285,40 @@ class HangmanCog(commands.Cog):
 
     @commands.command()
     async def hangman(self, ctx):
-        if self.playing:
-            await ctx.send(f"Someone is already playing a game of hangman {ctx.author.mention}! Please don't break me.")
+        players = refreshBalance()
+        foundHang = False
+        print(players[str(ctx.author.id)].items)
+        for item, value in players[str(ctx.author.id)].items.items():
+            if item.name.lower() == "hangman" and value >= 1:
+                foundHang = True
+        if foundHang:
+            if self.playing:
+                await ctx.send(f"Someone is already playing a game of hangman {ctx.author.mention}! Please don't break me.")
+            else:
+                self.seconds = 0
+                await asyncio.sleep(1)
+                self.timeOut.start(ctx)
+                self.word = random.choice(words)
+                self.wordList = []
+                self.guessedList = []
+                self.wrongGuessedList = []
+                self.wordDash = []
+                self.activeMessage = ""
+                self.playing = str(ctx.author)
+                self.word = random.choice(words)
+                self.activeHang = 0
+                self.hangs = hangs
+                print(self.word)
+                for char in self.word:
+                    self.wordDash.append("_")
+                    self.wordList.append(char)
+                embed = discord.Embed(title=f"`{' '.join(self.wordDash)}`",
+                                      description=f"Here are the spaces of your word, {ctx.author.mention}! Start guessing letters by using the `guess <letter>` command!")
+                embed.add_field(name=f"You have {8 - int(self.activeHang)} chances.",
+                                value=f"```{self.hangs[int(self.activeHang)]}```")
+                self.activeMessage = await ctx.send(embed=embed)
         else:
-            self.seconds = 0
-            await asyncio.sleep(1)
-            self.timeOut.start(ctx)
-            self.word = random.choice(words)
-            self.wordList = []
-            self.guessedList = []
-            self.wrongGuessedList = []
-            self.wordDash = []
-            self.activeMessage = ""
-            self.playing = str(ctx.author)
-            self.word = random.choice(words)
-            self.activeHang = 0
-            self.hangs = hangs
-            print(self.word)
-            for char in self.word:
-                self.wordDash.append("_")
-                self.wordList.append(char)
-            embed = discord.Embed(title=f"`{' '.join(self.wordDash)}`",
-                                  description=f"Here are the spaces of your word, {ctx.author.mention}! Start guessing letters by using the `guess <letter>` command!")
-            embed.add_field(name=f"You have {8 - int(self.activeHang)} chances.",
-                            value=f"```{self.hangs[int(self.activeHang)]}```")
-            self.activeMessage = await ctx.send(embed=embed)
+            await ctx.send(embed=discord.Embed(description=f"You do not yet own this game! You can buy it with the `%buy hangman` command!", color=discord.Color.red()))
 
     @commands.command()
     async def guess(self, ctx, letter):

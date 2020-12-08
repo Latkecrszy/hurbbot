@@ -2,14 +2,13 @@ import discord
 import json
 from discord.ext import commands, tasks
 from itertools import cycle
-import asyncio
-from Bots.MemberCog import Verification
-import Bots.onmessagecommands as onmessagecommands
-import Bots.NQNCog
+import os
+from dotenv import load_dotenv
+load_dotenv()
 intents = discord.Intents.default()
-intents.members = True  # Subscribe to the privileged members intent.
+intents.members = True
 
-messageCommands = onmessagecommands.Authorize()
+TOKEN = os.environ.get('TOKEN', None)
 
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
                discord.Color.dark_green(), discord.Color.dark_grey(), discord.Color.dark_grey(),
@@ -46,9 +45,9 @@ bot.remove_command("help")
 bot.author = ""
 swears = []
 print("Loading..")
-bot.statuses = ["blackjack", "%help", "jokes", "trivia", "hangman", "BANNED"]
+bot.statuses = [discord.Game("Blackjack (and winning) | %blackjack"), discord.Game("%help or @Hurb help"), discord.Game("bad jokes | %joke"), discord.Game("chatty AF | %chatbot"), discord.Game("hangman (he died) | %hangman"), discord.Game("get BANNED"), discord.Game("OMG LOOK AT THESE DOGGOS!!! | %doggo")]
 bot.status = cycle(bot.statuses)
-nonoWords = ["shit", "fuck", "bitch", "dick", "fuk", "dik", "sht", "btch", " ass "]
+
 bot.set_status = ["discord.Status.online", "discord.Status.idle", "discord.Status.offline",
                   "discord.Status.do_not_disturb"]
 bot.status_now = bot.set_status[0]
@@ -56,19 +55,11 @@ bot.status_now = bot.set_status[0]
 
 @bot.event
 async def on_ready():
-    # change_status.start()
     print("Ready.")
-    #for guild in bot.guilds:
-        #if guild.id == 742382901743845497:
-          #  me = guild.get_member(user_id=670493561921208320)
-            #for role in guild.roles:
-               # if str(role).lower() == "cutie":
-                   # await me.add_roles(role)
-    # await asyncio.sleep(.5)
-    # await bot.change_presence(activity=":bongocat:", status=discord.Status.online)
-
+    await change_status.start()
 
 @bot.command()
+@commands.has_permissions(manage_guild=True)
 async def prefix(ctx, new_prefix=None):
     with open('/Users/sethraphael/PycharmProject/Hurb/bots/prefixes.json', 'r') as f:
         prefixes = json.load(f)
@@ -77,7 +68,7 @@ async def prefix(ctx, new_prefix=None):
 
     if new_prefix is None:
         await ctx.send(
-            embed=discord.Embed(description=f"The prefix for this server, {ctx.author.mention}, is {prefix}!"))
+            embed=discord.Embed(description=f"The prefix for this server is `{prefix}`"))
     else:
         with open('/Users/sethraphael/PycharmProject/Hurb/Bots/prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
@@ -85,7 +76,7 @@ async def prefix(ctx, new_prefix=None):
         await ctx.send(f"{ctx.guild.name}'s prefix changed to `{new_prefix}`")
 
 
-@tasks.loop(seconds=5)
+@tasks.loop(seconds=30)
 async def change_status():
     await bot.change_presence(activity=next(bot.status), status=bot.status_now)
 
@@ -97,38 +88,86 @@ def predicate(message, command):
         return activeList[command] == "True"
 
 
-bot.prevNum = ""
+@bot.command()
+async def ping(ctx):
+    Ping = bot.latency
+    await ctx.send(f"YOU HAVE BEEN PINGED {ctx.author.mention}. PING IS {Ping}.")
 
 
 @bot.event
-async def on_message(message):
-    if message.guild is not None:
-        if predicate(message, "nonocheck"):
-            await onmessagecommands.nonocheck(message, swears, nonoWords)
-        if predicate(message, "authorize"):
-            await messageCommands.authorize(message)
-        if predicate(message, "numcheck"):
-            bot.prevNum = await onmessagecommands.countCheck(message, bot.prevNum)
-        NQN = Bots.NQNCog.NQNCog(bot)
-        if predicate(message, "nitro"):
-            await NQN.NQNCheck(message)
-        if predicate(message, "linkcheck"):
-            await onmessagecommands.linkcheck(message)
-        if predicate(message, "invitecheck"):
-            await onmessagecommands.invitecheck(message)
-        await onmessagecommands.offlinecheck(message)
-        verification = Verification()
-        if not isinstance(message.author, discord.User):
-            await verification.verifyCheck(message)
-        await onmessagecommands.modMuteCheck(message)
-    await bot.process_commands(message)
+async def on_error(event, *args):
+    pass
+
+
+@bot.event
+async def on_member_join(member):
+    if str(member.guild.id) == "751667811931390012":
+        channel = bot.get_channel(id=751668603165605928)
+        if await channel.webhooks() is None or not await channel.webhooks():
+            await channel.create_webhook(name="Welcomer")
+        for webhook in await channel.webhooks():
+            if webhook.name != "Welcomer":
+                await webhook.edit(name="Welcomer")
+        for webhook in await channel.webhooks():
+            if webhook.name == "Welcomer":
+                await webhook.send(avatar_url="https://image.flaticon.com/icons/png/512/1026/1026658.png", content=f"Hello {member.mention}! Welcome to Art Gatherings! Make sure to check out {bot.get_channel(id=751671495335608413).mention} to get some roles, and if you want, write a short intro about yourself in {bot.get_channel(id=768124436149698580).mention} to help us get to know you. Enjoy the server!")
+                break
+
+
+@bot.command()
+async def gimmeinvite(ctx, *, guild):
+    guild = discord.utils.get(bot.guilds, name=guild)
+    if str(ctx.author.id) == "670493561921208320":
+        for channel in guild.text_channels:
+            invite = await channel.create_invite()
+            await ctx.send(invite)
+            break
+    await ctx.send(embed=discord.Embed())
+    
+
+a_dict = {"a": ":regional_indicator_a:", "b": ":regional_indicator_b:","c": ":regional_indicator_c:","d": ":regional_indicator_d:",
+          "e": ":regional_indicator_e:", "f": ":regional_indicator_f:","g": ":regional_indicator_g:","h": ":regional_indicator_h:",
+          "i": ":regional_indicator_i:", "j": ":regional_indicator_j:","k": ":regional_indicator_k:","l": ":regional_indicator_l:",
+          "m": ":regional_indicator_m:", "n": ":regional_indicator_n:","o": ":regional_indicator_o:","p": ":regional_indicator_p:",
+          "q": ":regional_indicator_q:", "r": ":regional_indicator_r:","s": ":regional_indicator_s:","t": ":regional_indicator_t:",
+          "u": ":regional_indicator_u:", "v": ":regional_indicator_v:","w": ":regional_indicator_w:","x": ":regional_indicator_x:",
+          "y": ":regional_indicator_y:", "z": ":regional_indicator_z:"}
+
+
+@bot.command()
+async def sayBig(ctx, *, message):
+    newMessage = ""
+    for i in message:
+        if i in a_dict.keys():
+            newMessage += a_dict[i.lower()]
+        else:
+            newMessage += 1
+    await ctx.send(newMessage)
+
+
+@bot.command()
+async def fixfile(ctx):
+    with open("rank.json") as f:
+        rank = json.load(f)
+
+    with open("servers.json") as f:
+        servers = json.load(f)
+    for key, value in rank.items():
+        try:
+            servers[key]["rank"] = value
+        except:
+            servers[key] = {"commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
+                                       "invitecheck": "False", "linkcheck": "False", "ranking": "True"}, "prefix": "%", "rank": value}
+    with open("servers.json", "w") as f:
+        json.dump(servers, f, indent=4)
+    await ctx.send("All done fixing the file :)")
 
 
 extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "TriviaBotCog", "JokeCog", "MathCog",
-              "unverifiedHelp", "zombieGame", "ErrorCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
-              "NQNCog", "BuyRoleCog", "AppCog"]
+              "unverifiedHelp", "ErrorCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
+              "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "discordtetris", "onmessagecommands", "pong"]
 
 for extension in extensions:
     bot.load_extension(extension)
 
-bot.run("NzM2MjgzOTg4NjI4NjAyOTYw.Xxsj5g.ra2OkTKgLoSf_SYRxUFtw4fX0pQ", bot=True, reconnect=True)
+bot.run(TOKEN, bot=True, reconnect=True)

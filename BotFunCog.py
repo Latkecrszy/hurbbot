@@ -7,14 +7,6 @@ import aiohttp
 from discord.ext.commands.cooldowns import BucketType
 from youtube_search import YoutubeSearch
 from itertools import cycle
-import praw
-
-"""reddit = praw.Reddit(client_id="Cowv7MUrKnk9Gg", client_secret="8ogLKuvWhxGlyDYA1JESBxqNHy8", user_agent="Hurb")
-memeList = {submission.title: submission.url for submission in reddit.subreddit("dankmemes").hot(limit=500)}
-titles = [submission.title for submission in reddit.subreddit("dankmemes").hot(limit=500)]
-memes = [Submission.url for Submission in reddit.subreddit("dankmemes").hot(limit=500)]
-Meme = cycle(memes)
-Title = cycle(titles)"""
 
 commandsFile = '/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json'
 
@@ -27,7 +19,7 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
                discord.Color.orange(), discord.Color.purple(), discord.Color.teal(),
                discord.Color.red()]
 
-topics = ["What hobbies do you have?", "Is it important to have hobbies?", "How much free time do you have?",
+topics = ["What hobbies do you have?", "How much free time do you have?",
           "Do you agree that 'Time is money'?", "How much sleep do you usually get?",
           "What's the strangest place you have ever slept?",
           "What music do you like?", "What music do you hate?", "What is your favorite genre of music?",
@@ -51,8 +43,6 @@ topics = ["What hobbies do you have?", "Is it important to have hobbies?", "How 
           "Should plastic bags be banned?", "Should bottled water be banned?",
           "Should minimum wage be higher, lower, or the same?",
           "Should animal testing be banned?", "Should the death penalty be abolished?",
-          "Should human cloning be legalized?",
-          "Should human genetic modification be legalized?", "Should all people have the right to own guns?",
           "Should schools give out homework and have shorter days or give out no homework and have longer days?",
           "Should schools should block YouTube, Discord, and other such sites on their computers?",
           "Should schools have lockers?", "Should schools give out detention?", "Should sex-ed be mandatory in school?",
@@ -61,15 +51,20 @@ topics = ["What hobbies do you have?", "Is it important to have hobbies?", "How 
           "What is the best kind of cheese?", "Am I the best discord bot you've ever seen?",
           "What is the best discord bot? Other than me, obviously.",
           "What's your favorite exercise?", "Are you left or right handed?", "What is the best ice cream flavor?",
-          "What is the worst teacher/boss that you've ever had?"]
+          "What is the worst teacher/boss that you've ever had?", "WHERE THE FUCK IS OLD ZEALAND TELL ME NOW"]
 
-kills = ["watched too many bertstrips and committed suicide.", "was devoured by wumpus.",
+kills = ["was devoured by wumpus.",
          "drank too much bleach, what an idiot.",
          "injected purell into their veins and contracted death.", "was murdered by the Hurb mafia.",
          "ran with scissors and stabbed their eyes out.",
-         "was a fucking idiot and didn't wear a mask and caught COVID and died.", "chocked on an airpod.",
+         "was a fucking idiot and didn't wear a mask and caught COVID and died.", "choked on an airpod.",
          "forgot to feed their dog and was murdered by it.", "was stabbed 69 times.",
-         "was shot 69 times.", "was crushed by a giant turtle."]
+         "was shot 69 times.", "was crushed by a giant turtle.", "literally laughed their ass of and died of blood loss.",
+         "was burned alive.", "was stepped on by a giant fucking cockroach, now they know how it feels.",
+         "was defenestrated.", "was not the imposter but deserved to fucking die anyways.", "was eaten by the imposter.",
+         "fell into the toilet and drowned.", "was crushed by a falling piano.", "asked their crush out, got accepted, then died of a heart attack.",
+         "cut themselves in half, but flex tape wasn't enough to save them.", "took their toaster into the bath and was electecuted by it.",
+         "didn't get enough MILK and died."]
 
 random.shuffle(topics)
 nowTopic = cycle(topics)
@@ -131,121 +126,6 @@ class BotFunCog(commands.Cog):
                 title=f"<:x_:742198871085678642> What the fuck were you THINKING man that ain't an option.")
         await ctx.send(embed=embed)
 
-    @is_me("testreaction")
-    @commands.command()
-    async def testreaction(self, message):
-        controller = await message.channel.send("Hit me with that 👍 reaction!")
-        await controller.add_reaction('👎')
-        await controller.add_reaction('👍')
-        try:
-            reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=None)
-        except asyncio.TimeoutError:
-            await message.channel.send('👎')
-        else:
-            print(reaction)
-
-    @is_me("purge")
-    @commands.command()
-    # @commands.has_permissions(administrator=True)
-    async def purge(self, message, number):
-        await message.channel.purge(limit=int(int(number) + 1))
-
-    @purge.error
-    async def purge_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(f'''Please specify how many messages you would like to purge.''')
-        elif isinstance(error, commands.errors.MissingPermissions):
-            await ctx.send(f"You do not have permissions to use this command, {ctx.author.mention}!")
-        else:
-            raise error
-
-    @commands.command()
-    async def message(self, ctx, member: discord.Member, *, message):
-        if member.display_name == "Latkecrszy":
-            member = ctx.author
-        embed = discord.Embed(
-            title=f"You have been send a message by {ctx.author.display_name} in {ctx.guild}. They said:",
-            description=f"**{message}**", color=random.choice(embedColors))
-        await member.send(embed=embed)
-
-    @commands.command()
-    async def generate(self, ctx, game):
-        if game.lower() == "roulette" or game.lower() == "r":
-            numbers = []
-            for x in range(6):
-                numbers.append(str(random.randint(0, 36)))
-            embed = discord.Embed(title="  ".join(numbers))
-            await ctx.send(embed=embed)
-
-    @commands.command()
-    @commands.cooldown(1, 86400, BucketType.user)
-    @is_me("gimme")
-    async def gimme(self, ctx, color, *, name):
-        found = False
-        foundRole = False
-        colors = {discord.Color.blue(): "blue", discord.Color.blurple(): "blurple",
-                  discord.Color.dark_blue(): "dark_blue",
-                  discord.Color.dark_gold(): "dark_gold", discord.Color.dark_green(): "dark_green",
-                  discord.Color.dark_grey(): "dark_grey",
-                  discord.Color.dark_magenta(): "dark_magenta", discord.Color.blue(): "blue",
-                  discord.Color.dark_orange(): "dark_orange",
-                  discord.Color.dark_purple(): "dark_purple", discord.Color.dark_red(): "dark_red",
-                  discord.Color.dark_teal(): "dark_teal",
-                  discord.Color.darker_grey(): "darker_grey", discord.Color.default(): "black",
-                  discord.Color.gold(): "gold",
-                  discord.Color.green(): "green", discord.Color.greyple(): "greyple",
-                  discord.Color.light_grey(): "light_grey",
-                  discord.Color.magenta(): "magenta", discord.Color.orange(): "orange",
-                  discord.Color.purple(): "purple",
-                  discord.Color.teal(): "teal", discord.Color.red(): "red"}
-
-        if is_it_me(ctx):
-            for role in ctx.guild.roles:
-                if str(role).lower() == name.lower():
-                    await ctx.author.add_roles(role)
-                    foundRole = True
-            if not foundRole:
-                for key, value in colors.items():
-                    if value == color.lower():
-                        found = True
-                        newRole = await ctx.guild.create_role(name=name, color=key,
-                                                              permissions=discord.Permissions(manage_guild=True,
-                                                                                              manage_messages=True,
-                                                                                              manage_nicknames=True,
-                                                                                              manage_roles=True,
-                                                                                              kick_members=True,
-                                                                                              ban_members=True))
-                        await ctx.author.add_roles(newRole)
-                        embed = discord.Embed(
-                            title=f"Ok, I've given you a role called {name} with the color {color}, {ctx.author.display_name}!",
-                            color=key)
-                        await ctx.send(embed=embed)
-                if not found:
-                    embed = discord.Embed(title=f"Sorry, I couldn't find that color, {ctx.author.display_name}.")
-                    await ctx.send(embed=embed)
-        else:
-            for key, value in colors.items():
-                if value == color.lower():
-                    found = True
-                    newRole = await ctx.guild.create_role(name=name, color=key,
-                                                          permissions=discord.Permissions(read_messages=True))
-                    await ctx.author.add_roles(newRole)
-                    embed = discord.Embed(
-                        title=f"Ok, I've given you a role called {name} with the color {color}, {ctx.author.display_name}!",
-                        color=key)
-                    await ctx.send(embed=embed)
-            if not found:
-                embed = discord.Embed(title=f"Sorry, I couldn't find that color, {ctx.author.display_name}.")
-                await ctx.send(embed=embed)
-
-    @commands.command()
-    async def memcount(self, ctx):
-        members = 0
-        for member in ctx.guild.members:
-            members += 1
-        embed = discord.Embed(title=f"There are {members} members in {ctx.guild}!")
-        await ctx.send(embed=embed)
-
     @commands.command()
     async def gif(self, ctx, num=1, *, img):
         img = img.replace(" ", "+")
@@ -276,22 +156,12 @@ class BotFunCog(commands.Cog):
                     await message.edit(content=result)"""
                 # print(json.dumps(res, sort_keys=True, indent=4))
 
-    @commands.command()
+    """@commands.command()
     async def youtube(self, ctx, num: int, *, video):
         results = YoutubeSearch(video, max_results=20).to_dict()
         result = results[num - 1]['url_suffix']
-        """thumbnail = results[num - 1]['thumbnails'][0]
-        name = results[num - 1]['title']
         url = 'https://www.youtube.com' + result
-        embed = discord.Embed(title=f"**{name}**", url=url, description=f"**{results[num - 1]['long_desc']}**",
-                              color=random.choice(embedColors))
-        embed.set_image(url=thumbnail)
-        embed.set_thumbnail(url=thumbnail)
-        embed.set_author(name=f"From {results[num - 1]['channel']}")
-        embed.set_footer(text=f"{results[num - 1]['views']}")
-        await ctx.send(embed=embed)"""
-        url = 'https://www.youtube.com' + result
-        await ctx.send(url)
+        await ctx.send(url)"""
 
     @gif.error
     async def gif_error(self, ctx, error):
@@ -300,53 +170,33 @@ class BotFunCog(commands.Cog):
 
     @commands.command()
     async def say(self, ctx, *, message):
-        await ctx.send(message)
-
-    @commands.command()
-    async def emojis(self, ctx, *, guilds=None):
-        if guilds is None:
-            for guild in self.bot.guilds:
-                if guild.emojis:
-                    emojis = {}
-                    embed = discord.Embed(color=random.choice(embedColors))
-                    emojis[str(guild.name)] = []
-                    emojis[f"{guild.name} Extra Emojis"] = []
-                    for emoji in guild.emojis:
-                        emojis[str(guild.name)].append(str(emoji))
-                    while len(" ".join(emojis[str(guild.name)])) > 1024:
-                        emojis[f"{guild.name} Extra Emojis"].append(emojis[str(guild.name)][-1])
-                        del emojis[str(guild.name)][-1]
-                    for ids, emoji in emojis.items():
-                        if emoji:
-                            embed.add_field(name=f"**{ids}**:", value=f"{' '.join(emoji)}")
-                    await ctx.send(embed=embed)
-        else:
-            found = False
-            for guild in self.bot.guilds:
-                if str(guild.name).lower() == guilds.lower():
-                    found = True
-                    emojis = {}
-                    embed = discord.Embed(color=random.choice(embedColors))
-                    emojis[str(guild.name)] = []
-                    emojis[f"{guild.name} Extra Emojis"] = []
-                    for emoji in guild.emojis:
-                        emojis[str(guild.name)].append(str(emoji))
-                    while len(" ".join(emojis[str(guild.name)])) > 1024:
-                        emojis[f"{guild.name} Extra Emojis"].append(emojis[str(guild.name)][-1])
-                        del emojis[str(guild.name)][-1]
-                    for ids, emoji in emojis.items():
-                        if emoji:
-                            embed.add_field(name=f"**{ids}**:", value=f"{' '.join(emoji)}")
-                    await ctx.send(embed=embed)
-
-            if not found:
-                await ctx.send(f"I am not in that server {ctx.author.mention}!")
+        embed = discord.Embed(title=message)
+        await ctx.message.delete()
+        embed.set_footer(text=f"-{ctx.author}", icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def servers(self, ctx):
         embed = discord.Embed(title=f"My Servers:")
+        members = 0
+        message = ''''''
+        for i in range(len(self.bot.guilds)):
+            server = self.bot.guilds[i]
+            message += f"#{i+1} **{server.name}**:  {len([member for member in server.members])} members\n\n"
+            members += len([member for member in server.members])
+        embed.add_field(name=f"Serving {len(self.bot.guilds)} servers", value=f"And {members} members!")
+        embed.set_thumbnail(url=ctx.guild.me.avatar_url)
+        await ctx.send(message)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def botinfo(self, ctx):
+        embed = discord.Embed(title=f"My Servers:")
+        members = 0
         for server in self.bot.guilds:
-            embed.add_field(name=f"{server.name}", value=f"Joined at \n`{server.me.joined_at}`")
+            members += len([member for member in server.members])
+        print(f"{'    '.join([str(guild) for guild in self.bot.guilds])}")
+        embed.add_field(name=f"Serving {len(self.bot.guilds)} servers", value=f"And {members} members!")
         embed.set_thumbnail(url=ctx.guild.me.avatar_url)
         await ctx.send(embed=embed)
 
@@ -356,20 +206,6 @@ class BotFunCog(commands.Cog):
         currentTopic = next(nowTopic)
         await ctx.send(embed=discord.Embed(title=currentTopic,
                                            color=random.choice(embedColors)))
-
-    @commands.Cog.listener()
-    async def on_reaction_add(self, reaction, user):
-        if str(reaction) == "⭐" and user.guild_permissions.administrator and str(
-                reaction.message.guild.name) == "Art Gatherings":
-            attachment = reaction.message.attachments[0]
-            embed = discord.Embed(description=reaction.message.content)
-            embed.set_author(name=f"Artwork by {reaction.message.author.display_name}",
-                             icon_url=reaction.message.author.avatar_url)
-            embed.add_field(name=f"Original message:", value=f"[Jump to message]({reaction.message.jump_url})")
-            embed.set_image(url=str(attachment.url))
-            embed.set_footer(text=f"Posted to starboard by {user.display_name}", icon_url=str(user.avatar_url))
-            channel = discord.utils.get(reaction.message.guild.text_channels, name="🏆masterpieces")
-            await channel.send(embed=embed)
 
     @commands.command(aliases=["dog", "DOGGO", "Doggo", "Dog", "DOG", "doggy", "Doggy", "DOGGY"])
     async def doggo(self, ctx):
@@ -381,7 +217,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://dog.ceo")
         await ctx.send(embed=embed)
 
-    @commands.command(alises=["cat", "Cat", "CAT", "CATTO", "Catto", "catty", "Catty", "CATTY"])
+    @commands.command(aliases=["cat", "Cat", "CAT", "CATTO", "Catto", "catty", "Catty", "CATTY"])
     async def catto(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get('https://api.thecatapi.com/v1/images/search') as r:
@@ -404,11 +240,11 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://thecatapi.com")
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=["autocat", "Autocat", "AUTOCAT"])
     async def autocatto(self, ctx):
         self.autoCatto.start(ctx)
 
-    @commands.command()
+    @commands.command(aliase=["Stopautocatto", "STOPAUTOCATTO", "stopautocat", "Stopautocat", "STOPAUTOCAT"])
     async def stopautocatto(self, ctx):
         self.autoCatto.stop()
         await ctx.send("FINE, one more and then I'll stop.")
@@ -423,7 +259,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://dog.ceo")
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=["Autodoggo", "AUTODOGGO", "autodog", "Autodog", "AUTODOG"])
     async def autodoggo(self, ctx):
         self.autoDoggo.start(ctx)
 
@@ -432,35 +268,124 @@ class BotFunCog(commands.Cog):
         self.autoDoggo.stop()
         await ctx.send("FINE, one more and then I'll stop.")
 
-    @commands.command()
-    async def calculateheight(self, ctx, *, height):
-        await ctx.send(f"{ctx.author.mention}'s height is {height}.")
+    @commands.command(aliases=["murder", "Murder", "MURDER", "Kill", "KILL"])
+    @commands.cooldown(1, 15, BucketType.user)
+    async def kill(self, ctx, *, member):
+        death = random.choice(kills)
+        if str(member).lower().find("latkecrszy") != -1 or str(member).lower().find("670493561921208320") != -1:
+            await ctx.send(f"Don't you fucking try to kill my creator, imma kill you instead. {ctx.author.mention} {death}")
+        elif str(member.lower()) == "me":
+            await ctx.send("You died.")
+        elif str(member.lower()) == "i":
+            await ctx.send(f"NOPE, you can't get me to kill myself SON. {ctx.author.mention} {death}")
+        else:
+            await ctx.send(f"{member} {death}")
 
-    @commands.command()
-    async def meme(self, ctx):
-        nowMeme = next(Meme)
-        nowTitle = next(Title)
-        embed = discord.Embed(title=nowTitle, color=random.choice(embedColors))
-        embed.set_image(url=nowMeme)
+    @commands.command(aliases=["8ball"])
+    @commands.cooldown(1, 10, BucketType.user)
+    async def _8ball(self, ctx, *, question):
+        responses = ["It is certain.", "Without a doubt.", "It is decidedly so.", "Yes - definitely.",
+                     "You may rely on it.",
+                     "As I see it, yes.", "Most likely.", "Outlook good.", "Yes.", "Signs point to yes.",
+                     "Reply hazy, try again.",
+                     "Ask again later.", "Better not tell you now.", "Cannot predict now.",
+                     "Concentrate and ask again.",
+                     "Don't count on it.", "My reply is no.", "My sources say no.", "Outlook not so good.",
+                     "Very doubtful."]
+        if question.lower().startswith("who"):
+            member = random.choice(ctx.guild.members)
+            while not member.guild_permissions.manage_guild or member.bot:
+                member = random.choice(ctx.guild.members)
+            await ctx.send(
+                embed=discord.Embed(title=f'''Question: {question}''', description=f"**Answer: {member.mention}**"))
+        else:
+            await ctx.send(embed=discord.Embed(title=f'''Question: {question}''',
+                                               description=f"**Answer: {random.choice(responses)}**"))
+
+    @commands.command(aliases=["Duck", "DUCK", "ducko", "Ducko", "DUCKO", "ducc", "Ducc", "DUCC", "ducco", "Ducco", "DUCCO"])
+    async def duck(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get('https://random-d.uk/api/random') as r:
+                res = await r.json()
+        embed = discord.Embed(title=f"DUCCCY!!!", color=random.choice(embedColors))
+        embed.set_image(url=res["url"])
+        embed.set_footer(text=res["message"])
         await ctx.send(embed=embed)
 
-    """@commands.command()
-    async def automeme(self, ctx):
-        await self.AutoMeme.start(ctx)
+    @commands.command(aliases=["Panda", "PANDA", "pander", "Pander", "PANDER", "pando", "Pando", "PANDO"])
+    async def panda(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/img/panda") as r:
+                res = await r.json()
+        embed = discord.Embed(title=f"PANDA!!!", color=random.choice(embedColors))
+        embed.set_image(url=res["link"])
+        embed.set_footer(text="Powered by https://some-random-api.ml")
+        await ctx.send(embed=embed)
 
-    @tasks.loop(seconds=7)
-    async def AutoMeme(self, ctx):
-        await self.meme(ctx)
+    @commands.command(aliases=["Birb", "BIRB", "bird", "birdy", "birdo", "Bird", "BIRD", "Birdy", "BIRDY", "Birdo", "BIRDO"])
+    async def birb(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/img/birb") as r:
+                res = await r.json()
+        embed = discord.Embed(title=f"BIRB!!!", color=random.choice(embedColors))
+        embed.set_image(url=res["link"])
+        embed.set_footer(text="Powered by https://some-random-api.ml")
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=["Fox", "FOX", "foxo", "foxxo", "foxy", "foxxy", "Foxo", "FOXO", "Foxxo", "FOXXO", "Foxy", "FOXY", "Foxxy", "FOXXY"])
+    async def fox(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/img/fox") as r:
+                res = await r.json()
+        embed = discord.Embed(title=f"FOXXY!!!", color=random.choice(embedColors))
+        embed.set_image(url=res["link"])
+        embed.set_footer(text="Powered by https://some-random-api.ml")
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=["Redpanda", "REDPANDA", "redpander", "Redpander", "REDPANDER", "redpando", "Redpando", "REDPANDO"])
+    async def redpanda(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/img/red_panda") as r:
+                res = await r.json()
+        embed = discord.Embed(title=f"RED PANDO!!!", color=random.choice(embedColors))
+        embed.set_image(url=res["link"])
+        embed.set_footer(text="Powered by https://some-random-api.ml")
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=["Koala", "KOALA", "koaler", "Koaler", "KOALER"])
+    async def koala(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/img/koala") as r:
+                res = await r.json()
+        embed = discord.Embed(title=f"KOALA!!!", color=random.choice(embedColors))
+        embed.set_image(url=res["link"])
+        embed.set_footer(text="Powered by https://some-random-api.ml")
+        await ctx.send(embed=embed)
 
     @commands.command()
-    async def stopautomeme(self, ctx):
-        await self.AutoMeme.stop()
-        await ctx.send("Ok, I've stopped automemeing")"""
+    async def lyrics(self, ctx, *, title):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f'https://some-random-api.ml/lyrics?title="{title}"') as r:
+                res = await r.json()
+        await ctx.send(f"Author: {res['author']}")
+        await ctx.send(f"Lyrics: {res['lyrics']}")
 
-    @commands.command(aliases=["murder", "Murder", "MURDER", "Kill", "KILL"])
-    async def kill(self, ctx, member):
-        death = random.choice(kills)
-        await ctx.send(f"{member} {death}")
+    @commands.command()
+    async def urban(self, ctx, *, word):
+        url = "https://mashape-community-urban-dictionary.p.rapidapi.com/define"
+
+        querystring = {"term": "wat"}
+
+        headers = {
+            'x-rapidapi-key': "SIGN-UP-FOR-KEY",
+            'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com"
+        }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        print(response.text)
+
+
 
 def setup(bot):
     bot.add_cog(BotFunCog(bot))

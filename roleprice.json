@@ -1,5 +1,29 @@
 {
     "Latkecrszy's server": {
         "muted": 100
+    },
+    "Art Gatherings": {
+        "Announcements": 1000,
+        "Artist Cats": 500,
+        "Dead Chat Ping": 2000
+    },
+    "Maria's server": {
+        "big brain": 10000,
+        "muted": 10000
+    },
+    "Hurb Support": {
+        "Noob": 20000,
+        "Peasant": 50000,
+        "Rich": 100000,
+        "VERY RICH": 500000,
+        "Millionare": 1000000,
+        "Jeff Bezos": 5000000,
+        "Miser": 5000000
+    },
+    "Echo Test server": {
+        "Test": 1
+    },
+    "DEEP WEB": {
+        "VIP": 100000
     }
 }

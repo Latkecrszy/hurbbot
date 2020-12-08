@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import random
-import asyncio
+import aiohttp
 
 jokes = [
     "A man escapes from a prison where he's been locked up for 15 years. He breaks into a house to look for money and guns. "
@@ -15,7 +15,7 @@ jokes = [
     "I told him it was in the bathroom. Be strong honey. I love you, too!'",
 
     "So, there's this guy at his apartment and he smoking weed for his therapy session. "
-    "Well his neighbors dispice him and call the cops after smelling a batch cause he refuses to share. "
+    "Well his neighbors despise him and call the cops after smelling a batch because he refuses to share. "
     "As the police appear and smell this outside his door, they bang on the door. BANG! BANG! 'Open up, it's the police.' "
     "Calmly he goes to the door, douses his light and puts his magic bag of weed into his back pocket. "
     "Opening the door, the officer demands to search the place, as he goes, he find his magic bag of weed and says. "
@@ -120,7 +120,7 @@ When April didn't stir, little Johnny, a boy seated in the chair behind her, too
 "Who is our Lord and Saviour," But, April didn't even stir from her slumber. Once again, Johnny came to the rescue and stuck her again. 
 "JESUS CHRIST!" shouted April and the teacher said, "very good," and April fell back to sleep. Then the teacher asked April a third question. 
 "What did Eve say to Adam after she had her twenty-third child?" And again, Johnny jabbed her with the pin. This time April jumped up and shouted, 
-"JOHNNY IF YOU STICK THAT FUCKING THING IN ME ONE MORE TIME, I'LL BREAK IT IN HALF AND STICK IT UP YOUR ASS!" The teacher fainted.''',
+"JOHNNY IF YOU STICK THAT FUCKING THING IN ME ONE MORE TIME, I'LL BREAK IT IN HALF AND SHOVE IT UP YOUR ASS!" The teacher fainted.''',
 
     '''A dad buys a lie detector robot that slaps you if you lie.
 
@@ -443,12 +443,23 @@ class JokeCog(commands.Cog):
         self.jokeNum = 0
 
     @commands.command()
-    async def joke(self, ctx):
-        joke = self.jokes[self.jokeNum]
-        self.jokeNum += 1
-        embed = discord.Embed(description=f"**{joke}**", color=random.choice(embedColors))
-        embed.set_footer(text="Credit for joke goes to: https://kickasshumor.com")
-        await ctx.send(embed=embed)
+    async def joke(self, ctx, category=None):
+        if category is None:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get('https://official-joke-api.appspot.com/jokes/random') as r:
+                    res = await r.json()
+            await ctx.send(embed=discord.Embed(title=res["setup"], description=f'**{res["punchline"]}**', color=random.choice(embedColors)))
+        elif category.lower() == "dirty":
+            joke = self.jokes[self.jokeNum]
+            self.jokeNum += 1
+            embed = discord.Embed(description=f"**{joke}**", color=random.choice(embedColors))
+            embed.set_footer(text="Credit for joke goes to: https://kickasshumor.com")
+            await ctx.send(embed=embed)
+        else:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f'https://official-joke-api.appspot.com/jokes/{category}/random') as r:
+                    res = await r.json()
+            await ctx.send(embed=discord.Embed(title=res[0]["setup"], description=f'**{res[0]["punchline"]}**', color=random.choice(embedColors)))
 
 
 def setup(bot):

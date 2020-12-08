@@ -181,7 +181,7 @@ class Player(commands.Cog):
             await ctx.send(embed=discord.Embed(
                 description=f"Your balance, {ctx.author.mention}, is ${players[str(ctx.author.id)].money}."))
         else:
-            if str(member) in players.keys():
+            if str(member.id) in players.keys():
                 await ctx.send(embed=discord.Embed(
                     description=f"{member.display_name} has ${players[str(member.id)].money} in their account."))
             else:
@@ -236,6 +236,38 @@ class Player(commands.Cog):
                             description=f"You cannot afford to buy this item {ctx.author.mention}! You need ${item.cost}, and you only have ${player.money}!",
                             color=discord.Color.red()))
         await saveMoney(ctx, players)
+
+    @commands.command(aliases=["Rob", "ROB", "steal", "Steal", "STEAL"])
+    @commands.cooldown(1, 120, BucketType.user)
+    async def rob(self, ctx, Member: discord.Member):
+        players = refreshBalance()
+        if str(Member.id) in players.keys():
+            robber = players[str(ctx.author.id)]
+            member = players[str(Member.id)]
+            if int(member.money) >= 100:
+                stolenMoney = random.randint(int(int(member.money)/100), int(member.money)-int(int(member.money)/10))
+                while stolenMoney >= int(member.money):
+                    stolenMoney = random.randint(int(int(member.money) / 100), int(member.money) - int(int(member.money) / 10))
+                outcomes = ["success", "success", "success", "success", "success", "success", "fail", "fail", "fail", "fail", "fail"]
+                outcome = random.choice(outcomes)
+                if outcome == "success":
+                    member.money -= stolenMoney
+                    robber.money += stolenMoney
+                    if member.money < 0:
+                        member.money = 0
+                    embed = discord.Embed(title=f"You stole ${stolenMoney}! Good work, you nasty little thief.", color=discord.Color.green())
+                else:
+                    robber.money -= stolenMoney
+                    member.money += stolenMoney
+                    if robber.money < 0:
+                        robber.money = 0
+                    embed = discord.Embed(title=f"You were caught by the po po! You paid a fine of ${stolenMoney} to stay out of jail.", color=discord.Color.red())
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send(embed=discord.Embed(description=f"{member} only has ${member.money}. It's not worth it man."))
+            await saveMoney(ctx, players)
+        else:
+            await ctx.send(embed=discord.Embed(description=f"{Member.mention} does not have an account with this bot yet {ctx.author.mention}!"))
 
 
 def setup(bot):

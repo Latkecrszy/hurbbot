@@ -2,7 +2,7 @@ import discord
 import json
 from discord.ext import commands
 import random
-
+import asyncio
 
 commandsFile = '/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json'
 
@@ -19,7 +19,7 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
 class ServerCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.editList = []
+        self.editList = {}
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -34,7 +34,7 @@ class ServerCog(commands.Cog):
                 found = True
                 if condition == "True":
                     activeList[Command] = 'False'
-                    embed = discord.Embed(title=f"<:check:742198670912651316> Command {command} has been disabled!",
+                    embed = discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
                                           description=None, color=discord.Color.green())
                     await ctx.send(embed=embed)
                     commandsList[str(ctx.guild.id)] = activeList
@@ -47,7 +47,7 @@ class ServerCog(commands.Cog):
             await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
         if disabled and found:
-            embed = discord.Embed(title=f"<:x_:742198871085678642> Command {command} is already disabled!",
+            embed = discord.Embed(title=f"***<a:no:771786741312782346> {command} is already disabled.***",
                                   description=None, color=discord.Color.red())
             await ctx.send(embed=embed)
 
@@ -64,7 +64,7 @@ class ServerCog(commands.Cog):
                 found = True
                 if condition == "False":
                     activeList[Command] = 'True'
-                    embed = discord.Embed(title=f"<:check:742198670912651316> Command {command} has been enabled!",
+                    embed = discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
                                           description=None, color=discord.Color.green())
                     await ctx.send(embed=embed)
                     commandsList[str(ctx.guild.id)] = activeList
@@ -74,42 +74,32 @@ class ServerCog(commands.Cog):
             json.dump(commandsList, f, indent=4)
 
         if enabled and found:
-            embed = discord.Embed(title=f"<:x_:742198871085678642> Command {command} is already enabled!",
+            embed = discord.Embed(title=f"***<a:no:771786741312782346> {command} is already enabled.***",
                                   description=None, color=discord.Color.red())
             await ctx.send(embed=embed)
 
         if not found:
             await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
-    @commands.command()
+    @commands.command(aliases=["setwelcomechannel"])
     @commands.has_permissions(administrator=True)
-    async def setwelcomechannel(self, ctx, channelName: discord.TextChannel, *, message=None):
-        with open("/Users/sethraphael/PycharmProject/Hurb/Bots/welcome.json", "r") as f:
-            welcomeChannels = json.load(f)
-        if message is not None and str(channelName).lower() != "none":
-            if discord.utils.get(ctx.guild.text_channels, name=str(channelName)):
-                welcomeChannels.pop(str(ctx.guild.id))
-                welcomeChannels[str(ctx.guild.id)] = {str(channelName): str(message)}
-                with open("/Users/sethraphael/PycharmProject/Hurb/Bots/welcome.json", "w") as f:
-                    json.dump(welcomeChannels, f, indent=4)
-                await ctx.send(
-                    f"Ok, {ctx.author.mention}, I've set the welcome channel for this server to {channelName}!")
-            else:
-                await ctx.send(
-                    "Hmm, I couldn't find that channel on this server. Try checking the spelling, and making sure that you are using a text channel, and try again!")
-
-        elif str(channelName).lower() == "none":
+    async def welcome(self, ctx, channel: discord.TextChannel, *, message=None):
+        with open("servers.json", "r") as f:
+            storage = json.load(f)
+        if message is not None:
+            if str(ctx.guild.id) in storage["welcome"]:
+                storage["welcome"].pop(str(ctx.guild.id))
+            storage["welcome"][str(ctx.guild.id)] = {str(channel.id): str(message)}
+            with open("servers.json", "w") as f:
+                json.dump(storage, f, indent=4)
             await ctx.send(
-                "Ok, I won't welcome people to this server.")
-            welcomeChannels.pop(str(ctx.guild.id))
-            welcomeChannels[ctx.guild.id] = "None"
-
+                f"Ok, {ctx.author.mention}, I've set the welcome channel for this server to {channel.mention}!")
         else:
             await ctx.send(f"Please specify a message to display when people arrive, {ctx.author.mention}!")
 
-    @commands.command()
+    @commands.command(aliases=["setgoodbyechannel"])
     @commands.has_permissions(administrator=True)
-    async def setgoodbyechannel(self, ctx, channelName: discord.TextChannel, *, message=None):
+    async def goodbye(self, ctx, channelName: discord.TextChannel, *, message=None):
         with open("/Users/sethraphael/PycharmProject/Hurb/Bots/goodbye.json", "r") as f:
             goodbyeChannels = json.load(f)
         if message is not None and str(channelName).lower() != "none":
@@ -139,26 +129,10 @@ class ServerCog(commands.Cog):
 
         with open('/Users/sethraphael/PycharmProject/Hurb/Bots/prefixes.json', 'w') as g:
             json.dump(prefixes, g, indent=4)
-
-        for channel in guild.text_channels:
-            everyone = guild.default_role
-            if channel.overwrites_for(everyone).send_messages:
-                embed = discord.Embed(title=f"Thank you so much for adding me to {guild.name}! You are server number {len(self.bot.guilds)} to add me!",
-                                      description=f"To get started, you'll need to run a few commands to get all set up.")
-                embed.add_field(name=f"First, you should use the command `%setwelcomechannel` to set the channel that you would like me to welcome people from, and the message you'd like to display!",
-                                value=f"Here's an example: `%setwelcomechannel welcome Hello member! Welcome to Latkecrszy's server!` would tell me to send my welcome messages in a channel called welcome, to welcome them with that message every time, and to replace the word member with their name.")
-                embed.add_field(name=f"Once you've done that, you can set the goodbye channel in the same way; with the command `%setgoodbyechannel` instead.",
-                                value=f"Finally, once you've done all of that, you can change the server prefix to whatever you want using the `%prefix` command.\nJust say `%prefix !` to change your prefix to `!`. And once you've done that, you're all set! Enjoy the bot!")
-                break
         with open(commandsFile, 'r') as f:
             commandsList = json.load(f)
-        commandsList[str(guild.id)] = {"authorize": "True", "ban": "True", "gimme": "False", "goodbye": "True",
-                                       "kick": "True", "mute": "True", "nitro": "True", "nonocheck": "False",
-                                       "numcheck": "True",
-                                       "purge": "True", "quiz": "True", "rall": "True", "rename": "True", "rps": "True",
-                                       "testreaction": "True", "unmute": "True", "warn": "True", "welcome": "True",
-                                       "mutechannel": "True", "invitecheck": "False", "unmutechannel": "True",
-                                       "linkcheck": "False"}
+        commandsList[str(guild.id)] = {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
+                                       "invitecheck": "False", "linkcheck": "False", "ranking": "True"}
         with open(commandsFile, 'w') as f:
             json.dump(commandsList, f, indent=4)
 
@@ -212,132 +186,163 @@ class ServerCog(commands.Cog):
         with open(commandsFile, "w") as h:
             json.dump(commandsList, h, indent=4)
 
-    @commands.Cog.listener()
-    async def on_guild_channel_create(self, channel):
-        overwrite = discord.PermissionOverwrite(send_messages=False)
-        role = discord.utils.get(channel.guild.roles, name="muted")
-        if not role or role is None:
-            role = discord.utils.get(channel.guild.roles, name="Muted")
-        if not role or role is None:
-            newRole = await channel.guild.create_role(name="muted", color=discord.Color.dark_grey())
-            role = newRole
-            await channel.set_permissions(role, overwrite=overwrite)
-
-    @commands.command(aliases=["mutechannel"])
+    @commands.command(aliases=["mutechannel", "lockdown", "lock"])
     @commands.has_permissions(manage_guild=True)
     async def channelmute(self, ctx, channel: discord.TextChannel = None):
         if channel is None:
             channel = ctx.message.channel
-        overwrite = discord.PermissionOverwrite(send_messages=False)
-        await ctx.send(embed=discord.Embed(description=f"<:check:742198670912651316> {channel} has been muted.",
-                                           color=discord.Color.green()))
-        role = ctx.guild.default_role
-        await channel.set_permissions(role, overwrite=overwrite)
-        for role in ctx.guild.roles:
-            if channel.overwrites_for(role) == discord.PermissionOverwrite(send_messages=True):
-                await channel.set_permissions(role, overwrite=overwrite)
-                self.editList.append(str(role))
 
-    @commands.command(aliases=["unmutechannel"])
+        self.editList[str(channel.id)] = []
+        for role in ctx.guild.roles:
+            perms = channel.overwrites_for(role)
+            if perms.send_messages:
+                perms.send_messages = False
+                await channel.set_permissions(role, overwrite=perms)
+                self.editList[str(channel.id)].append(str(role))
+        await ctx.send(
+            embed=discord.Embed(description=f"<a:check:771786758442188871> {channel.mention} has been locked.",
+                                color=discord.Color.green()))
+
+    @commands.command(aliases=["unmutechannel", "unlock", "unlockdown", "unchannelmute"])
     @commands.has_permissions(manage_guild=True)
     async def channelunmute(self, ctx, channel: discord.TextChannel = None):
         if channel is None:
             channel = ctx.message.channel
-        overwrite = discord.PermissionOverwrite(send_messages=True)
-        role = ctx.guild.default_role
-        await channel.set_permissions(role, overwrite=overwrite)
         for role in ctx.guild.roles:
-            if str(role) in self.editList:
-                await channel.set_permissions(role, overwrite=overwrite)
-        await ctx.send(embed=discord.Embed(description=f"<:check:742198670912651316> {channel} has been unmuted.",
-                                           color=discord.Color.green()))
+            perms = channel.overwrites_for(role)
+            if str(role) in self.editList[str(channel.id)]:
+                perms.send_messages = True
+                await channel.set_permissions(role, overwrite=perms)
+        await ctx.send(
+            embed=discord.Embed(description=f"<a:check:771786758442188871> {channel.mention} has been unlocked.",
+                                color=discord.Color.green()))
+        self.editList.pop(str(channel.id))
 
     @commands.command()
     async def invite(self, ctx):
-        await ctx.send(await ctx.message.channel.create_invite())
+        await ctx.send(embed=discord.Embed(title="Invite link for Hurb",
+                                           description=f"*Click [here]({'https://discord.com/oauth2/authorize?client_id=736283988628602960&permissions=8&scope=bot'}) to invite Hurb to your server!*",
+                                           color=discord.Color.green()))
 
     @commands.command()
     async def serverinfo(self, ctx):
-        embed = discord.Embed(title=f"Server Info for {ctx.guild}", color=random.choice(embedColors))
-        embed.add_field(name="Server owner:", value=ctx.guild.owner.mention)  # 1
-        admins = []
-        for member in ctx.guild.members:
-            if member.guild_permissions.administrator:
-                if not member.bot:
-                    admins.append(member.mention)
-        if len(admins) != 0:
-            embed.add_field(name="Administrators:", value="\n".join(admins))  # 2
-        boosters = ctx.guild.premium_subscribers
-        boosts = ctx.guild.premium_subscription_count
-        level = ctx.guild.premium_tier
-        members = []
-        bots = []
-        Members = []
-        emojis = []
-        for emoji in ctx.guild.emojis:
-            emojis.append(str(emoji))
-        for member in ctx.guild.members:
-            if not member.bot:
-                members.append(str(member))
-            else:
-                bots.append(str(member))
-            Members.append(str(member))
-        if boosts != 0:
-            embed.add_field(name="Server Boost Level:", value=f"Level {level} with {boosts} Boosts")  # 3
-        if boosters:
-            embed.add_field(name=f"Server Boosters", value='\n'.join([Booster.mention for Booster in boosters]))  # 4
-        embed.add_field(name="Channels:",
-                        value=f"**#** {len(ctx.guild.text_channels)}\n:loud_sound: {len(ctx.guild.voice_channels)}\nTotal: {len(ctx.guild.text_channels) + len(ctx.guild.voice_channels)}")  # 5
-        description = ctx.guild.description
-        if description is not None:
-            embed.add_field(name="Description: ", value=f"{description}")
-        embed.add_field(name="Members:", value=f"{len(Members)}\nHumans: {len(members)}\nBots: {len(bots)}")  # 6
-        guildRoles = ctx.guild.roles
-        roles = []
-        for role in guildRoles:
-            roles.append(role.mention)
-        roleString = " ".join(roles)
-        extraRoles = []
-        while len(roleString) > 1024:
-            extraRoles.append(roles[-1])
-            del roles[-1]
+        embed = discord.Embed(color=random.choice(embedColors))
 
-            roleString = " ".join(roles)
-        roles = " ".join(roles)
-        embed.add_field(name="Roles:", value=roles)
-        if extraRoles:
-            embed.add_field(name="Other roles:", value=" ".join(extraRoles))
-        emojiString = " ".join(emojis)
-        extraEmojis = []
-        while len(emojiString) > 1024:
-            extraEmojis.append(emojis[-1])
-            del emojis[-1]
-            emojiString = " ".join(emojis)
-        if emojis:
-            embed.add_field(name="Emojis:", value=emojiString)
-        if extraEmojis:
-            embed.add_field(name=f"More emojis:", value=f"{' '.join(extraEmojis)}")
-        if ctx.guild.icon_url is not None:
-            embed.set_thumbnail(url=ctx.guild.icon_url)
-        onlineMembers = []
-        invisibleMembers = []
-        for member in ctx.guild.members:
-            if member.status == discord.Status.online:
-                onlineMembers.append(member.mention)
-            elif member.status == discord.Status.invisible:
-                invisibleMembers.append(member.mention)
-        if onlineMembers:
-            embed.add_field(name=f"Online members: ", value=" ".join(onlineMembers))
-        if invisibleMembers:
-            embed.add_field(name=f"Invisible members: ", value=" ".join(invisibleMembers))
+        embed.add_field(name="<:owner:779163811172319232>  Server owner", value=ctx.guild.owner.mention)
+        if ctx.guild.premium_subscription_count != 0:
+            embed.add_field(name="<a:boost:779165947361624087>  Server Boost Level",
+                            value=f"Level {ctx.guild.premium_tier} with {ctx.guild.premium_subscription_count} Boosts")  # 3
 
+        embed.add_field(
+            name=f":speech_balloon:  {len(ctx.guild.text_channels) + len(ctx.guild.voice_channels)} Channels",
+            value=f"<:textchannel:779163783712342017> {len(ctx.guild.text_channels)} text channels\n<:voicechannel:779163754931552306> {len(ctx.guild.voice_channels)} voice channels")  # 5
+        embed.add_field(name=f"<:members:779163840201621534>  {len(ctx.guild.members)} Members",
+                        value=f"👨 Humans: {len([str(member) for member in ctx.guild.members if not member.bot])}\n🤖 Bots: {len([str(member) for member in ctx.guild.members if member.bot])}")
+
+        embed.add_field(name=f"<a:emojis:779163904592445461>  {len(ctx.guild.emojis)} Emojis",
+                        value=f"**<a:catroll:779406198935781376>  {len(ctx.guild.roles)} Roles**")
+        embed.add_field(name=f"🗓️ Date Created", value=self.calcdate(ctx.guild))
+        embed.set_author(name=f"{ctx.guild} Info", icon_url=ctx.guild.icon_url)
+        await ctx.send(embed=embed)
+
+    def calcdate(self, guild):
+        months = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
+                  "8": "August", "9": "September", "10": "October", "11": "November", "12": "December"}
+        created = str(guild.created_at).split(" ")
+        newCreate = created[1].split(".")
+        del created[1]
+        created.append(newCreate)
+        created[1][0].split(":")
+        createTime = created[0].split("-")
+        createMonth = months[str(int(createTime[1]))]
+        return f"{createMonth} {createTime[2]}, {createTime[0]}"
+
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def slowmode(self, ctx, time):
+        channel = ctx.channel
+        await channel.edit(slowmode_delay=int(time))
+        await ctx.send(embed=discord.Embed(description=f"{channel.mention} now has a slowmode of {time} seconds.",
+                                           color=discord.Color.green()))
+
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def autorole(self, ctx, *, role: discord.Role):
+        with open(
+                "/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json") as f:
+            autoroles = json.load(f)
+
+        if str(ctx.guild.id) not in autoroles.keys():
+            autoroles[str(ctx.guild.id)] = []
+
+        autoroles[str(ctx.guild.id)].append(str(role))
+        with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json",
+                  "w") as f:
+            json.dump(autoroles, f, indent=4)
+
+        await ctx.send(embed=discord.Embed(
+            description=f"{role.mention} has been set as an autorole for this server {ctx.author.mention}!"))
+
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def removeautorole(self, ctx, *, role: discord.Role):
+        with open(
+                "/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json") as f:
+            autoroles = json.load(f)
+
+        if str(ctx.guild.id) not in autoroles.keys():
+            await ctx.send(
+                embed=discord.Embed(description=f"You do not have any autoroles for this server {ctx.author.mention}!",
+                                    color=discord.Color.red()))
+        elif str(role) not in autoroles[str(ctx.guild.id)]:
+            await ctx.send(embed=discord.Embed(description=f"This role is not an autorole {ctx.author.mention}!",
+                                               color=discord.Color.red()))
+        else:
+            for i in range(len(autoroles[str(ctx.guild.id)])):
+                if str(i).lower() == str(role).lower():
+                    autoroles[str(ctx.guild.id)].pop(i)
+            with open(
+                    "/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json",
+                    "w") as f:
+                json.dump(autoroles, f, indent=4)
+
+            await ctx.send(embed=discord.Embed(
+                description=f"{role.mention} has been removed as an autorole for this server {ctx.author.mention}!"))
+
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    async def purge(self, message, number):
+        await message.channel.purge(limit=int(int(number) + 1))
+        embed = discord.Embed(description=f"\U0001f44d **Purged {number} messages in {message.channel.mention}.**")
+        embed.set_footer(text="This message will be deleted in 3 seconds.")
+        newMessage = await message.channel.send(embed=embed)
+        await asyncio.sleep(3)
+        try:
+            await newMessage.delete()
+        except:
+            pass
+
+    @commands.command(aliases=["membercount", "Memcount", "MEMCOUNT", "Membercount", "MEMBERCOUNT"])
+    async def memcount(self, ctx):
+        members = [str(member) for member in ctx.guild.members if not member.bot]
+        bots = [str(member) for member in ctx.guild.members if member.bot]
+        Members = [str(member) for member in ctx.guild.members]
+        embed = discord.Embed()
+        embed.add_field(name="Members:", value=f"**{len(Members)}\nHumans: {len(members)}\nBots: {len(bots)}**")
         await ctx.send(embed=embed)
 
     @commands.Cog.listener()
-    async def on_message_delete(self, message):
-        print(str(message.content))
-        print(str(message.author))
-        print(str(message.channel))
+    async def on_message(self, message):
+        pass
+
+    @commands.command()
+    async def role(self, ctx, role: discord.Role):
+        members_with_role = []
+        for member in ctx.guild.members:
+            if role in member.roles:
+                members_with_role.append(member)
+        await ctx.send(
+            f"Members with the {role.mention} role:\n{' '.join([member.mention for member in members_with_role])}")
 
 
 def setup(bot):

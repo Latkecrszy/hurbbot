@@ -7,5 +7,5 @@ Hurb is the great little discord bot that does it all! Starting from moderation,
 <img src="https://media.discordapp.net/attachments/765942853586124820/783940415853953075/Auto.png?width=915&height=541">
 <img src="https://media.discordapp.net/attachments/765942853586124820/783940405115879444/NEC.png?width=915&height=541">
 <img src="https://media.discordapp.net/attachments/765942853586124820/783940411361460225/Ranking.png?width=915&height=541">
-<img src="https://media.discordapp.net/attachments/765942853586124820/783940411361460225/Ranking.png?width=915&height=541">
+<img src="https://media.discordapp.net/attachments/765942853586124820/783940407531929620/Fun.png?width=915&height=541">
 

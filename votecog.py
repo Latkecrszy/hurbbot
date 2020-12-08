@@ -17,7 +17,6 @@ class VoteCog(commands.Cog):
         embed = discord.Embed(title=f"Vote for Hurb to get free rewards! (and, you know, make my day :)",
                               description=f"**Click [here](https://top.gg/bot/736283988628602960/vote) to vote!**",
                               color=discord.Color.teal())
-        embed.set_footer(text=f"Voting for Hurb can earn you in game currency, along with the satisfaction of helping Hurb to rise in the ranks!")
         await ctx.send(embed=embed)
 
     """

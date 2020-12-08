@@ -4,8 +4,6 @@ from Bots.players import saveMoney, refreshBalance
 import json
 import random
 
-moneyFile = '/Users/sethraphael/PycharmProject/Hurb/Bots/money.json'
-
 
 class RouletteCog(commands.Cog):
     def __init__(self, bot):

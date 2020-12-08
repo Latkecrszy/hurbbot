@@ -146,15 +146,15 @@ async def sayBig(ctx, *, message):
 
 
 @bot.command()
-async def fixfile(ctx):
-    with open("rank.json") as f:
-        rank = json.load(f)
+async def fixfile(ctx, *, file):
+    with open(f"{file}.json") as f:
+        files = json.load(f)
 
     with open("servers.json") as f:
         servers = json.load(f)
-    for key, value in rank.items():
+    for key, value in files.items():
         try:
-            servers[key]["rank"] = value
+            servers[key][file] = value
         except:
             servers[key] = {"commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
                                        "invitecheck": "False", "linkcheck": "False", "ranking": "True"}, "prefix": "%", "rank": value}

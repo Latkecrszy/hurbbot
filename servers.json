@@ -159,7 +159,8 @@
             "invitecheck": "False",
             "linkcheck": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "welcome": "None"
     },
     "701634657212563556": {
         "commands": {
@@ -262,46 +263,6 @@
             }
         }
     },
-    "716377034728931328": {
-        "commands": {
-            "goodbye": "True",
-            "nitro": "True",
-            "nonocheck": "False",
-            "ranking": "True",
-            "quiz": "True",
-            "welcome": "True",
-            "invitecheck": "False",
-            "linkcheck": "False"
-        },
-        "levelups": "stuff",
-        "prefix": "%",
-        "rank": {
-            "670493561921208320": {
-                "messages": 250,
-                "xp": 78,
-                "level": 4,
-                "color": "\ud83d\udfe6"
-            },
-            "639986013565091842": {
-                "messages": 8,
-                "xp": 63,
-                "level": 1,
-                "color": "\ud83d\udfe6"
-            },
-            "766373676701581402": {
-                "messages": 5,
-                "xp": 66,
-                "level": 1,
-                "color": "\ud83d\udfe6"
-            },
-            "733125710402814002": {
-                "messages": 9,
-                "xp": 36,
-                "level": 1,
-                "color": "\ud83d\udfe6"
-            }
-        }
-    },
     "726127900373549167": {
         "commands": {
             "goodbye": "True",
@@ -327,6 +288,9 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
+        },
+        "welcome": {
+            "general": "aww. member left the server. bai Bai!"
         }
     },
     "733453689192317030": {
@@ -609,7 +573,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "742881340193636373": {
         "commands": {
@@ -622,7 +587,10 @@
             "invitecheck": "False",
             "linkcheck": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "welcome": {
+            "welcome-and-goodbyes": "hi member welcome to big pp server enjoy your time (don't leave or you big gay)"
+        }
     },
     "748959898016022630": {
         "commands": {
@@ -635,7 +603,8 @@
             "invitecheck": "False",
             "linkcheck": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "welcome": "None"
     },
     "752767322380304526": {
         "commands": {
@@ -855,7 +824,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "764512885711437826": {
         "commands": {
@@ -868,7 +838,10 @@
             "invitecheck": "False",
             "linkcheck": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "welcome": {
+            "welcome-and-goodbye": "Hello member! Welcome to the Python Community server! Check out <#764513991379910696> to let others know your languages and coding level!"
+        }
     },
     "757079997394583608": {
         "commands": {
@@ -907,7 +880,8 @@
                 "level": 2,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "766428259188604969": {
         "commands": {
@@ -958,6 +932,9 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
+        },
+        "welcome": {
+            "arrivals": "Hello member ! Welcome to the Hurb Support server! Make sure to read the <#766437326728724501>, and have a good time!"
         }
     },
     "110373943822540800": {
@@ -3269,7 +3246,8 @@
                 "xp": 7,
                 "level": 1
             }
-        }
+        },
+        "welcome": "None"
     },
     "763439806516035625": {
         "commands": {
@@ -3332,7 +3310,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "763837501177462834": {
         "commands": {
@@ -3455,7 +3434,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "768212497101750353": {
         "commands": {
@@ -3468,7 +3448,8 @@
             "invitecheck": "False",
             "linkcheck": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "welcome": "None"
     },
     "713169753086361611": {
         "commands": {
@@ -3481,7 +3462,8 @@
             "invitecheck": "False",
             "linkcheck": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "welcome": "None"
     },
     "751667811931390012": {
         "commands": {
@@ -5477,7 +5459,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "769733820169322506": {
         "commands": {
@@ -5541,6 +5524,9 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
+        },
+        "welcome": {
+            "bouncer\ud83c\udf7b": "Welcome to the tavern member !"
         }
     },
     "766674462430330921": {
@@ -5561,7 +5547,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "761043426887860244": {
         "commands": {
@@ -5581,7 +5568,8 @@
                 "level": 7,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "769240982948282399": {
         "commands": {
@@ -5606,7 +5594,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "767172565457698826": {
         "commands": {
@@ -5698,7 +5687,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "736576189568778302": {
         "commands": {
@@ -5742,7 +5732,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "683112458088480931": {
         "commands": {
@@ -6404,6 +6395,9 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
+        },
+        "welcome": {
+            "\ud83d\udc4b-hellos-and-goodbyes-\ud83d\udc4b": "hey there member , welcome to Jugo De Pollo Esports! We hope you have a great time here!"
         }
     },
     "770776810837245962": {
@@ -7696,7 +7690,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "770416498111938570": {
         "commands": {
@@ -8856,7 +8851,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "771506287527329806": {
         "commands": {
@@ -8918,7 +8914,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "745513599002345488": {
         "commands": {
@@ -9034,7 +9031,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "684423367461175313": {
         "commands": {
@@ -9108,7 +9106,8 @@
                 "level": 6,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "775490830231142410": {
         "commands": {
@@ -9158,7 +9157,8 @@
                 "level": 8,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "771160800266027029": {
         "commands": {
@@ -9256,7 +9256,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "384328276417445890": {
         "commands": {
@@ -10299,7 +10300,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "626769676378308608": {
         "commands": {
@@ -10331,7 +10333,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "775624047286943753": {
         "commands": {
@@ -10364,7 +10367,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "779103100975841300": {
         "commands": {
@@ -10384,7 +10388,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "779810087312162847": {
         "commands": {
@@ -10404,7 +10409,8 @@
                 "level": 4,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "781467229958701066": {
         "commands": {
@@ -10492,7 +10498,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "766666570113876008": {
         "commands": {
@@ -10536,7 +10543,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "775488110040449134": {
         "commands": {
@@ -10694,7 +10702,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "770308241624006726": {
         "commands": {
@@ -10726,7 +10735,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "783142473635201025": {
         "commands": {
@@ -10882,7 +10892,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "welcome": "None"
     },
     "711678452864122982": {
         "commands": {
@@ -10914,6 +10925,9 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
+        },
+        "welcome": {
+            "welcome": "is a minecraft pro now!"
         }
     },
     "267624335836053506": {
@@ -14800,5 +14814,18 @@
                 "color": "\ud83d\udfe6"
             }
         }
+    },
+    "785374553559924736": {
+        "commands": {
+            "goodbye": "False",
+            "nitro": "True",
+            "nonocheck": "False",
+            "welcome": "False",
+            "invitecheck": "False",
+            "linkcheck": "False",
+            "ranking": "True"
+        },
+        "prefix": "%",
+        "rank": "None"
     }
 }

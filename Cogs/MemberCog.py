@@ -454,13 +454,12 @@ class MemberCog(commands.Cog):
             if i.find(f"<") != -1 and i.find(f">") != -1 and i.find(f"@") != -1:
                 mentions += 1
         for i in content:
-            if i.find("@everyone") != -1 or i.find(message.guild.default_role) != -1:
+            if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
                 mentions += 1
         if mentions >= 3:
             await message.delete()
             ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
             await self.mute(ctx, message.author, f"Spam pinging in {message.channel.mention}")
-        await self.bot.process_commands(message)
 
     @commands.command()
     async def avatar(self, ctx, *, member: discord.Member = None):

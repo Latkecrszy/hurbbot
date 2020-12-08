@@ -11,7 +11,7 @@ class ErrorCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        inprogresscommands = ["welcome", "goodbye", "fixfile", "mute", "pong"]
+        inprogresscommands = ["pong"]
         if str(ctx.command) not in inprogresscommands:
             if isinstance(error, CommandNotFound):
                 print("Error: Command not found.")
@@ -62,6 +62,7 @@ class ErrorCog(commands.Cog):
                 await channel.send("<@670493561921208320>")
                 raise error
         else:
+            print(error)
             error = getattr(error, "original", error)
             print(error)
             raise error

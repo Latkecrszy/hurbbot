@@ -105,7 +105,10 @@ class NQNCog(commands.Cog):
             if channel.overwrites_for(everyone) != discord.PermissionOverwrite(send_messages=False) and channel.overwrites_for(everyone) != discord.PermissionOverwrite(read_messages=False):
                 prevWrite = channel.overwrites_for(everyone)
                 prevWrite.update(use_external_emojis=True)
-                await channel.set_permissions(everyone, overwrite=prevWrite)
+                try:
+                    await channel.set_permissions(everyone, overwrite=prevWrite)
+                except:
+                    pass
             EmojisList = str(message.content).split(":")
             Emojis = EmojisList[1]
             emojiList = [":"]

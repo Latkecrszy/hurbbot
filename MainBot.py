@@ -96,7 +96,7 @@ async def ping(ctx):
 
 @bot.event
 async def on_error(event, *args):
-    pass
+    print("There has been an error.")
 
 
 @bot.event
@@ -163,7 +163,7 @@ async def fixfile(ctx, *, file):
     await ctx.send("All done fixing the file :)")
 
 
-extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "JokeCog", "MathCog", "ErrorCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
+extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "ErrorCog", "JokeCog", "MathCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
               "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "onmessagecommands", "pong"]
 
 for extension in extensions:

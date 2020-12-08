@@ -82,7 +82,10 @@ class PongCog(commands.Cog):
                                 ball[0] *= -1
                                 board[x + ball[1]][i + ball[0]] = 3
                             elif 18 >= i+ball[0] >= 0:
-                                board[x + ball[1]][i + ball[0]] = 3
+                                if board[x + ball[1]][i + ball[0]] == 1 or board[x + ball[1]][i + ball[0]] == 2:
+                                    ball[0] *= -1
+                                else:
+                                    board[x + ball[1]][i + ball[0]] = 3
                         else:
                             ball[1] *= -1
                             board[x + ball[1]][i + ball[0]] = 3

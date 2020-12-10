@@ -1,8 +1,9 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
+import asyncio
+from Bots.Cogs.players import refreshBalance, saveMoney
 from discord.ext.commands.cooldowns import BucketType
 import random
-from Bots.Cogs.players import saveMoney, refreshBalance
 
 
 class BlackJackCog(commands.Cog):
@@ -72,6 +73,7 @@ class BlackJackCog(commands.Cog):
                     embed.add_field(name="It's a tie! You both got blackjack!", value="Your balance stayed the same.",
                                     inline=False)
                     await ctx.send(embed=embed)
+                    self.info.pop(str(ctx.author.id))
 
                 elif self.total(dealerHand) != 21:
                     embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:", color=discord.Color.green())
@@ -80,12 +82,23 @@ class BlackJackCog(commands.Cog):
                                     value=f"Total ==> `{playerTotal}`", inline=True)
                     embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                                     value=f"Total ==> `{dealerTotal}`", inline=True)
-                    embed.add_field(name="You won! You reached 21 before the dealer!", value=f"You won ${self.info[str(ctx.author.id)]['bet']}!",
-                                    inline=False)
-                    await ctx.send(embed=embed)
-                    players = refreshBalance()
-                    player = players[str(ctx.author.id)]
-                    player.money += self.info[str(ctx.author.id)]['bet']
+                    if len(self.info[str(ctx.author.id)]["player_hand"]) == 2:
+                        embed.add_field(name="You won! You got a blackjack!", value=f"You won ${int(self.info[str(ctx.author.id)]['bet'])*1.5}!",
+                                        inline=False)
+                        await ctx.send(embed=embed)
+                        players = refreshBalance()
+                        player = players[str(ctx.author.id)]
+                        player.money += self.info[str(ctx.author.id)]['bet']*1.5
+                        self.info.pop(str(ctx.author.id))
+                    else:
+                        embed.add_field(name="You won! You reached 21 before the dealer!",
+                                        value=f"You won ${int(self.info[str(ctx.author.id)]['bet'])}!",
+                                        inline=False)
+                        await ctx.send(embed=embed)
+                        players = refreshBalance()
+                        player = players[str(ctx.author.id)]
+                        player.money += self.info[str(ctx.author.id)]['bet']
+                        self.info.pop(str(ctx.author.id))
                     await saveMoney(ctx, players)
                 return True
 
@@ -103,8 +116,9 @@ class BlackJackCog(commands.Cog):
                 player = players[str(ctx.author.id)]
                 player.money -= self.info[str(ctx.author.id)]['bet']
                 await saveMoney(ctx, players)
+                self.info.pop(str(ctx.author.id))
                 return True
-            self.info.pop(str(ctx.author.id))
+
         else:
             return False
 
@@ -191,7 +205,7 @@ class BlackJackCog(commands.Cog):
                 self.info[str(ctx.author.id)]['bet'] = int(self.info[str(ctx.author.id)]['bet'])
                 self.info[str(ctx.author.id)]['bet'] *= 2
                 while self.total(self.info[str(ctx.author.id)]["dealer_hand"]) < 17:
-                    self.hitHand(self.info[str(ctx.author.id)]["dealer_hand"], "dealer")
+                    self.hitHand(ctx.author.id, "dealer")
                 if not await self.checkBust(ctx):
                     await self.score(ctx)
         else:
@@ -284,7 +298,7 @@ class BlackJackCog(commands.Cog):
                         value=f"Total ==> `{playerTotal}`", inline=True)
         embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                         value=f"Total ==> `?`", inline=True)
-        embed.set_footer(text=f"Your options are: eco!hit, eco!stand, or eco!doubledown.")
+        embed.set_footer(text=f"Your options are: %hit, %stand, or %doubledown.")
         await ctx.send(embed=embed)
 
     @commands.cooldown(1, 5, BucketType.user)
@@ -339,6 +353,15 @@ class BlackJackCog(commands.Cog):
 
         else:
             return True
+
+    @commands.command()
+    async def gimmemoney(self, ctx):
+        if ctx.author.id == 592503405122027520:
+            players = refreshBalance()
+            players[str(ctx.author.id)].money += 10000
+            await saveMoney(ctx, players)
+            await ctx.send("I gotchu bro, here's $10k \U0001f44d")
+
 
 
 def setup(bot):

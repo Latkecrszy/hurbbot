@@ -43,7 +43,7 @@ class BuyRoleCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def roleprice(self, ctx, role: discord.Role, price):
-        with open("/Bots/roleprice.json", "r") as f:
+        with open("../Bots/roleprice.json", "r") as f:
             roles = json.load(f)
 
         if str(ctx.guild) not in roles.keys():
@@ -52,7 +52,7 @@ class BuyRoleCog(commands.Cog):
             roles[str(ctx.guild)].pop(str(role))
         else:
             roles[str(ctx.guild)][str(role)] = int(price)
-        with open("/Bots/roleprice.json", "w") as f:
+        with open("../Bots/roleprice.json", "w") as f:
             json.dump(roles, f, indent=4)
 
         await ctx.send(embed=discord.Embed(description=f"The price for {str(role)} has been set to {price}.",
@@ -60,7 +60,7 @@ class BuyRoleCog(commands.Cog):
 
     @commands.command()
     async def buyrole(self, ctx, *, role: discord.Role):
-        with open("/Bots/roleprice.json", "r") as f:
+        with open("../Bots/roleprice.json", "r") as f:
             roles = json.load(f)
 
         players = refreshBalance()
@@ -83,7 +83,7 @@ class BuyRoleCog(commands.Cog):
                     embed = discord.Embed(
                         description=f"You have purchased the {role} role for ${roles[str(ctx.guild)][str(role)]}.")
                     await ctx.author.add_roles(role)
-        with open("/Bots/roleprice.json", "w") as f:
+        with open("../Bots/roleprice.json", "w") as f:
             json.dump(roles, f, indent=4)
 
         players[str(ctx.author.id)].money = money
@@ -92,7 +92,7 @@ class BuyRoleCog(commands.Cog):
 
     @commands.command()
     async def roleshop(self, ctx):
-        with open("/Bots/roleprice.json", "r") as f:
+        with open("../Bots/roleprice.json", "r") as f:
             roles = json.load(f)
 
         embed = discord.Embed(title=f"Role shop for {ctx.guild}:")

@@ -14,8 +14,9 @@ nonoWords = ["shit", "fuck", "bitch", "dick", "fuk", "dik", "sht", "btch", " ass
 
 def is_me(command):
     def predicate(ctx):
-        with open('../Bots/commands.json', 'r') as f:
-            commandsList = json.load(f)
+        with open('../Bots/servers.json', 'r') as f:
+            storage = json.load(f)
+            commandsList = storage[str(ctx.guild.id)]["commands"]
             if commandsList[command] == "True":
                 return True
             else:
@@ -25,10 +26,10 @@ def is_me(command):
 
 
 def predicate(message, command):
-    with open('../Bots/commands.json', 'r') as f:
-        commandsList = json.load(f)
-        activeList = commandsList[str(message.guild.id)]
-        return activeList[command] == "True"
+    with open('../Bots/servers.json', 'r') as f:
+        storage = json.load(f)
+        commandsList = storage[str(message.guild.id)]["commands"]
+        return commandsList[command] == "True"
 
 
 class Authorize:
@@ -140,13 +141,13 @@ async def invitecheck(message):
 
 
 async def modMuteCheck(message):
-    with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/mutedMods.json",
+    with open("../Bots/servers.json",
               "r") as f:
-        mutedMods = json.load(f)
-
-    if str(message.author) in mutedMods.keys():
-        if mutedMods[str(message.author)] == str(message.guild):
-            await message.delete()
+        storage = json.load(f)
+    if "mutedmods" in storage[str(message.guild.id)].keys():
+        if str(message.author.id) in storage[str(message.guild.id)]["mutedmods"].keys():
+            if storage[str(message.guild.id)]["mutedmods"][str(message.author.id)] == str(message.guild.id):
+                await message.delete()
 
 
 class MessageCommands(commands.Cog):

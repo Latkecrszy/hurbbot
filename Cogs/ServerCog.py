@@ -4,7 +4,6 @@ from discord.ext import commands
 import random
 import asyncio
 
-commandsFile = '../Bots/commands.json'
 
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
                discord.Color.dark_green(), discord.Color.dark_grey(), discord.Color.dark_grey(),
@@ -26,22 +25,22 @@ class ServerCog(commands.Cog):
     async def disable(self, ctx, command):
         found = False
         disabled = True
-        with open(commandsFile, 'r') as f:
-            commandsList = json.load(f)
-        activeList = commandsList[str(ctx.guild.id)]
-        for Command, condition in activeList.items():
+        with open('../Bots/servers.json', 'r') as f:
+            storage = json.load(f)
+            commandsList = storage[str(ctx.guild.id)]["commands"]
+        for Command, condition in commandsList.items():
             if Command == command.lower():
                 found = True
                 if condition == "True":
-                    activeList[Command] = 'False'
+                    commandsList[Command] = 'False'
                     embed = discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
                                           description=None, color=discord.Color.green())
                     await ctx.send(embed=embed)
-                    commandsList[str(ctx.guild.id)] = activeList
+                    storage[str(ctx.guild.id)]["commands"] = commandsList
                     disabled = False
 
-        with open(commandsFile, 'w') as f:
-            json.dump(commandsList, f, indent=4)
+        with open('../Bots/servers.json', 'w') as f:
+            json.dump(storage, f, indent=4)
 
         if not found:
             await ctx.send(f"I could not find that command, {ctx.author.mention}!")
@@ -56,30 +55,30 @@ class ServerCog(commands.Cog):
     async def enable(self, ctx, command):
         found = False
         enabled = True
-        with open(commandsFile, 'r') as f:
-            commandsList = json.load(f)
-        activeList = commandsList[str(ctx.guild.id)]
-        for Command, condition in activeList.items():
-            if Command.lower() == command.lower():
+        with open('../Bots/servers.json', 'r') as f:
+            storage = json.load(f)
+            commandsList = storage[str(ctx.guild.id)]["commands"]
+        for Command, condition in commandsList.items():
+            if Command == command.lower():
                 found = True
                 if condition == "False":
-                    activeList[Command] = 'True'
+                    commandsList[Command] = 'True'
                     embed = discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
                                           description=None, color=discord.Color.green())
                     await ctx.send(embed=embed)
-                    commandsList[str(ctx.guild.id)] = activeList
-                    enabled = False
+                    storage[str(ctx.guild.id)]["commands"] = commandsList
+                    disabled = False
 
-        with open(commandsFile, 'w') as f:
-            json.dump(commandsList, f, indent=4)
+        with open('../Bots/servers.json', 'w') as f:
+            json.dump(storage, f, indent=4)
+
+        if not found:
+            await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
         if enabled and found:
             embed = discord.Embed(title=f"***<a:no:771786741312782346> {command} is already enabled.***",
                                   description=None, color=discord.Color.red())
             await ctx.send(embed=embed)
-
-        if not found:
-            await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
     @commands.command(aliases=["setwelcomechannel"])
     @commands.has_permissions(administrator=True)
@@ -89,7 +88,7 @@ class ServerCog(commands.Cog):
         if message is not None:
             if "welcome" in storage[str(ctx.guild.id)].keys():
                 storage[str(ctx.guild.id)].pop("welcome")
-            storage[str(ctx.guild.id)]["welcome"] = {str(channel.id): str(message)}
+            storage[str(ctx.guild.id)]["welcome"] = {"id": str(channel.id), "message": str(message)}
             with open("../Bots/servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
             await ctx.send(
@@ -105,7 +104,7 @@ class ServerCog(commands.Cog):
         if message is not None:
             if "goodbye" in storage[str(ctx.guild.id)].keys():
                 storage[str(ctx.guild.id)].pop("goodbye")
-            storage[str(ctx.guild.id)]["goodbye"] = {str(channel.id): str(message)}
+            storage[str(ctx.guild.id)]["goodbye"] = {"id": str(channel.id), "message": str(message)}
             with open("../Bots/servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
             await ctx.send(
@@ -208,17 +207,14 @@ class ServerCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def autorole(self, ctx, *, role: discord.Role):
-        with open(
-                "/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json") as f:
-            autoroles = json.load(f)
-
-        if str(ctx.guild.id) not in autoroles.keys():
-            autoroles[str(ctx.guild.id)] = []
-
-        autoroles[str(ctx.guild.id)].append(str(role))
-        with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json",
+        with open("../Bots/servers.json") as f:
+            storage = json.load(f)
+        if "autoroles" not in storage[str(ctx.guild.id)].keys():
+            storage[str(ctx.guild.id)]["autoroles"] = []
+        storage[str(ctx.guild.id)]["autoroles"].append(str(role.id))
+        with open("../Bots/servers.json",
                   "w") as f:
-            json.dump(autoroles, f, indent=4)
+            json.dump(storage, f, indent=4)
 
         await ctx.send(embed=discord.Embed(
             description=f"{role.mention} has been set as an autorole for this server {ctx.author.mention}!"))
@@ -226,27 +222,17 @@ class ServerCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def removeautorole(self, ctx, *, role: discord.Role):
-        with open(
-                "/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json") as f:
-            autoroles = json.load(f)
+        with open("../Bots/servers.json") as f:
+            storage = json.load(f)
+        autoroles = storage[str(ctx.guild.id)]["autoroles"]
+        for i in range(len(autoroles[str(ctx.guild.id)])):
+            if str(i).lower() == str(role).lower():
+                autoroles[str(ctx.guild.id)].pop(i)
+        storage[str(ctx.guild.id)]["autoroles"] = autoroles
+        with open("../Bots/servers.json", "w") as f:
+            json.dump(autoroles, f, indent=4)
 
-        if str(ctx.guild.id) not in autoroles.keys():
-            await ctx.send(
-                embed=discord.Embed(description=f"You do not have any autoroles for this server {ctx.author.mention}!",
-                                    color=discord.Color.red()))
-        elif str(role) not in autoroles[str(ctx.guild.id)]:
-            await ctx.send(embed=discord.Embed(description=f"This role is not an autorole {ctx.author.mention}!",
-                                               color=discord.Color.red()))
-        else:
-            for i in range(len(autoroles[str(ctx.guild.id)])):
-                if str(i).lower() == str(role).lower():
-                    autoroles[str(ctx.guild.id)].pop(i)
-            with open(
-                    "/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json",
-                    "w") as f:
-                json.dump(autoroles, f, indent=4)
-
-            await ctx.send(embed=discord.Embed(
+        await ctx.send(embed=discord.Embed(
                 description=f"{role.mention} has been removed as an autorole for this server {ctx.author.mention}!"))
 
     @commands.command()

@@ -8,7 +8,6 @@ from discord.ext.commands.cooldowns import BucketType
 from youtube_search import YoutubeSearch
 from itertools import cycle
 
-commandsFile = '/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json'
 
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
                discord.Color.dark_green(), discord.Color.dark_grey(), discord.Color.dark_grey(),
@@ -74,22 +73,11 @@ def is_it_me(ctx):
     return ctx.author.id == 670493561921208320
 
 
-def is_me(command):
-    def predicate(ctx):
-        with open(commandsFile, 'r') as f:
-            commandsList = json.load(f)
-            activeList = commandsList[str(ctx.guild.id)]
-            return activeList[command] == "True"
-
-    return commands.check(predicate)
-
-
 class BotFunCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
 
-    @is_me("rps")
     @commands.command()
     async def rps(self, ctx, choice):
         choice = choice.lower()
@@ -369,22 +357,6 @@ class BotFunCog(commands.Cog):
                 res = await r.json()
         await ctx.send(f"Author: {res['author']}")
         await ctx.send(f"Lyrics: {res['lyrics']}")
-
-    @commands.command()
-    async def urban(self, ctx, *, word):
-        url = "https://mashape-community-urban-dictionary.p.rapidapi.com/define"
-
-        querystring = {"term": "wat"}
-
-        headers = {
-            'x-rapidapi-key': "SIGN-UP-FOR-KEY",
-            'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com"
-        }
-
-        response = requests.request("GET", url, headers=headers, params=querystring)
-
-        print(response.text)
-
 
 
 def setup(bot):

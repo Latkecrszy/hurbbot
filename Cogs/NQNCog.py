@@ -116,39 +116,45 @@ class NQNCog(commands.Cog):
                 emojiList.append(char)
             emojiList.append(":")
             emoji = "".join(emojiList)
-            if await message.channel.webhooks() is None or not await message.channel.webhooks():
-                await message.channel.create_webhook(name=str(message.author.display_name))
-            for webhook in await message.channel.webhooks():
-                if webhook.name != str(message.author.display_name):
-                    await webhook.edit(name=str(message.author.display_name))
-                mutualGuilds = []
-                myGuilds = []
-                for guild in self.bot.guilds:
-                    if guild.get_member(message.author.id) is not None:
-                        mutualGuilds.append(guild)
-                    myGuilds.append(guild)
+            try:
+                if await message.channel.webhooks() is None or not await message.channel.webhooks():
+                    await message.channel.create_webhook(name=str(message.author.display_name))
+            except:
+                pass
+            try:
+                for webhook in await message.channel.webhooks():
+                    if webhook.name != str(message.author.display_name):
+                        await webhook.edit(name=str(message.author.display_name))
+                    mutualGuilds = []
+                    myGuilds = []
+                    for guild in self.bot.guilds:
+                        if guild.get_member(message.author.id) is not None:
+                            mutualGuilds.append(guild)
+                        myGuilds.append(guild)
 
-                for guild in myGuilds:
-                    for emojis in guild.emojis:
-                        emojiList = [char for char in str(emojis)]
-                        del emojiList[0]
-                        del emojiList[-1]
-                        if emojiList[0] == "a":
+                    for guild in myGuilds:
+                        for emojis in guild.emojis:
+                            emojiList = [char for char in str(emojis)]
                             del emojiList[0]
-                        Emoji = "".join(emojiList)
-                        emojiList = []
-                        for char in Emoji:
-                            numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-                            if char not in numbers:
-                                emojiList.append(char)
-                        Emoji = "".join(emojiList)
-                        if Emoji.lower() == str(emoji).lower():
-                            if EmojisList[0] != "<" and EmojisList[0] != "<a" and not EmojisList[2].find(">") != -1:
-                                await message.delete()
-                                content = EmojisList[0]+""+str(emojis)+""+EmojisList[2]
-                                await webhook.send(avatar_url=message.author.avatar_url, content=content)
-                                await asyncio.sleep(1)
-                break
+                            del emojiList[-1]
+                            if emojiList[0] == "a":
+                                del emojiList[0]
+                            Emoji = "".join(emojiList)
+                            emojiList = []
+                            for char in Emoji:
+                                numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+                                if char not in numbers:
+                                    emojiList.append(char)
+                            Emoji = "".join(emojiList)
+                            if Emoji.lower() == str(emoji).lower():
+                                if EmojisList[0] != "<" and EmojisList[0] != "<a" and not EmojisList[2].find(">") != -1:
+                                    await message.delete()
+                                    content = EmojisList[0]+""+str(emojis)+""+EmojisList[2]
+                                    await webhook.send(avatar_url=message.author.avatar_url, content=content)
+                                    await asyncio.sleep(1)
+                    break
+            except:
+                pass
 
     @commands.Cog.listener()
     async def on_message(self, message):

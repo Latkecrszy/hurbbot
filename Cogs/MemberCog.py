@@ -34,9 +34,6 @@ import random
                     await message.author.remove_roles(role)
                     await message.author.add_roles(otherRole)"""
 
-
-commandsFile = '/Users/sethraphael/PycharmProject/Hurb/Bots/commands.json'
-
 mutedMembers = []
 kicked = []
 
@@ -48,15 +45,6 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
                discord.Color.green(), discord.Color.greyple(), discord.Color.light_grey(), discord.Color.magenta(),
                discord.Color.orange(), discord.Color.purple(), discord.Color.teal(),
                discord.Color.red()]
-
-
-def is_me(command):
-    def predicate(ctx):
-        with open('/Bots/commands.json', 'r') as f:
-            commandsList = json.load(f)
-            return commandsList[str(ctx.guild.id)][command] == "True"
-
-    return commands.check(predicate)
 
 
 def muteTimeCalc(muteTime):
@@ -263,54 +251,49 @@ class MemberCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        for x in range(len(mutedMembers)):
-            if mutedMembers[x] == str(member):
-                for roles in member.guild.roles:
-                    if str(roles).lower() == "muted":
-                        await member.add_roles(roles)
-                        del mutedMembers[x]
-        with open("../Bots/welcome.json", "r") as f:
-            welcomeChannels = json.load(f)
-        welcomeMessage = welcomeChannels[str(member.guild.id)]
-        if welcomeMessage != "None" and welcomeMessage != "False":
-            for Channel in member.guild.text_channels:
-                for key, value in welcomeMessage.items():
-                    value = value.split(" ")
-                    for i in range(len(value)):
-                        if value[i].lower() == "member" or value[i].lower() == "member!" or value[i].lower() == "member.":
-                            value[i] = member.mention
-                    if str(key) == str(Channel):
-                        embed = discord.Embed(description=" ".join(value), color=random.choice(embedColors))
-                        await Channel.send(embed=embed)
+        with open("../Bots/servers.json", "r") as f:
+            storage = json.load(f)
+        if "welcome" in storage[str(member.guild.id)]:
+            welcomeChannels = storage[str(member.guild.id)]["welcome"]
+            channel = member.guild.get_channel(int(welcomeChannels["id"]))
+            message = welcomeChannels["message"]
+            if message.find("{member}"):
+                message = message.split("{")
+                message2 = message[1].split("}")
+                message2 = message2[1]
+                message = message[0]
+                await channel.send(f"{message}{member.mention}{message2}")
+            for role in member.roles:
+                if str(role).lower() == "muted":
+                    mutedMembers.append(str(member))
 
-        with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/autoroles.json") as f:
-            autoroles = json.load(f)
+            with open("../Bots/servers.json") as f:
+                storage = json.load(f)
 
-        if str(member.guild.id) in autoroles.keys():
-            for role in autoroles[str(member.guild.id)]:
-                addRole = discord.utils.get(member.guild.roles, name=role)
-                if addRole is not None:
-                    await member.add_roles(addRole)
+            if "autoroles" in storage[str(member.guild.id)].keys():
+                autoroles = storage[str(member.guild.id)]["autoroles"]
+                for role in autoroles[str(member.guild.id)]:
+                    addRole = discord.utils.get(member.guild.roles, name=role)
+                    if addRole is not None:
+                        await member.add_roles(addRole)
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        with open("../Bots/goodbye.json", "r") as f:
-            goodbyeChannels = json.load(f)
-        goodbyeMessage = goodbyeChannels[str(member.guild.id)]
-        if goodbyeMessage != "None" and goodbyeMessage != "False":
-            for Channel in member.guild.text_channels:
-                for key, value in goodbyeMessage.items():
-                    value = value.split(" ")
-                    for i in range(len(value)):
-                        if value[i].lower() == "member" or value[i].lower() == "member." or value[i].lower() == "member!":
-                            value[i] = member.mention
-
-                    if str(key) == str(Channel):
-                        embed = discord.Embed(description=" ".join(value), color=random.choice(embedColors))
-                        await Channel.send(embed=embed)
-        for role in member.roles:
-            if str(role).lower() == "muted":
-                mutedMembers.append(str(member))
+        with open("../Bots/servers.json", "r") as f:
+            storage = json.load(f)
+        if "goodbye" in storage[str(member.guild.id)].keys():
+            goodbyeChannels = storage[str(member.guild.id)]["goodbye"]
+            channel = member.guild.get_channel(int(goodbyeChannels["id"]))
+            message = goodbyeChannels["message"]
+            if message.find("{member}"):
+                message = message.split("{")
+                message2 = message[1].split("}")
+                message2 = message2[1]
+                message = message[0]
+                await channel.send(f"{message}{member.mention}{message2}")
+            for role in member.roles:
+                if str(role).lower() == "muted":
+                    mutedMembers.append(str(member))
 
     @commands.command()
     async def info(self, ctx, member: discord.Member = None):
@@ -355,9 +338,11 @@ class MemberCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def modmute(self, ctx, member: discord.Member):
 
-        with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/mutedMods.json",
-                  "r") as f:
-            mutedMods = json.load(f)
+        with open("../Bots/servers.json", "r") as f:
+            storage = json.load(f)
+        if "mutedmods" not in storage[str(ctx.guild.id)].keys():
+            storage[str(ctx.guild.id)]["mutedmods"] = {}
+        mutedMods = storage[str(ctx.guild.id)]["mutedmods"]
         if str(member.id) == "670493561921208320":
             if str(ctx.author.id) == "670493561921208320":
                 embed = discord.Embed(
@@ -367,39 +352,40 @@ class MemberCog(commands.Cog):
                     description=f"Uh NOPE {ctx.author.mention}, you ain't pullin that one on my creator. You know what? I'm gonna mute YOU instead.")
                 mutedMods[str(ctx.author)] = str(ctx.guild)
         elif str(member.id) == "736283988628602960":
-            embed = discord.Embed(description=f"HA you stupid shit you thought you could mute me? NO son, u gettin the mute instead.", color=discord.Color.red())
-            mutedMods[str(ctx.author)] = str(ctx.guild)
-        elif str(member) not in mutedMods.keys():
+            embed = discord.Embed(description=f"HA you stupid idiot you thought you could mute me? NO son, u gettin the mute instead.", color=discord.Color.red())
+            mutedMods[str(ctx.author.id)] = str(ctx.guild)
+        elif str(member.id) not in mutedMods.keys():
             embed = discord.Embed(description=f"*<:check:742198670912651316> {member.mention} has been modmuted by {ctx.author.mention}.*",
                                   color=discord.Color.green())
-            mutedMods[str(member)] = str(ctx.guild)
+            mutedMods[str(member.id)] = str(ctx.guild.id)
         else:
             embed = discord.Embed(description=f"*<:x_:742198871085678642> {member.mention} is already muted {ctx.author.mention}!*",
                                   color=discord.Color.red())
         await ctx.send(embed=embed)
-        with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/mutedMods.json",
-                  "w") as f:
-            json.dump(mutedMods, f, indent=4)
+        storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
+        with open("../Bots/storage.json", "w") as f:
+            json.dump(storage, f, indent=4)
 
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def modunmute(self, ctx, member: discord.Member):
-        with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/mutedMods.json",
-                  "r") as f:
-            mutedMods = json.load(f)
-
-        if str(member) in mutedMods.keys() and str(ctx.author) not in mutedMods.keys():
+        with open("../Bots/servers.json", "r") as f:
+            storage = json.load(f)
+        if "mutedmods" not in storage[str(ctx.guild.id)].keys():
+            storage[str(ctx.guild.id)]["mutedmods"] = {}
+        mutedMods = storage[str(ctx.guild.id)]["mutedmods"]
+        if str(member.id) in mutedMods.keys() and str(ctx.author.id) not in mutedMods.keys():
             embed = discord.Embed(description=f"*<:check:742198670912651316> {member.mention} has been unmuted by {ctx.author.mention}.*",
                                   color=discord.Color.green())
-            mutedMods.pop(str(member))
+            mutedMods.pop(str(member.id))
         else:
             embed = discord.Embed(description=f"*<:x_:742198871085678642>{member.mention} is not muted {ctx.author.mention}!*",
                                   color=discord.Color.red())
 
         await ctx.send(embed=embed)
-        with open("/Users/sethraphael/Library/Application Support/JetBrains/PyCharmCE2020.1/scratches/mutedMods.json",
-                  "w") as f:
-            json.dump(mutedMods, f, indent=4)
+        storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
+        with open("../Bots/servers.json") as f:
+            json.dump(storage, f, indent=4)
 
 
 

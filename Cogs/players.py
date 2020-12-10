@@ -243,32 +243,49 @@ class Player(commands.Cog):
         players = refreshBalance()
         if str(Member.id) in players.keys():
             robber = players[str(ctx.author.id)]
-            member = players[str(Member.id)]
-            if int(member.money) >= 100:
-                stolenMoney = random.randint(int(int(member.money)/100), int(member.money)-int(int(member.money)/10))
-                while stolenMoney >= int(member.money):
-                    stolenMoney = random.randint(int(int(member.money) / 100), int(member.money) - int(int(member.money) / 10))
-                outcomes = ["success", "success", "success", "success", "success", "success", "fail", "fail", "fail", "fail", "fail"]
-                outcome = random.choice(outcomes)
-                if outcome == "success":
-                    member.money -= stolenMoney
-                    robber.money += stolenMoney
-                    if member.money < 0:
-                        member.money = 0
-                    embed = discord.Embed(title=f"You stole ${stolenMoney}! Good work, you nasty little thief.", color=discord.Color.green())
+            victim = players[str(Member.id)]
+            if victim.money >= 200:
+                if robber.money >= 200:
+                    if robber.money <= victim.money:
+                        stolen = random.choice(["success", "failure", "failure", "failure", "failure", "success", "success"])
+                        amount_stolen = random.randint(1, int(victim.money/5))
+                        print(amount_stolen)
+                        print(victim.money)
+                        print(victim.money/5)
+                        if stolen == "success":
+                            victim.money -= amount_stolen
+                            robber.money += amount_stolen
+                            await ctx.send(embed=discord.Embed(description=f"You stole ${amount_stolen}! Good work, you nasty little thief."))
+                        elif stolen == "failure":
+                            if robber.money <= amount_stolen:
+                                victim.money += robber.money
+                                robber.money = 0
+                                await ctx.send(embed=discord.Embed(description=random.choice([f"You didn't realize that they were actually a cop in disguise, and they forced you to give them all your money.", f"You dropped their wallet as you were stealing it, and became so flustered that you dropped your own as well."])))
+                            else:
+                                robber.money -= amount_stolen
+                                victim.money += amount_stolen
+                                await ctx.send(embed=discord.Embed(description=random.choice([f"You didn't realize that they were actually a cop in disguise, and they forced you to pay them a fine of ${amount_stolen}.", f"You dropped their wallet as you were stealing it, and became so flustered that you dropped ${amount_stolen}."])))
+                    else:
+                        await ctx.send(embed=discord.Embed(description=f"Cmon man, you got more money than {Member.mention}. Give them a break, will ya?"))
                 else:
-                    robber.money -= stolenMoney
-                    member.money += stolenMoney
-                    if robber.money < 0:
-                        robber.money = 0
-                    embed = discord.Embed(title=f"You were caught by the po po! You paid a fine of ${stolenMoney} to stay out of jail.", color=discord.Color.red())
-                await ctx.send(embed=embed)
+                    await ctx.send(embed=discord.Embed(description=f"You need to have at least $200 to rob someone."))
             else:
-                await ctx.send(embed=discord.Embed(description=f"{member} only has ${member.money}. It's not worth it man."))
-            await saveMoney(ctx, players)
+                await ctx.send(embed=discord.Embed(description=f"{Member.mention} doesn't even have $200, it's not worth it."))
         else:
             await ctx.send(embed=discord.Embed(description=f"{Member.mention} does not have an account with this bot yet {ctx.author.mention}!"))
+        await saveMoney(ctx, players)
 
-
+    @commands.command()
+    async def give(self, ctx, member: discord.Member, amount):
+        players = refreshBalance()
+        donor = players[str(ctx.author.id)]
+        Member = players[str(member.id)]
+        if donor.money >= int(amount) >= 0:
+            Member.money += int(amount)
+            donor.money -= int(amount)
+            await ctx.send(embed=discord.Embed(description=f"{ctx.author.mention} has given ${amount} to {member.mention}.", color=discord.Color.green()))
+        else:
+            await ctx.send(embed=discord.Embed(description=f"{ctx.author.mention} you do not have enough money to give ${amount}!"))
+        await saveMoney(ctx, players)
 def setup(bot):
     bot.add_cog(Player("none", "none", "none"))

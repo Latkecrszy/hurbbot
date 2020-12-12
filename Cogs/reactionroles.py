@@ -15,8 +15,9 @@ class ReactionRoleCog(commands.Cog):
     async def reactionrole(self, ctx, emoji, role: discord.Role, *, message):
         if role < self.maxrole(ctx):
             await ctx.message.delete()
-            with open("../Bots/reactionroles.json") as f:
-                reactionroles = json.load(f)
+            with open("../Bots/servers.json") as f:
+                storage = json.load(f)
+            reactionroles = storage["reactionroles"]
             if str(emoji).startswith("<"):
                 emoji = await self.emojiConverter.convert(ctx, str(emoji))
                 embed = discord.Embed(description=message)
@@ -31,9 +32,9 @@ class ReactionRoleCog(commands.Cog):
                 await message.add_reaction(emoji)
                 reactionroles[str(message.id)] = [str(emoji), role.id]
 
-
-            with open("../Bots/reactionroles.json", "w") as f:
-                json.dump(reactionroles, f, indent=4)
+            storage["reactionroles"] = reactionroles
+            with open("../Bots/storage.json", "w") as f:
+                json.dump(storage, f, indent=4)
         else:
             await ctx.send(f"I do not have the permissions to assign that role {ctx.author.mention}! Please move my role above the role to allow me to assign it!")
 
@@ -47,8 +48,9 @@ class ReactionRoleCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        with open("../Bots/reactionroles.json") as f:
-            reactionroles = json.load(f)
+        with open("../Bots/servers.json") as f:
+            storage = json.load(f)
+        reactionroles = storage["reactionroles"]
         if str(payload.message_id) in reactionroles.keys():
             if str(payload.emoji).find(reactionroles[str(payload.message_id)][0]) != -1:
                 guild = self.bot.get_guild(int(payload.guild_id))
@@ -66,8 +68,9 @@ class ReactionRoleCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
-        with open("../Bots/reactionroles.json") as f:
-            reactionroles = json.load(f)
+        with open("../Bots/servers.json") as f:
+            storage = json.load(f)
+        reactionroles = storage["reactionroles"]
         if str(payload.message_id) in reactionroles.keys():
             if str(payload.emoji).find(reactionroles[str(payload.message_id)][0]) != -1:
                 guild = self.bot.get_guild(int(payload.guild_id))

@@ -25,8 +25,11 @@ async def saveMoney(ctx, players):
         for item, amount in value.items.items():
             items.append([item.name, getPrice(item.name), item.description, amount])
         players[str(Players)] = [int(value.money), items, value.pet]
-    with open("../Bots/players.json", "w") as a:
-        json.dump(players, a, indent=4)
+    with open("../Bots/servers.json", "r") as f:
+        storage = json.load(f)
+    storage["players"] = players
+    with open("../Bots/servers.json", "w") as f:
+        json.dump(storage, f, indent=4)
 
 
 def getPrice(items):
@@ -41,8 +44,9 @@ def getPrice(items):
 
 
 def refreshBalance():
-    with open("../Bots/players.json", "r") as f:
-        players = json.load(f)
+    with open("../Bots/servers.json", "r") as f:
+        storage = json.load(f)
+    players = storage["players"]
     for key, value in players.items():
         items = {}
         item = value[1]

@@ -3,6 +3,7 @@ import json
 from discord.ext import commands, tasks
 from itertools import cycle
 import os
+import aiohttp
 from dotenv import load_dotenv
 load_dotenv()
 intents = discord.Intents.default()
@@ -33,9 +34,14 @@ def getprefix(_bot, message):
 bot = commands.Bot(command_prefix=getprefix, help_command=None, intents=intents)
 
 
+async def settings():
+    async with aiohttp.ClientSession() as cs:
+        async with cs.get(f' https://hurbapi.herokuapp.com/') as r:
+            res = await r.json()
+    return res
+
+
 bot.remove_command("help")
-bot.author = ""
-swears = []
 print("Loading..")
 bot.statuses = [discord.Game("Blackjack (and winning) | %blackjack"), discord.Game("%help or @Hurb help"), discord.Game("bad jokes | %joke"), discord.Game("chatty AF | %chatbot"), discord.Game("hangman (he died) | %hangman"), discord.Game("get BANNED"), discord.Game("OMG LOOK AT THESE DOGGOS!!! | %doggo")]
 bot.status = cycle(bot.statuses)
@@ -97,12 +103,15 @@ async def on_member_join(member):
 async def fixfile(ctx):
     with open("servers.json") as f:
         servers = json.load(f)
-    for key, value in servers.items():
-        servers[key]["commands"]["moderation"] = "True"
-        servers[key]["commands"]["economy"] = "True"
+    with open("players.json") as f:
+        players = json.load(f)
+    servers["players"] = {}
+    for key, value in players.items():
+        servers["players"][key] = value
     with open("servers.json", "w") as f:
         json.dump(servers, f, indent=4)
     await ctx.send("All done fixing the file :)")
+
 
 
 extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "ErrorCog", "JokeCog", "MathCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",

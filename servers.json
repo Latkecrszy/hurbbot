@@ -3571,8 +3571,8 @@
                 "level": 1
             },
             "675067975451148299": {
-                "messages": 23970,
-                "xp": 178,
+                "messages": 23971,
+                "xp": 193,
                 "level": 33,
                 "color": "<:HappyLeorio:768680379418017812>"
             },
@@ -3593,8 +3593,8 @@
                 "level": 1
             },
             "753692633863422002": {
-                "messages": 14756,
-                "xp": 0,
+                "messages": 14757,
+                "xp": 17,
                 "level": 26,
                 "color": "\ud83d\udea3"
             },
@@ -3712,8 +3712,8 @@
                 "level": 1
             },
             "754160869637619712": {
-                "messages": 10016,
-                "xp": 3879,
+                "messages": 10024,
+                "xp": 3911,
                 "level": 17,
                 "color": "\ud83c\udff3\ufe0f\u200d\ud83c\udf08"
             },
@@ -4192,8 +4192,8 @@
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
-                "messages": 19653,
-                "xp": 5987,
+                "messages": 19662,
+                "xp": 6061,
                 "level": 28,
                 "color": "<:hurblogo:779231324287270923>"
             },
@@ -4816,8 +4816,8 @@
                 "color": "\ud83d\udfe6"
             },
             "738568567011803170": {
-                "messages": 11,
-                "xp": 106,
+                "messages": 12,
+                "xp": 123,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -5248,8 +5248,8 @@
                 "color": "\ud83d\udfe6"
             },
             "493834141280763914": {
-                "messages": 13,
-                "xp": 148,
+                "messages": 14,
+                "xp": 154,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -5705,6 +5705,18 @@
                 "xp": 67,
                 "level": 1,
                 "color": "\ud83d\udfe6"
+            },
+            "313442021413093377": {
+                "messages": 1,
+                "xp": 14,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "563824595887587328": {
+                "messages": 1,
+                "xp": 20,
+                "level": 1,
+                "color": "\ud83d\udfe6"
             }
         },
         "autoroles": [
@@ -5811,8 +5823,8 @@
         "prefix": "%",
         "rank": {
             "441393449607102464": {
-                "messages": 1506,
-                "xp": 322,
+                "messages": 1513,
+                "xp": 378,
                 "level": 8,
                 "color": "\ud83d\udfe6"
             }
@@ -6100,8 +6112,8 @@
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
-                "messages": 1487,
-                "xp": 662,
+                "messages": 1489,
+                "xp": 676,
                 "level": 7,
                 "color": "\u262f\ufe0e"
             },
@@ -6124,8 +6136,8 @@
                 "color": "\ud83d\udfe6"
             },
             "632369591246389248": {
-                "messages": 803,
-                "xp": 973,
+                "messages": 806,
+                "xp": 1006,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
@@ -6148,8 +6160,8 @@
                 "color": "\ud83d\udfe6"
             },
             "704306465753530379": {
-                "messages": 14,
-                "xp": 101,
+                "messages": 15,
+                "xp": 118,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -6388,8 +6400,8 @@
                 "color": "\ud83d\udfe6"
             },
             "524819862606839828": {
-                "messages": 3,
-                "xp": 47,
+                "messages": 7,
+                "xp": 78,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -6490,8 +6502,8 @@
                 "color": "\ud83d\udfe6"
             },
             "713430242860990525": {
-                "messages": 11,
-                "xp": 99,
+                "messages": 12,
+                "xp": 112,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -6704,6 +6716,18 @@
                 "xp": 11,
                 "level": 1,
                 "color": "\ud83d\udfe6"
+            },
+            "768162497629913181": {
+                "messages": 4,
+                "xp": 54,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "773154565625217024": {
+                "messages": 1,
+                "xp": 21,
+                "level": 1,
+                "color": "\ud83d\udfe6"
             }
         },
         "welcome": {
@@ -6836,8 +6860,8 @@
                 "color": "\ud83d\udfe6"
             },
             "758912549914804264": {
-                "messages": 83,
-                "xp": 0,
+                "messages": 88,
+                "xp": 19,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -7244,8 +7268,8 @@
                 "color": "\ud83d\udfe6"
             },
             "700939688109670462": {
-                "messages": 97,
-                "xp": 317,
+                "messages": 98,
+                "xp": 335,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -7376,8 +7400,8 @@
                 "color": "\ud83d\udfe6"
             },
             "776919872286097462": {
-                "messages": 3097,
-                "xp": 396,
+                "messages": 3098,
+                "xp": 408,
                 "level": 11,
                 "color": "\ud83d\udfe6"
             },
@@ -8060,6 +8084,12 @@
                 "color": "\ud83d\udfe6"
             },
             "757400265249783830": {
+                "messages": 1,
+                "xp": 19,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "550789775833956354": {
                 "messages": 1,
                 "xp": 19,
                 "level": 1,
@@ -9465,20 +9495,20 @@
         "prefix": "%",
         "rank": {
             "200453508745527296": {
-                "messages": 3837,
-                "xp": 724,
+                "messages": 3885,
+                "xp": 905,
                 "level": 14,
                 "color": "\ud83d\udfe6"
             },
             "553283146854957066": {
-                "messages": 678,
-                "xp": 700,
+                "messages": 680,
+                "xp": 710,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
             "498283442107318284": {
-                "messages": 833,
-                "xp": 603,
+                "messages": 843,
+                "xp": 628,
                 "level": 6,
                 "color": "\ud83c\udf54"
             },
@@ -9495,8 +9525,8 @@
                 "color": "\ud83d\udfe6"
             },
             "350079952017817603": {
-                "messages": 2077,
-                "xp": 174,
+                "messages": 2085,
+                "xp": 225,
                 "level": 9,
                 "color": "\ud83c\udf54"
             },
@@ -10747,8 +10777,8 @@
         "prefix": "%",
         "rank": {
             "560410597447958529": {
-                "messages": 179,
-                "xp": 153,
+                "messages": 180,
+                "xp": 160,
                 "level": 4,
                 "color": "\ud83d\udfe6"
             },
@@ -10844,8 +10874,8 @@
         "prefix": "%",
         "rank": {
             "758764724996276254": {
-                "messages": 370,
-                "xp": 713,
+                "messages": 373,
+                "xp": 731,
                 "level": 4,
                 "color": "\ud83d\udfe6"
             }
@@ -11375,27 +11405,27 @@
         "prefix": "%",
         "rank": {
             "654824761116852273": {
-                "messages": 4344,
-                "xp": 349,
+                "messages": 4422,
+                "xp": 605,
                 "level": 12,
                 "color": "\ud83e\udd95"
             },
             "437077943228039168": {
-                "messages": 3727,
-                "xp": 1843,
+                "messages": 3764,
+                "xp": 2040,
                 "level": 11,
                 "color": "\ud83e\udd75"
             },
             "628053851810955295": {
-                "messages": 1593,
-                "xp": 1244,
-                "level": 7,
+                "messages": 1815,
+                "xp": 262,
+                "level": 8,
                 "color": "\ud83d\udfe6"
             },
             "745046080235765930": {
-                "messages": 1492,
-                "xp": 1161,
-                "level": 7,
+                "messages": 1613,
+                "xp": 116,
+                "level": 8,
                 "color": "\ud83d\udd7a"
             },
             "704760796269379645": {
@@ -11411,14 +11441,14 @@
                 "color": "SEXWITHGARFIELD\ud83e\udd75"
             },
             "755836957572988968": {
-                "messages": 178,
-                "xp": 587,
-                "level": 3,
+                "messages": 199,
+                "xp": 129,
+                "level": 4,
                 "color": "\ud83d\udfe6"
             },
             "585585040835215361": {
-                "messages": 1,
-                "xp": 8,
+                "messages": 6,
+                "xp": 49,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -11435,14 +11465,14 @@
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
-                "messages": 453,
-                "xp": 297,
+                "messages": 460,
+                "xp": 313,
                 "level": 4,
                 "color": "<a:MKohyeah:747886073824149605>"
             },
             "586384839159054358": {
-                "messages": 631,
-                "xp": 458,
+                "messages": 721,
+                "xp": 812,
                 "level": 5,
                 "color": "\ud83d\udfe6"
             },
@@ -15532,8 +15562,8 @@
         "prefix": "%",
         "rank": {
             "670493561921208320": {
-                "messages": 282,
-                "xp": 388,
+                "messages": 283,
+                "xp": 400,
                 "level": 4,
                 "color": "\ud83d\udfe6"
             },
@@ -15582,2156 +15612,1347 @@
         }
     },
     "rank": {
-        "733125710402814002": {
-            "messages": 4349,
-            "xp": 872,
-            "level": 13,
-            "color": "<a:seizureblob:758074192590798889>"
-        },
-        "722999582828789860": {
-            "messages": 16002,
-            "xp": 511,
-            "level": 25,
-            "color": "<:Erica:782508176616587274>"
-        },
-        "234395307759108106": {
-            "messages": 4,
-            "xp": 11,
-            "level": 1
-        },
-        "675067975451148299": {
-            "messages": 23969,
-            "xp": 178,
-            "level": 33,
-            "color": "<:HappyLeorio:768680379418017812>"
-        },
-        "718884651745411082": {
-            "messages": 852,
-            "xp": 725,
-            "level": 4,
+        "753399244726992896": {
+            "messages": 22,
+            "xp": 58,
+            "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "470014547240026132": {
-            "messages": 644,
-            "xp": 498,
-            "level": 3
-        },
-        "159985870458322944": {
-            "messages": 11,
-            "xp": 16,
-            "level": 1
-        },
-        "753692633863422002": {
-            "messages": 14756,
-            "xp": 0,
-            "level": 26,
-            "color": "\ud83d\udea3"
-        },
-        "303706621589192714": {
-            "messages": 3,
-            "xp": 5,
-            "level": 1
-        },
-        "348249669442207744": {
-            "messages": 2991,
-            "xp": 1934,
-            "level": 9,
-            "color": "<a:ducc:772496394384048158>"
-        },
-        "302050872383242240": {
-            "messages": 3,
-            "xp": 6,
-            "level": 1
-        },
-        "315926021457051650": {
-            "messages": 6,
-            "xp": 12,
-            "level": 1
-        },
-        "747316037795709039": {
-            "messages": 206,
-            "xp": 98,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "585052456858419202": {
-            "messages": 3,
-            "xp": 7,
-            "level": 1
-        },
-        "658106701878263809": {
-            "messages": 1229,
-            "xp": 711,
+        "610284281411141642": {
+            "messages": 1211,
+            "xp": 103,
             "level": 8,
             "color": "\ud83d\udfe6"
         },
-        "608719736657805332": {
-            "messages": 7,
-            "xp": 17,
-            "level": 1
-        },
-        "769726010161365013": {
-            "messages": 4,
-            "xp": 8,
-            "level": 1
-        },
-        "616565332664123402": {
-            "messages": 113,
-            "xp": 359,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "384087343885320212": {
-            "messages": 640,
-            "xp": 109,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "431236343834607616": {
-            "messages": 1,
-            "xp": 4,
-            "level": 1
-        },
-        "414515412101758976": {
-            "messages": 1056,
-            "xp": 606,
-            "level": 6,
-            "color": "<:uHoH:772680871374749766>"
-        },
-        "764394454466560030": {
-            "messages": 1,
-            "xp": 3,
-            "level": 1
-        },
-        "759999161302253571": {
-            "messages": 3,
-            "xp": 6,
-            "level": 1
-        },
-        "770849795027107901": {
-            "messages": 1,
-            "xp": 1,
-            "level": 1
-        },
-        "769754852380246016": {
-            "messages": 3,
-            "xp": 9,
-            "level": 1
-        },
-        "519790591895404545": {
-            "messages": 8586,
-            "xp": 587,
-            "level": 19,
-            "color": "<a:catroll:779406198935781376>"
-        },
-        "753162721146568705": {
-            "messages": 2,
-            "xp": 7,
-            "level": 1
-        },
-        "770988876675940383": {
-            "messages": 17,
-            "xp": 24,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "408579711678283776": {
-            "messages": 2,
-            "xp": 7,
-            "level": 1
-        },
-        "754160869637619712": {
-            "messages": 10016,
-            "xp": 3879,
-            "level": 17,
-            "color": "\ud83c\udff3\ufe0f\u200d\ud83c\udf08"
-        },
-        "688759760027516941": {
-            "messages": 57,
-            "xp": 74,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "238142314478960650": {
-            "messages": 47,
-            "xp": 55,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "704760796269379645": {
-            "messages": 1132,
-            "xp": 791,
-            "level": 5,
-            "color": "<:astolfo:772156433918722058>"
-        },
-        "414107864895062018": {
-            "messages": 41,
-            "xp": 38,
-            "level": 1
-        },
-        "598954711109861397": {
-            "messages": 20,
-            "xp": 25,
-            "level": 1
-        },
-        "690253754649411589": {
-            "messages": 2,
-            "xp": 2,
-            "level": 1
-        },
-        "622391196182118410": {
-            "messages": 5,
-            "xp": 5,
-            "level": 1
-        },
-        "668450660018159618": {
-            "messages": 9,
-            "xp": 13,
-            "level": 1
-        },
-        "747246510286176256": {
-            "messages": 65,
-            "xp": 110,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "720392639098257488": {
-            "messages": 6,
-            "xp": 6,
-            "level": 1
-        },
-        "539978848897597445": {
-            "messages": 10,
-            "xp": 9,
-            "level": 1
-        },
-        "528085668526555156": {
-            "messages": 2,
-            "xp": 5,
-            "level": 1
-        },
-        "759890934577496074": {
-            "messages": 2,
-            "xp": 8,
-            "level": 1
-        },
-        "405846808489754624": {
-            "messages": 5,
-            "xp": 6,
-            "level": 1
-        },
-        "423441044387135499": {
-            "messages": 10,
-            "xp": 16,
-            "level": 1
-        },
-        "687186412285853716": {
-            "messages": 2,
-            "xp": 3,
-            "level": 1
-        },
-        "572440765595385856": {
-            "messages": 9,
-            "xp": 8,
-            "level": 1
-        },
-        "516882501151621120": {
-            "messages": 2,
-            "xp": 3,
-            "level": 1
-        },
-        "698223407698935820": {
-            "messages": 6,
-            "xp": 8,
-            "level": 1
-        },
-        "590026774344105994": {
-            "messages": 27,
-            "xp": 33,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "418381950932484097": {
-            "messages": 4,
-            "xp": 6,
-            "level": 1
-        },
-        "642380587478417408": {
-            "messages": 5,
-            "xp": 5,
-            "level": 1
-        },
-        "728419720604418049": {
-            "messages": 25,
-            "xp": 34,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "312588180002177025": {
-            "messages": 9,
-            "xp": 11,
-            "level": 1
-        },
-        "355417028078600193": {
-            "messages": 55,
-            "xp": 45,
-            "level": 1
-        },
-        "335165515297456131": {
-            "messages": 2,
-            "xp": 5,
-            "level": 1
-        },
-        "763503107010854913": {
-            "messages": 25,
-            "xp": 39,
-            "level": 1
-        },
-        "624091913112256522": {
-            "messages": 492,
-            "xp": 525,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "711351146295459840": {
-            "messages": 330,
-            "xp": 34,
-            "level": 4,
-            "color": "\ud83d\udfe6"
-        },
-        "216246710261907456": {
-            "messages": 11,
-            "xp": 12,
-            "level": 1
-        },
-        "371385353183166465": {
-            "messages": 30,
-            "xp": 193,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "482034860777799691": {
-            "messages": 7,
-            "xp": 13,
-            "level": 1
-        },
-        "765818371399745558": {
-            "messages": 9,
-            "xp": 53,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "570390756154408971": {
-            "messages": 3,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "771679063500783616": {
-            "messages": 8,
-            "xp": 16,
-            "level": 1
-        },
-        "771400636368814150": {
-            "messages": 2,
-            "xp": 2,
-            "level": 1
-        },
-        "498616278865412119": {
-            "messages": 48,
-            "xp": 197,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "652987287663017994": {
-            "messages": 14,
-            "xp": 31,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "170725657909788672": {
-            "messages": 4,
-            "xp": 13,
-            "level": 1
-        },
-        "542795389279928340": {
-            "messages": 5,
-            "xp": 23,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "771865384042496011": {
-            "messages": 14,
-            "xp": 11,
-            "level": 1
-        },
-        "675900935658012684": {
-            "messages": 53,
+        "757038571797610516": {
+            "messages": 790,
             "xp": 69,
-            "level": 1
-        },
-        "762057735772569640": {
-            "messages": 654,
-            "xp": 582,
-            "level": 6,
-            "color": "\ud83d\udfe6"
-        },
-        "741485634820112384": {
-            "messages": 11,
-            "xp": 89,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "676150513456119823": {
-            "messages": 3,
-            "xp": 9,
-            "level": 1
-        },
-        "415724936871542797": {
-            "messages": 20,
-            "xp": 80,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "540726305247723544": {
-            "messages": 11,
-            "xp": 28,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "771472657761304626": {
-            "messages": 10,
-            "xp": 28,
-            "level": 1
-        },
-        "433386391548723220": {
-            "messages": 15,
-            "xp": 26,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "772072463529541663": {
-            "messages": 5,
-            "xp": 19,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "772036326714769458": {
-            "messages": 1,
-            "xp": 4,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "552492200575893518": {
-            "messages": 5,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "695416249311690873": {
-            "messages": 2,
-            "xp": 9,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "640843825379672073": {
-            "messages": 1,
-            "xp": 6,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "544378031867691008": {
-            "messages": 1,
-            "xp": 10,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "761754843970535424": {
-            "messages": 16,
-            "xp": 26,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "738970387731316767": {
-            "messages": 103,
-            "xp": 378,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "747232082039799950": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "645039113585557506": {
-            "messages": 59,
-            "xp": 101,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "598859512887377920": {
-            "messages": 454,
-            "xp": 95,
             "level": 5,
             "color": "\ud83d\udfe6"
         },
-        "736542582628155430": {
-            "messages": 2,
-            "xp": 10,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "238990108764667905": {
-            "messages": 2,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "589792962360115203": {
-            "messages": 1,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "772464354657697794": {
-            "messages": 2,
-            "xp": 8,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "700079633827233873": {
-            "messages": 122,
-            "xp": 181,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "532777980104278038": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "714841072605462558": {
-            "messages": 1,
-            "xp": 6,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "666552169721495553": {
-            "messages": 1,
-            "xp": 8,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "671820461478379539": {
-            "messages": 17,
-            "xp": 38,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "342348688535846932": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "753722977308115135": {
-            "messages": 81,
-            "xp": 129,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "689623014610043074": {
-            "messages": 1,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "736304568400347207": {
-            "messages": 58,
-            "xp": 126,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "408851566733295616": {
-            "messages": 6,
-            "xp": 6,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "773483093154988052": {
-            "messages": 9,
-            "xp": 19,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "349666581187526656": {
-            "messages": 2,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "671911112689713202": {
-            "messages": 8,
-            "xp": 24,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "416662401895759882": {
-            "messages": 45,
-            "xp": 210,
+        "714310459871985735": {
+            "messages": 76,
+            "xp": 146,
             "level": 2,
             "color": "\ud83d\udfe6"
         },
-        "189236475097907200": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "374265769187475456": {
-            "messages": 1,
-            "xp": 6,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "768973128377434124": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "683849838517026833": {
-            "messages": 2,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "771739866043645973": {
-            "messages": 1,
-            "xp": 4,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "724036974201143399": {
-            "messages": 1,
-            "xp": 4,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "670493561921208320": {
-            "messages": 19650,
-            "xp": 5964,
-            "level": 28,
-            "color": "<:hurblogo:779231324287270923>"
-        },
-        "547103993499746309": {
-            "messages": 30,
-            "xp": 41,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "764355585743257611": {
-            "messages": 1,
-            "xp": 4,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "699142031208874054": {
-            "messages": 4,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "768646925938851861": {
-            "messages": 7,
-            "xp": 22,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "356803623721893889": {
-            "messages": 1,
-            "xp": 6,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "461688632831508480": {
-            "messages": 5,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "774025150579474463": {
-            "messages": 19,
-            "xp": 72,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "465972856174542869": {
-            "messages": 3,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "373139320959401988": {
-            "messages": 8,
-            "xp": 23,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "443743005925572618": {
-            "messages": 25,
-            "xp": 55,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "496140468351008773": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "574008023958159360": {
-            "messages": 254,
-            "xp": 200,
+        "769223165141712967": {
+            "messages": 394,
+            "xp": 231,
             "level": 4,
             "color": "\ud83d\udfe6"
         },
-        "721073941866610752": {
-            "messages": 3,
-            "xp": 9,
+        "746963835323285514": {
+            "messages": 52,
+            "xp": 88,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "753781976825069688": {
+            "messages": 68,
+            "xp": 149,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "660914113903329280": {
-            "messages": 1,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "593162731381587998": {
-            "messages": 30,
-            "xp": 40,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "555167583150538787": {
-            "messages": 768,
-            "xp": 193,
-            "level": 6,
-            "color": "\ud83d\udfe6"
-        },
-        "719966951434223616": {
-            "messages": 45,
-            "xp": 59,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "652686932257538048": {
-            "messages": 1,
-            "xp": 3,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "653255900236349459": {
-            "messages": 12,
-            "xp": 62,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "196550510411513867": {
-            "messages": 1,
-            "xp": 2,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "770281833669066762": {
-            "messages": 2,
-            "xp": 9,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "661178552988991502": {
-            "messages": 2,
-            "xp": 27,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "757374363619033210": {
-            "messages": 2,
-            "xp": 8,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "673349953229291543": {
-            "messages": 44,
-            "xp": 47,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "736627343828975738": {
-            "messages": 1,
-            "xp": 4,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "699953511185776681": {
-            "messages": 2,
-            "xp": 3,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "773670974297079868": {
-            "messages": 1,
-            "xp": 8,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "581550541683818499": {
-            "messages": 20,
-            "xp": 48,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "724148500719337593": {
-            "messages": 1,
-            "xp": 6,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "768800186490552351": {
-            "messages": 3,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "425702441137340416": {
-            "messages": 12,
-            "xp": 117,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "409553604366696448": {
-            "messages": 1,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "623201728858423306": {
-            "messages": 5,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "352774037791047681": {
-            "messages": 2,
-            "xp": 8,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "717684302950694972": {
-            "messages": 2,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "462086917303959553": {
-            "messages": 2,
-            "xp": 10,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "339635748842242048": {
-            "messages": 1,
-            "xp": 3,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "691636293020418059": {
-            "messages": 1,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "695503392889634847": {
-            "messages": 10,
-            "xp": 25,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "751465155547758754": {
-            "messages": 20,
-            "xp": 27,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "771625279147474974": {
-            "messages": 14,
-            "xp": 49,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "750021642624696330": {
-            "messages": 3,
-            "xp": 10,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "615247705786286143": {
-            "messages": 54,
-            "xp": 81,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "513352589555793923": {
-            "messages": 2,
-            "xp": 24,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "521378781580230667": {
-            "messages": 37,
-            "xp": 164,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "421368370081038356": {
-            "messages": 1,
-            "xp": 9,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "769948703372345395": {
-            "messages": 5,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "539982624848871425": {
-            "messages": 203,
-            "xp": 22,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "555109139651624961": {
-            "messages": 4,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "743817503939231753": {
-            "messages": 22,
-            "xp": 78,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "420577809090609153": {
-            "messages": 1,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "716450166449897543": {
-            "messages": 21,
-            "xp": 34,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "605703692955680768": {
-            "messages": 18,
-            "xp": 121,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "775405065145024555": {
-            "messages": 3,
-            "xp": 45,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "530985534110302209": {
+        "751531149167165543": {
             "messages": 7,
-            "xp": 84,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "775690999631577159": {
-            "messages": 212,
-            "xp": 698,
-            "level": 4,
-            "color": "\ud83d\udfe6"
-        },
-        "700160480727138345": {
-            "messages": 103,
-            "xp": 195,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "413099043066085377": {
-            "messages": 1,
-            "xp": 18,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "617676875661180928": {
-            "messages": 5,
-            "xp": 60,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "775889285709955113": {
-            "messages": 3,
-            "xp": 28,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "728899240528707685": {
-            "messages": 4,
-            "xp": 43,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "411646303752290305": {
-            "messages": 1,
-            "xp": 20,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "678375375922790429": {
-            "messages": 26,
-            "xp": 87,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "763526030203420684": {
-            "messages": 21,
-            "xp": 32,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "349150239472746499": {
-            "messages": 3,
             "xp": 35,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "279355726617640960": {
+        "745676704806076557": {
+            "messages": 3,
+            "xp": 9,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "733125710402814002": {
+            "messages": 36,
+            "xp": 30,
+            "level": 1,
+            "color": "\ud83d\ude0b"
+        },
+        "750826151412367490": {
+            "messages": 23,
+            "xp": 115,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "745383495505018911": {
+            "messages": 5,
+            "xp": 6,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "541998970080067624": {
+            "messages": 14,
+            "xp": 30,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "663927447351197706": {
+            "messages": 37,
+            "xp": 108,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "767411924462993430": {
+            "messages": 58,
+            "xp": 135,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "557002662424346644": {
+            "messages": 125,
+            "xp": 82,
+            "level": 3,
+            "color": "\ud83d\udfe6"
+        },
+        "733374486782541834": {
+            "messages": 50,
+            "xp": 178,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "713421974520594442": {
+            "messages": 6,
+            "xp": 16,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "758912549914804264": {
+            "messages": 88,
+            "xp": 19,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "490348938319101973": {
+            "messages": 121,
+            "xp": 145,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "680985034685153298": {
+            "messages": 3,
+            "xp": 6,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "533343818179936256": {
             "messages": 1,
             "xp": 9,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "705885003233362011": {
-            "messages": 7,
-            "xp": 57,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "267755322737688576": {
+        "739160177508352002": {
             "messages": 2,
-            "xp": 22,
+            "xp": 10,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "776188948728119306": {
+        "768993724541304894": {
+            "messages": 40,
+            "xp": 70,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "745726808535859350": {
             "messages": 13,
-            "xp": 106,
+            "xp": 79,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "403900318288707594": {
-            "messages": 6,
+        "381641847141040139": {
+            "messages": 9,
             "xp": 31,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "545181787861680128": {
-            "messages": 2,
-            "xp": 24,
+        "764636719848226827": {
+            "messages": 1,
+            "xp": 5,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "727186926054146131": {
+        "751574489824755713": {
+            "messages": 442,
+            "xp": 629,
+            "level": 4,
+            "color": "\ud83d\udfe6"
+        },
+        "509137357572800514": {
+            "messages": 148,
+            "xp": 553,
+            "level": 3,
+            "color": "\ud83d\udfe6"
+        },
+        "669312672160022537": {
+            "messages": 7,
+            "xp": 8,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "758018613168046250": {
+            "messages": 8,
+            "xp": 26,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "752330367175753739": {
             "messages": 1,
+            "xp": 7,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "655419105725251609": {
+            "messages": 4,
+            "xp": 5,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "748220015052062820": {
+            "messages": 24,
+            "xp": 48,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "748728822438035517": {
+            "messages": 1,
+            "xp": 7,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "751667805358784572": {
+            "messages": 488,
+            "xp": 450,
+            "level": 4,
+            "color": "\ud83d\udfe6"
+        },
+        "699415937547239525": {
+            "messages": 1,
+            "xp": 8,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "757718196064354407": {
+            "messages": 2,
+            "xp": 5,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "760607399978598401": {
+            "messages": 3,
+            "xp": 9,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "707256366183743719": {
+            "messages": 1,
+            "xp": 8,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "695952391475953736": {
+            "messages": 6,
+            "xp": 38,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "749825551681716224": {
+            "messages": 2,
+            "xp": 17,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "754182558417289246": {
+            "messages": 4,
+            "xp": 9,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "414493167967010834": {
+            "messages": 4,
             "xp": 12,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "710371283678003213": {
-            "messages": 6,
-            "xp": 70,
+        "749235522198831334": {
+            "messages": 14,
+            "xp": 117,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "776286043765866517": {
+        "696028668668936242": {
+            "messages": 18,
+            "xp": 30,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "748673450410770492": {
+            "messages": 15,
+            "xp": 34,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "703623694261551164": {
+            "messages": 1,
+            "xp": 3,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "698361876127678495": {
+            "messages": 141,
+            "xp": 103,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "455475414689644544": {
+            "messages": 5,
+            "xp": 11,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "392041146026688524": {
+            "messages": 33,
+            "xp": 75,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "351858688425984001": {
+            "messages": 19,
+            "xp": 33,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "699712552011300894": {
+            "messages": 3,
+            "xp": 10,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "771080172090818621": {
+            "messages": 22,
+            "xp": 46,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "469562470915244034": {
+            "messages": 9,
+            "xp": 21,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "755833426350833825": {
+            "messages": 18,
+            "xp": 64,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "450785384339865611": {
+            "messages": 15,
+            "xp": 129,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "543952720361553931": {
+            "messages": 30,
+            "xp": 25,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "707974506206986322": {
+            "messages": 1,
+            "xp": 5,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "716431287732142080": {
+            "messages": 1,
+            "xp": 9,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "708084702665506856": {
+            "messages": 39,
+            "xp": 54,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "760540877700726846": {
+            "messages": 40,
+            "xp": 58,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "719433858709454919": {
+            "messages": 39,
+            "xp": 72,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "726907112256701098": {
+            "messages": 4,
+            "xp": 7,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "751992882747146360": {
+            "messages": 6,
+            "xp": 42,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "647534721345257498": {
+            "messages": 72,
+            "xp": 154,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "599663300376264713": {
+            "messages": 1,
+            "xp": 5,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "732692618604970004": {
             "messages": 2,
             "xp": 20,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "733262273027506266": {
-            "messages": 4,
-            "xp": 34,
+        "728393453313982515": {
+            "messages": 2,
+            "xp": 21,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "421786561558872064": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "532553873647468554": {
+        "755848585949610106": {
             "messages": 1,
             "xp": 14,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "776571914633740348": {
-            "messages": 1,
-            "xp": 14,
+        "758754263597056001": {
+            "messages": 7,
+            "xp": 82,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "649305521052057611": {
-            "messages": 13,
-            "xp": 148,
+        "755852754705973348": {
+            "messages": 12,
+            "xp": 106,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "324862394662780930": {
-            "messages": 26,
-            "xp": 59,
+        "618872570300727326": {
+            "messages": 51,
+            "xp": 172,
             "level": 2,
             "color": "\ud83d\udfe6"
         },
-        "765728408537530399": {
-            "messages": 8,
-            "xp": 94,
+        "720281381929746463": {
+            "messages": 5,
+            "xp": 55,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "776509053555572748": {
-            "messages": 1,
-            "xp": 14,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "773446913570897930": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "776872618094755840": {
-            "messages": 29,
-            "xp": 113,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "736697264105586693": {
-            "messages": 108,
-            "xp": 30,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "691509876945322044": {
-            "messages": 11,
-            "xp": 87,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "763482025675063367": {
-            "messages": 1,
-            "xp": 19,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "571387008648478720": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "715195526844514356": {
-            "messages": 4,
-            "xp": 54,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "406501125697699840": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "434914623754469379": {
-            "messages": 1,
-            "xp": 14,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "744653245741400251": {
+        "764616689311940609": {
             "messages": 2,
             "xp": 27,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "471022149222531074": {
-            "messages": 1,
+        "647235502352760833": {
+            "messages": 8,
+            "xp": 58,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "690631375593930815": {
+            "messages": 68,
+            "xp": 380,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "580552146299387907": {
+            "messages": 5,
+            "xp": 30,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "745686265705267324": {
+            "messages": 20,
+            "xp": 44,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "374749396811907073": {
+            "messages": 2,
+            "xp": 34,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "775726136726126613": {
+            "messages": 2,
             "xp": 15,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "262833016945115138": {
+        "735145819249836042": {
+            "messages": 6,
+            "xp": 63,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "764609509996888114": {
+            "messages": 4,
+            "xp": 17,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "770098426821345313": {
             "messages": 2,
             "xp": 24,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "443959632453566476": {
-            "messages": 10,
-            "xp": 113,
+        "761990659136552961": {
+            "messages": 8,
+            "xp": 57,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "363342004417069056": {
+        "751463806500077569": {
+            "messages": 21,
+            "xp": 162,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "700939688109670462": {
+            "messages": 98,
+            "xp": 335,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "722514291638403093": {
+            "messages": 3,
+            "xp": 23,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "707728603126825072": {
+            "messages": 5,
+            "xp": 42,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "714479085056819300": {
+            "messages": 3,
+            "xp": 36,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "753236796799975554": {
+            "messages": 5,
+            "xp": 22,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "736659071020826666": {
+            "messages": 5,
+            "xp": 60,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "771405056322568192": {
+            "messages": 3,
+            "xp": 36,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "768897924498849873": {
+            "messages": 2,
+            "xp": 31,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "743172791649697827": {
+            "messages": 4,
+            "xp": 53,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "753429925217959957": {
+            "messages": 320,
+            "xp": 208,
+            "level": 4,
+            "color": "\ud83d\udfe6"
+        },
+        "664293305940574210": {
+            "messages": 6,
+            "xp": 51,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "712017552611606648": {
+            "messages": 6,
+            "xp": 33,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "735999896183767111": {
+            "messages": 4,
+            "xp": 26,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "718093904230219788": {
             "messages": 1,
             "xp": 11,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "530527258721386507": {
-            "messages": 3,
-            "xp": 34,
+        "617536235417763863": {
+            "messages": 2,
+            "xp": 6,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "615217511192854538": {
-            "messages": 2,
+        "756099540913750086": {
+            "messages": 5,
+            "xp": 8,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "756102839335387257": {
+            "messages": 5,
             "xp": 22,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "759415767455760475": {
-            "messages": 13,
-            "xp": 77,
+        "757923719824801853": {
+            "messages": 4,
+            "xp": 32,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "765454981620695082": {
+        "762086028353732659": {
+            "messages": 2,
+            "xp": 34,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "764232599686086657": {
+            "messages": 2,
+            "xp": 13,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "699783895893278801": {
+            "messages": 3,
+            "xp": 39,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "733047636730445846": {
+            "messages": 2,
+            "xp": 34,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "776919872286097462": {
+            "messages": 3098,
+            "xp": 408,
+            "level": 11,
+            "color": "\ud83d\udfe6"
+        },
+        "745678252202524703": {
+            "messages": 1,
+            "xp": 23,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "777221840409985044": {
+            "messages": 5,
+            "xp": 52,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "772561935656419350": {
+            "messages": 128,
+            "xp": 121,
+            "level": 3,
+            "color": "\ud83d\udfe6"
+        },
+        "761971621451005972": {
+            "messages": 5,
+            "xp": 55,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "768639005176234005": {
+            "messages": 50,
+            "xp": 285,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "539867378515968010": {
+            "messages": 1,
+            "xp": 23,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "738089297185472634": {
+            "messages": 8,
+            "xp": 119,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "759259215918530572": {
+            "messages": 24,
+            "xp": 0,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "730819443814301707": {
+            "messages": 12,
+            "xp": 53,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "758120039697350736": {
+            "messages": 4,
+            "xp": 55,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "768904957776101438": {
+            "messages": 7,
+            "xp": 61,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "604726630245597293": {
             "messages": 1,
             "xp": 7,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "289786027734859784": {
+        "474945838720876545": {
             "messages": 1,
-            "xp": 16,
+            "xp": 12,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "338384814577287182": {
+        "773193195340955679": {
+            "messages": 2,
+            "xp": 21,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "738506841499107540": {
+            "messages": 3,
+            "xp": 11,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "731285494939254896": {
+            "messages": 2,
+            "xp": 27,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "697621217510817842": {
+            "messages": 1,
+            "xp": 14,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "755847154131533896": {
             "messages": 7,
-            "xp": 57,
+            "xp": 63,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "755095144201453689": {
-            "messages": 186,
-            "xp": 467,
-            "level": 4,
+        "756570372215931021": {
+            "messages": 58,
+            "xp": 204,
+            "level": 2,
             "color": "\ud83d\udfe6"
         },
-        "738568567011803170": {
-            "messages": 11,
-            "xp": 106,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "289918715393212417": {
+        "766705956528062525": {
             "messages": 1,
             "xp": 20,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "777014989566771211": {
-            "messages": 9,
-            "xp": 109,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "486910571745247242": {
-            "messages": 24,
-            "xp": 126,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "710930042301186188": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "734799543236821003": {
+        "730476885041217616": {
             "messages": 3,
-            "xp": 29,
+            "xp": 54,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "736228070024937573": {
-            "messages": 1,
-            "xp": 14,
+        "768976075911856148": {
+            "messages": 6,
+            "xp": 35,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "766705471918571541": {
-            "messages": 1,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "762978872178245632": {
-            "messages": 1,
-            "xp": 8,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "775641165411385365": {
-            "messages": 163,
-            "xp": 219,
-            "level": 4,
-            "color": "\ud83d\udfe6"
-        },
-        "482347382931980288": {
-            "messages": 15,
-            "xp": 156,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "522439180467568641": {
-            "messages": 4,
-            "xp": 61,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "652854830217429002": {
-            "messages": 3,
-            "xp": 31,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "699923874401353808": {
-            "messages": 1,
-            "xp": 14,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "724355093918384351": {
-            "messages": 1,
-            "xp": 24,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "668849943032889345": {
-            "messages": 138,
-            "xp": 8,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "741591380593344552": {
-            "messages": 3,
-            "xp": 38,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "735054482240569416": {
+        "671112390577750056": {
             "messages": 2,
-            "xp": 22,
+            "xp": 37,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "768462064297443369": {
-            "messages": 2,
-            "xp": 31,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "467340371169640448": {
-            "messages": 4,
-            "xp": 23,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "247090678784458752": {
-            "messages": 10,
-            "xp": 82,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "253330613744959488": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "466702029146816542": {
-            "messages": 1,
-            "xp": 15,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "764564956309618702": {
-            "messages": 1,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "748903815293698209": {
-            "messages": 3,
-            "xp": 41,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "778971102000840724": {
-            "messages": 1,
-            "xp": 17,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "695049838529871898": {
-            "messages": 7,
-            "xp": 53,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "680396974901690379": {
-            "messages": 7,
-            "xp": 66,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "719961868764184657": {
-            "messages": 4,
-            "xp": 42,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "410559727462907904": {
-            "messages": 26,
-            "xp": 117,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "540590289958469682": {
-            "messages": 9,
-            "xp": 24,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "496344634033963008": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "749522542456340500": {
-            "messages": 1,
-            "xp": 18,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "584137679000567809": {
-            "messages": 259,
-            "xp": 378,
-            "level": 4,
-            "color": "\ud83d\udfe6"
-        },
-        "480498672073834496": {
-            "messages": 1,
-            "xp": 21,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "418123569839734785": {
-            "messages": 24,
-            "xp": 65,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "389886918470664193": {
-            "messages": 2,
-            "xp": 21,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "779571003750612992": {
-            "messages": 15,
-            "xp": 85,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "496619011874750474": {
-            "messages": 3,
-            "xp": 30,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "461740950339715082": {
-            "messages": 1,
-            "xp": 7,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "484391356089761803": {
-            "messages": 389,
-            "xp": 1141,
-            "level": 5,
-            "color": "\ud83d\udfe6"
-        },
-        "590788649042575362": {
-            "messages": 26,
-            "xp": 40,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "765958546130206780": {
+        "711038663320010793": {
             "messages": 8,
             "xp": 101,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "694603019576279142": {
+        "773297561863192618": {
+            "messages": 1,
+            "xp": 10,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "554387006747181057": {
+            "messages": 13,
+            "xp": 93,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "707083193035259935": {
+            "messages": 2,
+            "xp": 25,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "746605499318927462": {
+            "messages": 6,
+            "xp": 68,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "749982856960278579": {
+            "messages": 8,
+            "xp": 107,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "513432561717084160": {
+            "messages": 175,
+            "xp": 159,
+            "level": 3,
+            "color": "\ud83d\udfe6"
+        },
+        "756215054948499657": {
+            "messages": 4,
+            "xp": 27,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "775489941039349761": {
+            "messages": 23,
+            "xp": 35,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "698598040210243594": {
+            "messages": 202,
+            "xp": 138,
+            "level": 3,
+            "color": "\ud83d\udfe6"
+        },
+        "777690948523655188": {
+            "messages": 95,
+            "xp": 139,
+            "level": 3,
+            "color": "\ud83d\udfe6"
+        },
+        "717896686323630178": {
             "messages": 2,
             "xp": 29,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "673401319431864341": {
-            "messages": 1,
-            "xp": 18,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "691902802166939668": {
-            "messages": 3,
-            "xp": 38,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "764460415089639446": {
-            "messages": 1,
-            "xp": 21,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "347135950339702784": {
-            "messages": 1,
-            "xp": 20,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "695618828041715724": {
-            "messages": 12,
-            "xp": 91,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "756253295651061881": {
-            "messages": 540,
-            "xp": 279,
-            "level": 6,
-            "color": "\ud83d\udfe6"
-        },
-        "710974857650896946": {
-            "messages": 64,
-            "xp": 238,
+        "764678036892811277": {
+            "messages": 65,
+            "xp": 236,
             "level": 2,
             "color": "\ud83d\udfe6"
         },
-        "352103713835450369": {
-            "messages": 8,
-            "xp": 73,
+        "754771227003846688": {
+            "messages": 28,
+            "xp": 121,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "504614673635868683": {
-            "messages": 1,
-            "xp": 16,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "739583027893633024": {
-            "messages": 1,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "700746492331425854": {
-            "messages": 1,
-            "xp": 15,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "585199134911234061": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "780170130981388298": {
-            "messages": 1,
-            "xp": 20,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "398094852786487298": {
-            "messages": 2,
-            "xp": 25,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "542243066619363328": {
-            "messages": 12,
-            "xp": 114,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "585243639329062915": {
-            "messages": 6,
-            "xp": 80,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "343580952704057345": {
-            "messages": 2,
-            "xp": 27,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "713482331348009010": {
-            "messages": 13,
-            "xp": 140,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "780206714870956032": {
-            "messages": 3,
-            "xp": 34,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "756579943281983498": {
-            "messages": 1,
-            "xp": 19,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "650648428371509258": {
-            "messages": 1,
-            "xp": 21,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "688708910060011581": {
-            "messages": 17,
-            "xp": 39,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "780783856323395664": {
-            "messages": 29,
-            "xp": 60,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "739430690809970688": {
-            "messages": 14,
-            "xp": 126,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "373107808356532224": {
-            "messages": 1,
-            "xp": 24,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "591743677626449920": {
-            "messages": 47,
-            "xp": 190,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "769549580504924201": {
-            "messages": 1,
-            "xp": 16,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "725075585142882305": {
-            "messages": 4,
-            "xp": 68,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "493834141280763914": {
-            "messages": 13,
-            "xp": 148,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "499669197706625024": {
-            "messages": 2,
-            "xp": 25,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "622516029179822091": {
-            "messages": 3,
-            "xp": 51,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "234589434799063040": {
-            "messages": 11,
-            "xp": 93,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "319190829040140289": {
-            "messages": 2,
-            "xp": 23,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "775542114087862273": {
-            "messages": 2,
-            "xp": 19,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "209759826069291019": {
-            "messages": 1,
-            "xp": 23,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "121136428842221568": {
-            "messages": 6,
-            "xp": 62,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "246302442914840576": {
-            "messages": 2,
-            "xp": 28,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "761673330435686431": {
-            "messages": 6,
-            "xp": 30,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "523273849169510420": {
+        "723006216279949392": {
             "messages": 5,
-            "xp": 71,
+            "xp": 70,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "390414410856005644": {
+        "767060019480756284": {
+            "messages": 3,
+            "xp": 48,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "759810628192829501": {
+            "messages": 1,
+            "xp": 16,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "735705340200616002": {
             "messages": 1,
             "xp": 8,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "730066173902979132": {
-            "messages": 1,
-            "xp": 16,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "422638442850287616": {
+        "742938518204055644": {
             "messages": 2,
-            "xp": 25,
+            "xp": 44,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "448412500157792256": {
+        "510901651922485274": {
+            "messages": 2,
+            "xp": 7,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "636950414406713364": {
+            "messages": 8,
+            "xp": 66,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "769500218340147210": {
             "messages": 1,
-            "xp": 20,
+            "xp": 21,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "766084082450432080": {
+        "765619442167578654": {
             "messages": 1,
-            "xp": 9,
+            "xp": 13,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "562422873801621515": {
+        "752912044126109836": {
+            "messages": 2,
+            "xp": 17,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "702192936003174551": {
+            "messages": 3,
+            "xp": 6,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "781061196442239036": {
+            "messages": 3,
+            "xp": 33,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "778603922091802644": {
+            "messages": 19,
+            "xp": 121,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "750752033920778252": {
+            "messages": 1,
+            "xp": 19,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "664238153657483288": {
             "messages": 5,
-            "xp": 26,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "692802828514885742": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1
-        },
-        "400405471745277952": {
-            "messages": 3,
-            "xp": 46,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "552146521345359884": {
-            "messages": 7,
-            "xp": 72,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "756989652333756476": {
-            "messages": 100,
-            "xp": 0,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "778747261764108328": {
-            "messages": 1,
-            "xp": 20,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "581138544010199058": {
-            "messages": 3,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "710218929125064765": {
-            "messages": 2,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "462630368273760256": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "767148283440922644": {
-            "messages": 1,
-            "xp": 20,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "741721670254985256": {
-            "messages": 7,
-            "xp": 53,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "701203418479460353": {
-            "messages": 2,
-            "xp": 18,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "711392851883327549": {
-            "messages": 34,
-            "xp": 0,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "456404954555613186": {
-            "messages": 11,
-            "xp": 59,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "779735494417186876": {
-            "messages": 1,
-            "xp": 18,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "647211106095464478": {
-            "messages": 4,
-            "xp": 22,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "366127188677885962": {
-            "messages": 1,
-            "xp": 15,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "783473784573001748": {
-            "messages": 382,
-            "xp": 172,
-            "level": 4,
-            "color": "\ud83d\udfe6"
-        },
-        "783475436079415348": {
-            "messages": 17,
-            "xp": 116,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "777542343758184460": {
-            "messages": 1,
-            "xp": 18,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "766548541757325342": {
-            "messages": 296,
-            "xp": 512,
-            "level": 5,
-            "color": "\ud83d\udfe6"
-        },
-        "398847583872614400": {
-            "messages": 13,
-            "xp": 112,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "545120752723296256": {
-            "messages": 2,
-            "xp": 40,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "628656344207196178": {
-            "messages": 7,
-            "xp": 73,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "719272291225174066": {
-            "messages": 53,
-            "xp": 363,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "491335360886865930": {
-            "messages": 1,
-            "xp": 18,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "626466643782008890": {
-            "messages": 13,
-            "xp": 84,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "588767739104067609": {
-            "messages": 1,
-            "xp": 11,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "284134440643461121": {
-            "messages": 1,
-            "xp": 13,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "497123870742937600": {
-            "messages": 1,
-            "xp": 15,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "777974323209437235": {
-            "messages": 74,
-            "xp": 136,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "533755141069996043": {
-            "messages": 6,
-            "xp": 43,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "784596516542349383": {
-            "messages": 1,
-            "xp": 16,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "321037748209451009": {
-            "messages": 1,
-            "xp": 15,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "783574675883556874": {
-            "messages": 1,
-            "xp": 12,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "769415998654513152": {
-            "messages": 1,
-            "xp": 22,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "361539646641012750": {
-            "messages": 1,
-            "xp": 15,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "695209744943677440": {
-            "messages": 1,
-            "xp": 13,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "543983221977907221": {
-            "messages": 3,
             "xp": 32,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "774306472964128809": {
-            "messages": 1,
+        "257937060655136779": {
+            "messages": 2,
             "xp": 24,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "456141036058574882": {
-            "messages": 13,
-            "xp": 100,
+        "709052201766748202": {
+            "messages": 2,
+            "xp": 29,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "693604487969112124": {
+        "726652266559438859": {
+            "messages": 24,
+            "xp": 166,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "759266361733545984": {
+            "messages": 1,
+            "xp": 13,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "760577619606503435": {
+            "messages": 15,
+            "xp": 0,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "761609612079267841": {
+            "messages": 19,
+            "xp": 0,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "652623616319422512": {
             "messages": 1,
             "xp": 17,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "561331915756535828": {
-            "messages": 8,
-            "xp": 87,
+        "743598184969928796": {
+            "messages": 43,
+            "xp": 55,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "765382729465856062": {
+            "messages": 3,
+            "xp": 44,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "296294820417372160": {
+        "484548231741833216": {
             "messages": 1,
-            "xp": 14,
+            "xp": 21,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "779701064043069441": {
-            "messages": 1,
-            "xp": 5,
-            "level": 1
-        },
-        "769044385899741184": {
-            "messages": 1,
-            "xp": 2,
-            "level": 1
-        },
-        "553274650130513920": {
-            "messages": 2,
-            "xp": 20,
+        "729155063825563708": {
+            "messages": 3,
+            "xp": 34,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "148823217694441472": {
-            "messages": 15,
-            "xp": 153,
+        "782007974154731521": {
+            "messages": 32,
+            "xp": 185,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "763225926045007882": {
+        "333270885341331466": {
             "messages": 5,
-            "xp": 27,
+            "xp": 60,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "761247602711855134": {
-            "messages": 16,
+        "730530957072924845": {
+            "messages": 3,
+            "xp": 49,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "781646321341038602": {
+            "messages": 6,
+            "xp": 47,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "632030729076736039": {
+            "messages": 1,
+            "xp": 21,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "661999215248932898": {
+            "messages": 4,
             "xp": 42,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "732455399193837639": {
+        "670493561921208320": {
+            "messages": 409,
+            "xp": 616,
+            "level": 4,
+            "color": "<a:MKohyeah:747886073824149605>"
+        },
+        "781635200064684032": {
+            "messages": 141,
+            "xp": 116,
+            "level": 3,
+            "color": "\ud83d\udfe6"
+        },
+        "760949034293919754": {
             "messages": 1,
             "xp": 14,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "627892805146116100": {
+        "758706631415693383": {
+            "messages": 48,
+            "xp": 113,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "761329979228684328": {
             "messages": 4,
-            "xp": 41,
+            "xp": 27,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "735164099255861308": {
-            "messages": 1,
-            "xp": 9,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "332747191380738049": {
-            "messages": 1,
+        "692765670726959164": {
+            "messages": 29,
             "xp": 12,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "715549167019229254": {
+            "messages": 8,
+            "xp": 57,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "259979867553136641": {
-            "messages": 1,
-            "xp": 14,
+        "737416256772243626": {
+            "messages": 3,
+            "xp": 20,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "659874904614895656": {
+        "748341822434181231": {
+            "messages": 9,
+            "xp": 96,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "664938858185490442": {
             "messages": 2,
             "xp": 22,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "270666099996098560": {
+        "656108328518156311": {
             "messages": 1,
-            "xp": 15,
+            "xp": 7,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "756222786933883082": {
+        "736820906604888096": {
+            "messages": 5,
+            "xp": 39,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "641085825177878528": {
+            "messages": 2,
+            "xp": 13,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "742139186458394674": {
+            "messages": 2,
+            "xp": 39,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "419058260075741189": {
+            "messages": 2,
+            "xp": 11,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "755026606237679646": {
+            "messages": 32,
+            "xp": 20,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "546172688004022272": {
+            "messages": 54,
+            "xp": 130,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "537640569070157824": {
+            "messages": 14,
+            "xp": 80,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "670537603925278720": {
             "messages": 1,
             "xp": 14,
             "level": 1,
             "color": "\ud83d\udfe6"
         },
-        "531904482225684490": {
-            "messages": 24,
-            "xp": 199,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "780812532029325344": {
-            "messages": 15,
-            "xp": 146,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "762140143251357769": {
+        "766289597826727946": {
             "messages": 1,
-            "xp": 4,
+            "xp": 22,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "683038466115764298": {
+            "messages": 3,
+            "xp": 41,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "762011718011322378": {
+            "messages": 4,
+            "xp": 17,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "718829242644824106": {
+            "messages": 1,
+            "xp": 19,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "769593666079162388": {
+            "messages": 2,
+            "xp": 32,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "773311233986134057": {
+            "messages": 2,
+            "xp": 30,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "691763548979986442": {
+            "messages": 1,
+            "xp": 12,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "772631868804694047": {
+            "messages": 2,
+            "xp": 17,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "766373301169160242": {
+            "messages": 3,
+            "xp": 28,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "690196866725314736": {
+            "messages": 1,
+            "xp": 20,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "755562353390780610": {
+            "messages": 2,
+            "xp": 39,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "727619071172018246": {
+            "messages": 6,
+            "xp": 52,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "551776811823005698": {
+            "messages": 17,
+            "xp": 101,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "715980911316828182": {
+            "messages": 1,
+            "xp": 22,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "702187023917907979": {
+            "messages": 2,
+            "xp": 31,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "754765764849958942": {
+            "messages": 2,
+            "xp": 22,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "730223608886067210": {
+            "messages": 39,
+            "xp": 171,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "784129383140950046": {
+            "messages": 55,
+            "xp": 142,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "678608269127974955": {
+            "messages": 5,
+            "xp": 62,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "607698378138320906": {
+            "messages": 3,
+            "xp": 23,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "540257105865605127": {
+            "messages": 2,
+            "xp": 20,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "756938811401043998": {
+            "messages": 2,
+            "xp": 29,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "745388954961969362": {
+            "messages": 1,
+            "xp": 9,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "729827165440311427": {
+            "messages": 1,
+            "xp": 21,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "649707444762574907": {
+            "messages": 2,
+            "xp": 10,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "757400265249783830": {
+            "messages": 1,
+            "xp": 19,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "550789775833956354": {
+            "messages": 1,
+            "xp": 5,
             "level": 1
         }
     },
@@ -17924,5 +17145,1919 @@
                 "color": "\ud83d\udfe6"
             }
         }
+    },
+    "reactionroles": {
+        "783832823194058796": [
+            "bongocode",
+            767969537949696000
+        ],
+        "783837385355165716": [
+            "bongocode",
+            778857983836291072
+        ],
+        "783838933893120020": [
+            "\ud83d\udc22",
+            778857983836291072
+        ],
+        "783839659771953172": [
+            "\ud83d\udc22",
+            767830331310866482
+        ],
+        "783840429702643713": [
+            "\ud83d\udc22",
+            780526513484988416
+        ],
+        "783840767948488704": [
+            "oop",
+            778857983836291072
+        ],
+        "783841285450104833": [
+            "MKohyeah",
+            757636730546421901
+        ],
+        "783842779721760808": [
+            "MKohyeah",
+            778857983836291072
+        ],
+        "783949198470283294": [
+            "bongocode",
+            770747748621353030
+        ],
+        "784213984102449173": [
+            "\u2705",
+            767830331310866482
+        ],
+        "784218423643078666": [
+            "\ud83d\udc22",
+            767830268396306482
+        ],
+        "784502573976911886": [
+            "strangrdangr",
+            784501964670369854
+        ],
+        "785552883705708624": [
+            "bongocode",
+            741421776562552882
+        ],
+        "785568421101830194": [
+            "KIENCHANNELART",
+            785568160237617183
+        ],
+        "785569073899110462": [
+            "KIENCHANNELART",
+            785568160237617183
+        ],
+        "786041022530584636": [
+            "bongocode",
+            741421776562552882
+        ],
+        "786300364982321192": [
+            "th5",
+            783705347910139904
+        ]
+    },
+    "players": {
+        "670493561921208320": [
+            84544344345,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    1
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    1
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    1
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    1
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    2
+                ]
+            ],
+            ""
+        ],
+        "414515412101758976": [
+            3248,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    1
+                ]
+            ],
+            ""
+        ],
+        "348249669442207744": [
+            0,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    1
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "743205941557592154": [
+            7081,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "519790591895404545": [
+            49605,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "722999582828789860": [
+            57269,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "675067975451148299": [
+            3810,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "374695375287746581": [
+            2757,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "720075350507520111": [
+            557,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "624091913112256522": [
+            14416,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "666644270752727052": [
+            1186,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "704760796269379645": [
+            0,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "732048782576975955": [
+            893,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "766105320408875049": [
+            30614,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "539982624848871425": [
+            588,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "754160869637619712": [
+            26657,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "733125710402814002": [
+            2290,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "769223165141712967": [
+            1454,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "125492204234997761": [
+            14789,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "200453508745527296": [
+            27062,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "776919872286097462": [
+            1679,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "678415756865830914": [
+            4988,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "732753478576898078": [
+            4686,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "745046080235765930": [
+            9422890751,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "654824761116852273": [
+            10080493,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "586384839159054358": [
+            500,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    5
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "437077943228039168": [
+            100100,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "628053851810955295": [
+            6022778442,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "755836957572988968": [
+            244473,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "711443939093119007": [
+            1570,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "712770720710656021": [
+            200,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "617130561399554090": [
+            2549,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "692160871081967616": [
+            1211,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "758858729839132683": [
+            648,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ],
+        "585585040835215361": [
+            1813,
+            [
+                [
+                    "Airpods",
+                    10000,
+                    "flex on all the poor people with this symbol being able to waste money.",
+                    0
+                ],
+                [
+                    "iPhone",
+                    100000,
+                    "A genuinely good phone, but also for flexing on the poor people.",
+                    0
+                ],
+                [
+                    "Pencil",
+                    300,
+                    "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                    0
+                ],
+                [
+                    "Pokemon card",
+                    550.0,
+                    "A relic from an ancient time, when these were traded and collected.",
+                    0
+                ],
+                [
+                    "Bumper Sticker",
+                    400,
+                    "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                    0
+                ],
+                [
+                    "Hangman",
+                    50000,
+                    "Play hangman against Hurb! Not just an item, but a whole game!",
+                    0
+                ],
+                [
+                    "Autodoggo",
+                    "",
+                    "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                    0
+                ],
+                [
+                    "Autocatto",
+                    "",
+                    "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                    0
+                ]
+            ],
+            ""
+        ]
     }
 }

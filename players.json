@@ -1,6 +1,6 @@
 {
     "670493561921208320": [
-        100,
+        100000000200,
         [
             [
                 "Airpods",
@@ -84,7 +84,7 @@
         ""
     ],
     "348249669442207744": [
-        683300,
+        0,
         [
             [
                 "Airpods",
@@ -276,7 +276,7 @@
         ""
     ],
     "675067975451148299": [
-        3601,
+        3810,
         [
             [
                 "Airpods",
@@ -1194,7 +1194,7 @@
         ""
     ],
     "745046080235765930": [
-        18641,
+        400,
         [
             [
                 "Airpods",
@@ -1248,7 +1248,7 @@
         ""
     ],
     "654824761116852273": [
-        6958,
+        90408,
         [
             [
                 "Airpods",
@@ -1302,7 +1302,7 @@
         ""
     ],
     "586384839159054358": [
-        100,
+        8134,
         [
             [
                 "Airpods",
@@ -1356,7 +1356,7 @@
         ""
     ],
     "437077943228039168": [
-        299415,
+        500,
         [
             [
                 "Airpods",
@@ -1410,7 +1410,7 @@
         ""
     ],
     "628053851810955295": [
-        158568,
+        49163,
         [
             [
                 "Airpods",
@@ -1464,7 +1464,7 @@
         ""
     ],
     "755836957572988968": [
-        565502,
+        280109,
         [
             [
                 "Airpods",
@@ -1518,7 +1518,7 @@
         ""
     ],
     "711443939093119007": [
-        1143,
+        1570,
         [
             [
                 "Airpods",
@@ -1572,7 +1572,7 @@
         ""
     ],
     "712770720710656021": [
-        2000,
+        200,
         [
             [
                 "Airpods",
@@ -1626,7 +1626,115 @@
         ""
     ],
     "617130561399554090": [
-        1959,
+        2549,
+        [
+            [
+                "Airpods",
+                10000,
+                "flex on all the poor people with this symbol being able to waste money.",
+                0
+            ],
+            [
+                "iPhone",
+                100000,
+                "A genuinely good phone, but also for flexing on the poor people.",
+                0
+            ],
+            [
+                "Pencil",
+                300,
+                "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                0
+            ],
+            [
+                "Pokemon card",
+                550.0,
+                "A relic from an ancient time, when these were traded and collected.",
+                0
+            ],
+            [
+                "Bumper Sticker",
+                400,
+                "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                0
+            ],
+            [
+                "Hangman",
+                50000,
+                "Play hangman against Hurb! Not just an item, but a whole game!",
+                0
+            ],
+            [
+                "Autodoggo",
+                "",
+                "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                0
+            ],
+            [
+                "Autocatto",
+                "",
+                "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                0
+            ]
+        ],
+        ""
+    ],
+    "692160871081967616": [
+        1211,
+        [
+            [
+                "Airpods",
+                10000,
+                "flex on all the poor people with this symbol being able to waste money.",
+                0
+            ],
+            [
+                "iPhone",
+                100000,
+                "A genuinely good phone, but also for flexing on the poor people.",
+                0
+            ],
+            [
+                "Pencil",
+                300,
+                "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now.",
+                0
+            ],
+            [
+                "Pokemon card",
+                550.0,
+                "A relic from an ancient time, when these were traded and collected.",
+                0
+            ],
+            [
+                "Bumper Sticker",
+                400,
+                "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time.",
+                0
+            ],
+            [
+                "Hangman",
+                50000,
+                "Play hangman against Hurb! Not just an item, but a whole game!",
+                0
+            ],
+            [
+                "Autodoggo",
+                "",
+                "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!",
+                0
+            ],
+            [
+                "Autocatto",
+                "",
+                "Just like the `%catto` command, but shows you a new catto every 7 seconds!",
+                0
+            ]
+        ],
+        ""
+    ],
+    "758858729839132683": [
+        648,
         [
             [
                 "Airpods",

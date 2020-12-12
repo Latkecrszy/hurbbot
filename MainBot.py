@@ -53,7 +53,7 @@ async def on_ready():
 @bot.command()
 @commands.has_permissions(manage_guild=True)
 async def prefix(ctx, new_prefix=None):
-    with open('../Bots/storage.json', 'r') as f:
+    with open('../Bots/servers.json', 'r') as f:
         storage = json.load(f)
 
     if new_prefix is None:
@@ -61,7 +61,7 @@ async def prefix(ctx, new_prefix=None):
             embed=discord.Embed(description=f"The prefix for this server is `{storage[str(ctx.guild.id)]['prefix']}`"))
     else:
         storage[str(ctx.guild.id)]['prefix'] = new_prefix
-        with open('../Bots/storage.json', 'w') as f:
+        with open('../Bots/servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 
         await ctx.send(f"{ctx.guild.name}'s prefix has been changed to `{new_prefix}`")
@@ -95,13 +95,11 @@ async def on_member_join(member):
 
 @bot.command()
 async def fixfile(ctx):
-    with open(f"autoroles.json") as f:
-        files = json.load(f)
-
     with open("servers.json") as f:
         servers = json.load(f)
-    for key, value in files.items():
-        servers[key]["autoroles"] = value
+    for key, value in servers.items():
+        servers[key]["commands"]["moderation"] = "True"
+        servers[key]["commands"]["economy"] = "True"
     with open("servers.json", "w") as f:
         json.dump(servers, f, indent=4)
     await ctx.send("All done fixing the file :)")

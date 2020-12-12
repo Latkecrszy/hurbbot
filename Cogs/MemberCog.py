@@ -203,9 +203,12 @@ class MemberCog(commands.Cog):
     @commands.command()
     async def ban(self, ctx, member: discord.Member, *, reason="There was no reason for this banning."):
         if not member.guild_permissions.administrator:
-            await member.send(embed=discord.Embed(title=f"You have been banned from {ctx.guild.name} by {ctx.author}.",
-                                                  description=f"Reason: {reason}",
-                                                  color=discord.Color.red()))
+            try:
+                await member.send(embed=discord.Embed(title=f"You have been banned from {ctx.guild.name} by {ctx.author}.",
+                                                    description=f"Reason: {reason}",
+                                                    color=discord.Color.red()))
+            except:
+                pass
             await ctx.guild.ban(member)
             await ctx.guild.kick(member)
             embed = discord.Embed(
@@ -290,7 +293,7 @@ class MemberCog(commands.Cog):
                 message2 = message[1].split("}")
                 message2 = message2[1]
                 message = message[0]
-                await channel.send(f"{message}{member.mention}{message2}")
+                await channel.send(f"{message}{member}{message2}")
             for role in member.roles:
                 if str(role).lower() == "muted":
                     mutedMembers.append(str(member))
@@ -363,7 +366,7 @@ class MemberCog(commands.Cog):
                                   color=discord.Color.red())
         await ctx.send(embed=embed)
         storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
-        with open("../Bots/storage.json", "w") as f:
+        with open("../Bots/servers.json", "w") as f:
             json.dump(storage, f, indent=4)
 
     @commands.command()

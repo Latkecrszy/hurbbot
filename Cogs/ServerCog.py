@@ -120,7 +120,7 @@ class ServerCog(commands.Cog):
         if str(guild.id) not in storage.keys():
             print("working")
             storage[str(guild.id)] = {"prefix": '%', "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
-                                      "invitecheck": "False", "linkcheck": "False", "ranking": "True"}}
+                                      "invitecheck": "False", "linkcheck": "False", "ranking": "True", "economy": "True", "moderation": "True"}}
         print("working")
         with open('../Bots/servers.json', 'w') as f:
             json.dump(storage, f, indent=4)

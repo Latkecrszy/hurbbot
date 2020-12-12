@@ -30,7 +30,6 @@ class ErrorCog(commands.Cog):
             await ctx.send(embed=discord.Embed(
                 title=f"<a:no:771786741312782346> Sorry, I don't have adequate permissions to accomplish that task. Try dragging my role higher in server settings to fix this.",
                 color=discord.Color.red()))
-            raise error
         elif isinstance(error, CommandInvokeError):
             error = getattr(error, "original", error)
             if isinstance(error, ValueError):
@@ -47,14 +46,14 @@ class ErrorCog(commands.Cog):
                 await ctx.send(embed=discord.Embed(
                     description=f"You do not yet have an account with this bot {ctx.author.mention}! To start one, just say `%start`, and an account will be made for you. Or, if you think that this was a mistake, or that your account has been deleted, please submit a bug report with the `%bug <message>` command.",
                     color=discord.Color.red()))
-            else:
-                await ctx.send(embed=discord.Embed(
-                    title=f"<a:no:771786741312782346> Sorry, something went wrong in the command. Please check that you are inputting correct arguments, and try again!",
-                    color=discord.Color.red()))
-                channel = self.bot.get_channel(755174796530155550)
-                await channel.send(embed=discord.Embed(description=f"```py\n{error.original}```"))
-                await channel.send("<@670493561921208320>")
-                raise error.original
+        else:
+            await ctx.send(embed=discord.Embed(
+                title=f"<a:no:771786741312782346> Sorry, something went wrong in the command. Please check that you are inputting correct arguments, and try again!",
+                color=discord.Color.red()))
+            channel = self.bot.get_channel(755174796530155550)
+            await channel.send(embed=discord.Embed(description=f"```py\n{error.original}```"))
+            await channel.send("<@670493561921208320>")
+            raise error.original
 
     @commands.command()
     @commands.cooldown(1, 60, BucketType.user)

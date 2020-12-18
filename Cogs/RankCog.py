@@ -251,8 +251,14 @@ class Rank(commands.Cog):
                                            description=f"[Click here to see the leaderboard](https://hurbsite.herokuapp.com/leaderboard/{ctx.guild.id})"))
 
     @commands.command()
-    async def levelrole(self, role: discord.Role, level):
-        pass
+    async def levelrole(self, ctx, role: discord.Role, level):
+        storage = json.load(open("../Bots/servers.json"))
+        if "levelroles" not in storage[str(ctx.guild.id)]:
+            storage[str(ctx.guild.id)]["levelroles"] = {}
+        storage[str(ctx.guild.id)]["levelroles"][str(level)] = role.id
+        await ctx.send(embed=discord.Embed(description=f"Ok {ctx.author.mention}, when users reach level {level}, they will receive the {role.mention} role!",
+                                           color=discord.Color.green()))
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
     @commands.command()
     async def highest(self, ctx):

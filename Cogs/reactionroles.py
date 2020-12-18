@@ -31,10 +31,13 @@ class ReactionRoleCog(commands.Cog):
                 message = await ctx.send(embed=embed)
                 await message.add_reaction(emoji)
                 reactionroles[str(message.id)] = [str(emoji), role.id]
-
+            print(reactionroles[str(message.id)])
+            print("Original message id: "+str(message.id))
             storage["reactionroles"] = reactionroles
-            with open("../Bots/storage.json", "w") as f:
+            print(storage["reactionroles"][str(message.id)])
+            with open("../Bots/servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
+            print("stored in the file")
         else:
             await ctx.send(f"I do not have the permissions to assign that role {ctx.author.mention}! Please move my role above the role to allow me to assign it!")
 
@@ -48,23 +51,24 @@ class ReactionRoleCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        with open("../Bots/servers.json") as f:
-            storage = json.load(f)
-        reactionroles = storage["reactionroles"]
-        if str(payload.message_id) in reactionroles.keys():
-            if str(payload.emoji).find(reactionroles[str(payload.message_id)][0]) != -1:
-                guild = self.bot.get_guild(int(payload.guild_id))
-                role = guild.get_role(reactionroles[str(payload.message_id)][1])
-                member = guild.get_member(int(payload.user_id))
-                await member.add_roles(role)
-                if not reactionroles[str(payload.message_id)][0].startswith("\\"):
-                    channel = self.bot.get_channel(int(payload.channel_id))
-                    message = await channel.fetch_message(int(payload.message_id))
-                    ctx = await self.bot.get_context(message)
-                    emoji = await self.emojiConverter.convert(ctx, reactionroles[str(payload.message_id)][0])
-                else:
-                    emoji = reactionroles[str(payload.message_id)][0]
-                await member.send(embed=discord.Embed(description=f"**You now have the {role} role for reacting with {emoji} in {str(self.bot.get_guild(int(payload.guild_id)))}.**\n\n"))
+        if str(payload.user_id) != "736283988628602960":
+            with open("../Bots/servers.json") as f:
+                storage = json.load(f)
+            reactionroles = storage["reactionroles"]
+            if str(payload.message_id) in reactionroles.keys():
+                if str(payload.emoji).find(reactionroles[str(payload.message_id)][0]) != -1:
+                    guild = self.bot.get_guild(int(payload.guild_id))
+                    role = guild.get_role(reactionroles[str(payload.message_id)][1])
+                    member = guild.get_member(int(payload.user_id))
+                    await member.add_roles(role)
+                    if not reactionroles[str(payload.message_id)][0].startswith("\\"):
+                        channel = self.bot.get_channel(int(payload.channel_id))
+                        message = await channel.fetch_message(int(payload.message_id))
+                        ctx = await self.bot.get_context(message)
+                        emoji = await self.emojiConverter.convert(ctx, reactionroles[str(payload.message_id)][0])
+                    else:
+                        emoji = reactionroles[str(payload.message_id)][0]
+                    await member.send(embed=discord.Embed(description=f"**You now have the {role} role for reacting with {emoji} in {str(self.bot.get_guild(int(payload.guild_id)))}.**\n\n"))
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):

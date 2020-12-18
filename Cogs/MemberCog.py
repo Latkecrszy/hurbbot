@@ -201,32 +201,31 @@ class MemberCog(commands.Cog):
 
     @commands.has_permissions(ban_members=True)
     @commands.command()
-    async def ban(self, ctx, member: discord.Member, *, reason="There was no reason for this banning."):
-        if not member.guild_permissions.administrator:
+    async def ban(self, ctx, member: discord.User, *, reason="There was no reason for this banning."):
             try:
-                await member.send(embed=discord.Embed(title=f"You have been banned from {ctx.guild.name} by {ctx.author}.",
-                                                    description=f"Reason: {reason}",
-                                                    color=discord.Color.red()))
+                try:
+                    await member.send(embed=discord.Embed(title=f"You have been banned from {ctx.guild.name} by {ctx.author}.",
+                                                        description=f"Reason: {reason}",
+                                                        color=discord.Color.red()))
+                except:
+                    pass
+                await ctx.guild.ban(member)
+                embed = discord.Embed(
+                    description=f"***<:check:742198670912651316> {member.mention} has been banned by {ctx.author.mention}.***",
+                    color=discord.Color.green())
+                embed.set_footer(text=f"Reason: {reason}")
+                await ctx.send(embed=embed)
             except:
-                pass
-            await ctx.guild.ban(member)
-            await ctx.guild.kick(member)
-            embed = discord.Embed(
-                description=f"***<:check:742198670912651316> {member.mention} has been banned by {ctx.author.mention}.***",
-                color=discord.Color.green())
-            embed.set_footer(text=f"Reason: {reason}")
-            await ctx.send(embed=embed)
+                embed = discord.Embed(
+                    title=f"*<:x_:742198871085678642> {member} has failed to be banned by {ctx.author.display_name} because they are an admin/mod.*",
+                    description=None, color=discord.Color.red())
+                await ctx.send(embed=embed)
 
-        elif member.guild_permissions.administrator:
-            embed = discord.Embed(
-                title=f"*<:x_:742198871085678642> {member} has failed to be banned by {ctx.author.display_name} because they are an admin/mod.*",
-                description=None, color=discord.Color.red())
-            await ctx.send(embed=embed)
 
     @commands.has_permissions(ban_members=True)
     @commands.command()
-    async def unban(self, ctx, member: discord.Member):
-        await member.unban()
+    async def unban(self, ctx, member: discord.User):
+        await ctx.guild.unban(member)
         await ctx.send(f"{member} has been unbanned from {ctx.guild}.")
 
     @commands.command()

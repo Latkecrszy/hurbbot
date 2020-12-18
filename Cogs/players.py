@@ -58,22 +58,22 @@ def refreshBalance():
 
 def addItem():
     newItems = {
-                    Item("Airpods", getPrice("airpods"),
-                         "flex on all the poor people with this symbol being able to waste money."): 0,
-                    Item("iPhone", getPrice("iphone"),
-                         "A genuinely good phone, but also for flexing on the poor people."): 0,
-                    Item("Pencil", getPrice("pencil"),
-                         "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now."): 0,
-                    Item("Pokemon card", getPrice("pokemon card"),
-                         "A relic from an ancient time, when these were traded and collected."): 0,
-                    Item("Bumper Sticker", getPrice("bumper sticker"),
-                         "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time."): 0,
-                    Item("Hangman", getPrice("hangman"), "Play hangman against Hurb! Not just an item, but a whole game!"): 0,
-                    Item("Autodoggo", getPrice("autocatto"),
-                         "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!"): 0,
-                    Item("Autocatto", getPrice("autocatto"),
-                         "Just like the `%catto` command, but shows you a new catto every 7 seconds!"): 0
-                }
+        Item("Airpods", getPrice("airpods"),
+             "flex on all the poor people with this symbol being able to waste money."): 0,
+        Item("iPhone", getPrice("iphone"),
+             "A genuinely good phone, but also for flexing on the poor people."): 0,
+        Item("Pencil", getPrice("pencil"),
+             "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now."): 0,
+        Item("Pokemon card", getPrice("pokemon card"),
+             "A relic from an ancient time, when these were traded and collected."): 0,
+        Item("Bumper Sticker", getPrice("bumper sticker"),
+             "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time."): 0,
+        Item("Hangman", getPrice("hangman"), "Play hangman against Hurb! Not just an item, but a whole game!"): 0,
+        Item("Autodoggo", getPrice("autocatto"),
+             "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!"): 0,
+        Item("Autocatto", getPrice("autocatto"),
+             "Just like the `%catto` command, but shows you a new catto every 7 seconds!"): 0
+    }
     players = refreshBalance()
     for player, value in players.items():
         for item in player.items:
@@ -119,7 +119,8 @@ class Player(commands.Cog):
                          "A relic from an ancient time, when these were traded and collected."): 0,
                     Item("Bumper Sticker", getPrice("bumper sticker"),
                          "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time."): 0,
-                    Item("Hangman", getPrice("hangman"), "Play hangman against Hurb! Not just an item, but a whole game!"): 0,
+                    Item("Hangman", getPrice("hangman"),
+                         "Play hangman against Hurb! Not just an item, but a whole game!"): 0,
                     Item("Autodoggo", getPrice("autocatto"),
                          "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!"): 0,
                     Item("Autocatto", getPrice("autocatto"),
@@ -149,33 +150,6 @@ class Player(commands.Cog):
         player = players[str(ctx.author.id)]
         player.money += 500
         await ctx.send(embed=discord.Embed(description=f"Daily claimed {ctx.author.mention}. You gained $500!"))
-        await saveMoney(ctx, players)
-
-    @commands.command()
-    @commands.cooldown(1, 604800, BucketType.user)
-    async def weekly(self, ctx):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
-        player.money += 2500
-        await ctx.send(embed=discord.Embed(description=f"Weekly claimed {ctx.author.mention}. You gained $2500!"))
-        await saveMoney(ctx, players)
-
-    @commands.command()
-    @commands.cooldown(1, 2629746, BucketType.user)
-    async def monthly(self, ctx):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
-        player.money += 10000
-        await ctx.send(embed=discord.Embed(description=f"Monthly claimed {ctx.author.mention}. You gained $10000!"))
-        await saveMoney(ctx, players)
-
-    @commands.command()
-    @commands.cooldown(1, 31556952, BucketType.user)
-    async def yearly(self, ctx):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
-        player.money += 1
-        await ctx.send(embed=discord.Embed(description=f"Yearly claimed {ctx.author.mention}! You gained $1000000000!"))
         await saveMoney(ctx, players)
 
     @commands.command(aliases=["b", "B", "Balance", "BALANCE", "bal", "Bal", "BAL"])
@@ -251,32 +225,41 @@ class Player(commands.Cog):
             if victim.money >= 200:
                 if robber.money >= 200:
                     if robber.money <= victim.money:
-                        stolen = random.choice(["success", "failure", "failure", "failure", "failure", "success", "success"])
-                        amount_stolen = random.randint(1, int(victim.money/5))
+                        stolen = random.choice(
+                            ["success", "failure", "failure", "failure", "failure", "success", "success"])
+                        amount_stolen = random.randint(1, int(victim.money / 5))
                         print(amount_stolen)
                         print(victim.money)
-                        print(victim.money/5)
+                        print(victim.money / 5)
                         if stolen == "success":
                             victim.money -= amount_stolen
                             robber.money += amount_stolen
-                            await ctx.send(embed=discord.Embed(description=f"You stole ${amount_stolen}! Good work, you nasty little thief."))
+                            await ctx.send(embed=discord.Embed(
+                                description=f"You stole ${amount_stolen}! Good work, you nasty little thief."))
                         elif stolen == "failure":
                             if robber.money <= amount_stolen:
                                 victim.money += robber.money
                                 robber.money = 0
-                                await ctx.send(embed=discord.Embed(description=random.choice([f"You didn't realize that they were actually a cop in disguise, and they forced you to give them all your money.", f"You dropped their wallet as you were stealing it, and became so flustered that you dropped your own as well."])))
+                                await ctx.send(embed=discord.Embed(description=random.choice([
+                                                                                                 f"You didn't realize that they were actually a cop in disguise, and they forced you to give them all your money.",
+                                                                                                 f"You dropped their wallet as you were stealing it, and became so flustered that you dropped your own as well."])))
                             else:
                                 robber.money -= amount_stolen
                                 victim.money += amount_stolen
-                                await ctx.send(embed=discord.Embed(description=random.choice([f"You didn't realize that they were actually a cop in disguise, and they forced you to pay them a fine of ${amount_stolen}.", f"You dropped their wallet as you were stealing it, and became so flustered that you dropped ${amount_stolen}."])))
+                                await ctx.send(embed=discord.Embed(description=random.choice([
+                                                                                                 f"You didn't realize that they were actually a cop in disguise, and they forced you to pay them a fine of ${amount_stolen}.",
+                                                                                                 f"You dropped their wallet as you were stealing it, and became so flustered that you dropped ${amount_stolen}."])))
                     else:
-                        await ctx.send(embed=discord.Embed(description=f"Cmon man, you got more money than {Member.mention}. Give them a break, will ya?"))
+                        await ctx.send(embed=discord.Embed(
+                            description=f"Cmon man, you got more money than {Member.mention}. Give them a break, will ya?"))
                 else:
                     await ctx.send(embed=discord.Embed(description=f"You need to have at least $200 to rob someone."))
             else:
-                await ctx.send(embed=discord.Embed(description=f"{Member.mention} doesn't even have $200, it's not worth it."))
+                await ctx.send(
+                    embed=discord.Embed(description=f"{Member.mention} doesn't even have $200, it's not worth it."))
         else:
-            await ctx.send(embed=discord.Embed(description=f"{Member.mention} does not have an account with this bot yet {ctx.author.mention}!"))
+            await ctx.send(embed=discord.Embed(
+                description=f"{Member.mention} does not have an account with this bot yet {ctx.author.mention}!"))
         await saveMoney(ctx, players)
 
     @commands.command()
@@ -287,9 +270,27 @@ class Player(commands.Cog):
         if donor.money >= int(amount) >= 0:
             Member.money += int(amount)
             donor.money -= int(amount)
-            await ctx.send(embed=discord.Embed(description=f"{ctx.author.mention} has given ${amount} to {member.mention}.", color=discord.Color.green()))
+            await ctx.send(
+                embed=discord.Embed(description=f"{ctx.author.mention} has given ${amount} to {member.mention}.",
+                                    color=discord.Color.green()))
         else:
-            await ctx.send(embed=discord.Embed(description=f"{ctx.author.mention} you do not have enough money to give ${amount}!"))
+            await ctx.send(embed=discord.Embed(
+                description=f"{ctx.author.mention} you do not have enough money to give ${amount}!"))
         await saveMoney(ctx, players)
+
+    @commands.command()
+    async def addmoney(self, ctx, member: discord.Member, amount):
+        if ctx.author.id == 670493561921208320:
+            players = refreshBalance()
+            Member = players[str(member.id)]
+            Member.money += int(amount)
+            await ctx.send(
+                embed=discord.Embed(description=f"{ctx.author.mention} has added ${amount} to {member.mention}.",
+                                    color=discord.Color.green()))
+            await saveMoney(ctx, players)
+        else:
+            await ctx.send("NOPE")
+
+
 def setup(bot):
     bot.add_cog(Player("none", "none", "none"))

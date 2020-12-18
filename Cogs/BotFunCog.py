@@ -170,12 +170,13 @@ class BotFunCog(commands.Cog):
         message = ''''''
         for i in range(len(self.bot.guilds)):
             server = self.bot.guilds[i]
-            message += f"#{i+1} **{server.name}**:  {len([member for member in server.members])} members\n\n"
+            message += f"#{i+1} **{server.name}**\n\n"
             members += len([member for member in server.members])
         embed.add_field(name=f"Serving {len(self.bot.guilds)} servers", value=f"And {members} members!")
         embed.set_thumbnail(url=ctx.guild.me.avatar_url)
         await ctx.send(message)
         await ctx.send(embed=embed)
+
 
     @commands.command()
     async def botinfo(self, ctx):

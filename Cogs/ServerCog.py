@@ -67,7 +67,7 @@ class ServerCog(commands.Cog):
                                           description=None, color=discord.Color.green())
                     await ctx.send(embed=embed)
                     storage[str(ctx.guild.id)]["commands"] = commandsList
-                    disabled = False
+                    enabled = False
 
         with open('../Bots/servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
@@ -114,14 +114,12 @@ class ServerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        print("working")
         with open('../Bots/servers.json', 'r') as f:
             storage = json.load(f)
         if str(guild.id) not in storage.keys():
             print("working")
             storage[str(guild.id)] = {"prefix": '%', "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
                                       "invitecheck": "False", "linkcheck": "False", "ranking": "True", "economy": "True", "moderation": "True"}}
-        print("working")
         with open('../Bots/servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 

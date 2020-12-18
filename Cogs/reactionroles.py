@@ -31,10 +31,7 @@ class ReactionRoleCog(commands.Cog):
                 message = await ctx.send(embed=embed)
                 await message.add_reaction(emoji)
                 reactionroles[str(message.id)] = [str(emoji), role.id]
-            print(reactionroles[str(message.id)])
-            print("Original message id: "+str(message.id))
             storage["reactionroles"] = reactionroles
-            print(storage["reactionroles"][str(message.id)])
             with open("../Bots/servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
             print("stored in the file")

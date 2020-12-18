@@ -139,7 +139,7 @@ async def testpost(ctx):
             res = await r.json()
     await ctx.send("OMG IT WORKS!")
 
-extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "JokeCog", "MathCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
+extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "ErrorCog", "JokeCog", "MathCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
               "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "onmessagecommands", "pong"]
 
 for extension in extensions:

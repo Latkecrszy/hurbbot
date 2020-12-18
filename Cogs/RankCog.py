@@ -96,7 +96,20 @@ class MessageCog(commands.Cog):
         maxXP = level * 200 + (200*(int(level / 5) if int(level / 5) >= 1 else 0))
         if xp >= maxXP:
             if commandsList["ranking"] == "True":
-                await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1}!")
+                if "levelroles" in storage[str(message.guild.id)]:
+                    if str(messages[str(message.author.id)]['level']+1) in str(storage[str(message.guild.id)]["levelroles"].keys()):
+                        role = message.guild.get_role(int(storage[str(message.guild.id)]["levelroles"][str(messages[str(message.author.id)]['level']+1)]))
+                        if role is not None:
+                            await message.author.add_roles(role)
+                            await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1} and got the {role.name} role!")
+                        else:
+                            await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1}")
+                    else:
+                        await channel.send(
+                            f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}")
+                else:
+                    await channel.send(
+                        f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}")
             messages[str(message.author.id)]["level"] += 1
             messages[str(message.author.id)]["xp"] = 0
         storage[str(message.guild.id)]["rank"] = messages
@@ -138,20 +151,20 @@ class Rank(commands.Cog):
     async def levelupchannel(self, ctx, *, channel):
         with open("../Bots/servers.json") as f:
             storage = json.load(f)
-            if "levelups" not in storage[str(ctx.guild.id)]:
-                storage[str(ctx.guild.id)]["levelups"] = ""
-            if str(channel).lower() == "none" or str(channel).lower() == "off" or str(channel).lower() == "current":
-                storage[str(ctx.guild.id)].pop("levelups")
-                await ctx.send(f"The level up channel has been set to the user's active channel.")
+        if "levelups" not in storage[str(ctx.guild.id)]:
+            storage[str(ctx.guild.id)]["levelups"] = ""
+        if str(channel).lower() == "none" or str(channel).lower() == "off" or str(channel).lower() == "current":
+            storage[str(ctx.guild.id)].pop("levelups")
+            await ctx.send(f"The level up channel has been set to the user's active channel.")
+        else:
+            converter = commands.TextChannelConverter()
+            channel = await converter.convert(ctx, channel)
+            print(channel)
+            if channel not in ctx.guild.text_channels:
+                await ctx.send(f"I could not find that channel {ctx.author.mention}!")
             else:
-                converter = commands.TextChannelConverter()
-                channel = await converter.convert(ctx, channel)
-                print(channel)
-                if channel not in ctx.guild.text_channels:
-                    await ctx.send(f"I could not find that channel {ctx.author.mention}!")
-                else:
-                    storage[str(ctx.guild.id)]["levelups"] = channel.id
-                    await ctx.send(f"The level up channel for this guild has been set to {channel.mention}!")
+                storage[str(ctx.guild.id)]["levelups"] = channel.id
+                await ctx.send(f"The level up channel for this guild has been set to {channel.mention}!")
         with open("../Bots/servers.json", "w") as f:
             json.dump(storage, f, indent=4)
 
@@ -251,38 +264,36 @@ class Rank(commands.Cog):
                                            description=f"[Click here to see the leaderboard](https://hurbsite.herokuapp.com/leaderboard/{ctx.guild.id})"))
 
     @commands.command()
-    async def levelrole(self, ctx, role: discord.Role, level):
-        storage = json.load(open("../Bots/servers.json"))
-        if "levelroles" not in storage[str(ctx.guild.id)]:
-            storage[str(ctx.guild.id)]["levelroles"] = {}
-        storage[str(ctx.guild.id)]["levelroles"][str(level)] = role.id
-        await ctx.send(embed=discord.Embed(description=f"Ok {ctx.author.mention}, when users reach level {level}, they will receive the {role.mention} role!",
-                                           color=discord.Color.green()))
-        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+    async def levelrole(self, ctx, condition, level, role: discord.Role=None):
+        if condition.lower() == "add" or condition.lower() == "set":
+            if role < self.maxrole(ctx):
+                storage = json.load(open("../Bots/servers.json"))
+                if "levelroles" not in storage[str(ctx.guild.id)]:
+                    storage[str(ctx.guild.id)]["levelroles"] = {}
+                storage[str(ctx.guild.id)]["levelroles"][str(level)] = role.id
+                await ctx.send(embed=discord.Embed(description=f"Ok {ctx.author.mention}, when users reach level {level}, they will receive the {role.mention} role!",
+                                                   color=discord.Color.green()))
+                json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+            else:
+                await ctx.send(
+                    f"I do not have the permissions to assign that role {ctx.author.mention}! Please move my role above the role to allow me to assign it!")
+        elif condition.lower() == "remove":
+            storage = json.load(open("../Bots/servers.json"))
+            if str(level) in storage[str(ctx.guild.id)]["levelroles"]:
+                storage[str(ctx.guild.id)]["levelroles"].pop(str(level))
+                await ctx.send(embed=discord.Embed(description=f"Ok {ctx.author.mention}, {role.mention} has been removed from the level roles.", color=discord.Color.green()))
+            else:
+                await ctx.send(embed=discord.Embed(description=f"You do not have a role set for level {level} {ctx.author.mention}!", color=discord.Color.red()))
+            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+        else:
+            await ctx.send(embed=discord.Embed(description=f"Please use the correct format for this command {ctx.author.mention}! Here's an example: \n`%levelrole add 3 @Cool Dude` would make me give the role `@Cool Dude` when someone reached level 3!"))
 
-    @commands.command()
-    async def highest(self, ctx):
-        top = {"user": "", "level": 0, "xp": 0, "server": ""}
-        with open("../Bots/servers.json") as f:
-            storage = json.load(f)
-        for keys, value in storage.items():
-            if self.bot.get_guild(int(keys)) is not None:
-                for key, values in value.items():
-                    if self.bot.get_user(int(key)) is not None:
-                        if not self.bot.get_user(int(key)).bot:
-                            if values["level"] == top["level"]:
-                                if values["xp"] > top["xp"]:
-                                    top["level"] = values["level"]
-                                    top["user"] = self.bot.get_user(int(key))
-                                    top["xp"] = values["xp"]
-                                    top["server"] = self.bot.get_guild(int(keys))
-                            elif values["level"] > top["level"]:
-                                top["level"] = values["level"]
-                                top["user"] = self.bot.get_user(int(key))
-                                top["xp"] = values["xp"]
-                                top["server"] = self.bot.get_guild(int(keys))
-
-        await ctx.send(embed=discord.Embed(description=f"The highest level of any server is {top['user'].mention} in {top['server']} with a level of {top['level']} and {top['xp']} xp."))
+    def maxrole(self, ctx):
+        role = random.choice(ctx.guild.me.roles)
+        for Role in ctx.guild.me.roles:
+            if Role > role:
+                role = Role
+        return role
 
     @commands.command()
     @commands.has_permissions(administrator=True)

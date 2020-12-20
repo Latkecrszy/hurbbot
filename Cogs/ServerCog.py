@@ -117,7 +117,6 @@ class ServerCog(commands.Cog):
         with open('../Bots/servers.json', 'r') as f:
             storage = json.load(f)
         if str(guild.id) not in storage.keys():
-            print("working")
             storage[str(guild.id)] = {"prefix": '%', "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
                                       "invitecheck": "False", "linkcheck": "False", "ranking": "True", "economy": "True", "moderation": "True"}}
         with open('../Bots/servers.json', 'w') as f:
@@ -264,6 +263,30 @@ class ServerCog(commands.Cog):
         await ctx.send(
             f"Members with the {role.mention} role:\n{' '.join([member.mention for member in members_with_role])}")
 
+    @commands.Cog.listener()
+    async def on_command(self, ctx):
+        with open("../Bots/servers.json") as f:
+            storage = json.load(f)
+
+        if "commandCount" not in storage[str(ctx.guild.id)].keys():
+            storage[str(ctx.guild.id)]["commandCount"] = 0
+        storage[str(ctx.guild.id)]["commandCount"] += 1
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+
+    @commands.command()
+    async def commands(self, ctx, condition=None):
+        if condition is None:
+            storage = json.load(open("../Bots/servers.json"))
+            await ctx.send(f"`{storage[str(ctx.guild.id)]['commandCount']}` commands have been sent in `{ctx.guild.name}`.")
+        elif condition.lower() == "all":
+            storage = json.load(open("../Bots/servers.json"))
+            totalCommands = 0
+            for value in storage.values():
+                try:
+                    totalCommands += value["commandCount"]
+                except:
+                    pass
+            await ctx.send(f"{totalCommands} commands have been sent.")
 
 def setup(bot):
     bot.add_cog(ServerCog(bot))

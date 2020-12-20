@@ -37,12 +37,12 @@ class ShopCog(commands.Cog):
         with open("/Users/sethraphael/PycharmProject/Bots/items.json", "r") as f:
             self.items = json.load(f)
         with open("/Users/sethraphael/PycharmProject/Bots/money.json", "r") as r:
-            self.money = json.load(r)
+            self['money'] = json.load(r)
 
     @commands.command()
     async def buy(self, ctx, item):
         with open("/Users/sethraphael/PycharmProject/Bots/money.json", "r") as r:
-            self.money = json.load(r)
+            self['money'] = json.load(r)
         with open("/Users/sethraphael/PycharmProject/Bots/items.json", "r") as f:
             self.items = json.load(f)
         itemFound = False
@@ -50,12 +50,12 @@ class ShopCog(commands.Cog):
             if i.name == item.lower():
                 itemFound = True
         if itemFound:
-            if str(ctx.author) in self.money.keys():
+            if str(ctx.author) in self['money'].keys():
                 for x in range(len(self.shopItems)):
                     if self.shopItems[x].name == item:
                         value = self.shopItems[x].price
                         break
-                if value <= self.money[str(ctx.author)]:
+                if value <= self['money'][str(ctx.author)]:
                     if str(ctx.author) in self.items.keys():
                         self.name = str(ctx.author)
                         itemList = [item]
@@ -66,19 +66,19 @@ class ShopCog(commands.Cog):
                         self.name = str(ctx.author)
                         itemList = [item]
                         self.items[str(ctx.author)] = itemList
-                    embed = discord.Embed(title=f"You have bought a(n) {item} for {value}. You now have ${self.money[str(ctx.author)]}.", color=discord.Color.green())
+                    embed = discord.Embed(title=f"You have bought a(n) {item} for {value}. You now have ${self['money'][str(ctx.author)]}.", color=discord.Color.green())
                     await ctx.send(embed=embed)
-                    userMoney = self.money[str(ctx.author)]
+                    userMoney = self['money'][str(ctx.author)]
                     userMoney -= value
-                    self.money[str(ctx.author)] = userMoney
+                    self['money'][str(ctx.author)] = userMoney
                     with open("/Users/sethraphael/PycharmProject/Bots/money.json", "w") as f:
-                        json.dump(self.money, f, indent=4)
+                        json.dump(self['money'], f, indent=4)
                     with open("/Users/sethraphael/PycharmProject/Bots/items.json", "w") as r:
                         json.dump(self.items, r, indent=4)
-                elif value > self.money[str(ctx.author)]:
+                elif value > self['money'][str(ctx.author)]:
                     embed = discord.Embed(
                         title=f"You do not have enough money to purchase this item, {ctx.author.display_name}!",
-                        description=f"This item costs ${value}, and you only have {self.money[str(ctx.author)]}!",
+                        description=f"This item costs ${value}, and you only have {self['money'][str(ctx.author)]}!",
                         color=discord.Color.red())
                     await ctx.send(embed=embed)
 
@@ -90,7 +90,7 @@ class ShopCog(commands.Cog):
     @commands.command(aliases=["Inventory", "inv", "INV", "Inv", "INVENTORY"])
     async def inventory(self, ctx):
         with open("/Users/sethraphael/PycharmProject/Bots/money.json", "r") as r:
-            self.money = json.load(r)
+            self['money'] = json.load(r)
         with open("/Users/sethraphael/PycharmProject/Bots/items.json", "r") as f:
             self.items = json.load(f)
 
@@ -107,7 +107,7 @@ class ShopCog(commands.Cog):
     @commands.command()
     async def use(self, ctx, item, action):
         with open("/Users/sethraphael/PycharmProject/Bots/money.json", "r") as r:
-            self.money = json.load(r)
+            self['money'] = json.load(r)
         with open("/Users/sethraphael/PycharmProject/Bots/items.json", "r") as f:
             self.items = json.load(f)
         itemFound = False

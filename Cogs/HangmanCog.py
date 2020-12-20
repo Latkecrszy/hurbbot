@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import random
 import asyncio
+import json
 from Bots.Cogs.players import refreshBalance
 
 hang1 = '''           ---------------------|
@@ -285,9 +286,9 @@ class HangmanCog(commands.Cog):
 
     @commands.command()
     async def hangman(self, ctx):
-        players = refreshBalance()
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
         foundHang = False
-        print(players[str(ctx.author.id)].items)
         for item, value in players[str(ctx.author.id)].items.items():
             if item.name.lower() == "hangman" and value >= 1:
                 foundHang = True
@@ -308,7 +309,6 @@ class HangmanCog(commands.Cog):
                 self.word = random.choice(words)
                 self.activeHang = 0
                 self.hangs = hangs
-                print(self.word)
                 for char in self.word:
                     self.wordDash.append("_")
                     self.wordList.append(char)

@@ -34,7 +34,6 @@ class ReactionRoleCog(commands.Cog):
             storage["reactionroles"] = reactionroles
             with open("../Bots/servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
-            print("stored in the file")
         else:
             await ctx.send(f"I do not have the permissions to assign that role {ctx.author.mention}! Please move my role above the role to allow me to assign it!")
 

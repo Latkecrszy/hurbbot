@@ -98,7 +98,7 @@ class NQNCog(commands.Cog):
                 print("Missing permissions")"""
 
     async def NQNCheck(self, message):
-        if message.content.find(":") != -1:
+        if message.content.count(":") >= 2 and not message.author.bot:
             guild = message.guild
             everyone = guild.default_role
             channel = message.channel
@@ -148,9 +148,9 @@ class NQNCog(commands.Cog):
                             Emoji = "".join(emojiList)
                             if Emoji.lower() == str(emoji).lower():
                                 if EmojisList[0] != "<" and EmojisList[0] != "<a" and not EmojisList[2].find(">") != -1:
-                                    await message.delete()
                                     content = EmojisList[0]+""+str(emojis)+""+EmojisList[2]
                                     await webhook.send(avatar_url=message.author.avatar_url, content=content)
+                                    await message.delete()
                                     await asyncio.sleep(1)
                     break
             except:

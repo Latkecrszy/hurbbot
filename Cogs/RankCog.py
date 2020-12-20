@@ -159,7 +159,6 @@ class Rank(commands.Cog):
         else:
             converter = commands.TextChannelConverter()
             channel = await converter.convert(ctx, channel)
-            print(channel)
             if channel not in ctx.guild.text_channels:
                 await ctx.send(f"I could not find that channel {ctx.author.mention}!")
             else:
@@ -264,7 +263,7 @@ class Rank(commands.Cog):
                                            description=f"[Click here to see the leaderboard](https://hurbsite.herokuapp.com/leaderboard/{ctx.guild.id})"))
 
     @commands.command()
-    async def levelrole(self, ctx, condition, level, role: discord.Role=None):
+    async def levelrole(self, ctx, condition, level, *, role: discord.Role=None):
         if condition.lower() == "add" or condition.lower() == "set":
             if role < self.maxrole(ctx):
                 storage = json.load(open("../Bots/servers.json"))

@@ -63,8 +63,9 @@ class BuyRoleCog(commands.Cog):
         with open("../Bots/roleprice.json", "r") as f:
             roles = json.load(f)
 
-        players = refreshBalance()
-        money = players[str(ctx.author.id)].money
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"][str(ctx.author.id)]
+        money = players[str(ctx.author.id)]['money']
 
         if role in ctx.author.roles:
             embed = discord.Embed(description=f"You already have this role {ctx.author.mention}!",
@@ -86,8 +87,9 @@ class BuyRoleCog(commands.Cog):
         with open("../Bots/roleprice.json", "w") as f:
             json.dump(roles, f, indent=4)
 
-        players[str(ctx.author.id)].money = money
-        await saveMoney(ctx, players)
+        players[str(ctx.author.id)]['money'] = money
+        storage["players"] = players
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
         await ctx.send(embed=embed)
 
     @commands.command()

@@ -79,7 +79,7 @@ async def on_error(event, *args, **kwargs):
     pass"""
 
 
-@tasks.loop(seconds=30)
+@tasks.loop(minutes=1)
 async def change_status():
     await bot.change_presence(activity=next(bot.status), status=bot.status_now)
 
@@ -138,6 +138,15 @@ async def testpost(ctx):
         async with cs.get(f'https://hurbapi.herokuapp.com/settings/') as r:
             res = await r.json()
     await ctx.send("OMG IT WORKS!")
+
+
+@bot.command()
+async def transferdata(ctx):
+    storage = json.load(open("servers.json"))
+    players = storage["players"]
+    for key, value in players.items():
+        players[key] = {"money": value[0], "items": {Value[0]: Value[3] for Value in value[1]}, "bank": 0}
+    json.dump(storage, open("servers.json", "w"), indent=4)
 
 extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "ErrorCog", "JokeCog", "MathCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
               "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "onmessagecommands", "pong"]

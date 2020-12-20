@@ -38,6 +38,7 @@ class HelpCog(commands.Cog):
                             "`%deleterole`": ["role", "Deletes a role.", "`%deleterole cool person`"],
                             "`%autorole`": ["role", "Sets a role to automatically assign to people when they join the server.", "`%autorole cool person`"],
                             "`%removeautorole`": ["role", "Removes one of the autoroles.", "`%removeautorole cool person`"],
+                            "`%levelrole`": ["add/remove, level, role", "Sets a role to assign once a member reaches a certain level.", "`%levelrole add 5 cool person"],
                             "`%serverinfo`": ["None", "Shows you general info about the server.", "`%serverinfo`"],
                             "`%info`": ["Optional: member", "Shows general info about you or another member of the server.", "`%info @Latkecrszy#7777`"]}}
         for key, value in Commands["1"].items():
@@ -110,6 +111,58 @@ class HelpCog(commands.Cog):
                 await message.remove_reaction("⬅️", user)
             await message.edit(embed=self.Embed(discord.Embed(title=f"Economy Commands"), Commands, page, 3))
 
+    async def fun(self, ctx):
+        embed = discord.Embed(title=f"Fun Commands", color=random.choice(embedColors))
+        Commands = {
+            "1": {
+                "`%gif`": ["result number, name", "Search giphy for your favorite gifs!", "`%gif 1 Hurb is cool`"],
+                "`%rps`": ["rock/paper/scissors", "Play a game of rock paper scissors against hurb!", "`%rps rock`"],
+                "`%roll`": ["die size", "Roll a die.", "`%roll 5`"],
+                "`%kill`": ["person", "Kill someone in a fun and creative way!", "`%kill @Latkecrszy#7777"],
+                "`%joke`": ["type", "Check out some jokes!", "`%joke programming`"]},
+            "2": {
+                "`%doggo`": ["None", "Look at some cute doggos!", "`%doggo`"],
+                "`%catto`": ["None", "Look at some cute cattos!", "`%catto`"],
+                "`%panda`": ["None", "Look at some cute pandas!", "`%panda`"],
+                "`%duck`": ["None", "Look at some cute duckies!", "`%duck`"],
+                "`%redpanda`": ["None", "Look at some cute red pandas!", "`%redpanda`"],
+                "`%koala`": ["None", "Look at some cute koalas!", "`%koala"]},
+            "3": {
+                "`%birb`": ["None", "Look at some cute birbs!", "`%birb`"],
+                "`%fox`": ["None", "Look at some foxxies!", "`%fox`"],
+                "`%autodoggo`": ["None", "Look at a cute doggo every 7 seconds!", "`%autodoggo"],
+                "`%stopautodoggo`": ["None", "Stop looking at cute doggos every 7 seconds. (But why would you ever want to do that though?).", "`%stopautodoggo`"],
+                "`%autocatto`": ["None", "Look at a cute catto every 7 seconds!", "`%autocatto`"],
+                "`%stopautocatto`": ["None", "Stop looking at cute cattos every 7 seconds. (Although this one is a crime to use).", "`%stopautocatto`"]},
+            "4": {
+                "`%topic`": ["None", "Start a conversation!", "`%topic`"],
+                "`%hangman`": ["None", "Play hangman against Hurb! Note: only usable if you have purchased the hangman item from the shop.", "`%hangman`"],
+                "`%chatbot`": ["Begin/End", "Chat with a chatbot!", "`%chatbot begin`"]}}
+        for key, value in Commands["1"].items():
+            embed.add_field(name="\u200b",
+                            value=f"[{key}](https://google.com)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
+                            inline=False)
+        embed.set_footer(
+            text=f"______________________________________________________\nUse the ⬅️ and ➡️ to navigate between pages | Page 1 of 4.")
+        message = await ctx.send(embed=embed)
+        page = 1
+        await message.add_reaction("⬅️")
+        await message.add_reaction("➡️")
+        while True:
+            try:
+                reaction, user = await self.bot.wait_for('reaction_add', timeout=600.0, check=None)
+            except asyncio.TimeoutError:
+                break
+            if str(reaction) == "▶️" or str(reaction) == "▶" or str(reaction) == "➡️" and user != ctx.guild.me:
+                if page < 3:
+                    page += 1
+                await message.remove_reaction("➡️", user)
+            elif str(reaction) == "◀️" or str(reaction) == "️️️◀" or str(reaction) == "⬅️" and user != ctx.guild.me:
+                if page > 1:
+                    page -= 1
+                await message.remove_reaction("⬅️", user)
+            await message.edit(embed=self.Embed(discord.Embed(title=f"Fun Commands"), Commands, page, 3))
+
     def Embed(self, embed, Commands, page, maxPage):
         for key, value in Commands[str(page)].items():
             embed.add_field(name="\u200b",
@@ -138,32 +191,7 @@ class HelpCog(commands.Cog):
             elif command.find("eco") != -1:
                 await self.economy(ctx)
             elif command.find("random") != -1 or command.find("fun") != -1:
-                funEmbed = discord.Embed(title=f"Random commands: ", color=random.choice(embedColors))
-                funCommands = {"`%gif`": ["result number, name", "Search giphy for your favorite gifs!", "`%gif 1 Hurb is cool`"],
-                               "`%youtube`": ["result number, name", "Search youtube for your favorite videos!", "`%youtube 1 Hurb is cool`"],
-                               "`%rps`": ["rock/paper/scissors", "Play a game of rock paper scissors against hurb!", "`%rps rock`"],
-                               "`%roll`": ["die size", "Roll a die.", "`%roll 5`"],
-                               "`%kill`": ["person", "Kill someone in a fun and creative way!", "`%kill @Latkecrszy#7777"],
-                               "`%doggo`": ["None", "Look at some cute doggos!", "`%doggo`"],
-                               "`%catto`": ["None", "Look at some cute cattos!", "`%catto`"],
-                               "`%panda`": ["None", "Look at some cute pandas!", "`%panda`"],
-                               "`%duck`": ["None", "Look at some cute duckies!", "`%duck`"],
-                               "`%redpanda`": ["None", "Look at some cute red pandas!", "`%redpanda`"],
-                               "`%koala`": ["None", "Look at some cute koalas!", "`%koala"],
-                               "`%birb`": ["None", "Look at some cute birbs!", "`%birb`"],
-                               "`%fox`": ["None", "Look at some foxxies!", "`%fox`"],
-                               "`%autodoggo`": ["None", "Look at a cute doggo every 7 seconds!", "`%autodoggo"],
-                               "`%stopautodoggo`": ["None", "Stop looking at cute doggos every 7 seconds. (But why would you ever want to do that though?).", "`%stopautodoggo`"],
-                               "`%autocatto`": ["None", "Look at a cute catto every 7 seconds!", "`%autocatto`"],
-                               "`%stopautocatto`": ["None", "Stop looking at cute cattos every 7 seconds. (Although this one is a crime to use).", "`%stopautocatto`"],
-                               "`%joke`": ["None", "See some kickass jokes!", "`%joke`"],
-                               "`%topic`": ["None", "Start a conversation!", "`%topic`"],
-                               "`%hangman`": ["None", "Play hangman against Hurb! Note: only usable if you have purchased the hangman item from the shop.", "`%hangman`"],
-                               "`%chatbot`": ["Begin/End", "Chat with a chatbot!", "`%chatbot begin`"]}
-                for key, value in funCommands.items():
-                    funEmbed.add_field(name=key, value=f"**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}", inline=False)
-                await ctx.send(embed=funEmbed)
-
+               await self.fun(ctx)
             elif command.find("feature") != -1 or command.find("toggle") != -1 or command.find("auto") != -1:
                 embed = discord.Embed(title=f"Auto features:", description=f"**These are features that can be turned on or off with the `%enable <command>` or `%disable <command>` commands.**", color=random.choice(embedColors))
                 autoFeatures = {"`%enable invitecheck`": "Turns on an invite blocker for the server.",

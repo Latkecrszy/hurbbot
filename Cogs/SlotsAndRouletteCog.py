@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from Bots.Cogs.players import saveMoney, refreshBalance
 import random
+import json
 
 
 class RouletteCog(commands.Cog):
@@ -18,9 +19,10 @@ class RouletteCog(commands.Cog):
             return True
 
     async def tooMuchCheck(self, ctx, bet: int):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
-        if int(bet) > int(player.money):
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
+
+        if int(bet) > int(players[str(ctx.author.id)]['money']):
             embed = discord.Embed(title=f"Bro, don't try to bet more than you have. I don't want to break ;(")
             await ctx.send(embed=embed)
             return False
@@ -34,9 +36,10 @@ class RouletteCog(commands.Cog):
     @commands.command(aliases=["r", "R", "Roulette", "ROULETTE"])
     async def roulette(self, ctx, bet, number: str):
         validBets = ["black", "red", "high", "low", "row1", "row2", "row3", "1-12", "13-24", "25-36"]
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
-        playerMoney = int(player.money)
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
+
+        playerMoney = int(players[str(ctx.author.id)]['money'])
         if bet.lower() == "all":
             bet = playerMoney
         bet = int(bet)
@@ -102,17 +105,19 @@ class RouletteCog(commands.Cog):
                                 embed = discord.Embed(
                                     title=f"Sorry, {ctx.author.display_name}, it was {numberPlace} {numberHit}. You lost ${bet}.",
                                     color=discord.Color.red())
-                    player.money = playerMoney
-                    await saveMoney(ctx, players)
+                    players[str(ctx.author.id)]['money'] = playerMoney
+                    storage["players"][str(ctx.author.id)] = player
+                    json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
                     await ctx.send(embed=embed)
 
     @commands.command()
     async def slots(self, ctx, bet):
         bet = int(bet)
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
 
-        playerMoney = int(player.money)
+
+        playerMoney = int(players[str(ctx.author.id)]['money'])
         if await self.allCheck(ctx, bet) or not await self.tooMuchCheck(ctx, bet):
             pass
         else:
@@ -138,8 +143,9 @@ class RouletteCog(commands.Cog):
                                       color=discord.Color.red())
                 await ctx.send(embed=embed)
                 playerMoney -= int(bet)
-            player.money = playerMoney
-            await saveMoney(ctx, players)
+            players[str(ctx.author.id)]['money'] = playerMoney
+            storage["players"] = players
+            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
 
 def setup(bot):

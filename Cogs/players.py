@@ -24,7 +24,7 @@ async def saveMoney(ctx, players):
         items = []
         for item, amount in value.items.items():
             items.append([item.name, getPrice(item.name), item.description, amount])
-        players[str(Players)] = [int(value.money), items, value.pet]
+        players[str(Players)] = [int(value['money']), items, value.pet]
     with open("../Bots/servers.json", "r") as f:
         storage = json.load(f)
     storage["players"] = players
@@ -34,7 +34,8 @@ async def saveMoney(ctx, players):
 
 def getPrice(items):
     price = ""
-    players = refreshBalance()
+    storage = json.load(open("../Bots/servers.json"))
+    players = storage["players"]
     for value in players.values():
         for item in value.items:
             if str(item.name).lower() == items.lower():
@@ -74,7 +75,8 @@ def addItem():
         Item("Autocatto", getPrice("autocatto"),
              "Just like the `%catto` command, but shows you a new catto every 7 seconds!"): 0
     }
-    players = refreshBalance()
+    storage = json.load(open("../Bots/servers.json"))
+    players = storage["players"]
     for player, value in players.items():
         for item in player.items:
             if item in newItems.keys():
@@ -101,7 +103,8 @@ class Player(commands.Cog):
 
     @commands.command()
     async def start(self, ctx):
-        players = refreshBalance()
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
         if str(ctx.author.id) in players.keys():
             await ctx.send(
                 embed=discord.Embed(description=f"You already have an account with this bot {ctx.author.mention}!"))
@@ -132,44 +135,51 @@ class Player(commands.Cog):
                 description=f"Ok {ctx.author.mention}, I've started an account for you with ${money} in it! Use the `%help economy` command to see what games you can play and what stuff you can buy!",
                 color=discord.Color.green())
             await ctx.send(embed=embed)
-            await saveMoney(ctx, players)
+            storage["players"] = players
+            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
     @commands.command()
     @commands.cooldown(1, 3600, BucketType.user)
     async def hourly(self, ctx):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
-        player.money += 100
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
+
+        players[str(ctx.author.id)]['money'] += 100
         await ctx.send(embed=discord.Embed(description=f"Hourly claimed {ctx.author.mention}. You gained $100!"))
-        await saveMoney(ctx, players)
+        storage["players"] = players
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
     @commands.command()
     @commands.cooldown(1, 86400, BucketType.user)
     async def daily(self, ctx):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
-        player.money += 500
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
+
+        players[str(ctx.author.id)]['money'] += 500
         await ctx.send(embed=discord.Embed(description=f"Daily claimed {ctx.author.mention}. You gained $500!"))
-        await saveMoney(ctx, players)
+        storage["players"] = players
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
     @commands.command(aliases=["b", "B", "Balance", "BALANCE", "bal", "Bal", "BAL"])
     async def balance(self, ctx, member: discord.Member = None):
-        players = refreshBalance()
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
         if member is None:
             await ctx.send(embed=discord.Embed(
-                description=f"Your balance, {ctx.author.mention}, is ${players[str(ctx.author.id)].money}."))
+                description=f"Your balance, {ctx.author.mention}, is ${players[str(ctx.author.id)]['money']}."))
         else:
             if str(member.id) in players.keys():
                 await ctx.send(embed=discord.Embed(
-                    description=f"{member.display_name} has ${players[str(member.id)].money} in their account."))
+                    description=f"{member.display_name} has ${players[str(member.id)]['money']} in their account."))
             else:
                 await ctx.send(embed=discord.Embed(
                     description=f"I could not find an account for {member.display_name}, {ctx.author.mention}."))
 
     @commands.command(aliases=["Items", "ITEMS", "inv", "INV", "Inv", "inventory", "Inventory", "INVENTORY"])
     async def items(self, ctx):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
+
         embed = discord.Embed(color=discord.Color.teal())
         embed.set_author(icon_url=ctx.author.avatar_url, name=f"{ctx.author.display_name}'s items:")
         for item, value in player.items.items():
@@ -179,8 +189,9 @@ class Player(commands.Cog):
 
     @commands.command()
     async def shop(self, ctx):
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
+
         embed = discord.Embed(color=discord.Color.teal())
         embed.set_author(icon_url=ctx.author.avatar_url, name=f"{ctx.author.display_name}'s items:")
         for item, value in player.items.items():
@@ -193,59 +204,63 @@ class Player(commands.Cog):
     @commands.command()
     async def buy(self, ctx, *, Items):
         Items = Items.lower()
-        players = refreshBalance()
-        player = players[str(ctx.author.id)]
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
+
         for item in player.items.keys():
             if item.name.lower() == Items:
                 if item.cost == "none":
                     await ctx.send(embed=discord.Embed(description=f"You cannot buy this item {ctx.author.mention}!",
                                                        color=discord.Color.red()))
                 else:
-                    if float(player.money) >= float(item.cost):
+                    if float(players[str(ctx.author.id)]['money']) >= float(item.cost):
                         player.items[item] += 1
                         item.cost = float(item.cost)
-                        player.money -= item.cost
+                        players[str(ctx.author.id)]['money'] -= item.cost
                         item.cost *= 1.1
                         await ctx.send(
                             embed=discord.Embed(description=f"You have purchased a {item.name} {ctx.author.mention}!",
                                                 color=discord.Color.green()))
                     else:
                         await ctx.send(embed=discord.Embed(
-                            description=f"You cannot afford to buy this item {ctx.author.mention}! You need ${item.cost}, and you only have ${player.money}!",
+                            description=f"You cannot afford to buy this item {ctx.author.mention}! You need ${item.cost}, and you only have ${players[str(ctx.author.id)]['money']}!",
                             color=discord.Color.red()))
-        await saveMoney(ctx, players)
+        storage["players"] = players
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
     @commands.command(aliases=["Rob", "ROB", "steal", "Steal", "STEAL"])
     @commands.cooldown(1, 120, BucketType.user)
     async def rob(self, ctx, Member: discord.Member):
-        players = refreshBalance()
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
         if str(Member.id) in players.keys():
             robber = players[str(ctx.author.id)]
             victim = players[str(Member.id)]
-            if victim.money >= 200:
-                if robber.money >= 200:
-                    if robber.money <= victim.money:
+            if victim['money'] >= 200:
+                if robber['money'] >= 200:
+                    if robber['money'] <= victim['money']:
                         stolen = random.choice(
                             ["success", "failure", "failure", "failure", "failure", "success", "success"])
-                        amount_stolen = random.randint(1, int(victim.money / 5))
-                        print(amount_stolen)
-                        print(victim.money)
-                        print(victim.money / 5)
+                        amount_stolen = random.randint(1, int(victim['money'] / 5))
                         if stolen == "success":
-                            victim.money -= amount_stolen
-                            robber.money += amount_stolen
+                            victim['money'] -= amount_stolen
+                            robber['money'] += amount_stolen
                             await ctx.send(embed=discord.Embed(
                                 description=f"You stole ${amount_stolen}! Good work, you nasty little thief."))
                         elif stolen == "failure":
-                            if robber.money <= amount_stolen:
-                                victim.money += robber.money
-                                robber.money = 0
+                            if robber['money'] <= amount_stolen:
+                                victim['money'] += robber['money']
+                                robber['money'] = 0
+                                players[str(ctx.author.id)] = robber
+                                players[str(Member.id)] = victim
                                 await ctx.send(embed=discord.Embed(description=random.choice([
                                                                                                  f"You didn't realize that they were actually a cop in disguise, and they forced you to give them all your money.",
                                                                                                  f"You dropped their wallet as you were stealing it, and became so flustered that you dropped your own as well."])))
                             else:
-                                robber.money -= amount_stolen
-                                victim.money += amount_stolen
+                                robber['money'] -= amount_stolen
+                                victim['money'] += amount_stolen
+                                players[str(ctx.author.id)] = robber
+                                players[str(Member.id)] = victim
                                 await ctx.send(embed=discord.Embed(description=random.choice([
                                                                                                  f"You didn't realize that they were actually a cop in disguise, and they forced you to pay them a fine of ${amount_stolen}.",
                                                                                                  f"You dropped their wallet as you were stealing it, and became so flustered that you dropped ${amount_stolen}."])))
@@ -260,34 +275,88 @@ class Player(commands.Cog):
         else:
             await ctx.send(embed=discord.Embed(
                 description=f"{Member.mention} does not have an account with this bot yet {ctx.author.mention}!"))
-        await saveMoney(ctx, players)
+        storage["players"] = players
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+
+    @commands.command(aliases=["dep", "Deposit", "Dep", "DEP", "DEPOSIT"])
+    @commands.cooldown(1, 120, BucketType.user)
+    async def deposit(self, ctx, amount):
+        storage = json.load(open("../Bots/servers.json"))
+        player = storage["players"][str(ctx.author.id)]
+        if amount.lower() == "all" or amount.lower() == "max":
+            amount = int(player["money"]*0.3)
+            player["bank"] += amount
+            player["money"] -= amount
+            await ctx.send(f"You have deposited {amount} into your bank.")
+            storage["players"][str(ctx.author.id)] = player
+            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+        elif amount.isnumeric():
+            amount = int(amount)
+            if amount > int(player["money"]):
+                await ctx.send(f"You can't deposit more than you have {ctx.author.mention}!")
+            elif amount > int(player["money"] * 0.3):
+                amount = int(player["money"]*0.3)
+            player["bank"] += amount
+            player["money"] -= amount
+            await ctx.send(f"You have deposited {amount} into your bank.")
+            storage["players"][str(ctx.author.id)] = player
+            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+        else:
+            await ctx.send(f"Please enter a valid amount to deposit.")
+
+    @commands.command(aliases=["With", "with", "WITH", "Withdraw", "WITHDRAW"])
+    @commands.cooldown(1, 30, BucketType.user)
+    async def withdraw(self, ctx, amount):
+        storage = json.load(open("../Bots/servers.json"))
+        player = storage["players"][str(ctx.author.id)]
+        if amount.lower() == "all" or amount.lower() == "max":
+            player["money"] += int(player["bank"])
+            player["bank"] = 0
+            storage["players"][str(ctx.author.id)] = player
+            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+        elif amount.isnumeric():
+            amount = int(amount)
+            if amount > int(player["bank"]):
+                await ctx.send(f"You can't withdraw more than you have.")
+            else:
+                player["money"] += amount
+                player["bank"] -= amount
+                await ctx.send(f"You have withdrawn {amount} from your bank.")
+                storage["players"][str(ctx.author.id)] = player
+                json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+        else:
+            await ctx.send(f"Please enter a valid amount to withdraw.")
 
     @commands.command()
     async def give(self, ctx, member: discord.Member, amount):
-        players = refreshBalance()
+        storage = json.load(open("../Bots/servers.json"))
+        players = storage["players"]
         donor = players[str(ctx.author.id)]
         Member = players[str(member.id)]
-        if donor.money >= int(amount) >= 0:
-            Member.money += int(amount)
-            donor.money -= int(amount)
+        if donor['money'] >= int(amount) >= 0:
+            Member['money'] += int(amount)
+            donor['money'] -= int(amount)
             await ctx.send(
                 embed=discord.Embed(description=f"{ctx.author.mention} has given ${amount} to {member.mention}.",
                                     color=discord.Color.green()))
         else:
             await ctx.send(embed=discord.Embed(
                 description=f"{ctx.author.mention} you do not have enough money to give ${amount}!"))
-        await saveMoney(ctx, players)
+        storage["players"] = players
+        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
     @commands.command()
     async def addmoney(self, ctx, member: discord.Member, amount):
         if ctx.author.id == 670493561921208320:
-            players = refreshBalance()
+            storage = json.load(open("../Bots/servers.json"))
+            players = storage["players"]
             Member = players[str(member.id)]
-            Member.money += int(amount)
+            Member['money'] += int(amount)
             await ctx.send(
                 embed=discord.Embed(description=f"{ctx.author.mention} has added ${amount} to {member.mention}.",
                                     color=discord.Color.green()))
-            await saveMoney(ctx, players)
+            storage["players"] = players
+            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
         else:
             await ctx.send("NOPE")
 

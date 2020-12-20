@@ -123,26 +123,7 @@ class BotFunCog(commands.Cog):
                 num -= 1
                 res = await r.json()  # returns dict
                 result = res["data"][num]["url"]
-                # embed = discord.Embed(color=random.choice(embedColors))
-                # embed.set_image(url=str(result))
-                # print(result)
-                # await ctx.send(embed=embed)
-                # await ctx.send(embed=discord.Embed(title=result))
-                # embed = discord.Embed()
-                # embed.set_thumbnail(url=result)
-                # await ctx.send(embed=embed)
                 message = await ctx.send(result)
-                # await message.add_reaction("\U000025c0")
-                # await message.add_reaction('\U000025b6')
-                """try:
-                    reaction, user = await self.bot.wait_for('reaction_add', timeout=600.0, check=None)
-                except asyncio.TimeoutError:
-                    await message.channel.send('👎')
-                print(str(reaction))
-                if str(reaction) == "▶️":
-                    result = res["data"][num + 1]["url"]
-                    await message.edit(content=result)"""
-                # print(json.dumps(res, sort_keys=True, indent=4))
 
     """@commands.command()
     async def youtube(self, ctx, num: int, *, video):
@@ -184,7 +165,6 @@ class BotFunCog(commands.Cog):
         members = 0
         for server in self.bot.guilds:
             members += len([member for member in server.members])
-        print(f"{'    '.join([str(guild) for guild in self.bot.guilds])}")
         embed.add_field(name=f"Serving {len(self.bot.guilds)} servers", value=f"And {members} members!")
         embed.set_thumbnail(url=ctx.guild.me.avatar_url)
         await ctx.send(embed=embed)

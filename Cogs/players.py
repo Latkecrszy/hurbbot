@@ -5,6 +5,13 @@ import json
 import random
 import asyncio
 
+costs = {"airpods": 5000,
+         "iphone": 15000,
+         "pencil": 200,
+         "pokemon card": 400,
+         "bumper sticker": 500,
+         "hangman": 50000}
+
 
 class Item:
     def __init__(self, name, cost, description):
@@ -19,42 +26,16 @@ class Pet:
         self.type = Type
 
 
-async def saveMoney(ctx, players):
-    for Players, value in players.items():
-        items = []
-        for item, amount in value.items.items():
-            items.append([item.name, getPrice(item.name), item.description, amount])
-        players[str(Players)] = [int(value['money']), items, value.pet]
-    with open("../Bots/servers.json", "r") as f:
-        storage = json.load(f)
-    storage["players"] = players
-    with open("../Bots/servers.json", "w") as f:
-        json.dump(storage, f, indent=4)
-
-
 def getPrice(items):
     price = ""
     storage = json.load(open("../Bots/servers.json"))
     players = storage["players"]
     for value in players.values():
-        for item in value.items:
-            if str(item.name).lower() == items.lower():
-                price = item.cost
+        for item in value["items"]:
+            if str(item).lower() == items.lower():
+                price = costs[item.lower()]
         break
     return price
-
-
-def refreshBalance():
-    with open("../Bots/servers.json", "r") as f:
-        storage = json.load(f)
-    players = storage["players"]
-    for key, value in players.items():
-        items = {}
-        item = value[1]
-        for i in item:
-            items[Item(i[0], i[1], i[2])] = i[3]
-        players[key] = Player(value[0], items, value[2])
-    return players
 
 
 def addItem():
@@ -95,8 +76,6 @@ class Player(commands.Cog):
             Item("Bumper Sticker", 400,
                  "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time."): 0,
             Item("Hangman", 20000, "Play hangman against Hurb! Not just an item, but a whole game!"): 0,
-            Item("Autodoggo", 10000, "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!"): 0,
-            Item("Autocatto", 10000, "Just like the `%catto` command, but shows you a new catto every 7 seconds!"): 0
         }
         self.pet = pet
         self.items = items
@@ -110,27 +89,16 @@ class Player(commands.Cog):
                 embed=discord.Embed(description=f"You already have an account with this bot {ctx.author.mention}!"))
         else:
             money = random.randint(500, 2000)
-            if players != {}:
-                players[str(ctx.author.id)] = Player(money, {
-                    Item("Airpods", getPrice("airpods"),
-                         "flex on all the poor people with this symbol being able to waste money."): 0,
-                    Item("iPhone", getPrice("iphone"),
-                         "A genuinely good phone, but also for flexing on the poor people."): 0,
-                    Item("Pencil", getPrice("pencil"),
-                         "I don't even know what this is for anymore... something called writing? Anyways, it's pretty much useless now."): 0,
-                    Item("Pokemon card", getPrice("pokemon card"),
-                         "A relic from an ancient time, when these were traded and collected."): 0,
-                    Item("Bumper Sticker", getPrice("bumper sticker"),
-                         "You can put it on your car and show off your style... or so you say. In reality, it will end up lying forgotten on the kitchen counter for all of time."): 0,
-                    Item("Hangman", getPrice("hangman"),
-                         "Play hangman against Hurb! Not just an item, but a whole game!"): 0,
-                    Item("Autodoggo", getPrice("autocatto"),
-                         "Just like the `%doggo` command, but shows you a new doggo every 7 seconds!"): 0,
-                    Item("Autocatto", getPrice("autocatto"),
-                         "Just like the `%catto` command, but shows you a new catto every 7 seconds!"): 0
-                }, "")
-            else:
-                players[str(ctx.author.id)] = Player(money, self.itemStartList, "")
+            players[str(ctx.author.id)] = {"money": money,
+                                           "items": {
+                                               "Airpods": 0,
+                                               "iPhone": 0,
+                                               "Pencil": 0,
+                                               "Hangman": 0,
+                                               "Pokemon card": 0,
+                                               "Bumper Sticker": 0},
+                                           "bank": 0
+                                           }
             embed = discord.Embed(
                 description=f"Ok {ctx.author.mention}, I've started an account for you with ${money} in it! Use the `%help economy` command to see what games you can play and what stuff you can buy!",
                 color=discord.Color.green())
@@ -166,7 +134,7 @@ class Player(commands.Cog):
         players = storage["players"]
         if member is None:
             await ctx.send(embed=discord.Embed(
-                description=f"Your balance, {ctx.author.mention}, is ${players[str(ctx.author.id)]['money']}."))
+                description=f"Wallet: ${int(players[str(ctx.author.id)]['money'])}\nBank: ${int(players[str(ctx.author.id)]['bank'])}"))
         else:
             if str(member.id) in players.keys():
                 await ctx.send(embed=discord.Embed(
@@ -182,9 +150,9 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=discord.Color.teal())
         embed.set_author(icon_url=ctx.author.avatar_url, name=f"{ctx.author.display_name}'s items:")
-        for item, value in player.items.items():
+        for item, value in players[str(ctx.author.id)]["items"].items():
             if value != "none" and value != 0 and value != "0":
-                embed.add_field(name=f"{item.name}", value=f"{value} owned.")
+                embed.add_field(name=f"{item}", value=f"{value} owned.")
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -194,11 +162,11 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=discord.Color.teal())
         embed.set_author(icon_url=ctx.author.avatar_url, name=f"{ctx.author.display_name}'s items:")
-        for item, value in player.items.items():
-            if isinstance(item.cost, float) or isinstance(item.cost, int):
-                embed.add_field(name=f"{item.name}", value=f"Price: ${int(item.cost)}\nAmount owned: {value}")
+        for item, value in players[str(ctx.author.id)]["items"].items():
+            if isinstance(costs[item.lower()], float) or isinstance(costs[item.lower()], int):
+                embed.add_field(name=f"{item}", value=f"Price: ${int(costs[item.lower()])}\nAmount owned: {value}")
             else:
-                embed.add_field(name=f"{item.name}", value=f"Price: Unbuyable\nAmount owned: {value}")
+                embed.add_field(name=f"{item}", value=f"Price: Unbuyable\nAmount owned: {value}")
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -207,23 +175,23 @@ class Player(commands.Cog):
         storage = json.load(open("../Bots/servers.json"))
         players = storage["players"]
 
-        for item in player.items.keys():
-            if item.name.lower() == Items:
-                if item.cost == "none":
+        for item, value in players[str(ctx.author.id)]["items"].items():
+            if item.lower() == Items:
+                if costs[item.lower()] == "none":
                     await ctx.send(embed=discord.Embed(description=f"You cannot buy this item {ctx.author.mention}!",
                                                        color=discord.Color.red()))
                 else:
-                    if float(players[str(ctx.author.id)]['money']) >= float(item.cost):
-                        player.items[item] += 1
-                        item.cost = float(item.cost)
-                        players[str(ctx.author.id)]['money'] -= item.cost
-                        item.cost *= 1.1
+                    if float(players[str(ctx.author.id)]['money']) >= float(costs[item.lower()]):
+                        players[str(ctx.author.id)]["items"][item] += 1
+                        costs[item.lower()] = float(costs[item.lower()])
+                        players[str(ctx.author.id)]['money'] -= costs[item.lower()]
+                        costs[item.lower()] *= 1.1
                         await ctx.send(
-                            embed=discord.Embed(description=f"You have purchased a {item.name} {ctx.author.mention}!",
+                            embed=discord.Embed(description=f"You have purchased a {item} {ctx.author.mention}!",
                                                 color=discord.Color.green()))
                     else:
                         await ctx.send(embed=discord.Embed(
-                            description=f"You cannot afford to buy this item {ctx.author.mention}! You need ${item.cost}, and you only have ${players[str(ctx.author.id)]['money']}!",
+                            description=f"You cannot afford to buy this item {ctx.author.mention}! You need ${value['cost']}, and you only have ${players[str(ctx.author.id)]['money']}!",
                             color=discord.Color.red()))
         storage["players"] = players
         json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
@@ -254,16 +222,16 @@ class Player(commands.Cog):
                                 players[str(ctx.author.id)] = robber
                                 players[str(Member.id)] = victim
                                 await ctx.send(embed=discord.Embed(description=random.choice([
-                                                                                                 f"You didn't realize that they were actually a cop in disguise, and they forced you to give them all your money.",
-                                                                                                 f"You dropped their wallet as you were stealing it, and became so flustered that you dropped your own as well."])))
+                                    f"You didn't realize that they were actually a cop in disguise, and they forced you to give them all your money.",
+                                    f"You dropped their wallet as you were stealing it, and became so flustered that you dropped your own as well."])))
                             else:
                                 robber['money'] -= amount_stolen
                                 victim['money'] += amount_stolen
                                 players[str(ctx.author.id)] = robber
                                 players[str(Member.id)] = victim
                                 await ctx.send(embed=discord.Embed(description=random.choice([
-                                                                                                 f"You didn't realize that they were actually a cop in disguise, and they forced you to pay them a fine of ${amount_stolen}.",
-                                                                                                 f"You dropped their wallet as you were stealing it, and became so flustered that you dropped ${amount_stolen}."])))
+                                    f"You didn't realize that they were actually a cop in disguise, and they forced you to pay them a fine of ${amount_stolen}.",
+                                    f"You dropped their wallet as you were stealing it, and became so flustered that you dropped ${amount_stolen}."])))
                     else:
                         await ctx.send(embed=discord.Embed(
                             description=f"Cmon man, you got more money than {Member.mention}. Give them a break, will ya?"))
@@ -284,10 +252,10 @@ class Player(commands.Cog):
         storage = json.load(open("../Bots/servers.json"))
         player = storage["players"][str(ctx.author.id)]
         if amount.lower() == "all" or amount.lower() == "max":
-            amount = int(player["money"]*0.3)
+            amount = int(player["money"] * 0.3)
             player["bank"] += amount
             player["money"] -= amount
-            await ctx.send(f"You have deposited {amount} into your bank.")
+            await ctx.send(f"You have deposited ${amount} into your bank.")
             storage["players"][str(ctx.author.id)] = player
             json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
         elif amount.isnumeric():
@@ -295,10 +263,10 @@ class Player(commands.Cog):
             if amount > int(player["money"]):
                 await ctx.send(f"You can't deposit more than you have {ctx.author.mention}!")
             elif amount > int(player["money"] * 0.3):
-                amount = int(player["money"]*0.3)
+                amount = int(player["money"] * 0.3)
             player["bank"] += amount
             player["money"] -= amount
-            await ctx.send(f"You have deposited {amount} into your bank.")
+            await ctx.send(f"You have deposited ${amount} into your bank.")
             storage["players"][str(ctx.author.id)] = player
             json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
         else:
@@ -311,6 +279,7 @@ class Player(commands.Cog):
         player = storage["players"][str(ctx.author.id)]
         if amount.lower() == "all" or amount.lower() == "max":
             player["money"] += int(player["bank"])
+            await ctx.send(f"You have withdrawn ${int(player['bank'])} from your bank.")
             player["bank"] = 0
             storage["players"][str(ctx.author.id)] = player
             json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
@@ -321,7 +290,7 @@ class Player(commands.Cog):
             else:
                 player["money"] += amount
                 player["bank"] -= amount
-                await ctx.send(f"You have withdrawn {amount} from your bank.")
+                await ctx.send(f"You have withdrawn ${amount} from your bank.")
                 storage["players"][str(ctx.author.id)] = player
                 json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
         else:

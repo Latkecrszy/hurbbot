@@ -57,12 +57,12 @@ class ReactionRoleCog(commands.Cog):
                     role = guild.get_role(reactionroles[str(payload.message_id)][1])
                     member = guild.get_member(int(payload.user_id))
                     await member.add_roles(role)
-                    if not reactionroles[str(payload.message_id)][0].startswith("\\"):
-                        channel = self.bot.get_channel(int(payload.channel_id))
-                        message = await channel.fetch_message(int(payload.message_id))
-                        ctx = await self.bot.get_context(message)
+                    channel = self.bot.get_channel(int(payload.channel_id))
+                    message = await channel.fetch_message(int(payload.message_id))
+                    ctx = await self.bot.get_context(message)
+                    try:
                         emoji = await self.emojiConverter.convert(ctx, reactionroles[str(payload.message_id)][0])
-                    else:
+                    except:
                         emoji = reactionroles[str(payload.message_id)][0]
                     await member.send(embed=discord.Embed(description=f"**You now have the {role} role for reacting with {emoji} in {str(self.bot.get_guild(int(payload.guild_id)))}.**\n\n"))
 
@@ -77,13 +77,6 @@ class ReactionRoleCog(commands.Cog):
                 role = guild.get_role(reactionroles[str(payload.message_id)][1])
                 member = guild.get_member(int(payload.user_id))
                 await member.remove_roles(role)
-                if not reactionroles[str(payload.message_id)][0].startswith("\\"):
-                    channel = self.bot.get_channel(int(payload.channel_id))
-                    message = await channel.fetch_message(int(payload.message_id))
-                    ctx = await self.bot.get_context(message)
-                    emoji = await self.emojiConverter.convert(ctx, reactionroles[str(payload.message_id)][0])
-                else:
-                    emoji = reactionroles[str(payload.message_id)][0]
 
 
 

@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import json
-from Bots.Cogs.players import refreshBalance, saveMoney
 
 oldColors = {discord.Color.blue(): "blue", discord.Color.blurple(): "blurple",
              discord.Color.dark_blue(): "dark_blue",

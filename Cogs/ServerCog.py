@@ -81,7 +81,7 @@ class ServerCog(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(aliases=["setwelcomechannel"])
-    @commands.has_permissions(administrator=True)
+    @commands.has_permissions(manage_guild=True)
     async def welcome(self, ctx, channel: discord.TextChannel, *, message=None):
         with open("../Bots/servers.json", "r") as f:
             storage = json.load(f)
@@ -97,7 +97,7 @@ class ServerCog(commands.Cog):
             await ctx.send(f"Please specify a message to display when people arrive, {ctx.author.mention}!")
 
     @commands.command(aliases=["setgoodbyechannel"])
-    @commands.has_permissions(administrator=True)
+    @commands.has_permissions(manage_guild=True)
     async def goodbye(self, ctx, channel: discord.TextChannel, *, message=None):
         with open("../Bots/servers.json", "r") as f:
             storage = json.load(f)
@@ -273,8 +273,8 @@ class ServerCog(commands.Cog):
         storage[str(ctx.guild.id)]["commandCount"] += 1
         json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
-    @commands.command()
-    async def commands(self, ctx, condition=None):
+    @commands.command(aliases=["commands"])
+    async def Commands(self, ctx, condition=None):
         if condition is None:
             storage = json.load(open("../Bots/servers.json"))
             await ctx.send(f"`{storage[str(ctx.guild.id)]['commandCount']}` commands have been sent in `{ctx.guild.name}`.")
@@ -287,6 +287,14 @@ class ServerCog(commands.Cog):
                 except:
                     pass
             await ctx.send(f"{totalCommands} commands have been sent.")
+
+    @commands.command()
+    async def commandcount(self, ctx):
+        COMMANDS = 0
+        for command in self.bot.commands:
+            COMMANDS += 1
+        await ctx.send(COMMANDS)
+
 
 def setup(bot):
     bot.add_cog(ServerCog(bot))

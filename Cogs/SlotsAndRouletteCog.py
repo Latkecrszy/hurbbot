@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from Bots.Cogs.players import saveMoney, refreshBalance
 import random
 import json
 
@@ -106,7 +105,7 @@ class RouletteCog(commands.Cog):
                                     title=f"Sorry, {ctx.author.display_name}, it was {numberPlace} {numberHit}. You lost ${bet}.",
                                     color=discord.Color.red())
                     players[str(ctx.author.id)]['money'] = playerMoney
-                    storage["players"][str(ctx.author.id)] = player
+                    storage["players"] = players
                     json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
                     await ctx.send(embed=embed)
 

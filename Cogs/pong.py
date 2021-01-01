@@ -58,7 +58,7 @@ class PongCog(commands.Cog):
             embed=discord.Embed(
                 title=f"{self.points[str(message.id)][0]['name']}: {self.points[str(message.id)][0]['points']}           {self.points[str(message.id)][1]['name']}: {self.points[str(message.id)][1]['points']}",
                 description=self.displayboard(self.boards[str(message.id)])))
-        await asyncio.sleep(1)
+        await asyncio.sleep(.25)
 
     def move_ball(self, id):
         ball = self.balls[id]

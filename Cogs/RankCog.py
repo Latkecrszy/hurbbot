@@ -103,13 +103,13 @@ class MessageCog(commands.Cog):
                             await message.author.add_roles(role)
                             await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1} and got the {role.name} role!")
                         else:
-                            await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1}")
+                            await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1}!")
                     else:
                         await channel.send(
-                            f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}")
+                            f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}!")
                 else:
                     await channel.send(
-                        f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}")
+                        f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}!")
             messages[str(message.author.id)]["level"] += 1
             messages[str(message.author.id)]["xp"] = 0
         storage[str(message.guild.id)]["rank"] = messages
@@ -148,6 +148,7 @@ class Rank(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.has_permissions(manage_guild=True)
     async def levelupchannel(self, ctx, *, channel):
         with open("../Bots/servers.json") as f:
             storage = json.load(f)
@@ -263,6 +264,7 @@ class Rank(commands.Cog):
                                            description=f"[Click here to see the leaderboard](https://hurbsite.herokuapp.com/leaderboard/{ctx.guild.id})"))
 
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def levelrole(self, ctx, condition, level, *, role: discord.Role=None):
         if condition.lower() == "add" or condition.lower() == "set":
             if role < self.maxrole(ctx):

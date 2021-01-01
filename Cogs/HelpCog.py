@@ -21,26 +21,22 @@ class HelpCog(commands.Cog):
         embed = discord.Embed(title=f"Moderation Commands")
         Commands = {"1": {"`%purge`": [f"number of messages", "Deletes a selected number of messages.", "`%purge 20`"],
                           "`%kick`": ["member, optional: reason", "Kicks a member and dms them the reason and person who kicked them.", "`%kick @Latkecrszy#0947 Spamming in general.`"],
-                            "`%ban`": ["member, optional: reason", "Bans a member and DMs them the reason and person who banned them.", "`%ban @Latkecrszy#0947 Insulting other members and generally being a meanie.`"],
-                            "`%warn`": ["member, reason", "DMs a member the server they were warned in and the reason for the warning.", "`%warn @Latkecrszy#0947 Calling me a 'mean mod'. I'm not mean!`"],
+                          "`%ban`": ["member, optional: reason", "Bans a member and DMs them the reason and person who banned them.", "`%ban @Latkecrszy#0947 Insulting other members and generally being a meanie.`"],
+                          "`%warn`": ["member, reason", "DMs a member the server they were warned in and the reason for the warning.", "`%warn @Latkecrszy#0947 Calling me a 'mean mod'. I'm not mean!`"],
                           "`%rename`": ["member, new name", "Renames a member.", "`%rename @Latkecrszy#0947 big bad meanie.`"]},
                     "2": {"`%mute`": ["member, optional: reason", "Mutes a member.", "`%mute @Latkecrszy#0947 Spamming repeatedly.`"],
-                            "`%tempmute`": ["member, time, optional: reason", "Mutes a member for a select amount of time.", "`%tempmute @Latkecrszy#0947 10m take a break and cool down.`"],
-                            "`%unmute`": ["member", "Unmutes a member.", "`%unmute @Latkecrszy#0947`"],
-                            "`%lockdown`": ["channel", "Locks down a channel, allowing only admins to talk.", "`%lock #general`"],
-                            "`%unlock`": ["channel", "Unlocks a channel, allowing the people that could talk previously to talk.", "`%unlock #general`"]},
+                          "`%tempmute`": ["member, time, optional: reason", "Mutes a member for a select amount of time.", "`%tempmute @Latkecrszy#0947 10m take a break and cool down.`"],
+                          "`%unmute`": ["member", "Unmutes a member.", "`%unmute @Latkecrszy#0947`"],
+                          "`%lockdown`": ["channel", "Locks down a channel, allowing only admins to talk.", "`%lock #general`"],
+                          "`%unlock`": ["channel", "Unlocks a channel, allowing the people that could talk previously to talk.", "`%unlock #general`"]},
                     "3": {"`%modmute`": ["member", "Mutes an admin.", "`%modmute @Latkecrszy#0947`"],
-                            "`%modunmute`": ["member", "Unmutes an admin.", "`%modunmute @Latkecrszy#0947`"],
+                          "`%modunmute`": ["member", "Unmutes an admin.", "`%modunmute @Latkecrszy#0947`"],
                           "`%slowmode`": ["time", "Sets a slowmode for the channel.", "`%slowmode 10`"],
-                            "`%setwelcomechannel`": ["channel, message", "Sets a channel and message to welcome new members with; type the word `member` to have it mention the member.", "`%setwelcomechannel #welcome Hi member! Welcome to Hurb Central! We hope you enjoy your time here!`"],
-                            "`%setgoodbyechannel`": ["channel, message", "Sets a channel and message to say goodbye to members with; type the word `member` to have it mention the member.", "`%setgoodbyechannel #goodbye Aww. member left. Can we get an f in the chat?`"]},
+                          "`%welcome`": ["channel, message", "Sets a channel and message to welcome new members with; type the word `member` to have it mention the member.", "`%ewlcome #welcome Hi member! Welcome to Hurb Central! We hope you enjoy your time here!`"],
+                          "`%goodbye`": ["channel, message", "Sets a channel and message to say goodbye to members with; type the word `member` to have it mention the member.", "`%goodbye #goodbye Aww. member left. Can we get an f in the chat?`"]},
                     "4": {"`%createrole`": ["color, name", "Creates a role with a given color and name.", "`%createrole teal cool person`"],
-                            "`%deleterole`": ["role", "Deletes a role.", "`%deleterole cool person`"],
-                            "`%autorole`": ["role", "Sets a role to automatically assign to people when they join the server.", "`%autorole cool person`"],
-                            "`%removeautorole`": ["role", "Removes one of the autoroles.", "`%removeautorole cool person`"],
-                            "`%levelrole`": ["add/remove, level, role", "Sets a role to assign once a member reaches a certain level.", "`%levelrole add 5 cool person"],
-                            "`%serverinfo`": ["None", "Shows you general info about the server.", "`%serverinfo`"],
-                            "`%info`": ["Optional: member", "Shows general info about you or another member of the server.", "`%info @Latkecrszy#7777`"]}}
+                          "`%deleterole`": ["role", "Deletes a role.", "`%deleterole cool person`"],
+                          "`%info`": ["Optional: member", "Shows general info about you or another member of the server.", "`%info @Latkecrszy#7777`"]}}
         for key, value in Commands["1"].items():
             embed.add_field(name="\u200b",
                             value=f"[{key}](https://google.com)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
@@ -72,24 +68,23 @@ class HelpCog(commands.Cog):
                           "`%balance`": ["optional: member", "See how much money you have, or ping another user to see their balance.", "`%balance @Latkecrszy#0947`"],
                           "`%donate`": ["member, amount", "Give money to another user.", "`%donate @Latkecrszy 100000`"],
                           "`%blackjack`": ["bet", "Play a game of blackjack; use `%help blackjack` to see more info.", "`%blackjack 2000`"],
-                          "`%roulette`": ["bet, place", "Play a game of roulette.", "`%roulette 10000 black`"],
-                          "`%buy`": ["item name", "Buy an item from the shop.", "`%buy pokemon card`"]},
+                          "`%roulette`": ["bet, place", "Play a game of roulette.", "`%roulette 10000 black`"]},
                     "2": {"`%slots`": ["bet", "Play a game of slots; get two of the same icon to win your bet, and get all three the same for a whopping 1000 times your bet!", "`%slots 1000`"],
                           "`%coinflip`": ["bet, heads/tails", "Flip a coin.", "`%coinflip 10000 heads"],
                           "`%buyrole`": ["role name", "Buy a role, purchasable roles and prices are set by the admins; see more info with `%help roles`.", "`%buyrole cool person`"],
                           "`%roleprice`": ["role name, price", "Set the price of a role. Only usable by admins; see more info with `%help roles`.", "`%roleprice 100000 cool person`"],
-                          "`%roleshop`": ["None", "Shows you the role shop for your server.", "`%roleshop`"],
                           "`%shop`": ["None", "See the item shop, along with how many of each item you have.", "`%shop`"]},
                     "3": {"`%hourly`": ["None", "Claim $100 every hour!", "`%hourly`"],
                           "`%daily`": ["None", "Claim $500 every day!", "`%daily`"],
-                          "`%weekly`": ["None", "Claim $2500 every week!", "`%weekly`"],
-                          "`%monthly`": ["None", "Claim $10000 every month!", "`%monthly`"],
-                          "`%yearly`": ["None", "Claim $1000000000 every year!", "`%yearly`"],
-                          "`%items`": ["None", "See your items.", "`%items`"]}}
+                          "`%roleshop`": ["None", "Shows you the role shop for your server.", "`%roleshop`"],
+                          "`%buy`": ["item name", "Buy an item from the shop.", "`%buy pokemon card`"],
+                    "`%items`": ["None", "See your items.", "`%items`"]}}
         for key, value in Commands["1"].items():
+            print(value)
             embed.add_field(name="\u200b",
                             value=f"[{key}](https://google.com)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
                             inline=False)
+        print("working")
         embed.set_footer(
             text=f"______________________________________________________\nUse the ⬅️ and ➡️ to navigate between pages | Page 1 of 3.")
         message = await ctx.send(embed=embed)
@@ -163,6 +158,17 @@ class HelpCog(commands.Cog):
                 await message.remove_reaction("⬅️", user)
             await message.edit(embed=self.Embed(discord.Embed(title=f"Fun Commands"), Commands, page, 3))
 
+    async def config(self, ctx):
+        embed = discord.Embed(title=f"Config Commands", color=random.choice(embedColors))
+        configCommands = {"1": {"`%welcome`": ["channel, message", "Sets a channel and message to welcome new members with; type `{member}` to have it mention the member.", "`%ewlcome #welcome Hi member! Welcome to Hurb Central! We hope you enjoy your time here!`"],
+                                "`%goodbye`": ["channel, message", "Sets a channel and message to say goodbye to members with; type `{member}` to have it mention the member.", "`%goodbye #goodbye Aww. member left. Can we get an f in the chat?`"],
+                                "`%prefix`": ["Optional: prefix", "Changes the prefix of Hurb in your server.", "`%prefix $`"],
+                                "`%autorole`": ["role", "Sets a role to automatically assign to people when they join the server.", "`%autorole cool person`"],
+                                "`%removeautorole`": ["role", "Removes one of the autoroles.", "`%removeautorole cool person`"],
+                                "`%serverinfo`": ["None", "Shows general information about the server.", "`%serverinfo`"],
+                                "`%info`": ["Optional: member", "Shows general info about you or another member of the server.", "`%info @Latkecrszy#7777`"]
+                                }}
+
     def Embed(self, embed, Commands, page, maxPage):
         for key, value in Commands[str(page)].items():
             embed.add_field(name="\u200b",
@@ -203,7 +209,9 @@ class HelpCog(commands.Cog):
                                 "`%enable linkcheck`": "Turns on a link blocker for the server.",
                                 "`%disable linkcheck`": "Turns off a link blocker for the server.",
                                 "`%enable ranking`": "Turns on a ranking system for the server.",
-                                "`%disable ranking`": "Turns off a ranking system for the server."}
+                                "`%disable ranking`": "Turns off a ranking system for the server.",
+                                "`%enable antispam": "Turns on a spam blocker for the server.",
+                                "`%disable antispam": "Turns off a spam blocker for the server."}
                 for key, value in autoFeatures.items():
                     embed.add_field(name=key, value=f"**What it does**: *{value}*", inline=False)
                 await ctx.send(embed=embed)
@@ -214,6 +222,7 @@ class HelpCog(commands.Cog):
                                 "`%rank`": ["Optional: member", "See your (or someone else's) level, messages, and xp for the server.", "`%rank @Latkecrszy#7777`"],
                                 "`%leaderboard`": ["None", "Take a look at the leaderboard for the server.", "`%leaderboard`"],
                                 "`%levelupchannel`": ["channel name/none", "Set a message to send level up messages in, or set it to none to have them send in the user's active channel.", "`%levelupchannel #level-up`"],
+                                "%levelrole": ["add/remove, level, role", "Sets a role to assign once a member reaches a certain level.", "%levelrole add 5 cool person"],
                                 "`%rankcolor`": ["emoji", "Set an emoji to display your rank as, or even set it to a word if you want!", "`%rankcolor ✨`"]}
                 for key, value in rankFeatures.items():
                     rankEmbed.add_field(name=key, value=f"**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}", inline=False)

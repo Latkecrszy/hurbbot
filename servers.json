@@ -365,8 +365,8 @@
         "prefix": "%",
         "rank": {
             "539942269307060234": {
-                "messages": 1160,
-                "xp": 587,
+                "messages": 1161,
+                "xp": 601,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
@@ -3469,8 +3469,8 @@
         "prefix": "%",
         "rank": {
             "581138544010199058": {
-                "messages": 1357,
-                "xp": 500,
+                "messages": 1358,
+                "xp": 512,
                 "level": 8,
                 "color": "\ud83d\udfe5"
             },
@@ -3673,8 +3673,8 @@
                 "level": 1
             },
             "675067975451148299": {
-                "messages": 27340,
-                "xp": 2589,
+                "messages": 27436,
+                "xp": 3139,
                 "level": 35,
                 "color": "<:HappyLeorio:768680379418017812>"
             },
@@ -3695,8 +3695,8 @@
                 "level": 1
             },
             "753692633863422002": {
-                "messages": 16701,
-                "xp": 5105,
+                "messages": 16896,
+                "xp": 6032,
                 "level": 27,
                 "color": "\ud83d\udea3"
             },
@@ -3707,8 +3707,8 @@
                 "color": "\ud83d\udfe6"
             },
             "348249669442207744": {
-                "messages": 3644,
-                "xp": 1043,
+                "messages": 3663,
+                "xp": 1156,
                 "level": 11,
                 "color": "<a:ducc:772496394384048158>"
             },
@@ -3793,8 +3793,8 @@
                 "level": 1
             },
             "519790591895404545": {
-                "messages": 10924,
-                "xp": 3342,
+                "messages": 11027,
+                "xp": 3837,
                 "level": 21,
                 "color": "<a:catroll:779406198935781376>"
             },
@@ -3815,8 +3815,8 @@
                 "level": 1
             },
             "754160869637619712": {
-                "messages": 10645,
-                "xp": 2592,
+                "messages": 10821,
+                "xp": 3362,
                 "level": 18,
                 "color": "<:kurapika_wtf:787470858825760788>"
             },
@@ -4253,8 +4253,8 @@
                 "color": "\ud83d\udfe6"
             },
             "416662401895759882": {
-                "messages": 63,
-                "xp": 41,
+                "messages": 64,
+                "xp": 46,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -4295,9 +4295,9 @@
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
-                "messages": 24295,
-                "xp": 7035,
-                "level": 31,
+                "messages": 24454,
+                "xp": 392,
+                "level": 32,
                 "color": "<:hurblogo:779231324287270923>"
             },
             "547103993499746309": {
@@ -4499,8 +4499,8 @@
                 "color": "\ud83d\udfe6"
             },
             "352774037791047681": {
-                "messages": 2,
-                "xp": 8,
+                "messages": 4,
+                "xp": 31,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -4673,8 +4673,8 @@
                 "color": "\ud83d\udfe6"
             },
             "678375375922790429": {
-                "messages": 225,
-                "xp": 626,
+                "messages": 239,
+                "xp": 749,
                 "level": 4,
                 "color": "\ud83d\udfe6"
             },
@@ -4799,8 +4799,8 @@
                 "color": "\ud83d\udfe6"
             },
             "776872618094755840": {
-                "messages": 30,
-                "xp": 127,
+                "messages": 31,
+                "xp": 140,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -5159,8 +5159,8 @@
                 "color": "\ud83d\udfe6"
             },
             "484391356089761803": {
-                "messages": 601,
-                "xp": 484,
+                "messages": 608,
+                "xp": 552,
                 "level": 7,
                 "color": "\ud83d\udfe6"
             },
@@ -6080,8 +6080,8 @@
                 "color": "\ud83d\udfe6"
             },
             "787409668704174090": {
-                "messages": 79,
-                "xp": 183,
+                "messages": 87,
+                "xp": 292,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -6308,8 +6308,8 @@
                 "color": "\ud83d\udfe6"
             },
             "470229858010791936": {
-                "messages": 46,
-                "xp": 279,
+                "messages": 52,
+                "xp": 335,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -6350,14 +6350,14 @@
                 "color": "\ud83d\udfe6"
             },
             "661231124856438797": {
-                "messages": 11,
-                "xp": 77,
+                "messages": 12,
+                "xp": 96,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
             "793760223583404062": {
-                "messages": 7,
-                "xp": 81,
+                "messages": 10,
+                "xp": 114,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -6380,8 +6380,8 @@
                 "color": "\ud83d\udfe6"
             },
             "776370398354210857": {
-                "messages": 1,
-                "xp": 22,
+                "messages": 2,
+                "xp": 37,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -6402,6 +6402,30 @@
                 "xp": 21,
                 "level": 1,
                 "color": "\ud83d\udfe6"
+            },
+            "369235025327161346": {
+                "messages": 2,
+                "xp": 28,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "457251052178112513": {
+                "messages": 11,
+                "xp": 118,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "249594590888198151": {
+                "messages": 4,
+                "xp": 62,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "631397194607624201": {
+                "messages": 2,
+                "xp": 39,
+                "level": 1,
+                "color": "\ud83d\udfe6"
             }
         },
         "autoroles": [
@@ -6411,7 +6435,7 @@
         "mutedmods": {
             "675067975451148299": "751667811931390012"
         },
-        "commandCount": 123
+        "commandCount": 129
     },
     "769733820169322506": {
         "commands": {
@@ -6522,8 +6546,8 @@
         "prefix": "%",
         "rank": {
             "441393449607102464": {
-                "messages": 1595,
-                "xp": 831,
+                "messages": 1607,
+                "xp": 927,
                 "level": 8,
                 "color": "\ud83d\udfe6"
             }
@@ -6818,8 +6842,8 @@
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
-                "messages": 2340,
-                "xp": 69,
+                "messages": 2367,
+                "xp": 161,
                 "level": 9,
                 "color": "\u262f\ufe0e"
             },
@@ -6830,20 +6854,20 @@
                 "color": "\ud83d\udfe6"
             },
             "498705562725515275": {
-                "messages": 1417,
-                "xp": 543,
+                "messages": 1428,
+                "xp": 589,
                 "level": 7,
                 "color": "<a:seizureblob:758074192590798889>"
             },
             "727805700264427581": {
-                "messages": 174,
-                "xp": 195,
+                "messages": 180,
+                "xp": 258,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
             "632369591246389248": {
-                "messages": 1926,
-                "xp": 313,
+                "messages": 1957,
+                "xp": 465,
                 "level": 9,
                 "color": "\ud83d\udfe6"
             },
@@ -7570,7 +7594,7 @@
             "id": "757636729380274307",
             "message": "awww. {member} left. Can we get an F in the chat?"
         },
-        "commandCount": 5
+        "commandCount": 9
     },
     "770776810837245962": {
         "commands": {
@@ -8234,8 +8258,8 @@
                 "color": "\ud83d\udfe6"
             },
             "776919872286097462": {
-                "messages": 3295,
-                "xp": 1158,
+                "messages": 3313,
+                "xp": 1272,
                 "level": 11,
                 "color": "\ud83d\udfe6"
             },
@@ -9060,7 +9084,7 @@
             "758912549914804264": "770776810837245962",
             "Champion\u0493\u1d0f\u0280\u1d04\u1d07\u1d05 \u1d1b\u1d0f \u1d1cs\u1d07 \u1d1b\u029c\u026as \u1d18\u0493\u1d18#1000": "LosCracks"
         },
-        "commandCount": 1
+        "commandCount": 10
     },
     "770416498111938570": {
         "commands": {
@@ -10542,14 +10566,14 @@
         "prefix": "%",
         "rank": {
             "200453508745527296": {
-                "messages": 5195,
-                "xp": 2094,
+                "messages": 5206,
+                "xp": 2221,
                 "level": 16,
                 "color": "\ud83d\udfe6"
             },
             "553283146854957066": {
-                "messages": 1047,
-                "xp": 113,
+                "messages": 1048,
+                "xp": 132,
                 "level": 8,
                 "color": "\ud83d\udfe6"
             },
@@ -10572,15 +10596,15 @@
                 "color": "\ud83d\udfe6"
             },
             "350079952017817603": {
-                "messages": 2733,
-                "xp": 1790,
+                "messages": 2736,
+                "xp": 1795,
                 "level": 10,
                 "color": "\ud83c\udf54"
             },
             "540122927149088778": {
-                "messages": 84,
-                "xp": 322,
-                "level": 2,
+                "messages": 91,
+                "xp": 0,
+                "level": 3,
                 "color": "\ud83d\udfe6"
             },
             "526828909153484800": {
@@ -11835,8 +11859,8 @@
         "prefix": "%",
         "rank": {
             "560410597447958529": {
-                "messages": 376,
-                "xp": 109,
+                "messages": 378,
+                "xp": 137,
                 "level": 5,
                 "color": "\ud83d\udfe6"
             },
@@ -12562,26 +12586,26 @@
         "prefix": "%",
         "rank": {
             "654824761116852273": {
-                "messages": 6973,
-                "xp": 2209,
+                "messages": 7011,
+                "xp": 2365,
                 "level": 15,
                 "color": "\ud83e\udd95"
             },
             "437077943228039168": {
-                "messages": 7270,
-                "xp": 257,
+                "messages": 7329,
+                "xp": 579,
                 "level": 17,
                 "color": "monke"
             },
             "628053851810955295": {
-                "messages": 3269,
-                "xp": 2111,
+                "messages": 3272,
+                "xp": 2144,
                 "level": 10,
                 "color": "\ud83d\udfe6"
             },
             "745046080235765930": {
-                "messages": 3569,
-                "xp": 2259,
+                "messages": 3580,
+                "xp": 2388,
                 "level": 11,
                 "color": "\ud83d\udd7a"
             },
@@ -12598,8 +12622,8 @@
                 "color": "SEXWITHGARFIELD\ud83e\udd75"
             },
             "755836957572988968": {
-                "messages": 254,
-                "xp": 459,
+                "messages": 256,
+                "xp": 468,
                 "level": 4,
                 "color": "\ud83d\udfe6"
             },
@@ -12616,13 +12640,13 @@
                 "color": "\ud83d\udfe6"
             },
             "711443939093119007": {
-                "messages": 1890,
-                "xp": 1769,
+                "messages": 1908,
+                "xp": 1922,
                 "level": 9,
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
-                "messages": 1037,
+                "messages": 1038,
                 "xp": 448,
                 "level": 6,
                 "color": "<a:MKohyeah:747886073824149605>"
@@ -12634,8 +12658,8 @@
                 "color": "\ud83d\udfe6"
             },
             "712770720710656021": {
-                "messages": 1172,
-                "xp": 1302,
+                "messages": 1175,
+                "xp": 1344,
                 "level": 7,
                 "color": "\ud83d\udfe6"
             },
@@ -12646,8 +12670,8 @@
                 "color": "\ud83d\udfe6"
             },
             "617130561399554090": {
-                "messages": 1808,
-                "xp": 52,
+                "messages": 1826,
+                "xp": 148,
                 "level": 10,
                 "color": "\ud83d\udfe6"
             },
@@ -12688,8 +12712,8 @@
                 "color": "\ud83d\udfe6"
             },
             "704380321331937392": {
-                "messages": 2,
-                "xp": 34,
+                "messages": 3,
+                "xp": 41,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -12700,9 +12724,9 @@
                 "color": "\ud83d\udfe6"
             },
             "470014547240026132": {
-                "messages": 436,
-                "xp": 1047,
-                "level": 5,
+                "messages": 479,
+                "xp": 73,
+                "level": 6,
                 "color": "\ud83d\udfe6"
             },
             "776611041618427914": {
@@ -12776,8 +12800,8 @@
                 "color": "\ud83d\udfe6"
             },
             "724739377523327040": {
-                "messages": 3,
-                "xp": 25,
+                "messages": 4,
+                "xp": 34,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -16741,14 +16765,14 @@
                 "color": "\ud83d\udfe6"
             },
             "678415756865830914": {
-                "messages": 506,
-                "xp": 316,
+                "messages": 508,
+                "xp": 331,
                 "level": 5,
                 "color": "\ud83d\udfe6"
             },
             "716429481052471347": {
-                "messages": 131,
-                "xp": 446,
+                "messages": 133,
+                "xp": 464,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -16759,8 +16783,8 @@
                 "color": "\ud83d\udfe6"
             },
             "773990983662174238": {
-                "messages": 72,
-                "xp": 203,
+                "messages": 75,
+                "xp": 225,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -16835,8 +16859,8 @@
                 "color": "\ud83d\udfe6"
             },
             "754552258099937320": {
-                "messages": 1,
-                "xp": 18,
+                "messages": 2,
+                "xp": 23,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
@@ -16860,8 +16884,8 @@
         "prefix": "%",
         "rank": {
             "670493561921208320": {
-                "messages": 534,
-                "xp": 182,
+                "messages": 565,
+                "xp": 370,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
@@ -16888,13 +16912,20 @@
                 "xp": 95,
                 "level": 2,
                 "color": "\ud83d\udfe6"
+            },
+            "766524871508623410": {
+                "messages": 10,
+                "xp": 41,
+                "level": 1,
+                "color": "\ud83d\udfe6"
             }
         },
         "goodbye": {
             "id": "716377034728931331",
             "message": "fuck off {member}. asshole"
         },
-        "commandCount": 135
+        "commandCount": 160,
+        "mutedmods": {}
     },
     "784905748948844554": {
         "commands": {
@@ -16918,129 +16949,9 @@
         }
     },
     "rank": {
-        "581138544010199058": {
-            "messages": 1351,
-            "xp": 456,
-            "level": 8,
-            "color": "\ud83d\udfe5"
-        },
-        "692802828514885742": {
-            "messages": 948,
-            "xp": 978,
-            "level": 5,
-            "color": "\ud83d\udfe6"
-        },
-        "711392851883327549": {
-            "messages": 504,
-            "xp": 105,
-            "level": 4,
-            "color": "\ud83d\udfe6"
-        },
-        "670493561921208320": {
-            "messages": 458,
-            "xp": 505,
-            "level": 4,
-            "color": "<a:ducc:772496394384048158>"
-        },
-        "711443939093119007": {
-            "messages": 675,
-            "xp": 476,
-            "level": 5,
-            "color": "\ud83d\udfe6"
-        },
-        "704760796269379645": {
-            "messages": 83,
-            "xp": 309,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "437077943228039168": {
-            "messages": 22,
-            "xp": 61,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "491410698115481610": {
-            "messages": 3,
-            "xp": 14,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "348249669442207744": {
-            "messages": 6,
-            "xp": 9,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "363870505444442133": {
-            "messages": 10,
-            "xp": 22,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "509528799579340822": {
-            "messages": 44,
-            "xp": 72,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "706258853037342811": {
-            "messages": 126,
-            "xp": 0,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "720508136376631407": {
-            "messages": 29,
-            "xp": 160,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "664924832412073995": {
-            "messages": 10,
-            "xp": 24,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "675067975451148299": {
-            "messages": 109,
-            "xp": 48,
-            "level": 3,
-            "color": "\ud83d\udfe6"
-        },
-        "722999582828789860": {
-            "messages": 69,
-            "xp": 201,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "658106701878263809": {
-            "messages": 59,
-            "xp": 277,
-            "level": 2,
-            "color": "\ud83d\udfe6"
-        },
-        "777974323209437235": {
-            "messages": 3,
-            "xp": 32,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "787808019039125515": {
-            "messages": 29,
-            "xp": 153,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "700079633827233873": {
-            "messages": 10,
-            "xp": 101,
-            "level": 1,
-            "color": "\ud83d\udfe6"
-        },
-        "437364394066968596": {
+        "749797228436258957": {
             "messages": 1,
-            "xp": 2,
+            "xp": 1,
             "level": 1
         }
     },
@@ -17911,6 +17822,18 @@
                 "Bumper Sticker": 0
             },
             "bank": 0
+        },
+        "749797228436258957": {
+            "money": 855,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
         }
     },
     "705829037704216697": {
@@ -17929,9 +17852,9 @@
         },
         "rank": {
             "366069251137863681": {
-                "messages": 20,
-                "xp": 194,
-                "level": 1,
+                "messages": 21,
+                "xp": 0,
+                "level": 2,
                 "color": "\ud83d\udfe6"
             }
         }
@@ -18757,26 +18680,26 @@
         },
         "rank": {
             "514928777630056451": {
-                "messages": 1045,
-                "xp": 521,
+                "messages": 1047,
+                "xp": 544,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
             "765622778484621393": {
-                "messages": 119,
-                "xp": 12,
+                "messages": 121,
+                "xp": 23,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
             "754160869637619712": {
-                "messages": 1886,
-                "xp": 242,
+                "messages": 1892,
+                "xp": 304,
                 "level": 8,
                 "color": "\ud83d\udcbf"
             },
             "757960099955343440": {
-                "messages": 282,
-                "xp": 482,
+                "messages": 285,
+                "xp": 489,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -18793,8 +18716,8 @@
                 "color": "\ud83d\udfe6"
             },
             "533850458415038464": {
-                "messages": 29,
-                "xp": 22,
+                "messages": 30,
+                "xp": 34,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             }
@@ -18863,8 +18786,8 @@
                 "color": "\ud83d\udfe6"
             },
             "275212680346730498": {
-                "messages": 2,
-                "xp": 17,
+                "messages": 3,
+                "xp": 22,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -18881,5 +18804,110 @@
                 "color": "\ud83d\udfe6"
             }
         }
+    },
+    "792958493245833267": {
+        "prefix": "%",
+        "commands": {
+            "goodbye": "False",
+            "nitro": "True",
+            "nonocheck": "False",
+            "welcome": "False",
+            "invitecheck": "False",
+            "linkcheck": "False",
+            "ranking": "True",
+            "economy": "True",
+            "moderation": "True",
+            "antispam": "False"
+        },
+        "rank": {
+            "670493561921208320": {
+                "messages": 80,
+                "xp": 173,
+                "level": 2,
+                "color": "\ud83d\udfe6"
+            },
+            "776919872286097462": {
+                "messages": 252,
+                "xp": 406,
+                "level": 3,
+                "color": "\ud83d\udfe6"
+            },
+            "726061473771552879": {
+                "messages": 9,
+                "xp": 24,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "470065949937238038": {
+                "messages": 2,
+                "xp": 20,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "745678252202524703": {
+                "messages": 1,
+                "xp": 10,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "720803296356597820": {
+                "messages": 1,
+                "xp": 19,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "676841925516591104": {
+                "messages": 4,
+                "xp": 62,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "758912549914804264": {
+                "messages": 1,
+                "xp": 21,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "779389267113541703": {
+                "messages": 1,
+                "xp": 19,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            }
+        },
+        "commandCount": 25,
+        "mutedmods": {},
+        "goodbye": {
+            "id": "794208930397159464",
+            "message": "{member} left from this server"
+        },
+        "welcome": {
+            "id": "794208930397159464",
+            "message": "{member} joined"
+        }
+    },
+    "789983556003823656": {
+        "prefix": "%",
+        "commands": {
+            "goodbye": "False",
+            "nitro": "True",
+            "nonocheck": "False",
+            "welcome": "False",
+            "invitecheck": "False",
+            "linkcheck": "False",
+            "antispam": "False",
+            "ranking": "True",
+            "economy": "True",
+            "moderation": "True"
+        },
+        "rank": {
+            "749797228436258957": {
+                "messages": 8,
+                "xp": 61,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            }
+        },
+        "commandCount": 2
     }
 }

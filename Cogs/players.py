@@ -128,7 +128,7 @@ class Player(commands.Cog):
         storage["players"] = players
         json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
-    @commands.command(aliases=["b", "B", "Balance", "BALANCE", "bal", "Bal", "BAL"])
+    @commands.command(aliases=["b", "bal"])
     async def balance(self, ctx, member: discord.Member = None):
         storage = json.load(open("../Bots/servers.json"))
         players = storage["players"]
@@ -143,7 +143,7 @@ class Player(commands.Cog):
                 await ctx.send(embed=discord.Embed(
                     description=f"I could not find an account for {member.display_name}, {ctx.author.mention}."))
 
-    @commands.command(aliases=["Items", "ITEMS", "inv", "INV", "Inv", "inventory", "Inventory", "INVENTORY"])
+    @commands.command(aliases=["inv", "inventory"])
     async def items(self, ctx):
         storage = json.load(open("../Bots/servers.json"))
         players = storage["players"]
@@ -196,7 +196,7 @@ class Player(commands.Cog):
         storage["players"] = players
         json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
-    @commands.command(aliases=["Rob", "ROB", "steal", "Steal", "STEAL"])
+    @commands.command(aliases=["steal"])
     @commands.cooldown(1, 120, BucketType.user)
     async def rob(self, ctx, Member: discord.Member):
         storage = json.load(open("../Bots/servers.json"))
@@ -246,7 +246,7 @@ class Player(commands.Cog):
         storage["players"] = players
         json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
-    @commands.command(aliases=["dep", "Deposit", "Dep", "DEP", "DEPOSIT"])
+    @commands.command(aliases=["dep"])
     @commands.cooldown(1, 120, BucketType.user)
     async def deposit(self, ctx, amount):
         storage = json.load(open("../Bots/servers.json"))
@@ -272,7 +272,7 @@ class Player(commands.Cog):
         else:
             await ctx.send(f"Please enter a valid amount to deposit.")
 
-    @commands.command(aliases=["With", "with", "WITH", "Withdraw", "WITHDRAW"])
+    @commands.command(aliases=["with"])
     @commands.cooldown(1, 30, BucketType.user)
     async def withdraw(self, ctx, amount):
         storage = json.load(open("../Bots/servers.json"))

@@ -13,7 +13,7 @@ class VoiceCog(commands.Cog):
         self.bot = bot
 
 
-    @commands.command(aliases=["Join", "JOIN", "connect", "Connect", "CONNECT"])
+    @commands.command(aliases=["connect"])
     async def join(self, ctx):
         if ctx.author.voice is not None:
             channel = ctx.author.voice.channel
@@ -25,7 +25,7 @@ class VoiceCog(commands.Cog):
         else:
             await ctx.send(embed=discord.Embed(description=f"Please connect to a voice channel to use this command.", color=discord.Color.red()))
 
-    @commands.command(aliases=["disconnect", "Disconnect", "DISCONNECT", "Leave", "LEAVE"])
+    @commands.command(aliases=["disconnect"])
     async def leave(self, ctx):
         client = ctx.guild.voice_client
         if client is not None:

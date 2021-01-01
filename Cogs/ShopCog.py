@@ -87,7 +87,7 @@ class ShopCog(commands.Cog):
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
 
-    @commands.command(aliases=["Inventory", "inv", "INV", "Inv", "INVENTORY"])
+    @commands.command(aliases=["inv"])
     async def inventory(self, ctx):
         with open("/Users/sethraphael/PycharmProject/Bots/money.json", "r") as r:
             self['money'] = json.load(r)

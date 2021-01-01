@@ -176,7 +176,7 @@ class BotFunCog(commands.Cog):
         await ctx.send(embed=discord.Embed(title=currentTopic,
                                            color=random.choice(embedColors)))
 
-    @commands.command(aliases=["dog", "DOGGO", "Doggo", "Dog", "DOG", "doggy", "Doggy", "DOGGY"])
+    @commands.command(aliases=["dog", "doggy"])
     async def doggo(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get('https://dog.ceo/api/breeds/image/random') as r:
@@ -186,7 +186,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://dog.ceo")
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["cat", "Cat", "CAT", "CATTO", "Catto", "catty", "Catty", "CATTY"])
+    @commands.command(aliases=["cat", "catty"])
     async def catto(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get('https://api.thecatapi.com/v1/images/search') as r:
@@ -209,11 +209,11 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://thecatapi.com")
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["autocat", "Autocat", "AUTOCAT"])
+    @commands.command(aliases=["autocat"])
     async def autocatto(self, ctx):
         self.autoCatto.start(ctx)
 
-    @commands.command(aliase=["Stopautocatto", "STOPAUTOCATTO", "stopautocat", "Stopautocat", "STOPAUTOCAT"])
+    @commands.command(aliase=["stopautocat"])
     async def stopautocatto(self, ctx):
         self.autoCatto.stop()
         await ctx.send("FINE, one more and then I'll stop.")
@@ -228,7 +228,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://dog.ceo")
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["Autodoggo", "AUTODOGGO", "autodog", "Autodog", "AUTODOG"])
+    @commands.command(aliases=["autodog"])
     async def autodoggo(self, ctx):
         self.autoDoggo.start(ctx)
 
@@ -237,7 +237,7 @@ class BotFunCog(commands.Cog):
         self.autoDoggo.stop()
         await ctx.send("FINE, one more and then I'll stop.")
 
-    @commands.command(aliases=["murder", "Murder", "MURDER", "Kill", "KILL"])
+    @commands.command(aliases=["murder"])
     @commands.cooldown(1, 15, BucketType.user)
     async def kill(self, ctx, *, member):
         death = random.choice(kills)
@@ -271,7 +271,7 @@ class BotFunCog(commands.Cog):
             await ctx.send(embed=discord.Embed(title=f'''Question: {question}''',
                                                description=f"**Answer: {random.choice(responses)}**"))
 
-    @commands.command(aliases=["Duck", "DUCK", "ducko", "Ducko", "DUCKO", "ducc", "Ducc", "DUCC", "ducco", "Ducco", "DUCCO"])
+    @commands.command(aliases=["ducc", "ducco", "ducko"])
     async def duck(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get('https://random-d.uk/api/random') as r:
@@ -281,7 +281,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text=res["message"])
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["Panda", "PANDA", "pander", "Pander", "PANDER", "pando", "Pando", "PANDO"])
+    @commands.command(aliases=["pander", "pando"])
     async def panda(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/img/panda") as r:
@@ -291,7 +291,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://some-random-api.ml")
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["Birb", "BIRB", "bird", "birdy", "birdo", "Bird", "BIRD", "Birdy", "BIRDY", "Birdo", "BIRDO"])
+    @commands.command(aliases=["bird", "birdo", "birbo"])
     async def birb(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/img/birb") as r:
@@ -301,7 +301,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://some-random-api.ml")
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["Fox", "FOX", "foxo", "foxxo", "foxy", "foxxy", "Foxo", "FOXO", "Foxxo", "FOXXO", "Foxy", "FOXY", "Foxxy", "FOXXY"])
+    @commands.command(aliases=["foxo", "foxxo", "foxy", "foxxy"])
     async def fox(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/img/fox") as r:
@@ -311,7 +311,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://some-random-api.ml")
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["Redpanda", "REDPANDA", "redpander", "Redpander", "REDPANDER", "redpando", "Redpando", "REDPANDO"])
+    @commands.command(aliases=["redpando", "redpander"])
     async def redpanda(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/img/red_panda") as r:
@@ -321,7 +321,7 @@ class BotFunCog(commands.Cog):
         embed.set_footer(text="Powered by https://some-random-api.ml")
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["Koala", "KOALA", "koaler", "Koaler", "KOALER"])
+    @commands.command(aliases=["koaler"])
     async def koala(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/img/koala") as r:

@@ -156,7 +156,7 @@ class MessageCommands(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.guild is not None and message.guild.id == 770776810837245962:
+        if message.guild is not None:
             if predicate(message, "nonocheck"):
                 await nonocheck(message, nonoWords)
             if predicate(message, "linkcheck"):

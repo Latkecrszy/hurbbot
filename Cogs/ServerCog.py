@@ -19,6 +19,7 @@ class ServerCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.editList = {}
+        self.everyoneStatus = {}
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -118,7 +119,7 @@ class ServerCog(commands.Cog):
             storage = json.load(f)
         if str(guild.id) not in storage.keys():
             storage[str(guild.id)] = {"prefix": '%', "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
-                                      "invitecheck": "False", "linkcheck": "False", "ranking": "True", "economy": "True", "moderation": "True"}}
+                                      "invitecheck": "False", "linkcheck": "False", "antispam": "False", "ranking": "True", "economy": "True", "moderation": "True"}}
         with open('../Bots/servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 
@@ -129,12 +130,18 @@ class ServerCog(commands.Cog):
             channel = ctx.message.channel
 
         self.editList[str(channel.id)] = []
+        everyonePerms = channel.overwrites_for(ctx.guild.default_role)
+        if everyonePerms.send_messages or everyonePerms.send_messages is None:
+            self.everyoneStatus[str(channel.id)] = everyonePerms.send_messages
+            everyonePerms.send_messages = False
+            await channel.set_permissions(ctx.guild.default_role, overwrite=everyonePerms)
         for role in ctx.guild.roles:
-            perms = channel.overwrites_for(role)
-            if perms.send_messages:
-                perms.send_messages = False
-                await channel.set_permissions(role, overwrite=perms)
-                self.editList[str(channel.id)].append(str(role))
+            if role != ctx.guild.default_role:
+                perms = channel.overwrites_for(role)
+                if perms.send_messages:
+                    perms.send_messages = False
+                    await channel.set_permissions(role, overwrite=perms)
+                    self.editList[str(channel.id)].append(role.id)
         await ctx.send(
             embed=discord.Embed(description=f"<a:check:771786758442188871> {channel.mention} has been locked.",
                                 color=discord.Color.green()))
@@ -144,9 +151,12 @@ class ServerCog(commands.Cog):
     async def channelunmute(self, ctx, channel: discord.TextChannel = None):
         if channel is None:
             channel = ctx.message.channel
+        prevPerms = channel.overwrites_for(ctx.guild.default_role)
+        prevPerms.send_messages = self.everyoneStatus[str(channel.id)]
+        await channel.set_permissions(ctx.guild.default_role, overwrite=prevPerms)
         for role in ctx.guild.roles:
             perms = channel.overwrites_for(role)
-            if str(role) in self.editList[str(channel.id)]:
+            if role.id in self.editList[str(channel.id)]:
                 perms.send_messages = True
                 await channel.set_permissions(role, overwrite=perms)
         await ctx.send(
@@ -245,7 +255,7 @@ class ServerCog(commands.Cog):
         except:
             pass
 
-    @commands.command(aliases=["membercount", "Memcount", "MEMCOUNT", "Membercount", "MEMBERCOUNT"])
+    @commands.command(aliases=["membercount"])
     async def memcount(self, ctx):
         members = [str(member) for member in ctx.guild.members if not member.bot]
         bots = [str(member) for member in ctx.guild.members if member.bot]
@@ -273,7 +283,7 @@ class ServerCog(commands.Cog):
         storage[str(ctx.guild.id)]["commandCount"] += 1
         json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
 
-    @commands.command(aliases=["commands"])
+    @commands.command()
     async def Commands(self, ctx, condition=None):
         if condition is None:
             storage = json.load(open("../Bots/servers.json"))

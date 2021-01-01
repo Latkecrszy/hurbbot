@@ -225,7 +225,7 @@ class Rank(commands.Cog):
             json.dump(storage, f, indent=4)
 
     @is_me("ranking")
-    @commands.command(aliases=["lb", "Leaderboard", "LEADERBOARD", "Lb", "LB"])
+    @commands.command(aliases=["lb"])
     @commands.cooldown(1, 10, BucketType.user)
     async def leaderboard(self, ctx, condition=None):
         if condition == "local" or condition is None:

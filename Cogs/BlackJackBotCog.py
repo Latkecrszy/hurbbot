@@ -182,7 +182,7 @@ class BlackJackCog(commands.Cog):
         else:
             return False
 
-    @commands.command(aliases=["HIT", "Hit", "h", "H"])
+    @commands.command(aliases=["h"])
     async def hit(self, ctx):
         if str(ctx.author.id) in self.info.keys():
             self.hitHand(ctx.author.id, "player")
@@ -194,7 +194,7 @@ class BlackJackCog(commands.Cog):
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
 
-    @commands.command(aliases=["STAND", "Stand", "s", "S"])
+    @commands.command(aliases=["s"])
     async def stand(self, ctx):
         if str(ctx.author.id) in self.info.keys():
             while self.total(self.info[str(ctx.author.id)]["dealer_hand"]) < 17:
@@ -206,7 +206,7 @@ class BlackJackCog(commands.Cog):
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
 
-    @commands.command(aliases=["dd", "Doubledown", "DoubleDown", "DD", "Dd", "DOUBLEDOWN"])
+    @commands.command(aliases=["dd"])
     async def doubledown(self, ctx):
         if str(ctx.author.id) in self.info.keys():
             storage = json.load(open("../Bots/servers.json"))
@@ -320,7 +320,7 @@ class BlackJackCog(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.cooldown(1, 5, BucketType.user)
-    @commands.command(aliases=["bj", "BJ", "Blackjack", "BLACKJACK", "BlackJack", "blackJack"])
+    @commands.command(aliases=["bj"])
     async def blackjack(self, ctx, bet):
         if await self.tooMuchCheck(ctx, bet):
             if str(ctx.author.id) in self.info.keys():

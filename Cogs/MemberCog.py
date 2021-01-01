@@ -365,7 +365,7 @@ class MemberCog(commands.Cog):
         with open("../Bots/servers.json", "w") as f:
             json.dump(storage, f, indent=4)
 
-    @commands.command()
+    @commands.command(aliases=["unmodmute"])
     @commands.has_permissions(administrator=True)
     async def modunmute(self, ctx, member: discord.Member):
         with open("../Bots/servers.json", "r") as f:
@@ -385,10 +385,10 @@ class MemberCog(commands.Cog):
 
         await ctx.send(embed=embed)
         storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
-        with open("../Bots/servers.json") as f:
+        with open("../Bots/servers.json", "w") as f:
             json.dump(storage, f, indent=4)
 
-    @commands.command(aliases=["Timer", "TIMER", "remind", "REMIND", "Remind", "reminder", "Reminder", "REMINDER"])
+    @commands.command(aliases=["reminder"])
     async def timer(self, ctx, time, *, reminder="No reminder"):
         timerTime = []
         minute = True
@@ -433,30 +433,31 @@ class MemberCog(commands.Cog):
     @commands.Cog.listener()
     @commands.guild_only()
     async def on_message(self, message):
-        if not message.author.guild_permissions.administrator:
-            storage = json.load(open("servers.json"))
-            if storage[str(message.guild.id)]["commands"]["antispam"] == "True":
-                mentions = 0
-                content = message.content.split(" ")
-                for i in content:
-                    if i.find(f"<") != -1 and i.find(f">") != -1 and i.find(f"@") != -1:
-                        mentions += 1
-                    if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
-                        mentions += 1
-                if mentions >= 5:
-                    ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
-                    await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
-                elif mentions >= 1:
-                    if str(message.author.id) in self.spammers.keys():
-                        self.spammers[str(message.author.id)] += 1
-                    else:
-                        self.spammers[str(message.author.id)] = 1
-                if str(message.author.id) in self.spammers.keys():
-                    if self.spammers[str(message.author.id)] >= 5:
+        if message.guild is not None:
+            if not message.author.guild_permissions.administrator:
+                storage = json.load(open("servers.json"))
+                if storage[str(message.guild.id)]["commands"]["antispam"] == "True":
+                    mentions = 0
+                    content = message.content.split(" ")
+                    for i in content:
+                        if i.find(f"<") != -1 and i.find(f">") != -1 and i.find(f"@") != -1:
+                            mentions += 1
+                        if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
+                            mentions += 1
+                    if mentions >= 5:
                         ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
                         await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
-                    await asyncio.sleep(10)
-                    self.spammers[str(message.author.id)] = 0
+                    elif mentions >= 1:
+                        if str(message.author.id) in self.spammers.keys():
+                            self.spammers[str(message.author.id)] += 1
+                        else:
+                            self.spammers[str(message.author.id)] = 1
+                    if str(message.author.id) in self.spammers.keys():
+                        if self.spammers[str(message.author.id)] >= 5:
+                            ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
+                            await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
+                        await asyncio.sleep(10)
+                        self.spammers[str(message.author.id)] = 0
 
     @commands.command()
     async def avatar(self, ctx, *, member: discord.Member = None):

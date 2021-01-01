@@ -32,7 +32,7 @@ def getprefix(_bot, message):
             return commands.when_mentioned_or(Prefix)(_bot, message)
 
 
-bot = commands.Bot(command_prefix=getprefix, help_command=None, intents=intents)
+bot = commands.Bot(command_prefix=getprefix, help_command=None, intents=intents, case_insensitive=True)
 
 
 async def settings():
@@ -117,7 +117,7 @@ async def fixfile(ctx):
 
     for server, values in storage.items():
         if server.isnumeric():
-            storage[server]["commands"]["antispam"] = "False"
+            storage[server]["blacklist"] = {}
     with open("servers.json", "w") as f:
         json.dump(storage, f, indent=4)
     await ctx.send(f"Done fixing the file :)")

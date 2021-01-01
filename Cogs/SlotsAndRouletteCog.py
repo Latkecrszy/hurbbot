@@ -32,7 +32,7 @@ class RouletteCog(commands.Cog):
         else:
             return True
 
-    @commands.command(aliases=["r", "R", "Roulette", "ROULETTE"])
+    @commands.command(aliases=["r"])
     async def roulette(self, ctx, bet, number: str):
         validBets = ["black", "red", "high", "low", "row1", "row2", "row3", "1-12", "13-24", "25-36"]
         storage = json.load(open("../Bots/servers.json"))

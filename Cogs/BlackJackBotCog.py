@@ -67,7 +67,7 @@ class BlackJackCog(commands.Cog):
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                     embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                                     value=f"Total ==> `{playerTotal}`", inline=True)
-                    embed.add_field(name=f"**EconoBot**:\nCards ==> {playerDisplayHand}",
+                    embed.add_field(name=f"**Hurb**:\nCards ==> {playerDisplayHand}",
                                     value=f"Total ==> `{playerTotal}`", inline=True)
                     embed.add_field(name="It's a tie! You both got blackjack!", value="Your balance stayed the same.",
                                     inline=False)
@@ -80,7 +80,7 @@ class BlackJackCog(commands.Cog):
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                     embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                                     value=f"Total ==> `{playerTotal}`", inline=True)
-                    embed.add_field(name=f"**EconoBot**:\nCards ==> {dealerDisplayHand}",
+                    embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                                     value=f"Total ==> `{dealerTotal}`", inline=True)
                     if len(self.info[str(ctx.author.id)]["player_hand"]) == 2:
                         embed.add_field(name="You won! You got a blackjack!",
@@ -111,7 +111,7 @@ class BlackJackCog(commands.Cog):
                 embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                 embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                                 value=f"Total ==> `{playerTotal}`", inline=True)
-                embed.add_field(name=f"**EconoBot**:\nCards ==> {dealerDisplayHand}",
+                embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                                 value=f"Total ==> `{dealerTotal}`", inline=True)
                 embed.add_field(name="The dealer reached 21 before you did. You lost.",
                                 value=f"You lost ${self.info[str(ctx.author.id)]['bet']}.",
@@ -145,7 +145,7 @@ class BlackJackCog(commands.Cog):
                 embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                 embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                                 value=f"Total ==> `{playerTotal}`", inline=True)
-                embed.add_field(name=f"**EconoBot**:\nCards ==> {dealerDisplayHand}",
+                embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                                 value=f"Total ==> `{dealerTotal}`", inline=True)
                 embed.add_field(name="You busted! You lost.",
                                 value=f"You lost ${self.info[str(ctx.author.id)]['bet']}.", inline=False)
@@ -164,7 +164,7 @@ class BlackJackCog(commands.Cog):
                 embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                 embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                                 value=f"Total ==> `{playerTotal}`", inline=True)
-                embed.add_field(name=f"**EconoBot**:\nCards ==> {dealerDisplayHand}",
+                embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                                 value=f"Total ==> `{dealerTotal}`", inline=True)
                 embed.add_field(name="The dealer busted! You won!",
                                 value=f"You won ${self.info[str(ctx.author.id)]['bet']}.", inline=False)
@@ -247,7 +247,7 @@ class BlackJackCog(commands.Cog):
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                             value=f"Total ==> `{playerTotal}`", inline=True)
-            embed.add_field(name=f"**EconoBot**:\nCards ==> {dealerDisplayHand}",
+            embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                             value=f"Total ==> `{dealerTotal}`", inline=True)
             embed.add_field(name="The dealer got a higher value than you. You lost.",
                             value=f"You lost ${self.info[str(ctx.author.id)]['bet']}.",
@@ -265,7 +265,7 @@ class BlackJackCog(commands.Cog):
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                             value=f"Total ==> `{playerTotal}`", inline=True)
-            embed.add_field(name=f"**Econobot**:\nCards ==> {dealerDisplayHand}",
+            embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                             value=f"Total ==> `{dealerTotal}`", inline=True)
             embed.add_field(name="You won! Your score was higher than the dealer's!",
                             value=f"You won ${self.info[str(ctx.author.id)]['bet']}!",
@@ -283,7 +283,7 @@ class BlackJackCog(commands.Cog):
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                             value=f"Total ==> `{playerTotal}`", inline=True)
-            embed.add_field(name=f"**EconoBot**:\nCards ==> {dealerDisplayHand}",
+            embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                             value=f"Total ==> `{dealerTotal}`", inline=True)
             embed.add_field(name="It's a tie! Your score was the same as the dealer's",
                             value="Your balance stayed the same.", inline=False)
@@ -314,9 +314,9 @@ class BlackJackCog(commands.Cog):
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
                         value=f"Total ==> `{playerTotal}`", inline=True)
-        embed.add_field(name=f"**EconoBot**:\nCards ==> {dealerDisplayHand}",
+        embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
                         value=f"Total ==> `?`", inline=True)
-        embed.set_footer(text=f"Your options are: eco!hit, eco!stand, or eco!doubledown.")
+        embed.set_footer(text=f"Your options are: %hit, %stand, or %doubledown.")
         await ctx.send(embed=embed)
 
     @commands.cooldown(1, 5, BucketType.user)
@@ -358,7 +358,7 @@ class BlackJackCog(commands.Cog):
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> `A` `K`",
                             value=f"Total ==> `BLACKJACK!!!`", inline=True)
-            embed.add_field(name=f"**EconoBot**:\nCards ==> `2` `2`",
+            embed.add_field(name=f"**Hurb**:\nCards ==> `2` `2`",
                             value=f"Total ==> `4`", inline=True)
             embed.add_field(name="You won! You got a BlackJack!", value=f"You won ${bet}!",
                             inline=False)

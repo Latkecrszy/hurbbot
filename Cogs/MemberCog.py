@@ -434,36 +434,96 @@ class MemberCog(commands.Cog):
     @commands.guild_only()
     async def on_message(self, message):
         if message.guild is not None:
-            if not message.author.guild_permissions.administrator:
-                storage = json.load(open("servers.json"))
-                if storage[str(message.guild.id)]["commands"]["antispam"] == "True":
-                    mentions = 0
-                    content = message.content.split(" ")
-                    for i in content:
-                        if i.find(f"<") != -1 and i.find(f">") != -1 and i.find(f"@") != -1:
-                            mentions += 1
-                        if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
-                            mentions += 1
-                    if mentions >= 5:
-                        ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
-                        await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
-                    elif mentions >= 1:
-                        if str(message.author.id) in self.spammers.keys():
-                            self.spammers[str(message.author.id)] += 1
-                        else:
-                            self.spammers[str(message.author.id)] = 1
-                    if str(message.author.id) in self.spammers.keys():
-                        if self.spammers[str(message.author.id)] >= 5:
+            if isinstance(message.author, discord.Member):
+                if not message.author.guild_permissions.administrator:
+                    storage = json.load(open("servers.json"))
+                    if storage[str(message.guild.id)]["commands"]["antispam"] == "True":
+                        mentions = 0
+                        content = message.content.split(" ")
+                        for i in content:
+                            if i.find(f"<") != -1 and i.find(f">") != -1 and i.find(f"@") != -1:
+                                mentions += 1
+                            if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
+                                mentions += 1
+                        if mentions >= 5:
                             ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
                             await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
-                        await asyncio.sleep(10)
-                        self.spammers[str(message.author.id)] = 0
+                        elif mentions >= 1:
+                            if str(message.author.id) in self.spammers.keys():
+                                self.spammers[str(message.author.id)] += 1
+                            else:
+                                self.spammers[str(message.author.id)] = 1
+                        if str(message.author.id) in self.spammers.keys():
+                            if self.spammers[str(message.author.id)] >= 5:
+                                ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
+                                await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
+                            await asyncio.sleep(10)
+                            self.spammers[str(message.author.id)] = 0
 
     @commands.command()
     async def avatar(self, ctx, *, member: discord.Member = None):
         if member is None:
             member = ctx.author
         await ctx.send(member.avatar_url)
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.guild is not None and not message.author.guild_permissions.administrator:
+            storage = json.load(open("../Bots/servers.json"))
+            for key, value in storage[str(message.guild.id)]["blacklist"].items():
+                if key in message.content.lower():
+                    reason = f"Sending the word {key} in {message.guild}."
+                    ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
+                    if value == "ban":
+                        await self.ban(ctx, message.author, reason=reason)
+                    elif value == "kick":
+                        await self.kick(ctx, message.author, reason=reason)
+                    elif value == "mute":
+                        await self.mute(ctx, message.author, reason=reason)
+                    elif value == "warn":
+                        await self.warn(ctx, message.author, reason=reason)
+                    elif value == "delete":
+                        await message.delete()
+                    break
+
+    @commands.command()
+    async def blacklist(self, ctx, condition, word=None, *, punishment=None):
+        storage = json.load(open("servers.json"))
+        if condition.lower() == "add" or condition.lower() == "set":
+            punishments = ["ban", "kick", "mute", "warn"]
+            word = word.lower()
+            if punishment is None:
+                await ctx.send(embed=discord.Embed(
+                    description=f"Please specify a punishment when ||{word}|| is said {ctx.author.mention}! The punishments to choose from are `{'`, `'.join(punishments)}`, and `delete`.",
+                    color=discord.Color.red()))
+            elif punishment.lower() in punishments or punishment.lower() == "delete":
+                storage[str(ctx.guild.id)]["blacklist"][word] = punishment.lower()
+                await ctx.send(embed=discord.Embed(description=f"||{word}|| has been added to the blacklist.",
+                                                   color=discord.Color.green()))
+            else:
+                await ctx.send(embed=discord.Embed(
+                    description=f"Please choose a valid punishment {ctx.author.mention}! Valid punishments are `{'`, `'.join(punishments)}`, and `delete`.", color=discord.Color.red()))
+        elif condition.lower() == "remove":
+            if word.lower() in storage[str(ctx.guild.id)]["blacklist"].keys():
+                storage[str(ctx.guild.id)]["blacklist"].pop(word.lower())
+                await ctx.send(embed=discord.Embed(description=f"{word} has been removed from the blacklist.",
+                                                   color=discord.Color.green()))
+            else:
+                await ctx.send(embed=discord.Embed(description=f"{word} is not in the blacklist {ctx.author.mention}!",
+                                                   color=discord.Color.red()))
+        elif condition.lower() == "view":
+            if storage[str(ctx.guild.id)]["blacklist"]:
+                embed = discord.Embed(title=f"Blacklisted Words")
+                for word, punishment in storage[str(ctx.guild.id)]["blacklist"].items():
+                    embed.add_field(name=f"Word: ||{word}||", value=f"Punishment: **{punishment}**.")
+
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send(embed=discord.Embed(description=f"There are no blacklisted words in {ctx.guild}!",
+                                                   color=discord.Color.red()))
+        else:
+            await ctx.send(embed=discord.Embed(description=f"Please choose a valid condition for blacklisting: `add`, `remove`, or `view`.", color=discord.Color.red()))
+        json.dump(storage, open("servers.json", "w"), indent=4)
 
 
 def setup(bot):

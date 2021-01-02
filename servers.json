@@ -147,7 +147,8 @@
                 "xp": 5,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "679832695756554294": {
         "commands": {
@@ -161,7 +162,8 @@
             "linkcheck": "False",
             "antispam": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "blacklist": {}
     },
     "701634657212563556": {
         "commands": {
@@ -243,7 +245,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "707369868491751455": {
         "commands": {
@@ -257,7 +260,8 @@
             "linkcheck": "False",
             "antispam": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "blacklist": {}
     },
     "715450088947712000": {
         "commands": {
@@ -289,7 +293,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "726127900373549167": {
         "commands": {
@@ -320,7 +325,8 @@
         },
         "welcome": {
             "general": "aww. member left the server. bai Bai!"
-        }
+        },
+        "blacklist": {}
     },
     "733453689192317030": {
         "commands": {
@@ -334,7 +340,8 @@
             "linkcheck": "False",
             "antispam": "False"
         },
-        "prefix": "h!"
+        "prefix": "h!",
+        "blacklist": {}
     },
     "737473635522183188": {
         "commands": {
@@ -348,7 +355,8 @@
             "linkcheck": "False",
             "antispam": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "blacklist": {}
     },
     "742382901743845497": {
         "commands": {
@@ -376,14 +384,14 @@
                 "level": 1
             },
             "549456138698227712": {
-                "messages": 299,
-                "xp": 550,
+                "messages": 300,
+                "xp": 568,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
             "273185633177174016": {
-                "messages": 708,
-                "xp": 159,
+                "messages": 709,
+                "xp": 165,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
@@ -405,8 +413,8 @@
                 "color": "\ud83d\udfe6"
             },
             "743205941557592154": {
-                "messages": 1105,
-                "xp": 715,
+                "messages": 1110,
+                "xp": 761,
                 "level": 5,
                 "color": "<:MKpissed:766551538444533780>"
             },
@@ -444,8 +452,8 @@
                 "color": "\ud83d\udfe6"
             },
             "669651846012469279": {
-                "messages": 164,
-                "xp": 357,
+                "messages": 165,
+                "xp": 367,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -629,7 +637,8 @@
                 "level": 2,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "742881340193636373": {
         "commands": {
@@ -646,7 +655,8 @@
         "prefix": "%",
         "welcome": {
             "welcome-and-goodbyes": "hi member welcome to big pp server enjoy your time (don't leave or you big gay)"
-        }
+        },
+        "blacklist": {}
     },
     "748959898016022630": {
         "commands": {
@@ -660,7 +670,8 @@
             "linkcheck": "False",
             "antispam": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "blacklist": {}
     },
     "752767322380304526": {
         "commands": {
@@ -674,7 +685,8 @@
             "linkcheck": "False",
             "antispam": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "blacklist": {}
     },
     "757339110137659482": {
         "commands": {
@@ -725,7 +737,8 @@
                 "xp": 3,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "760560827530477598": {
         "commands": {
@@ -888,7 +901,8 @@
                 "xp": 4,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "764512885711437826": {
         "commands": {
@@ -905,7 +919,8 @@
         "prefix": "%",
         "welcome": {
             "welcome-and-goodbye": "Hello member! Welcome to the Python Community server! Check out <#764513991379910696> to let others know your languages and coding level!"
-        }
+        },
+        "blacklist": {}
     },
     "757079997394583608": {
         "commands": {
@@ -945,7 +960,8 @@
                 "level": 2,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "766428259188604969": {
         "commands": {
@@ -998,8 +1014,8 @@
                 "color": "\ud83d\udfe6"
             },
             "519790591895404545": {
-                "messages": 17,
-                "xp": 90,
+                "messages": 22,
+                "xp": 144,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
@@ -1009,7 +1025,8 @@
         },
         "autoroles": [
             "Member"
-        ]
+        ],
+        "blacklist": {}
     },
     "110373943822540800": {
         "commands": {
@@ -3321,7 +3338,8 @@
                 "xp": 7,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "763439806516035625": {
         "commands": {
@@ -3452,7 +3470,8 @@
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 11
+        "commandCount": 11,
+        "blacklist": {}
     },
     "763837501177462834": {
         "commands": {
@@ -3469,8 +3488,8 @@
         "prefix": "%",
         "rank": {
             "581138544010199058": {
-                "messages": 1358,
-                "xp": 512,
+                "messages": 1359,
+                "xp": 520,
                 "level": 8,
                 "color": "\ud83d\udfe5"
             },
@@ -3589,8 +3608,8 @@
                 "color": "\ud83d\udfe6"
             },
             "437364394066968596": {
-                "messages": 11,
-                "xp": 50,
+                "messages": 13,
+                "xp": 78,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
@@ -3599,7 +3618,8 @@
             "Member",
             "Unverified"
         ],
-        "commandCount": 25
+        "commandCount": 25,
+        "blacklist": {}
     },
     "768212497101750353": {
         "commands": {
@@ -3625,7 +3645,8 @@
                 "xp": 1,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "713169753086361611": {
         "commands": {
@@ -3639,7 +3660,8 @@
             "linkcheck": "False",
             "antispam": "False"
         },
-        "prefix": "%"
+        "prefix": "%",
+        "blacklist": {}
     },
     "751667811931390012": {
         "commands": {
@@ -3673,8 +3695,8 @@
                 "level": 1
             },
             "675067975451148299": {
-                "messages": 27436,
-                "xp": 3139,
+                "messages": 27491,
+                "xp": 3465,
                 "level": 35,
                 "color": "<:HappyLeorio:768680379418017812>"
             },
@@ -3695,9 +3717,9 @@
                 "level": 1
             },
             "753692633863422002": {
-                "messages": 16896,
-                "xp": 6032,
-                "level": 27,
+                "messages": 16948,
+                "xp": 13,
+                "level": 28,
                 "color": "\ud83d\udea3"
             },
             "303706621589192714": {
@@ -3707,8 +3729,8 @@
                 "color": "\ud83d\udfe6"
             },
             "348249669442207744": {
-                "messages": 3663,
-                "xp": 1156,
+                "messages": 3664,
+                "xp": 1176,
                 "level": 11,
                 "color": "<a:ducc:772496394384048158>"
             },
@@ -3734,8 +3756,8 @@
                 "level": 1
             },
             "658106701878263809": {
-                "messages": 1484,
-                "xp": 878,
+                "messages": 1502,
+                "xp": 1025,
                 "level": 9,
                 "color": "\ud83d\udfe6"
             },
@@ -3793,8 +3815,8 @@
                 "level": 1
             },
             "519790591895404545": {
-                "messages": 11027,
-                "xp": 3837,
+                "messages": 11109,
+                "xp": 4190,
                 "level": 21,
                 "color": "<a:catroll:779406198935781376>"
             },
@@ -3815,8 +3837,8 @@
                 "level": 1
             },
             "754160869637619712": {
-                "messages": 10821,
-                "xp": 3362,
+                "messages": 10871,
+                "xp": 3579,
                 "level": 18,
                 "color": "<:kurapika_wtf:787470858825760788>"
             },
@@ -4175,8 +4197,8 @@
                 "color": "\ud83d\udfe6"
             },
             "700079633827233873": {
-                "messages": 190,
-                "xp": 64,
+                "messages": 191,
+                "xp": 82,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -4253,8 +4275,8 @@
                 "color": "\ud83d\udfe6"
             },
             "416662401895759882": {
-                "messages": 64,
-                "xp": 46,
+                "messages": 66,
+                "xp": 57,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -4295,8 +4317,8 @@
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
-                "messages": 24454,
-                "xp": 392,
+                "messages": 24591,
+                "xp": 974,
                 "level": 32,
                 "color": "<:hurblogo:779231324287270923>"
             },
@@ -4409,8 +4431,8 @@
                 "color": "\ud83d\udfe6"
             },
             "653255900236349459": {
-                "messages": 13,
-                "xp": 82,
+                "messages": 15,
+                "xp": 107,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -4673,14 +4695,14 @@
                 "color": "\ud83d\udfe6"
             },
             "678375375922790429": {
-                "messages": 239,
-                "xp": 749,
-                "level": 4,
+                "messages": 293,
+                "xp": 395,
+                "level": 5,
                 "color": "\ud83d\udfe6"
             },
             "763526030203420684": {
-                "messages": 38,
-                "xp": 244,
+                "messages": 41,
+                "xp": 270,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -4769,8 +4791,8 @@
                 "color": "\ud83d\udfe6"
             },
             "649305521052057611": {
-                "messages": 19,
-                "xp": 0,
+                "messages": 23,
+                "xp": 44,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -5159,8 +5181,8 @@
                 "color": "\ud83d\udfe6"
             },
             "484391356089761803": {
-                "messages": 608,
-                "xp": 552,
+                "messages": 621,
+                "xp": 645,
                 "level": 7,
                 "color": "\ud83d\udfe6"
             },
@@ -5351,8 +5373,8 @@
                 "color": "\ud83d\udfe6"
             },
             "493834141280763914": {
-                "messages": 30,
-                "xp": 145,
+                "messages": 31,
+                "xp": 160,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -6080,8 +6102,8 @@
                 "color": "\ud83d\udfe6"
             },
             "787409668704174090": {
-                "messages": 87,
-                "xp": 292,
+                "messages": 92,
+                "xp": 333,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -6416,8 +6438,8 @@
                 "color": "\ud83d\udfe6"
             },
             "249594590888198151": {
-                "messages": 4,
-                "xp": 62,
+                "messages": 8,
+                "xp": 90,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -6426,16 +6448,27 @@
                 "xp": 39,
                 "level": 1,
                 "color": "\ud83d\udfe6"
+            },
+            "794513328260775988": {
+                "messages": 1,
+                "xp": 23,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "343713713091772427": {
+                "messages": 1,
+                "xp": 10,
+                "level": 1,
+                "color": "\ud83d\udfe6"
             }
         },
         "autoroles": [
             "Artists",
             "788173920020332544"
         ],
-        "mutedmods": {
-            "675067975451148299": "751667811931390012"
-        },
-        "commandCount": 129
+        "mutedmods": {},
+        "commandCount": 131,
+        "blacklist": {}
     },
     "769733820169322506": {
         "commands": {
@@ -6509,7 +6542,8 @@
         },
         "welcome": {
             "bouncer\ud83c\udf7b": "Welcome to the tavern member !"
-        }
+        },
+        "blacklist": {}
     },
     "766674462430330921": {
         "commands": {
@@ -6530,7 +6564,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "761043426887860244": {
         "commands": {
@@ -6546,12 +6581,13 @@
         "prefix": "%",
         "rank": {
             "441393449607102464": {
-                "messages": 1607,
-                "xp": 927,
+                "messages": 1619,
+                "xp": 1049,
                 "level": 8,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "769240982948282399": {
         "commands": {
@@ -6580,7 +6616,8 @@
         },
         "levelroles": {
             "2": 789615900780265514
-        }
+        },
+        "blacklist": {}
     },
     "767172565457698826": {
         "commands": {
@@ -6673,7 +6710,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "736576189568778302": {
         "commands": {
@@ -6718,7 +6756,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "683112458088480931": {
         "commands": {
@@ -6776,8 +6815,8 @@
                 "color": "\ud83d\udfe6"
             },
             "728377713299292251": {
-                "messages": 78,
-                "xp": 345,
+                "messages": 79,
+                "xp": 364,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
@@ -6854,8 +6893,8 @@
                 "color": "\ud83d\udfe6"
             },
             "498705562725515275": {
-                "messages": 1428,
-                "xp": 589,
+                "messages": 1430,
+                "xp": 601,
                 "level": 7,
                 "color": "<a:seizureblob:758074192590798889>"
             },
@@ -6866,8 +6905,8 @@
                 "color": "\ud83d\udfe6"
             },
             "632369591246389248": {
-                "messages": 1957,
-                "xp": 465,
+                "messages": 1967,
+                "xp": 527,
                 "level": 9,
                 "color": "\ud83d\udfe6"
             },
@@ -6896,8 +6935,8 @@
                 "color": "\ud83d\udfe6"
             },
             "667514574601453578": {
-                "messages": 112,
-                "xp": 56,
+                "messages": 115,
+                "xp": 92,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -7274,8 +7313,8 @@
                 "color": "\ud83d\udfe6"
             },
             "776318612049756160": {
-                "messages": 11,
-                "xp": 123,
+                "messages": 13,
+                "xp": 143,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -7508,8 +7547,8 @@
                 "color": "\ud83d\udfe6"
             },
             "750524438704947262": {
-                "messages": 295,
-                "xp": 436,
+                "messages": 312,
+                "xp": 538,
                 "level": 4,
                 "color": "\ud83d\udfe6"
             },
@@ -7538,8 +7577,8 @@
                 "color": "\ud83d\udfe6"
             },
             "755916053229600798": {
-                "messages": 1,
-                "xp": 16,
+                "messages": 2,
+                "xp": 29,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -7594,7 +7633,8 @@
             "id": "757636729380274307",
             "message": "awww. {member} left. Can we get an F in the chat?"
         },
-        "commandCount": 9
+        "commandCount": 9,
+        "blacklist": {}
     },
     "770776810837245962": {
         "commands": {
@@ -9084,7 +9124,8 @@
             "758912549914804264": "770776810837245962",
             "Champion\u0493\u1d0f\u0280\u1d04\u1d07\u1d05 \u1d1b\u1d0f \u1d1cs\u1d07 \u1d1b\u029c\u026as \u1d18\u0493\u1d18#1000": "LosCracks"
         },
-        "commandCount": 10
+        "commandCount": 10,
+        "blacklist": {}
     },
     "770416498111938570": {
         "commands": {
@@ -10352,7 +10393,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "771506287527329806": {
         "commands": {
@@ -10421,7 +10463,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "745513599002345488": {
         "commands": {
@@ -10550,7 +10593,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "684423367461175313": {
         "commands": {
@@ -10566,8 +10610,8 @@
         "prefix": "%",
         "rank": {
             "200453508745527296": {
-                "messages": 5206,
-                "xp": 2221,
+                "messages": 5209,
+                "xp": 2265,
                 "level": 16,
                 "color": "\ud83d\udfe6"
             },
@@ -10578,8 +10622,8 @@
                 "color": "\ud83d\udfe6"
             },
             "498283442107318284": {
-                "messages": 1390,
-                "xp": 350,
+                "messages": 1395,
+                "xp": 369,
                 "level": 8,
                 "color": "\ud83c\udf54"
             },
@@ -10596,14 +10640,14 @@
                 "color": "\ud83d\udfe6"
             },
             "350079952017817603": {
-                "messages": 2736,
-                "xp": 1795,
+                "messages": 2741,
+                "xp": 1829,
                 "level": 10,
                 "color": "\ud83c\udf54"
             },
             "540122927149088778": {
-                "messages": 91,
-                "xp": 0,
+                "messages": 94,
+                "xp": 37,
                 "level": 3,
                 "color": "\ud83d\udfe6"
             },
@@ -10626,7 +10670,8 @@
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 6
+        "commandCount": 6,
+        "blacklist": {}
     },
     "775490830231142410": {
         "commands": {
@@ -10683,7 +10728,8 @@
                 "level": 2,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "771160800266027029": {
         "commands": {
@@ -10799,7 +10845,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "384328276417445890": {
         "commands": {
@@ -11843,7 +11890,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "626769676378308608": {
         "commands": {
@@ -11859,8 +11907,8 @@
         "prefix": "%",
         "rank": {
             "560410597447958529": {
-                "messages": 378,
-                "xp": 137,
+                "messages": 379,
+                "xp": 142,
                 "level": 5,
                 "color": "\ud83d\udfe6"
             },
@@ -11876,7 +11924,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "775624047286943753": {
         "commands": {
@@ -11922,7 +11971,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "779103100975841300": {
         "commands": {
@@ -11943,7 +11993,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "779810087312162847": {
         "commands": {
@@ -11970,7 +12021,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "781467229958701066": {
         "commands": {
@@ -11991,7 +12043,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "775480243016171590": {
         "commands": {
@@ -12090,7 +12143,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "766666570113876008": {
         "commands": {
@@ -12135,7 +12189,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "775488110040449134": {
         "commands": {
@@ -12399,7 +12454,8 @@
         "mutedmods": {
             "716429481052471347": "775488110040449134"
         },
-        "commandCount": 1
+        "commandCount": 1,
+        "blacklist": {}
     },
     "770308241624006726": {
         "commands": {
@@ -12468,7 +12524,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "783142473635201025": {
         "commands": {
@@ -12495,7 +12552,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "738836615165640867": {
         "commands": {
@@ -12570,7 +12628,8 @@
                 "level": 4,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "784292631692967937": {
         "commands": {
@@ -12592,20 +12651,20 @@
                 "color": "\ud83e\udd95"
             },
             "437077943228039168": {
-                "messages": 7329,
-                "xp": 579,
+                "messages": 7428,
+                "xp": 1069,
                 "level": 17,
                 "color": "monke"
             },
             "628053851810955295": {
-                "messages": 3272,
-                "xp": 2144,
-                "level": 10,
+                "messages": 3396,
+                "xp": 435,
+                "level": 11,
                 "color": "\ud83d\udfe6"
             },
             "745046080235765930": {
-                "messages": 3580,
-                "xp": 2388,
+                "messages": 3581,
+                "xp": 2401,
                 "level": 11,
                 "color": "\ud83d\udd7a"
             },
@@ -12622,8 +12681,8 @@
                 "color": "SEXWITHGARFIELD\ud83e\udd75"
             },
             "755836957572988968": {
-                "messages": 256,
-                "xp": 468,
+                "messages": 269,
+                "xp": 604,
                 "level": 4,
                 "color": "\ud83d\udfe6"
             },
@@ -12640,9 +12699,9 @@
                 "color": "\ud83d\udfe6"
             },
             "711443939093119007": {
-                "messages": 1908,
-                "xp": 1922,
-                "level": 9,
+                "messages": 2103,
+                "xp": 1026,
+                "level": 10,
                 "color": "\ud83d\udfe6"
             },
             "670493561921208320": {
@@ -12724,9 +12783,9 @@
                 "color": "\ud83d\udfe6"
             },
             "470014547240026132": {
-                "messages": 479,
-                "xp": 73,
-                "level": 6,
+                "messages": 739,
+                "xp": 220,
+                "level": 7,
                 "color": "\ud83d\udfe6"
             },
             "776611041618427914": {
@@ -12760,7 +12819,8 @@
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 63
+        "commandCount": 63,
+        "blacklist": {}
     },
     "711678452864122982": {
         "commands": {
@@ -12800,8 +12860,8 @@
                 "color": "\ud83d\udfe6"
             },
             "724739377523327040": {
-                "messages": 4,
-                "xp": 34,
+                "messages": 5,
+                "xp": 41,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -12832,7 +12892,8 @@
         },
         "welcome": {
             "welcome": "is a minecraft pro now!"
-        }
+        },
+        "blacklist": {}
     },
     "267624335836053506": {
         "commands": {
@@ -12845,7 +12906,8 @@
             "ranking": "True",
             "antispam": "False"
         },
-        "prefix": "h!"
+        "prefix": "h!",
+        "blacklist": {}
     },
     "753113412476600371": {
         "commands": {
@@ -13295,7 +13357,8 @@
                 "xp": 8,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "732977737886728224": {
         "commands": {
@@ -13891,7 +13954,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "769610981495668746": {
         "commands": {
@@ -13946,7 +14010,8 @@
                 "xp": 6,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "746825963286822992": {
         "commands": {
@@ -13966,7 +14031,8 @@
                 "xp": 4,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "771476171187159110": {
         "commands": {
@@ -14001,7 +14067,8 @@
                 "xp": 10,
                 "level": 1
             }
-        }
+        },
+        "blacklist": {}
     },
     "767739384250105898": {
         "commands": {
@@ -14082,7 +14149,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "772528631611392110": {
         "commands": {
@@ -14181,7 +14249,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "771816726169911316": {
         "commands": {
@@ -14394,7 +14463,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "772643265081114644": {
         "commands": {
@@ -14469,7 +14539,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "737025839618719874": {
         "commands": {
@@ -14490,7 +14561,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "733070700172279939": {
         "commands": {
@@ -14511,7 +14583,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "333949691962195969": {
         "commands": {
@@ -14544,7 +14617,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "773961803478073426": {
         "commands": {
@@ -14571,7 +14645,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "774379883584421889": {
         "commands": {
@@ -14598,7 +14673,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "771118637879656459": {
         "commands": {
@@ -15393,7 +15469,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "336642139381301249": {
         "commands": {
@@ -15792,7 +15869,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "763060867713335296": {
         "commands": {
@@ -15879,7 +15957,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "763891682826911744": {
         "commands": {
@@ -15900,7 +15979,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "778346337530937394": {
         "commands": {
@@ -15951,7 +16031,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "760474739495141457": {
         "commands": {
@@ -16050,7 +16131,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "756225942984196166": {
         "commands": {
@@ -16227,7 +16309,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "719543192160174152": {
         "commands": {
@@ -16530,7 +16613,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "774325521109614592": {
         "commands": {
@@ -16581,7 +16665,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "733045621229092925": {
         "commands": {
@@ -16602,7 +16687,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "712752559697297409": {
         "commands": {
@@ -16743,7 +16829,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "785374553559924736": {
         "commands": {
@@ -16847,8 +16934,8 @@
                 "level": 1
             },
             "789145170645614622": {
-                "messages": 15,
-                "xp": 128,
+                "messages": 16,
+                "xp": 142,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -16868,7 +16955,8 @@
         "mutedmods": {
             "678415756865830914": "785374553559924736",
             "783832124872458251": "785374553559924736"
-        }
+        },
+        "blacklist": {}
     },
     "716377034728931328": {
         "commands": {
@@ -16884,8 +16972,8 @@
         "prefix": "%",
         "rank": {
             "670493561921208320": {
-                "messages": 565,
-                "xp": 370,
+                "messages": 578,
+                "xp": 457,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
@@ -16914,18 +17002,23 @@
                 "color": "\ud83d\udfe6"
             },
             "766524871508623410": {
-                "messages": 10,
-                "xp": 41,
+                "messages": 21,
+                "xp": 109,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
         },
+        "commandCount": 171,
+        "mutedmods": {},
+        "blacklist": {
+            "test": "kick",
+            "ass": "delete",
+            " ass": "delete"
+        },
         "goodbye": {
             "id": "716377034728931331",
-            "message": "fuck off {member}. asshole"
-        },
-        "commandCount": 160,
-        "mutedmods": {}
+            "message": "oopsie they left"
+        }
     },
     "784905748948844554": {
         "commands": {
@@ -16946,12 +17039,85 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "rank": {
-        "749797228436258957": {
+        "670493561921208320": {
+            "messages": 84,
+            "xp": 195,
+            "level": 2,
+            "color": "\ud83d\udfe6"
+        },
+        "776919872286097462": {
+            "messages": 447,
+            "xp": 130,
+            "level": 5,
+            "color": "\ud83d\udfe6"
+        },
+        "726061473771552879": {
+            "messages": 9,
+            "xp": 24,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "470065949937238038": {
+            "messages": 2,
+            "xp": 20,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "745678252202524703": {
+            "messages": 3,
+            "xp": 24,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "720803296356597820": {
             "messages": 1,
-            "xp": 1,
+            "xp": 19,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "676841925516591104": {
+            "messages": 6,
+            "xp": 84,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "758912549914804264": {
+            "messages": 9,
+            "xp": 59,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "779389267113541703": {
+            "messages": 6,
+            "xp": 67,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "480398438890995741": {
+            "messages": 45,
+            "xp": 142,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "460508437160263683": {
+            "messages": 1,
+            "xp": 12,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "374749396811907073": {
+            "messages": 1,
+            "xp": 8,
+            "level": 1,
+            "color": "\ud83d\udfe6"
+        },
+        "632209692411691008": {
+            "messages": 1,
+            "xp": 5,
             "level": 1
         }
     },
@@ -17010,7 +17176,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "783703900720463972": {
         "prefix": "%",
@@ -17037,7 +17204,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "758826547565559839": {
         "prefix": "%",
@@ -17100,7 +17268,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "786694030465433600": {
         "prefix": "%",
@@ -17139,7 +17308,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "746759604024639509": {
         "prefix": "%",
@@ -17166,7 +17336,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "reactionroles": {
         "783832823194058796": [
@@ -17824,7 +17995,19 @@
             "bank": 0
         },
         "749797228436258957": {
-            "money": 855,
+            "money": 851,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "773584471211376660": {
+            "money": 0,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -17852,12 +18035,13 @@
         },
         "rank": {
             "366069251137863681": {
-                "messages": 21,
-                "xp": 0,
+                "messages": 24,
+                "xp": 19,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "788285661949853697": {
         "prefix": "%",
@@ -17913,7 +18097,8 @@
         },
         "mutedmods": {
             "727242602801266738": "788285661949853697"
-        }
+        },
+        "blacklist": {}
     },
     "788864859717894154": {
         "prefix": "%",
@@ -17954,7 +18139,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "781834255847653406": {
         "prefix": "%",
@@ -18085,7 +18271,8 @@
                 "level": 2,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "789534405886607411": {
         "prefix": "%",
@@ -18126,7 +18313,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "789086290817187870": {
         "prefix": "%",
@@ -18141,7 +18329,8 @@
             "economy": "True",
             "moderation": "True",
             "antispam": "False"
-        }
+        },
+        "blacklist": {}
     },
     "779307606971121676": {
         "prefix": "%",
@@ -18608,7 +18797,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "756730597790974004": {
         "prefix": "%",
@@ -18632,7 +18822,8 @@
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 2
+        "commandCount": 2,
+        "blacklist": {}
     },
     "759158158026997863": {
         "prefix": "%",
@@ -18662,7 +18853,8 @@
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 2
+        "commandCount": 2,
+        "blacklist": {}
     },
     "791025003071406081": {
         "prefix": "%",
@@ -18680,8 +18872,8 @@
         },
         "rank": {
             "514928777630056451": {
-                "messages": 1047,
-                "xp": 544,
+                "messages": 1112,
+                "xp": 647,
                 "level": 6,
                 "color": "\ud83d\udfe6"
             },
@@ -18692,8 +18884,8 @@
                 "color": "\ud83d\udfe6"
             },
             "754160869637619712": {
-                "messages": 1892,
-                "xp": 304,
+                "messages": 2298,
+                "xp": 1013,
                 "level": 8,
                 "color": "\ud83d\udcbf"
             },
@@ -18716,13 +18908,14 @@
                 "color": "\ud83d\udfe6"
             },
             "533850458415038464": {
-                "messages": 30,
-                "xp": 34,
-                "level": 2,
+                "messages": 276,
+                "xp": 150,
+                "level": 3,
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 16
+        "commandCount": 16,
+        "blacklist": {}
     },
     "791936879494823947": {
         "prefix": "%",
@@ -18745,7 +18938,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "788327362457763863": {
         "prefix": "%",
@@ -18803,7 +18997,8 @@
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
-        }
+        },
+        "blacklist": {}
     },
     "792958493245833267": {
         "prefix": "%",
@@ -18821,15 +19016,15 @@
         },
         "rank": {
             "670493561921208320": {
-                "messages": 80,
-                "xp": 173,
+                "messages": 84,
+                "xp": 195,
                 "level": 2,
                 "color": "\ud83d\udfe6"
             },
             "776919872286097462": {
-                "messages": 252,
-                "xp": 406,
-                "level": 3,
+                "messages": 447,
+                "xp": 130,
+                "level": 5,
                 "color": "\ud83d\udfe6"
             },
             "726061473771552879": {
@@ -18845,8 +19040,8 @@
                 "color": "\ud83d\udfe6"
             },
             "745678252202524703": {
-                "messages": 1,
-                "xp": 10,
+                "messages": 3,
+                "xp": 24,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
@@ -18857,25 +19052,49 @@
                 "color": "\ud83d\udfe6"
             },
             "676841925516591104": {
-                "messages": 4,
-                "xp": 62,
+                "messages": 7,
+                "xp": 95,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
             "758912549914804264": {
-                "messages": 1,
-                "xp": 21,
+                "messages": 9,
+                "xp": 59,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             },
             "779389267113541703": {
+                "messages": 6,
+                "xp": 67,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "480398438890995741": {
+                "messages": 45,
+                "xp": 142,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "460508437160263683": {
                 "messages": 1,
-                "xp": 19,
+                "xp": 12,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "374749396811907073": {
+                "messages": 1,
+                "xp": 8,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "632209692411691008": {
+                "messages": 4,
+                "xp": 15,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 25,
+        "commandCount": 33,
         "mutedmods": {},
         "goodbye": {
             "id": "794208930397159464",
@@ -18884,7 +19103,8 @@
         "welcome": {
             "id": "794208930397159464",
             "message": "{member} joined"
-        }
+        },
+        "blacklist": {}
     },
     "789983556003823656": {
         "prefix": "%",
@@ -18902,12 +19122,61 @@
         },
         "rank": {
             "749797228436258957": {
-                "messages": 8,
-                "xp": 61,
+                "messages": 22,
+                "xp": 170,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "775154944437125162": {
+                "messages": 2,
+                "xp": 28,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "686614396210118737": {
+                "messages": 1,
+                "xp": 12,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "761753924511989760": {
+                "messages": 9,
+                "xp": 30,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "773584471211376660": {
+                "messages": 160,
+                "xp": 0,
+                "level": 3,
+                "color": "\ud83d\udfe6"
+            },
+            "264886663623344128": {
+                "messages": 10,
+                "xp": 62,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "690569712425500702": {
+                "messages": 21,
+                "xp": 140,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "615261249588166728": {
+                "messages": 2,
+                "xp": 16,
+                "level": 1,
+                "color": "\ud83d\udfe6"
+            },
+            "687429050766983226": {
+                "messages": 3,
+                "xp": 27,
                 "level": 1,
                 "color": "\ud83d\udfe6"
             }
         },
-        "commandCount": 2
+        "commandCount": 22,
+        "blacklist": {}
     }
 }

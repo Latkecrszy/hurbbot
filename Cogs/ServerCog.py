@@ -4,7 +4,6 @@ from discord.ext import commands
 import random
 import asyncio
 
-
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
                discord.Color.dark_green(), discord.Color.dark_grey(), discord.Color.dark_grey(),
                discord.Color.dark_magenta(),
@@ -118,8 +117,11 @@ class ServerCog(commands.Cog):
         with open('../Bots/servers.json', 'r') as f:
             storage = json.load(f)
         if str(guild.id) not in storage.keys():
-            storage[str(guild.id)] = {"prefix": '%', "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False", "welcome": "False",
-                                      "invitecheck": "False", "linkcheck": "False", "antispam": "False", "ranking": "True", "economy": "True", "moderation": "True"}}
+            storage[str(guild.id)] = {"prefix": '%',
+                                      "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False",
+                                                   "welcome": "False",
+                                                   "invitecheck": "False", "linkcheck": "False", "antispam": "False",
+                                                   "ranking": "True", "economy": "True", "moderation": "True"}}
         with open('../Bots/servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 
@@ -171,7 +173,7 @@ class ServerCog(commands.Cog):
                                            color=discord.Color.green()))
 
     @commands.command()
-    async def serverinfo(self, ctx):
+    async def serverInfo(self, ctx):
         embed = discord.Embed(color=random.choice(embedColors))
 
         embed.add_field(name="<:owner:779163811172319232>  Server owner", value=ctx.guild.owner.mention)
@@ -187,11 +189,11 @@ class ServerCog(commands.Cog):
 
         embed.add_field(name=f"<a:emojis:779163904592445461>  {len(ctx.guild.emojis)} Emojis",
                         value=f"**<a:catroll:779406198935781376>  {len(ctx.guild.roles)} Roles**")
-        embed.add_field(name=f"🗓️ Date Created", value=self.calcdate(ctx.guild))
+        embed.add_field(name=f"🗓️ Date Created", value=self.calcDate(ctx.guild))
         embed.set_author(name=f"{ctx.guild} Info", icon_url=ctx.guild.icon_url)
         await ctx.send(embed=embed)
 
-    def calcdate(self, guild):
+    def calcDate(self, guild):
         months = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
                   "8": "August", "9": "September", "10": "October", "11": "November", "12": "December"}
         created = str(guild.created_at).split(" ")
@@ -240,7 +242,7 @@ class ServerCog(commands.Cog):
             json.dump(autoroles, f, indent=4)
 
         await ctx.send(embed=discord.Embed(
-                description=f"{role.mention} has been removed as an autorole for this server {ctx.author.mention}!"))
+            description=f"{role.mention} has been removed as an autorole for this server {ctx.author.mention}!"))
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
@@ -275,19 +277,20 @@ class ServerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        with open("../Bots/servers.json") as f:
+        with open("servers.json") as f:
             storage = json.load(f)
 
         if "commandCount" not in storage[str(ctx.guild.id)].keys():
             storage[str(ctx.guild.id)]["commandCount"] = 0
         storage[str(ctx.guild.id)]["commandCount"] += 1
-        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+        json.dump(storage, open("servers.json", "w"), indent=4)
 
     @commands.command()
     async def Commands(self, ctx, condition=None):
         if condition is None:
             storage = json.load(open("../Bots/servers.json"))
-            await ctx.send(f"`{storage[str(ctx.guild.id)]['commandCount']}` commands have been sent in `{ctx.guild.name}`.")
+            await ctx.send(
+                f"`{storage[str(ctx.guild.id)]['commandCount']}` commands have been sent in `{ctx.guild.name}`.")
         elif condition.lower() == "all":
             storage = json.load(open("../Bots/servers.json"))
             totalCommands = 0
@@ -299,11 +302,10 @@ class ServerCog(commands.Cog):
             await ctx.send(f"{totalCommands} commands have been sent.")
 
     @commands.command()
-    async def commandcount(self, ctx):
-        COMMANDS = 0
-        for command in self.bot.commands:
-            COMMANDS += 1
-        await ctx.send(COMMANDS)
+    async def commandCount(self, ctx):
+        await ctx.send(len(self.bot.commands))
+
+
 
 
 def setup(bot):

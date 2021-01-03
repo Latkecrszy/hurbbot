@@ -468,25 +468,26 @@ class MemberCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.guild is not None and not message.author.guild_permissions.administrator:
-            storage = json.load(open("../Bots/servers.json"))
-            for key, value in storage[str(message.guild.id)]["blacklist"].items():
-                if key in message.content.lower():
-                    reason = f"Sending the word {key} in {message.guild}."
-                    ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
-                    if value == "ban":
-                        await self.ban(ctx, message.author, reason=reason)
-                    elif value == "kick":
-                        await self.kick(ctx, message.author, reason=reason)
-                    elif value == "mute":
-                        await self.mute(ctx, message.author, reason=reason)
-                    elif value == "warn":
-                        await self.warn(ctx, message.author, reason=reason)
-                    elif value == "delete":
+        if not isinstance(message.author, discord.User):
+            if message.guild is not None and not message.author.guild_permissions.administrator:
+                storage = json.load(open("../Bots/servers.json"))
+                for key, value in storage[str(message.guild.id)]["blacklist"].items():
+                    if key in message.content.lower():
+                        reason = f"Sending the word {key} in {message.guild}."
+                        ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
                         await message.delete()
-                    break
+                        if value == "ban":
+                            await self.ban(ctx, message.author, reason=reason)
+                        elif value == "kick":
+                            await self.kick(ctx, message.author, reason=reason)
+                        elif value == "mute":
+                            await self.mute(ctx, message.author, reason=reason)
+                        elif value == "warn":
+                            await self.warn(ctx, message.author, reason=reason)
+                        break
 
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def blacklist(self, ctx, condition, word=None, *, punishment=None):
         storage = json.load(open("servers.json"))
         if condition.lower() == "add" or condition.lower() == "set":

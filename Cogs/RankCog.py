@@ -101,15 +101,45 @@ class MessageCog(commands.Cog):
                         role = message.guild.get_role(int(storage[str(message.guild.id)]["levelroles"][str(messages[str(message.author.id)]['level']+1)]))
                         if role is not None:
                             await message.author.add_roles(role)
-                            await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1} and got the {role.name} role!")
+                        if "{member}" in storage[str(message.guild.id)]["levelupmessage"]:
+                            if "{level}" in storage[str(message.guild.id)]["levelupmessage"]:
+                                await channel.send(storage[str(message.guild.id)]["levelupmessage"].format(member=message.author.mention, level=messages[str(message.author.id)]['level']+1))
+                            else:
+                                await channel.send(storage[str(message.guild.id)]["levelupmessage"].format(member=message.author.mention))
+                        elif "{level}" in storage[str(message.guild.id)]["levelupmessage"]:
+                            await channel.send(storage[str(message.guild.id)]["levelupmessage"].format(
+                                level=messages[str(message.author.id)]['level']+1))
                         else:
-                            await channel.send(f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level']+1}!")
+                            await channel.send(storage[str(message.guild.id)]["levelupmessage"])
                     else:
-                        await channel.send(
-                            f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}!")
+                        if "{member}" in storage[str(message.guild.id)]["levelupmessage"]:
+                            if "{level}" in storage[str(message.guild.id)]["levelupmessage"]:
+                                await channel.send(storage[str(message.guild.id)]["levelupmessage"].format(
+                                    member=message.author.mention, level=messages[str(message.author.id)]['level'] + 1))
+                            else:
+                                await channel.send(storage[str(message.guild.id)]["levelupmessage"].format(
+                                    member=message.author.mention))
+                        elif "{level}" in storage[str(message.guild.id)]["levelupmessage"]:
+                            await channel.send(storage[str(message.guild.id)]["levelupmessage"].format(
+                                level=messages[str(message.author.id)]['level'] + 1))
+                        else:
+                            await channel.send(storage[str(message.guild.id)]["levelupmessage"])
                 else:
-                    await channel.send(
-                        f"Congrats {message.author.mention}! You leveled up to level {messages[str(message.author.id)]['level'] + 1}!")
+                    if "{member}" in storage[str(message.guild.id)]["levelupmessage"]:
+                        if "{level}" in storage[str(message.guild.id)]["levelupmessage"]:
+                            await channel.send(
+                                storage[str(message.guild.id)]["levelupmessage"].format(member=message.author.mention,
+                                                                                        level=messages[str(
+                                                                                            message.author.id)][
+                                                                                                  'level'] + 1))
+                        else:
+                            await channel.send(
+                                storage[str(message.guild.id)]["levelupmessage"].format(member=message.author.mention))
+                    elif "{level}" in storage[str(message.guild.id)]["levelupmessage"]:
+                        await channel.send(storage[str(message.guild.id)]["levelupmessage"].format(
+                            level=messages[str(message.author.id)]['level'] + 1))
+                    else:
+                        await channel.send(storage[str(message.guild.id)]["levelupmessage"])
             messages[str(message.author.id)]["level"] += 1
             messages[str(message.author.id)]["xp"] = 0
         storage[str(message.guild.id)]["rank"] = messages
@@ -319,6 +349,15 @@ class Rank(commands.Cog):
                 elif str(message.content).lower() == "no":
                     await message.channel.send(f"{self.resetting['member'].mention} has been spared :pray:")
                     self.resetting = None
+
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def levelupmessage(self, ctx, *, message):
+        storage = json.load(open("servers.json"))
+        storage[str(ctx.guild.id)]["levelupmessage"] = message
+        await ctx.send(embed=discord.Embed(description=f"Your level up message has been set to:\n{message}"))
+        json.dump(storage, open("servers.json", "w"), indent=4)
+
 
 
 

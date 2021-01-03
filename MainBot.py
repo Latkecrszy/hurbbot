@@ -117,14 +117,14 @@ async def fixfile(ctx):
 
     for server, values in storage.items():
         if server.isnumeric():
-            storage[server]["blacklist"] = {}
+            storage[server]["levelupmessage"] = "Congrats {member}! You leveled up to level {level}!"
     with open("servers.json", "w") as f:
         json.dump(storage, f, indent=4)
     await ctx.send(f"Done fixing the file :)")
 
 
 extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "ErrorCog", "JokeCog", "MathCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
-              "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "onmessagecommands", "pong", "voice"]
+              "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "onmessagecommands", "pong", "voice", "pets"]
 
 for extension in extensions:
     bot.load_extension(f"Cogs.{extension}")

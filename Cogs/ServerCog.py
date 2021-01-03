@@ -173,24 +173,28 @@ class ServerCog(commands.Cog):
                                            color=discord.Color.green()))
 
     @commands.command()
-    async def serverInfo(self, ctx):
+    async def serverInfo(self, ctx, server=None):
+        if server is not None:
+            guild = discord.utils.get(self.bot.guilds, name=server)
+        else:
+            guild = ctx.guild
         embed = discord.Embed(color=random.choice(embedColors))
 
-        embed.add_field(name="<:owner:779163811172319232>  Server owner", value=ctx.guild.owner.mention)
-        if ctx.guild.premium_subscription_count != 0:
+        embed.add_field(name="<:owner:779163811172319232>  Server owner", value=guild.owner.mention)
+        if guild.premium_subscription_count != 0:
             embed.add_field(name="<a:boost:779165947361624087>  Server Boost Level",
-                            value=f"Level {ctx.guild.premium_tier} with {ctx.guild.premium_subscription_count} Boosts")  # 3
+                            value=f"Level {guild.premium_tier} with {guild.premium_subscription_count} Boosts")  # 3
 
         embed.add_field(
-            name=f":speech_balloon:  {len(ctx.guild.text_channels) + len(ctx.guild.voice_channels)} Channels",
-            value=f"<:textchannel:779163783712342017> {len(ctx.guild.text_channels)} text channels\n<:voicechannel:779163754931552306> {len(ctx.guild.voice_channels)} voice channels")  # 5
-        embed.add_field(name=f"<:members:779163840201621534>  {len(ctx.guild.members)} Members",
-                        value=f"👨 Humans: {len([str(member) for member in ctx.guild.members if not member.bot])}\n🤖 Bots: {len([str(member) for member in ctx.guild.members if member.bot])}")
+            name=f":speech_balloon:  {len(guild.text_channels) + len(guild.voice_channels)} Channels",
+            value=f"<:textchannel:779163783712342017> {len(guild.text_channels)} text channels\n<:voicechannel:779163754931552306> {len(guild.voice_channels)} voice channels")  # 5
+        embed.add_field(name=f"<:members:779163840201621534>  {len(guild.members)} Members",
+                        value=f"👨 Humans: {len([str(member) for member in guild.members if not member.bot])}\n🤖 Bots: {len([str(member) for member in guild.members if member.bot])}")
 
-        embed.add_field(name=f"<a:emojis:779163904592445461>  {len(ctx.guild.emojis)} Emojis",
-                        value=f"**<a:catroll:779406198935781376>  {len(ctx.guild.roles)} Roles**")
-        embed.add_field(name=f"🗓️ Date Created", value=self.calcDate(ctx.guild))
-        embed.set_author(name=f"{ctx.guild} Info", icon_url=ctx.guild.icon_url)
+        embed.add_field(name=f"<a:emojis:779163904592445461>  {len(guild.emojis)} Emojis",
+                        value=f"**<a:catroll:779406198935781376>  {len(guild.roles)} Roles**")
+        embed.add_field(name=f"🗓️ Date Created", value=self.calcDate(guild))
+        embed.set_author(name=f"{guild} Info", icon_url=guild.icon_url)
         await ctx.send(embed=embed)
 
     def calcDate(self, guild):

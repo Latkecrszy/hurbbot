@@ -173,7 +173,7 @@ class ServerCog(commands.Cog):
                                            color=discord.Color.green()))
 
     @commands.command()
-    async def serverInfo(self, ctx, server=None):
+    async def serverInfo(self, ctx, *, server=None):
         if server is not None:
             guild = discord.utils.get(self.bot.guilds, name=server)
         else:

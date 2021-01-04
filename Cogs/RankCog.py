@@ -355,7 +355,7 @@ class Rank(commands.Cog):
     async def levelupmessage(self, ctx, *, message):
         storage = json.load(open("servers.json"))
         storage[str(ctx.guild.id)]["levelupmessage"] = message
-        await ctx.send(embed=discord.Embed(description=f"Your level up message has been set to:\n{message}"))
+        await ctx.send(embed=discord.Embed(description=f"Your level up message has been set to:\n\n**{message}**"))
         json.dump(storage, open("servers.json", "w"), indent=4)
 
 

@@ -183,10 +183,10 @@ class HelpCog(commands.Cog):
         if command is None:
             embed = discord.Embed(title=f"Commands Overview:", color=random.choice(embedColors))
             embed.add_field(name=f"High level moderation", value=f"Hurb is equipped with advanced moderation commands such as muting, tempmuting, modmuting (allows even admins to be muted), and channelmuting.\n\n*Use `%help moderation` to see all the commands*")
-            embed.add_field(name=f"Bustling economy", value=f"With gambling, donating, and even buying roles, hurb has one of the best economy systems of any bot out there.\n\n*Use `%help economy` to see all the commands*")
+            embed.add_field(name=f"Bustling economy", value=f"With gambling, donating, robbing, pets,buying roles, and much much more, Hurb has one of the best economy systems of any bot out there.\n\n*Use `%help economy` to see all the commands*")
             embed.add_field(name=f"Great random stuff I made for no reason", value=f"Hurb also has lots of random, quirky but fun commands such as searching for gifs, playing hangman, and killing other users.\n\n*Use `%help fun` to see all the commands*")
             embed.add_field(name=f"Auto features", value=f"Hurb can scan every message for potential things you don't want, such as invites, links, or even bad words, not to mention the ability to search and react to certain words within messsages.\n\n*Use `%help auto` to see all the commands*")
-            embed.add_field(name=f"Animated emojis", value=f"If you send a failed emoji from any server that Hurb is in, whether it be an animated emoji from your current server or a regular one from a server you aren't even in, Hurb can send the message for you from a bot that looks exactly like yourself, essentially granting you nitro. All for free!\n\n*This one doesn't really need more explanation! It's that simple to use!*")
+            embed.add_field(name=f"Animated emojis", value=f"Emojis in any server that Hurb is in can be used anywhere, regardless of if you have nitro or not! Hurb detects failed emojis, and converts them into regular ones!\n\n*This one doesn't really need more explanation! It's that simple to use!*")
             embed.add_field(name=f"Advanced ranking system", value=f"Want a ranking system with built in antispam? Like to be able to customize your person rank card? Even wanted to set your progress bar to a bunch of walking ducks? Well, Hurb can do that all and more with its leveling system!\n\n*Use `%help ranking` to see all the commands*")
             embed.add_field(name=f"Coming soon!", value=f"Hurb is still a work in progress, and will be receiving many new commands in features in the near future!")
             await ctx.send(embed=embed)
@@ -197,7 +197,7 @@ class HelpCog(commands.Cog):
             elif command.find("eco") != -1:
                 await self.economy(ctx)
             elif command.find("random") != -1 or command.find("fun") != -1:
-               await self.fun(ctx)
+                await self.fun(ctx)
             elif command.find("feature") != -1 or command.find("toggle") != -1 or command.find("auto") != -1:
                 embed = discord.Embed(title=f"Auto features:", description=f"**These are features that can be turned on or off with the `%enable <command>` or `%disable <command>` commands.**", color=random.choice(embedColors))
                 autoFeatures = {"`%enable invitecheck`": "Turns on an invite blocker for the server.",

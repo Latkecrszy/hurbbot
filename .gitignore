@@ -2,3 +2,5 @@
 __pycache__
 .DS_Store
 slash_commands.py
+voice.py
+mongo_playground.py

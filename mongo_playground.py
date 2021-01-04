@@ -1,8 +1,9 @@
-import pymongo
+import pymongo, dotenv, os
 from pymongo import MongoClient
 
-cluster = MongoClient(
-    "mongodb+srv://Latkecrszy:LatkeCrazy1746@hurb.rt8i0.mongodb.net/Hurb?retryWrites=true&w=majority")
+dotenv.load_dotenv()
+LINK = os.environ.get("LINK", None)
+cluster = MongoClient(LINK)
 db = cluster["hurb"]
 collection = db["settings"]
 post = {"_id": 0, "name": "seth"}

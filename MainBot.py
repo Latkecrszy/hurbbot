@@ -23,23 +23,14 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
 
 
 def getprefix(_bot, message):
-    with open('../Bots/servers.json', 'r') as f:
-        storage = json.load(f)
-        Prefix = storage[str(message.guild.id)]["prefix"]
-        if message.guild is None:
-            return "%"
-        else:
-            return commands.when_mentioned_or(Prefix)(_bot, message)
+    storage = json.load(open("servers.json"))
+    if message.guild is None:
+        return "%"
+    else:
+        return commands.when_mentioned_or(storage[str(message.guild.id)]["prefix"])(_bot, message)
 
 
 bot = commands.Bot(command_prefix=getprefix, help_command=None, intents=intents, case_insensitive=True)
-
-
-async def settings():
-    async with aiohttp.ClientSession() as cs:
-        async with cs.get(f' https://hurbapi.herokuapp.com/') as r:
-            res = await r.json()
-    return res
 
 
 bot.remove_command("help")
@@ -60,23 +51,16 @@ async def on_ready():
 @bot.command()
 @commands.has_permissions(manage_guild=True)
 async def prefix(ctx, new_prefix=None):
-    with open('../Bots/servers.json', 'r') as f:
-        storage = json.load(f)
-
+    storage = json.load(open("servers.json"))
     if new_prefix is None:
         await ctx.send(
             embed=discord.Embed(description=f"The prefix for this server is `{storage[str(ctx.guild.id)]['prefix']}`"))
     else:
         storage[str(ctx.guild.id)]['prefix'] = new_prefix
-        with open('../Bots/servers.json', 'w') as f:
+        with open('servers', 'w') as f:
             json.dump(storage, f, indent=4)
 
         await ctx.send(f"{ctx.guild.name}'s prefix has been changed to `{new_prefix}`")
-
-
-"""@bot.event
-async def on_error(event, *args, **kwargs):
-    pass"""
 
 
 @tasks.loop(minutes=1)
@@ -86,8 +70,7 @@ async def change_status():
 
 @bot.command()
 async def ping(ctx):
-    Ping = bot.latency
-    await ctx.send(f"YOU HAVE BEEN PINGED {ctx.author.mention}. PING IS {Ping}.")
+    await ctx.send(f"YOU HAVE BEEN PINGED {ctx.author.mention}. PING IS {round(bot.latency, 3)}.")
 
 
 @bot.event
@@ -110,20 +93,7 @@ async def on_member_join(member):
                 break
 
 
-@bot.command()
-async def fixfile(ctx):
-    with open("servers.json") as f:
-        storage = json.load(f)
-
-    for server, values in storage.items():
-        if server.isnumeric():
-            storage[server]["levelupmessage"] = "Congrats {member}! You leveled up to level {level}!"
-    with open("servers.json", "w") as f:
-        json.dump(storage, f, indent=4)
-    await ctx.send(f"Done fixing the file :)")
-
-
-extensions = ["MemberCog", "BotFunCog", "BlackJackBotCog", "ErrorCog", "JokeCog", "MathCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
+extensions = ["MemberCog", "fun", "blackjack", "ErrorCog", "JokeCog", "ServerCog", "HangmanCog", "SlotsAndRouletteCog", "HelpCog",
               "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles", "onmessagecommands", "pong", "voice", "pets"]
 
 for extension in extensions:

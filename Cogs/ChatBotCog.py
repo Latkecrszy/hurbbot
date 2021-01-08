@@ -1,7 +1,8 @@
 import discord
-import asyncio
 from discord.ext import commands
 import aiohttp
+
+"""Broken for the time being due to the API having issues."""
 
 
 class ChatBot(commands.Cog):

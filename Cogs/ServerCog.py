@@ -25,7 +25,7 @@ class ServerCog(commands.Cog):
     async def disable(self, ctx, command):
         found = False
         disabled = True
-        with open('../Bots/servers.json', 'r') as f:
+        with open('servers.json', 'r') as f:
             storage = json.load(f)
             commandsList = storage[str(ctx.guild.id)]["commands"]
         for Command, condition in commandsList.items():
@@ -39,7 +39,7 @@ class ServerCog(commands.Cog):
                     storage[str(ctx.guild.id)]["commands"] = commandsList
                     disabled = False
 
-        with open('../Bots/servers.json', 'w') as f:
+        with open('servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 
         if not found:
@@ -55,7 +55,7 @@ class ServerCog(commands.Cog):
     async def enable(self, ctx, command):
         found = False
         enabled = True
-        with open('../Bots/servers.json', 'r') as f:
+        with open('servers.json', 'r') as f:
             storage = json.load(f)
             commandsList = storage[str(ctx.guild.id)]["commands"]
         for Command, condition in commandsList.items():
@@ -69,7 +69,7 @@ class ServerCog(commands.Cog):
                     storage[str(ctx.guild.id)]["commands"] = commandsList
                     enabled = False
 
-        with open('../Bots/servers.json', 'w') as f:
+        with open('servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 
         if not found:
@@ -83,13 +83,13 @@ class ServerCog(commands.Cog):
     @commands.command(aliases=["setwelcomechannel"])
     @commands.has_permissions(manage_guild=True)
     async def welcome(self, ctx, channel: discord.TextChannel, *, message=None):
-        with open("../Bots/servers.json", "r") as f:
+        with open("servers.json", "r") as f:
             storage = json.load(f)
         if message is not None:
             if "welcome" in storage[str(ctx.guild.id)].keys():
                 storage[str(ctx.guild.id)].pop("welcome")
             storage[str(ctx.guild.id)]["welcome"] = {"id": str(channel.id), "message": str(message)}
-            with open("../Bots/servers.json", "w") as f:
+            with open("servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
             await ctx.send(
                 f"Ok, {ctx.author.mention}, I've set the welcome channel for this server to {channel.mention}!")
@@ -99,13 +99,13 @@ class ServerCog(commands.Cog):
     @commands.command(aliases=["setgoodbyechannel"])
     @commands.has_permissions(manage_guild=True)
     async def goodbye(self, ctx, channel: discord.TextChannel, *, message=None):
-        with open("../Bots/servers.json", "r") as f:
+        with open("servers.json", "r") as f:
             storage = json.load(f)
         if message is not None:
             if "goodbye" in storage[str(ctx.guild.id)].keys():
                 storage[str(ctx.guild.id)].pop("goodbye")
             storage[str(ctx.guild.id)]["goodbye"] = {"id": str(channel.id), "message": str(message)}
-            with open("../Bots/servers.json", "w") as f:
+            with open("servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
             await ctx.send(
                 f"Ok, {ctx.author.mention}, I've set the goodbye channel for this server to {channel.mention}!")
@@ -114,15 +114,20 @@ class ServerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        with open('../Bots/servers.json', 'r') as f:
+        with open('servers.json', 'r') as f:
             storage = json.load(f)
         if str(guild.id) not in storage.keys():
             storage[str(guild.id)] = {"prefix": '%',
                                       "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False",
                                                    "welcome": "False",
                                                    "invitecheck": "False", "linkcheck": "False", "antispam": "False",
-                                                   "ranking": "True", "economy": "True", "moderation": "True"}}
-        with open('../Bots/servers.json', 'w') as f:
+                                                   "ranking": "True", "economy": "True", "moderation": "True"},
+                                      "blacklist": {},
+                                      "goodbye": {},
+                                      "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
+                                      "levelroles": {}}
+
+        with open('servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 
     @commands.command(aliases=["mutechannel", "lockdown", "lock"])
@@ -220,12 +225,12 @@ class ServerCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def autorole(self, ctx, *, role: discord.Role):
-        with open("../Bots/servers.json") as f:
+        with open("servers.json") as f:
             storage = json.load(f)
         if "autoroles" not in storage[str(ctx.guild.id)].keys():
             storage[str(ctx.guild.id)]["autoroles"] = []
         storage[str(ctx.guild.id)]["autoroles"].append(str(role.id))
-        with open("../Bots/servers.json",
+        with open("servers.json",
                   "w") as f:
             json.dump(storage, f, indent=4)
 
@@ -235,14 +240,14 @@ class ServerCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def removeautorole(self, ctx, *, role: discord.Role):
-        with open("../Bots/servers.json") as f:
+        with open("servers.json") as f:
             storage = json.load(f)
         autoroles = storage[str(ctx.guild.id)]["autoroles"]
         for i in range(len(autoroles[str(ctx.guild.id)])):
             if str(i).lower() == str(role).lower():
                 autoroles[str(ctx.guild.id)].pop(i)
         storage[str(ctx.guild.id)]["autoroles"] = autoroles
-        with open("../Bots/servers.json", "w") as f:
+        with open("servers.json", "w") as f:
             json.dump(autoroles, f, indent=4)
 
         await ctx.send(embed=discord.Embed(
@@ -292,11 +297,11 @@ class ServerCog(commands.Cog):
     @commands.command()
     async def Commands(self, ctx, condition=None):
         if condition is None:
-            storage = json.load(open("../Bots/servers.json"))
+            storage = json.load(open("servers.json"))
             await ctx.send(
                 f"`{storage[str(ctx.guild.id)]['commandCount']}` commands have been sent in `{ctx.guild.name}`.")
         elif condition.lower() == "all":
-            storage = json.load(open("../Bots/servers.json"))
+            storage = json.load(open("servers.json"))
             totalCommands = 0
             for value in storage.values():
                 try:

@@ -1,12 +1,11 @@
 import discord
 from discord.ext import commands, tasks
 import random
-import asyncio
-import json
 import aiohttp
 from discord.ext.commands.cooldowns import BucketType
-from youtube_search import YoutubeSearch
 from itertools import cycle
+from io import StringIO
+import sys
 
 
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
@@ -69,11 +68,7 @@ random.shuffle(topics)
 nowTopic = cycle(topics)
 
 
-def is_it_me(ctx):
-    return ctx.author.id == 670493561921208320
-
-
-class BotFunCog(commands.Cog):
+class Fun(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
@@ -118,19 +113,10 @@ class BotFunCog(commands.Cog):
     async def gif(self, ctx, num=1, *, img):
         img = img.replace(" ", "+")
         async with aiohttp.ClientSession() as cs:
-            link = "http://api.giphy.com/v1/gifs/search?q=" + img + "&api_key=HIxNUDiCJmENIyZimfquvn7g20ILt4Dc&limit=15"
+            link = f"http://api.giphy.com/v1/gifs/search?q={img}&api_key=HIxNUDiCJmENIyZimfquvn7g20ILt4Dc&limit={img}"
             async with cs.get(link) as r:
-                num -= 1
                 res = await r.json()  # returns dict
-                result = res["data"][num]["url"]
-                message = await ctx.send(result)
-
-    """@commands.command()
-    async def youtube(self, ctx, num: int, *, video):
-        results = YoutubeSearch(video, max_results=20).to_dict()
-        result = results[num - 1]['url_suffix']
-        url = 'https://www.youtube.com' + result
-        await ctx.send(url)"""
+                await ctx.send(res["data"][num-1]["url"])
 
     @gif.error
     async def gif_error(self, ctx, error):
@@ -139,12 +125,11 @@ class BotFunCog(commands.Cog):
 
     @commands.command()
     async def say(self, ctx, *, message):
-        embed = discord.Embed(title=message)
         await ctx.message.delete()
-        embed.set_footer(text=f"-{ctx.author}", icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)
+        await ctx.send(message)
 
     @commands.command()
+    @commands.is_owner()
     async def servers(self, ctx):
         embed = discord.Embed(title=f"My Servers:")
         members = 0
@@ -157,7 +142,6 @@ class BotFunCog(commands.Cog):
         embed.set_thumbnail(url=ctx.guild.me.avatar_url)
         await ctx.send(message)
         await ctx.send(embed=embed)
-
 
     @commands.command()
     async def botinfo(self, ctx):
@@ -339,6 +323,38 @@ class BotFunCog(commands.Cog):
         await ctx.send(f"Author: {res['author']}")
         await ctx.send(f"Lyrics: {res['lyrics']}")
 
+    @commands.command()
+    async def math(self, ctx, *, expression):
+        await ctx.send(eval(expression))
+
+    @commands.command(aliases=["eval", "exec"])
+    async def execute(self, ctx, *, expression):
+
+        if expression.startswith("```py"):
+            expression = [char for char in expression]
+            for _ in range(5):
+                expression.pop(0)
+            expression = "".join(expression)
+        elif expression.startswith("```"):
+            expression = [char for char in expression]
+            for _ in range(3):
+                expression.pop(0)
+            expression = "".join(expression)
+        if expression.endswith("```"):
+            expression = [char for char in expression]
+            for _ in range(3):
+                expression.pop(-1)
+            expression = "".join(expression)
+        print(expression)
+        old_stdout = sys.stdout
+        sys.stdout = mystdout = StringIO()
+        exec(expression)
+
+        sys.stdout = old_stdout
+
+        message = mystdout.getvalue()
+        await ctx.send(f"```py\n{message}```")
+
 
 def setup(bot):
-    bot.add_cog(BotFunCog(bot))
+    bot.add_cog(Fun(bot))

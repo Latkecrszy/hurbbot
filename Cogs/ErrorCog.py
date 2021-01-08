@@ -15,7 +15,6 @@ class ErrorCog(commands.Cog):
             print("Error: Command not found.")
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(f'''Error: Missing one or more required argument.''')
-            pass
         elif isinstance(error, BadArgument):
             await ctx.send("Please enter a proper argument for this command.")
         elif isinstance(error, commands.errors.CheckFailure):
@@ -24,11 +23,7 @@ class ErrorCog(commands.Cog):
                 description=None, color=discord.Color.red()))
         elif isinstance(error, CommandOnCooldown):
             await ctx.send(embed=discord.Embed(
-                title=f"Whoa there buddy, a little too quick on the commands. You still need to wait {int(error.retry_after)} seconds!",
-                color=discord.Color.red()))
-        elif isinstance(error, discord.errors.Forbidden):
-            await ctx.send(embed=discord.Embed(
-                title=f"<a:no:771786741312782346> Sorry, I don't have adequate permissions to accomplish that task. Try dragging my role higher in server settings to fix this.",
+                title=f"Whoa there, a little too quick on the commands. You still need to wait {int(error.retry_after)} seconds!",
                 color=discord.Color.red()))
         elif isinstance(error, CommandInvokeError):
             error = getattr(error, "original", error)
@@ -38,11 +33,7 @@ class ErrorCog(commands.Cog):
                     color=discord.Color.red()))
             elif isinstance(error, IndexError):
                 pass
-            elif str(ctx.command) == "blackjack" or str(ctx.command) == "bj" or str(ctx.command) == "search" or str(
-                    ctx.command) == "beg" or str(ctx.command) == "roulette" or str(ctx.command) == "r" or str(
-                ctx.command) == "slots" or str(ctx.command) == "b" or str(ctx.command) == "balance" or str(
-                ctx.command) == "hourly" or str(ctx.command) == "daily" or str(ctx.command) == "weekly" or str(
-                ctx.command) == "monthly" or str(ctx.command) == "yearly" or str(ctx.command) == "rob":
+            elif str(ctx.command) in ["blackjack", "bj", "beg", "withdraw", "deposit", "roulette", "r", "slots", "balance", "hourly", "daily"]:
                 await ctx.send(embed=discord.Embed(
                     description=f"You do not yet have an account with this bot {ctx.author.mention}! To start one, just say `%start`, and an account will be made for you. Or, if you think that this was a mistake, or that your account has been deleted, please submit a bug report with the `%bug <message>` command.",
                     color=discord.Color.red()))
@@ -51,9 +42,9 @@ class ErrorCog(commands.Cog):
                 title=f"<a:no:771786741312782346> Sorry, something went wrong in the command. Please check that you are inputting correct arguments, and try again!",
                 color=discord.Color.red()))
             channel = self.bot.get_channel(755174796530155550)
-            await channel.send(embed=discord.Embed(description=f"```py\n{error.original}```"))
+            await channel.send(embed=discord.Embed(description=f"```py\n{error}```"))
             await channel.send("<@670493561921208320>")
-            raise error.original
+            raise error
 
     @commands.command()
     @commands.cooldown(1, 60, BucketType.user)

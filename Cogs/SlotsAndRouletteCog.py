@@ -18,7 +18,7 @@ class RouletteCog(commands.Cog):
             return True
 
     async def tooMuchCheck(self, ctx, bet: int):
-        storage = json.load(open("../Bots/servers.json"))
+        storage = json.load(open("servers.json"))
         players = storage["players"]
 
         if int(bet) > int(players[str(ctx.author.id)]['money']):
@@ -35,7 +35,7 @@ class RouletteCog(commands.Cog):
     @commands.command(aliases=["r"])
     async def roulette(self, ctx, bet, number: str):
         validBets = ["black", "red", "high", "low", "row1", "row2", "row3", "1-12", "13-24", "25-36"]
-        storage = json.load(open("../Bots/servers.json"))
+        storage = json.load(open("servers.json"))
         players = storage["players"]
 
         playerMoney = int(players[str(ctx.author.id)]['money'])
@@ -106,13 +106,13 @@ class RouletteCog(commands.Cog):
                                     color=discord.Color.red())
                     players[str(ctx.author.id)]['money'] = playerMoney
                     storage["players"] = players
-                    json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+                    json.dump(storage, open("servers.json", "w"), indent=4)
                     await ctx.send(embed=embed)
 
     @commands.command()
     async def slots(self, ctx, bet):
         bet = int(bet)
-        storage = json.load(open("../Bots/servers.json"))
+        storage = json.load(open("servers.json"))
         players = storage["players"]
 
 
@@ -144,7 +144,7 @@ class RouletteCog(commands.Cog):
                 playerMoney -= int(bet)
             players[str(ctx.author.id)]['money'] = playerMoney
             storage["players"] = players
-            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+            json.dump(storage, open("servers.json", "w"), indent=4)
 
 
 def setup(bot):

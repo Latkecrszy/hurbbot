@@ -14,7 +14,7 @@ nonoWords = ["shit", "fuck", "bitch", "dick", "fuk", "dik", "sht", "btch", " ass
 
 def is_me(command):
     def predicate(ctx):
-        with open('../Bots/servers.json', 'r') as f:
+        with open('servers.json', 'r') as f:
             storage = json.load(f)
             commandsList = storage[str(ctx.guild.id)]["commands"]
             if commandsList[command] == "True":
@@ -26,7 +26,7 @@ def is_me(command):
 
 
 def predicate(message, command):
-    with open('../Bots/servers.json', 'r') as f:
+    with open('servers.json', 'r') as f:
         storage = json.load(f)
         commandsList = storage[str(message.guild.id)]["commands"]
         return commandsList[command] == "True"
@@ -141,7 +141,7 @@ async def invitecheck(message):
 
 
 async def modMuteCheck(message):
-    with open("../Bots/servers.json",
+    with open("servers.json",
               "r") as f:
         storage = json.load(f)
     if "mutedmods" in storage[str(message.guild.id)].keys():

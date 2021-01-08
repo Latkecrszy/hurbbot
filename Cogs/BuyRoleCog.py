@@ -42,7 +42,7 @@ class BuyRoleCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def roleprice(self, ctx, role: discord.Role, price):
-        with open("../Bots/roleprice.json", "r") as f:
+        with open("roleprice.json") as f:
             roles = json.load(f)
 
         if str(ctx.guild) not in roles.keys():
@@ -59,10 +59,10 @@ class BuyRoleCog(commands.Cog):
 
     @commands.command()
     async def buyrole(self, ctx, *, role: discord.Role):
-        with open("../Bots/roleprice.json", "r") as f:
+        with open("roleprice.json", "r") as f:
             roles = json.load(f)
 
-        storage = json.load(open("../Bots/servers.json"))
+        storage = json.load(open("servers.json"))
         players = storage["players"][str(ctx.author.id)]
         money = players[str(ctx.author.id)]['money']
 
@@ -88,7 +88,7 @@ class BuyRoleCog(commands.Cog):
 
         players[str(ctx.author.id)]['money'] = money
         storage["players"] = players
-        json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+        json.dump(storage, open("servers.json", "w"), indent=4)
         await ctx.send(embed=embed)
 
     @commands.command()

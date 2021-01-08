@@ -35,14 +35,14 @@ class HelpCog(commands.Cog):
                           "`%welcome`": ["channel, message", "Sets a channel and message to welcome new members with; type the word `member` to have it mention the member.", "`%ewlcome #welcome Hi member! Welcome to Hurb Central! We hope you enjoy your time here!`"],
                           "`%goodbye`": ["channel, message", "Sets a channel and message to say goodbye to members with; type the word `member` to have it mention the member.", "`%goodbye #goodbye Aww. member left. Can we get an f in the chat?`"]},
                     "4": {"`%createrole`": ["color, name", "Creates a role with a given color and name.", "`%createrole teal cool person`"],
-                          "`%deleterole`": ["role", "Deletes a role.", "`%deleterole cool person`"],
-                          "`%info`": ["Optional: member", "Shows general info about you or another member of the server.", "`%info @Latkecrszy#7777`"]}}
+                          "`%deleterole`": ["role", "Deletes a role.", "`%deleterole cool person`"]}}
         for key, value in Commands["1"].items():
             embed.add_field(name="\u200b",
-                            value=f"[{key}](https://google.com)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
+                            value=f"[{key}](https://hurb.gg/commands)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
                             inline=False)
         embed.set_footer(
             text=f"______________________________________________________\nUse the ⬅️ and ➡️ to navigate between pages | Page 1 of 4.")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/716377034728931331/796249453073924147/moderation.png")
         message = await ctx.send(embed=embed)
         page = 1
         await message.add_reaction("⬅️")
@@ -60,7 +60,7 @@ class HelpCog(commands.Cog):
                 if page > 1:
                     page -= 1
                 await message.remove_reaction("⬅️", user)
-            await message.edit(embed=self.Embed(discord.Embed(title=f"Moderation Commands"), Commands, page, 4))
+            await message.edit(embed=self.Embed(discord.Embed(title=f"Moderation Commands"), Commands, page, 4, "https://cdn.discordapp.com/attachments/716377034728931331/796249453073924147/moderation.png"))
 
     async def economy(self, ctx):
         embed = discord.Embed(title=f"Economy commands")
@@ -80,13 +80,12 @@ class HelpCog(commands.Cog):
                           "`%buy`": ["item name", "Buy an item from the shop.", "`%buy pokemon card`"],
                     "`%items`": ["None", "See your items.", "`%items`"]}}
         for key, value in Commands["1"].items():
-            print(value)
             embed.add_field(name="\u200b",
-                            value=f"[{key}](https://google.com)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
+                            value=f"[{key}](https://hurb.gg/commands)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
                             inline=False)
-        print("working")
         embed.set_footer(
             text=f"______________________________________________________\nUse the ⬅️ and ➡️ to navigate between pages | Page 1 of 3.")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/716377034728931331/796249432080646174/economy.png")
         message = await ctx.send(embed=embed)
         page = 1
         await message.add_reaction("⬅️")
@@ -104,7 +103,7 @@ class HelpCog(commands.Cog):
                 if page > 1:
                     page -= 1
                 await message.remove_reaction("⬅️", user)
-            await message.edit(embed=self.Embed(discord.Embed(title=f"Economy Commands"), Commands, page, 3))
+            await message.edit(embed=self.Embed(discord.Embed(title=f"Economy Commands"), Commands, page, 3, "https://cdn.discordapp.com/attachments/716377034728931331/796249432080646174/economy.png"))
 
     async def fun(self, ctx):
         embed = discord.Embed(title=f"Fun Commands", color=random.choice(embedColors))
@@ -135,10 +134,11 @@ class HelpCog(commands.Cog):
                 "`%chatbot`": ["Begin/End", "Chat with a chatbot!", "`%chatbot begin`"]}}
         for key, value in Commands["1"].items():
             embed.add_field(name="\u200b",
-                            value=f"[{key}](https://google.com)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
+                            value=f"[{key}](https://hurb.gg/commands)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
                             inline=False)
         embed.set_footer(
             text=f"______________________________________________________\nUse the ⬅️ and ➡️ to navigate between pages | Page 1 of 4.")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/716377034728931331/796249393283203102/fun.png")
         message = await ctx.send(embed=embed)
         page = 1
         await message.add_reaction("⬅️")
@@ -156,7 +156,7 @@ class HelpCog(commands.Cog):
                 if page > 1:
                     page -= 1
                 await message.remove_reaction("⬅️", user)
-            await message.edit(embed=self.Embed(discord.Embed(title=f"Fun Commands"), Commands, page, 3))
+            await message.edit(embed=self.Embed(discord.Embed(title=f"Fun Commands"), Commands, page, 3, "https://cdn.discordapp.com/attachments/716377034728931331/796249393283203102/fun.png"))
 
     async def config(self, ctx):
         embed = discord.Embed(title=f"Config Commands", color=random.choice(embedColors))
@@ -169,13 +169,15 @@ class HelpCog(commands.Cog):
                                 "`%info`": ["Optional: member", "Shows general info about you or another member of the server.", "`%info @Latkecrszy#7777`"]
                                 }}
 
-    def Embed(self, embed, Commands, page, maxPage):
+    def Embed(self, embed, Commands, page, maxPage, thumbnail=None):
         for key, value in Commands[str(page)].items():
             embed.add_field(name="\u200b",
-                            value=f"[{key}](https://google.com)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
+                            value=f"[{key}](https://hurb.gg/commands)\n**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}",
                             inline=False)
         embed.set_footer(
             text=f"______________________________________________________\nUse the ⬅️ and ➡️ to navigate between pages | Page {page} of {maxPage}.")
+        if thumbnail is not None:
+            embed.set_thumbnail(url=thumbnail)
         return embed
 
     @commands.command()
@@ -214,6 +216,7 @@ class HelpCog(commands.Cog):
                                 "`%disable antispam": "Turns off a spam blocker for the server."}
                 for key, value in autoFeatures.items():
                     embed.add_field(name=key, value=f"**What it does**: *{value}*", inline=False)
+                embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/716377034728931331/796249414196264977/auto.png")
                 await ctx.send(embed=embed)
             elif command.find("rank") != -1 or command.find("level") != -1 or command.find("leaderboard") != -1:
                 rankEmbed = discord.Embed(title=f"Ranking Help:", color=random.choice(embedColors))
@@ -226,6 +229,7 @@ class HelpCog(commands.Cog):
                                 "`%rankcolor`": ["emoji", "Set an emoji to display your rank as, or even set it to a word if you want!", "`%rankcolor ✨`"]}
                 for key, value in rankFeatures.items():
                     rankEmbed.add_field(name=key, value=f"**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}", inline=False)
+                rankEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/716377034728931331/796249376161923082/ranking.png")
                 await ctx.send(embed=rankEmbed)
             elif command.find("help") != -1:
                 helpEmbed = discord.Embed(title=f"Help help:", color=random.choice(embedColors))

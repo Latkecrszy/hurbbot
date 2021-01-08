@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands, tasks
 import random
-import asyncio
 import json
 
 hang1 = '''           ---------------------|
@@ -154,260 +153,109 @@ words = ["apple", "ant", "armpit", "banana", 'birds', 'blatant', "crocodile", 'c
          "alcohol", "disinfectant", "schedule", "chicken", "website", "glasses", "settings"]
 
 
-"""class HangmanCog(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.word = random.choice(words)
-        self.wordList = []
-        self.guessedList = []
-        self.wrongGuessedList = []
-        self.playing = None
-        self.wordDash = []
-        self.activeHang = 0
-        self.hangs = hangs
-        self.seconds = 0
-
-    @commands.command()
-    async def hangman(self, ctx):
-        if self.playing:
-            await ctx.send(f"Someone is already playing a game of hangman {ctx.author.mention}! Please don't break me.")
-        else:
-            self.seconds = 0
-            await asyncio.sleep(1)
-            self.timeOut.start(ctx)
-            self.word = random.choice(words)
-            self.wordList = []
-            self.guessedList = []
-            self.wrongGuessedList = []
-            self.wordDash = []
-            self.playing = str(ctx.author)
-            self.word = random.choice(words)
-            self.activeHang = 0
-            self.hangs = hangs
-            print(self.word)
-            for char in self.word:
-                self.wordDash.append("_")
-                self.wordList.append(char)
-            embed = discord.Embed(title=f"`{' '.join(self.wordDash)}`",
-                                  description=f"Here are the spaces of your word, {ctx.author.mention}! Start guessing letters by using the `guess <letter>` command!")
-            embed.add_field(name=f"You have {8 - int(self.activeHang)} chances.",
-                            value=f"```{self.hangs[int(self.activeHang)]}```")
-            await ctx.send(embed=embed)
-
-    @commands.command()
-    async def guess(self, ctx, letter):
-        if self.playing == str(ctx.author):
-            self.timeOut.stop()
-            self.seconds = 0
-            await asyncio.sleep(1)
-            self.timeOut.start(ctx)
-            if await self.winCheck(ctx):
-                if not await self.deathCheck(ctx):
-                    inWord = False
-                    if letter.lower() in self.guessedList or letter.lower() in self.wrongGuessedList:
-                        await ctx.send(f"You already guessed this letter, {ctx.author.mention}!")
-                    else:
-                        for x in range(len(self.wordList)):
-                            if self.wordList[x] == letter.lower():
-                                self.guessedList.append(letter.lower())
-                                self.wordDash[x] = letter.lower()
-                                inWord = True
-                        if inWord:
-                            if await self.winCheck(ctx):
-                                embed = discord.Embed(title="Congrats! That letter was in the word!",
-                                                      description=f"`{' '.join(self.wordDash)}`", color=discord.Color.green())
-                                embed.add_field(name=f"You have {8-int(self.activeHang)} chances left.", value=f"```{self.hangs[int(self.activeHang)]}```")
-                                await ctx.send(embed=embed)
-                        elif not inWord:
-                            self.activeHang += 1
-                            if not await self.deathCheck(ctx):
-                                self.wrongGuessedList.append(letter.lower())
-                                embed = discord.Embed(title="Sorry. That letter was not in the word.",
-                                                      description=f"`{' '.join(self.wordDash)}`", color=discord.Color.red())
-                                embed.add_field(name=f"You have {8-int(self.activeHang)} chances left.", value=f"```{self.hangs[int(self.activeHang)]}```")
-                                await ctx.send(embed=embed)
-                                await self.winCheck(ctx)
-
-        else:
-            await ctx.send(f"You are not playing a game of hangman right now, {ctx.author.mention}!")
-
-    async def winCheck(self, ctx):
-        if "_" not in self.wordDash:
-            self.playing = False
-            embed = discord.Embed(title=f"CONGRATS!!!   {ctx.author.display_name}, you won! Good job at beating the game! The word was {self.word}.",
-                                  description=f"```{self.hangs[int(self.activeHang)]}```",
-                                  color=discord.Color.green())
-            await ctx.send(embed=embed)
-            self.timeOut.stop()
-            self.seconds = 0
-            return False
-        else:
-            return True
-
-    async def deathCheck(self, ctx):
-        if self.activeHang == 8:
-            embed = discord.Embed(title=f"Sorry, {ctx.author.display_name}, you died. The word was {self.word}.",
-                                  description=f"```{hang8}```",
-                                  color=discord.Color.red())
-            await ctx.send(embed=embed)
-            self.playing = ""
-            self.timeOut.stop()
-            self.seconds = 0
-            return True
-        else:
-            return False
-
-    @tasks.loop(seconds=1)
-    async def timeOut(self, ctx):
-        self.seconds += 1
-        if self.seconds == 90:
-            self.seconds = 0
-            self.playing = ""
-            await ctx.send(embed=discord.Embed(
-                title=f"{ctx.author.display_name}, your game of hangman has timed out after 90 seconds of inactivity.",
-                color=discord.Color.red()))
-            self.timeOut.stop()"""
-
 class HangmanCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.word = random.choice(words)
-        self.wordList = []
-        self.guessedList = []
-        self.wrongGuessedList = []
-        self.playing = None
-        self.wordDash = []
-        self.activeHang = 0
-        self.hangs = hangs
-        self.seconds = 0
-        self.activeMessage = ""
-        self.letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        self.data = {}
+
 
     @commands.command()
     async def hangman(self, ctx):
-        storage = json.load(open("../Bots/servers.json"))
+        storage = json.load(open("servers.json"))
         players = storage["players"]
-        foundHang = False
-        for item, value in players[str(ctx.author.id)]["items"].items():
-            if item.lower() == "hangman" and value >= 1:
-                foundHang = True
+        foundHang = {item: value for item, value in players[str(ctx.author.id)]["items"].items() if item.lower() == "hangman" and int(value) >= 1}
         if foundHang:
-            if self.playing:
-                await ctx.send(f"Someone is already playing a game of hangman {ctx.author.mention}! Please don't break me.")
-            else:
-                self.seconds = 0
-                await asyncio.sleep(1)
-                self.timeOut.start(ctx)
-                self.word = random.choice(words)
-                self.wordList = []
-                self.guessedList = []
-                self.wrongGuessedList = []
-                self.wordDash = []
-                self.activeMessage = ""
-                self.playing = str(ctx.author)
-                self.word = random.choice(words)
-                self.activeHang = 0
-                self.hangs = hangs
-                for char in self.word:
-                    self.wordDash.append("_")
-                    self.wordList.append(char)
-                embed = discord.Embed(title=f"`{' '.join(self.wordDash)}`",
+            if str(ctx.author.id) not in self.data:
+                word = random.choice(words)
+                self.data[str(ctx.author.id)] = {"word": word, "word_list": [char for char in word], "guessed": [], "incorrect": [], "dashes": ["_" for _ in word], "hang": 0, "seconds": 0, "message": None, "letters": ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]}
+                embed = discord.Embed(title=f"`{' '.join(self.data[str(ctx.author.id)]['dashes'])}`",
                                       description=f"Here are the spaces of your word, {ctx.author.mention}! Start guessing letters by using the `%guess <letter>` command!")
-                embed.add_field(name=f"You have {8 - int(self.activeHang)} chances.",
-                                value=f"```{self.hangs[int(self.activeHang)]}```")
-                self.activeMessage = await ctx.send(embed=embed)
+                embed.add_field(name=f"You have {8 - int(self.data[str(ctx.author.id)]['hang'])} chances.",
+                                value=f"```{hangs[self.data[str(ctx.author.id)]['hang']]}```")
+                self.data[str(ctx.author.id)]['message'] = await ctx.send(embed=embed)
+                try:
+                    self.timeOut.start(ctx)
+                except:
+                    pass
+            else:
+                await ctx.send(embed=discord.Embed(description=f"You are already playing a game of hangman {ctx.author.mention}!"))
         else:
             await ctx.send(embed=discord.Embed(description=f"You do not yet own this game! You can buy it with the `%buy hangman` command!", color=discord.Color.red()))
 
     @commands.command()
     async def guess(self, ctx, letter):
-        if self.playing == str(ctx.author):
-            self.timeOut.stop()
-            self.seconds = 0
-            await asyncio.sleep(1)
-            self.timeOut.start(ctx)
+        await ctx.message.delete()
+        if str(ctx.author.id) in self.data:
+            self.data[str(ctx.author.id)]['seconds'] = 0
             if await self.winCheck(ctx):
                 if not await self.deathCheck(ctx):
                     if len(letter) == 1:
                         inWord = False
-                        if letter.lower() in self.guessedList or letter.lower() in self.wrongGuessedList:
+                        if letter.lower() in self.data[str(ctx.author.id)]['guessed'] or letter.lower() in self.data[str(ctx.author.id)]['incorrect']:
                             await ctx.send(f"You already guessed {letter}, {ctx.author.mention}!")
                         else:
-                            for x in range(len(self.wordList)):
-                                if self.wordList[x] == letter.lower():
-                                    self.guessedList.append(letter.lower())
-                                    self.wordDash[x] = letter.lower()
+                            for x in range(len(self.data[str(ctx.author.id)]['word_list'])):
+                                if self.data[str(ctx.author.id)]['word_list'][x] == letter.lower():
+                                    self.data[str(ctx.author.id)]['guessed'].append(letter.lower())
+                                    self.data[str(ctx.author.id)]['dashes'][x] = letter.lower()
                                     inWord = True
                             if inWord:
                                 if await self.winCheck(ctx):
                                     embed = discord.Embed(title="Congrats! That letter was in the word!",
-                                                          description=f"`{' '.join(self.wordDash)}`", color=discord.Color.green())
-                                    embed.add_field(name=f"You have {8-int(self.activeHang)} chances left.", value=f"```{self.hangs[int(self.activeHang)]}```")
-                                    await self.activeMessage.edit(embed=embed)
+                                                          description=f"`{' '.join(self.data[str(ctx.author.id)]['dashes'])}`", color=discord.Color.green())
+                                    embed.add_field(name=f"You have {8-int(self.data[str(ctx.author.id)]['hang'])} chances left.", value=f"```{hangs[self.data[str(ctx.author.id)]['hang']]}```")
+                                    await self.data[str(ctx.author.id)]['message'].edit(embed=embed)
                             elif not inWord:
-                                self.activeHang += 1
+                                self.data[str(ctx.author.id)]['hang'] += 1
                                 if not await self.deathCheck(ctx):
-                                    self.wrongGuessedList.append(letter.lower())
+                                    self.data[str(ctx.author.id)]['incorrect'].append(letter.lower())
                                     embed = discord.Embed(title=f"Sorry. {letter.lower()} was not in the word.",
-                                                          description=f"`{' '.join(self.wordDash)}`", color=discord.Color.red())
-                                    embed.add_field(name=f"You have {8-int(self.activeHang)} chances left.", value=f"```{self.hangs[int(self.activeHang)]}```")
-                                    await self.activeMessage.edit(embed=embed)
+                                                          description=f"`{' '.join(self.data[str(ctx.author.id)]['dashes'])}`", color=discord.Color.red())
+                                    embed.add_field(name=f"You have {8-self.data[str(ctx.author.id)]['hang']} chances left.", value=f"```{hangs[self.data[str(ctx.author.id)]['hang']]}```")
+                                    await self.data[str(ctx.author.id)]['message'].edit(embed=embed)
                                     await self.winCheck(ctx)
                         await ctx.message.delete()
                     else:
-                        if letter.lower() == self.word.lower():
-                            self.playing = False
+                        if letter.lower() == self.data[str(ctx.author.id)]['word'].lower():
                             embed = discord.Embed(
-                                title=f"CONGRATS!!!   {ctx.author.display_name}, you won! Good job at beating the game! The word was {self.word}.",
-                                description=f"```{self.hangs[int(self.activeHang)]}```",
+                                title=f"CONGRATS!!!   {ctx.author.display_name}, you won! Good job at beating the game! The word was {self.data[str(ctx.author.id)]['word']}.",
+                                description=f"```{hangs[self.data[str(ctx.author.id)]['hang']]}```",
                                 color=discord.Color.green())
-                            await self.activeMessage.edit(embed=embed)
-                            self.timeOut.stop()
-                            self.seconds = 0
-                            self.activeMessage = ""
+                            await self.data[str(ctx.author.id)]['message'].edit(embed=embed)
+                            self.data.pop(str(ctx.author.id))
 
         else:
             await ctx.send(f"You are not playing a game of hangman right now, {ctx.author.mention}!")
 
     async def winCheck(self, ctx):
-        if "_" not in self.wordDash:
-            self.playing = False
-            embed = discord.Embed(title=f"CONGRATS!!!   {ctx.author.display_name}, you won! Good job at beating the game! The word was {self.word}.",
-                                  description=f"```{self.hangs[int(self.activeHang)]}```",
+        if "_" not in self.data[str(ctx.author.id)]['dashes']:
+            embed = discord.Embed(title=f"CONGRATS!!!   {ctx.author.display_name}, you won! Good job at beating the game! The word was {self.data[str(ctx.author.id)]['word']}.",
+                                  description=f"```{hangs[self.data[str(ctx.author.id)]['hang']]}```",
                                   color=discord.Color.green())
-            await self.activeMessage.edit(embed=embed)
-            self.timeOut.stop()
-            self.seconds = 0
-            self.activeMessage = ""
+            await self.data[str(ctx.author.id)]['message'].edit(embed=embed)
+            self.data.pop(str(ctx.author.id))
             return False
         else:
             return True
 
     async def deathCheck(self, ctx):
-        if self.activeHang == 8:
-            embed = discord.Embed(title=f"Sorry, {ctx.author.display_name}, you died. The word was {self.word}.",
+        if self.data[str(ctx.author.id)]['hang'] == 8:
+            embed = discord.Embed(title=f"Sorry, {ctx.author.display_name}, you died. The word was {self.data[str(ctx.author.id)]['word']}.",
                                   description=f"```{hang8}```",
                                   color=discord.Color.red())
-            await self.activeMessage.edit(embed=embed)
-            self.playing = ""
-            self.timeOut.stop()
-            self.seconds = 0
-            self.activeMessage = ""
+            await self.data[str(ctx.author.id)]['message'].edit(embed=embed)
             return True
         else:
             return False
 
     @tasks.loop(seconds=1)
     async def timeOut(self, ctx):
-        self.seconds += 1
-        if self.seconds == 90:
-            self.seconds = 0
-            self.activeMessage = ""
-            self.playing = ""
+        self.data[str(ctx.author.id)]['seconds'] += 1
+        if self.data[str(ctx.author.id)]['seconds'] == 90:
             await ctx.send(embed=discord.Embed(
                 title=f"{ctx.author.display_name}, your game of hangman has timed out after 90 seconds of inactivity.",
                 color=discord.Color.red()))
-            self.timeOut.stop()
+            self.data.pop(str(ctx.author.id))
 
 
 def setup(bot):

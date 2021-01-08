@@ -19,7 +19,7 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
 
 def is_me(command):
     def predicate(ctx):
-        with open('../Bots/servers.json', 'r') as f:
+        with open('servers.json', 'r') as f:
             storage = json.load(f)
             commandsList = storage[str(ctx.guild.id)]["commands"]
             if commandsList[command] == "True":
@@ -245,23 +245,20 @@ class MemberCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        with open("../Bots/servers.json", "r") as f:
+        with open("servers.json", "r") as f:
             storage = json.load(f)
         if "welcome" in storage[str(member.guild.id)]:
             welcomeChannels = storage[str(member.guild.id)]["welcome"]
-            channel = member.guild.get_channel(int(welcomeChannels["id"]))
-            message = welcomeChannels["message"]
-            if message.find("{member}"):
-                message = message.split("{")
-                message2 = message[1].split("}")
-                message2 = message2[1]
-                message = message[0]
-                await channel.send(f"{message}{member.mention}{message2}")
-            for role in member.roles:
-                if str(role).lower() == "muted":
-                    mutedMembers.append(str(member))
+            if "id" in welcomeChannels:
+                channel = member.guild.get_channel(int(welcomeChannels["id"]))
+                message = welcomeChannels["message"]
+                if message.find("{member}"):
+                    await channel.send(message.format(member=member.mention))
+                for role in member.roles:
+                    if str(role).lower() == "muted":
+                        mutedMembers.append(str(member))
 
-            with open("../Bots/servers.json") as f:
+            with open("servers.json") as f:
                 storage = json.load(f)
 
             if "autoroles" in storage[str(member.guild.id)].keys():
@@ -273,21 +270,22 @@ class MemberCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        with open("../Bots/servers.json", "r") as f:
+        with open("servers.json", "r") as f:
             storage = json.load(f)
         if "goodbye" in storage[str(member.guild.id)].keys():
             goodbyeChannels = storage[str(member.guild.id)]["goodbye"]
-            channel = member.guild.get_channel(int(goodbyeChannels["id"]))
-            message = goodbyeChannels["message"]
-            if message.find("{member}"):
-                message = message.split("{")
-                message2 = message[1].split("}")
-                message2 = message2[1]
-                message = message[0]
-                await channel.send(f"{message}{member}{message2}")
-            for role in member.roles:
-                if str(role).lower() == "muted":
-                    mutedMembers.append(str(member))
+            if "id" in goodbyeChannels:
+                channel = member.guild.get_channel(int(goodbyeChannels["id"]))
+                message = goodbyeChannels["message"]
+                if message.find("{member}"):
+                    message = message.split("{")
+                    message2 = message[1].split("}")
+                    message2 = message2[1]
+                    message = message[0]
+                    await channel.send(f"{message}{member}{message2}")
+                for role in member.roles:
+                    if str(role).lower() == "muted":
+                        mutedMembers.append(str(member))
 
     @commands.command()
     async def info(self, ctx, member: discord.Member = None):
@@ -333,7 +331,7 @@ class MemberCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def modmute(self, ctx, member: discord.Member):
 
-        with open("../Bots/servers.json", "r") as f:
+        with open("servers.json", "r") as f:
             storage = json.load(f)
         if "mutedmods" not in storage[str(ctx.guild.id)].keys():
             storage[str(ctx.guild.id)]["mutedmods"] = {}
@@ -362,13 +360,13 @@ class MemberCog(commands.Cog):
                 color=discord.Color.red())
         await ctx.send(embed=embed)
         storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
-        with open("../Bots/servers.json", "w") as f:
+        with open("servers.json", "w") as f:
             json.dump(storage, f, indent=4)
 
     @commands.command(aliases=["unmodmute"])
     @commands.has_permissions(administrator=True)
     async def modunmute(self, ctx, member: discord.Member):
-        with open("../Bots/servers.json", "r") as f:
+        with open("servers.json", "r") as f:
             storage = json.load(f)
         if "mutedmods" not in storage[str(ctx.guild.id)].keys():
             storage[str(ctx.guild.id)]["mutedmods"] = {}
@@ -385,7 +383,7 @@ class MemberCog(commands.Cog):
 
         await ctx.send(embed=embed)
         storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
-        with open("../Bots/servers.json", "w") as f:
+        with open("servers.json", "w") as f:
             json.dump(storage, f, indent=4)
 
     @commands.command(aliases=["reminder"])
@@ -470,7 +468,7 @@ class MemberCog(commands.Cog):
     async def on_message(self, message):
         if not isinstance(message.author, discord.User):
             if message.guild is not None and not message.author.guild_permissions.administrator:
-                storage = json.load(open("../Bots/servers.json"))
+                storage = json.load(open("servers.json"))
                 for key, value in storage[str(message.guild.id)]["blacklist"].items():
                     if key in message.content.lower():
                         reason = f"Sending the word {key} in {message.guild}."

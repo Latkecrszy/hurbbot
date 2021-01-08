@@ -15,7 +15,7 @@ class ReactionRoleCog(commands.Cog):
     async def reactionrole(self, ctx, emoji, role: discord.Role, *, message):
         if role < self.maxrole(ctx):
             await ctx.message.delete()
-            with open("../Bots/servers.json") as f:
+            with open("servers.json") as f:
                 storage = json.load(f)
             reactionroles = storage["reactionroles"]
             if str(emoji).startswith("<"):
@@ -32,7 +32,7 @@ class ReactionRoleCog(commands.Cog):
                 await message.add_reaction(emoji)
                 reactionroles[str(message.id)] = [str(emoji), role.id]
             storage["reactionroles"] = reactionroles
-            with open("../Bots/servers.json", "w") as f:
+            with open("servers.json", "w") as f:
                 json.dump(storage, f, indent=4)
         else:
             await ctx.send(f"I do not have the permissions to assign that role {ctx.author.mention}! Please move my role above the role to allow me to assign it!")
@@ -48,7 +48,7 @@ class ReactionRoleCog(commands.Cog):
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         if str(payload.user_id) != "736283988628602960":
-            with open("../Bots/servers.json") as f:
+            with open("servers.json") as f:
                 storage = json.load(f)
             reactionroles = storage["reactionroles"]
             if str(payload.message_id) in reactionroles.keys():
@@ -68,7 +68,7 @@ class ReactionRoleCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
-        with open("../Bots/servers.json") as f:
+        with open("servers.json") as f:
             storage = json.load(f)
         reactionroles = storage["reactionroles"]
         if str(payload.message_id) in reactionroles.keys():

@@ -1,74 +1,60 @@
 import discord
-from discord.ext import commands, tasks
-import asyncio
+from discord.ext import commands
 import json
 from discord.ext.commands.cooldowns import BucketType
 import random
 
 
-class BlackJackCog(commands.Cog):
+class Blackjack(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.cards = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] * 16
-        self.suits = [":clubs:", ":hearts:", ":diamonds:", ":spades:"]
-        self.deck = {}
-        for card in self.cards:
-            for suit in self.suits:
-                self.deck[card] = suit
         self.info = {}  # {"player_id": {"player_hand": [card1, card2], "dealer_hand": [card1, card2], "bet": bet}
 
     def deal(self, id, person):
-        if person == "player":
-            self.info[str(id)]["player_hand"] = [random.choice(self.cards), random.choice(self.cards)]
-            return self.info[str(id)]["player_hand"]
-        elif person == "dealer":
-            self.info[str(id)]["dealer_hand"] = [random.choice(self.cards), random.choice(self.cards)]
-            return self.info[str(id)]["dealer_hand"]
+        person = f"{person}_hand"
+        self.info[str(id)][person] = [random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]), random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"])]
+        return self.info[str(id)][person]
 
     def hitHand(self, id, person):
-        if person == "player":
-            self.info[str(id)]["player_hand"].append(random.choice(self.cards))
-            return self.info[str(id)]["player_hand"]
-        elif person == "dealer":
-            self.info[str(id)]["dealer_hand"].append(random.choice(self.cards))
-            return self.info[str(id)]["dealer_hand"]
+        person = f"{person}_hand"
+        self.info[str(id)][person].append(random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]))
+        return self.info[str(id)][person]
 
     def total(self, hand):
         value = 0
-        for cards in hand:
-            if cards == "1" or cards == "2" or cards == "3" or cards == "4" or cards == "5" or cards == "6" or cards == "7" or cards == "8" or cards == "9" or cards == "10":
-                value += int(cards)
-            elif cards == "J" or cards == "Q" or cards == "K":
+        for card in hand:
+            if card.isnumeric():
+                value += int(card)
+            elif card in ["J", "Q", "K"]:
                 value += 10
-            elif cards == "A":
+            elif card == "A":
                 if value < 11:
                     value += 11
-                elif value >= 11:
+                else:
                     value += 1
         return value
 
     async def blackJackCheck(self, ctx):
-        if self.total(self.info[str(ctx.author.id)]["player_hand"]) == 21 or self.total(
-                self.info[str(ctx.author.id)]["dealer_hand"]) == 21:
+        playerHand = self.info[str(ctx.author.id)]["player_hand"]
+        dealerHand = self.info[str(ctx.author.id)]["dealer_hand"]
+        if self.total(playerHand) == 21 or self.total(dealerHand) == 21:
             playerDisplayHand = ""
-            playerHand = self.info[str(ctx.author.id)]["player_hand"]
-            dealerHand = self.info[str(ctx.author.id)]["dealer_hand"]
             for i in playerHand:
                 playerDisplayHand += f"`{i}` "
             dealerDisplayHand = ""
             for i in dealerHand:
                 dealerDisplayHand += f"`{i}` "
-            playerTotal = self.total(playerHand)
-            dealerTotal = self.total(dealerHand)
+            # playerTotal = self.total(playerHand)
+            # dealerTotal = self.total(dealerHand)
             if self.total(playerHand) == 21:
                 if self.total(dealerHand) == 21:
                     embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:",
                                           color=discord.Color.gold())
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                     embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
-                                    value=f"Total ==> `{playerTotal}`", inline=True)
+                                    value=f"Total ==> `{self.total(playerHand)}`", inline=True)
                     embed.add_field(name=f"**Hurb**:\nCards ==> {playerDisplayHand}",
-                                    value=f"Total ==> `{playerTotal}`", inline=True)
+                                    value=f"Total ==> `{self.total(dealerHand)}`", inline=True)
                     embed.add_field(name="It's a tie! You both got blackjack!", value="Your balance stayed the same.",
                                     inline=False)
                     await ctx.send(embed=embed)
@@ -79,15 +65,15 @@ class BlackJackCog(commands.Cog):
                                           color=discord.Color.green())
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                     embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
-                                    value=f"Total ==> `{playerTotal}`", inline=True)
+                                    value=f"Total ==> `{self.total(playerHand)}`", inline=True)
                     embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
-                                    value=f"Total ==> `{dealerTotal}`", inline=True)
+                                    value=f"Total ==> `{self.total(dealerHand)}`", inline=True)
                     if len(self.info[str(ctx.author.id)]["player_hand"]) == 2:
                         embed.add_field(name="You won! You got a blackjack!",
                                         value=f"You won ${int(self.info[str(ctx.author.id)]['bet']) * 1.5}!",
                                         inline=False)
                         await ctx.send(embed=embed)
-                        storage = json.load(open("../Bots/servers.json"))
+                        storage = json.load(open("servers.json"))
                         players = storage["players"]
 
                         players[str(ctx.author.id)]['money'] += self.info[str(ctx.author.id)]['bet'] * 1.5
@@ -97,31 +83,31 @@ class BlackJackCog(commands.Cog):
                                         value=f"You won ${int(self.info[str(ctx.author.id)]['bet'])}!",
                                         inline=False)
                         await ctx.send(embed=embed)
-                        storage = json.load(open("../Bots/servers.json"))
+                        storage = json.load(open("servers.json"))
                         players = storage["players"]
 
                         players[str(ctx.author.id)]['money'] += self.info[str(ctx.author.id)]['bet']
                         self.info.pop(str(ctx.author.id))
                     storage["players"] = players
-                    json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+                    json.dump(storage, open("servers.json", "w"), indent=4)
                 return True
 
             elif self.total(dealerHand) == 21:
                 embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:", color=discord.Color.red())
                 embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                 embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
-                                value=f"Total ==> `{playerTotal}`", inline=True)
+                                value=f"Total ==> `{self.total(playerHand)}`", inline=True)
                 embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
-                                value=f"Total ==> `{dealerTotal}`", inline=True)
+                                value=f"Total ==> `{self.total(dealerHand)}`", inline=True)
                 embed.add_field(name="The dealer reached 21 before you did. You lost.",
                                 value=f"You lost ${self.info[str(ctx.author.id)]['bet']}.",
                                 inline=False)
                 await ctx.send(embed=embed)
-                storage = json.load(open("../Bots/servers.json"))
+                storage = json.load(open("servers.json"))
                 players = storage["players"]
                 storage["players"] = players
-                json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
-                json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+                json.dump(storage, open("servers.json", "w"), indent=4)
+                json.dump(storage, open("servers.json", "w"), indent=4)
                 self.info.pop(str(ctx.author.id))
                 return True
 
@@ -149,12 +135,12 @@ class BlackJackCog(commands.Cog):
                                 value=f"Total ==> `{dealerTotal}`", inline=True)
                 embed.add_field(name="You busted! You lost.",
                                 value=f"You lost ${self.info[str(ctx.author.id)]['bet']}.", inline=False)
-                storage = json.load(open("../Bots/servers.json"))
+                storage = json.load(open("servers.json"))
                 players = storage["players"]
 
                 players[str(ctx.author.id)]['money'] -= int(self.info[str(ctx.author.id)]["bet"])
                 storage["players"] = players
-                json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+                json.dump(storage, open("servers.json", "w"), indent=4)
                 await ctx.send(embed=embed)
                 self.info.pop(str(ctx.author.id))
                 return True
@@ -169,12 +155,12 @@ class BlackJackCog(commands.Cog):
                 embed.add_field(name="The dealer busted! You won!",
                                 value=f"You won ${self.info[str(ctx.author.id)]['bet']}.", inline=False)
 
-                storage = json.load(open("../Bots/servers.json"))
+                storage = json.load(open("servers.json"))
                 players = storage["players"]
 
                 players[str(ctx.author.id)]['money'] += self.info[str(ctx.author.id)]['bet']
                 storage["players"] = players
-                json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+                json.dump(storage, open("servers.json", "w"), indent=4)
                 await ctx.send(embed=embed)
                 self.info.pop(str(ctx.author.id))
                 return True
@@ -197,6 +183,7 @@ class BlackJackCog(commands.Cog):
     @commands.command(aliases=["s"])
     async def stand(self, ctx):
         if str(ctx.author.id) in self.info.keys():
+            self.hitHand(str(ctx.author.id), "dealer")
             while self.total(self.info[str(ctx.author.id)]["dealer_hand"]) < 17:
                 self.hitHand(str(ctx.author.id), "dealer")
             if not await self.checkBust(ctx):
@@ -209,7 +196,7 @@ class BlackJackCog(commands.Cog):
     @commands.command(aliases=["dd"])
     async def doubledown(self, ctx):
         if str(ctx.author.id) in self.info.keys():
-            storage = json.load(open("../Bots/servers.json"))
+            storage = json.load(open("servers.json"))
             players = storage["players"]
 
             if int(self.info[str(ctx.author.id)]['bet']) * 2 > int(players[str(ctx.author.id)]['money']):
@@ -232,17 +219,11 @@ class BlackJackCog(commands.Cog):
     async def score(self, ctx):
         playerHand = self.info[str(ctx.author.id)]["player_hand"]
         dealerHand = self.info[str(ctx.author.id)]["dealer_hand"]
-        playerDisplayHand = ""
-        for i in playerHand:
-            playerDisplayHand += f"`{i}` "
-        dealerDisplayHand = ""
-        for i in dealerHand:
-            dealerDisplayHand += f"`{i}` "
+        playerDisplayHand = "".join([f"`{i}` " for i in playerHand])
+        dealerDisplayHand = "".join([f"`{i}` " for i in dealerHand])
         playerTotal = self.total(playerHand)
         dealerTotal = self.total(dealerHand)
-        dealerScore = self.total(dealerHand)
-        playerScore = self.total(playerHand)
-        if dealerScore > playerScore:
+        if dealerTotal > playerTotal:
             embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:", color=discord.Color.red())
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
@@ -252,15 +233,15 @@ class BlackJackCog(commands.Cog):
             embed.add_field(name="The dealer got a higher value than you. You lost.",
                             value=f"You lost ${self.info[str(ctx.author.id)]['bet']}.",
                             inline=False)
-            storage = json.load(open("../Bots/servers.json"))
+            storage = json.load(open("servers.json"))
             players = storage["players"]
 
             players[str(ctx.author.id)]['money'] -= self.info[str(ctx.author.id)]['bet']
             storage["players"] = players
-            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+            json.dump(storage, open("servers.json", "w"), indent=4)
             self.info.pop(str(ctx.author.id))
             await ctx.send(embed=embed)
-        elif playerScore > dealerScore:
+        elif playerTotal > dealerTotal:
             embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:", color=discord.Color.green())
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
@@ -270,15 +251,15 @@ class BlackJackCog(commands.Cog):
             embed.add_field(name="You won! Your score was higher than the dealer's!",
                             value=f"You won ${self.info[str(ctx.author.id)]['bet']}!",
                             inline=False)
-            storage = json.load(open("../Bots/servers.json"))
+            storage = json.load(open("servers.json"))
             players = storage["players"]
 
             players[str(ctx.author.id)]['money'] += self.info[str(ctx.author.id)]['bet']
             storage["players"] = players
-            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+            json.dump(storage, open("servers.json", "w"), indent=4)
             self.info.pop(str(ctx.author.id))
             await ctx.send(embed=embed)
-        elif playerScore == dealerScore:
+        elif playerTotal == dealerTotal:
             embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:", color=discord.Color.gold())
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
@@ -290,24 +271,10 @@ class BlackJackCog(commands.Cog):
             self.info.pop(str(ctx.author.id))
             await ctx.send(embed=embed)
 
-    """def addCardTotal(self, hand, value):
-        if hand[-1] in self.cards[1:10]:
-            value += int(hand[-1])
-        elif hand[-1] == "J" or hand[-1] == "Q" or hand[-1] == "K":
-            value += 10
-        elif hand[-1] == "A":
-            if value < 11:
-                value += 11
-            elif value >= 11:
-                value += 1
-        return value"""
-
     async def game(self, ctx):
         playerHand = self.info[str(ctx.author.id)]["player_hand"]
         dealerHand = self.info[str(ctx.author.id)]["dealer_hand"]
-        playerDisplayHand = ""
-        for i in playerHand:
-            playerDisplayHand += f"`{i}` "
+        playerDisplayHand = "".join([f"`{i}` " for i in playerHand])
         dealerDisplayHand = f"`{dealerHand[0]}`"
         playerTotal = self.total(playerHand)
         embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:", color=discord.Color.dark_green())
@@ -336,17 +303,8 @@ class BlackJackCog(commands.Cog):
                 if not await self.blackJackCheck(ctx):
                     await self.game(ctx)
 
-    async def allCheck(self, ctx, bet):
-        if bet >= 2 ** 31:
-            embed = discord.Embed(title="The bot can't handle numbers that large. Can you try a smaller number?")
-            await ctx.send(embed=embed)
-            return True
-        elif bet <= 0:
-            await ctx.send(embed=discord.Embed(title=f"You can't bet negative. Please try a positive value"))
-            return True
-
     async def tooMuchCheck(self, ctx, bet: int):
-        storage = json.load(open("../Bots/servers.json"))
+        storage = json.load(open("servers"))
         players = storage["players"]
 
         if int(bet) > int(players[str(ctx.author.id)]['money']):
@@ -363,12 +321,9 @@ class BlackJackCog(commands.Cog):
             embed.add_field(name="You won! You got a BlackJack!", value=f"You won ${bet}!",
                             inline=False)
             await ctx.send(embed=embed)
-            players[str(ctx.author.id)]['money'] = int(players[str(ctx.author.id)]['money'])
             players[str(ctx.author.id)]['money'] += int(bet)
-            if players[str(ctx.author.id)]['money'] < 0:
-                players[str(ctx.author.id)]['money'] = 0
             storage["players"] = players
-            json.dump(storage, open("../Bots/servers.json", "w"), indent=4)
+            json.dump(storage, open("servers", "w"), indent=4)
             return False
 
         else:
@@ -376,5 +331,5 @@ class BlackJackCog(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(BlackJackCog(bot))
+    bot.add_cog(Blackjack(bot))
 

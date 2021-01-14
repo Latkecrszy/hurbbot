@@ -278,11 +278,7 @@ class MemberCog(commands.Cog):
                 channel = member.guild.get_channel(int(goodbyeChannels["id"]))
                 message = goodbyeChannels["message"]
                 if message.find("{member}"):
-                    message = message.split("{")
-                    message2 = message[1].split("}")
-                    message2 = message2[1]
-                    message = message[0]
-                    await channel.send(f"{message}{member}{message2}")
+                    await channel.send(message.format(member=member.mention))
                 for role in member.roles:
                     if str(role).lower() == "muted":
                         mutedMembers.append(str(member))
@@ -389,47 +385,37 @@ class MemberCog(commands.Cog):
     @commands.command(aliases=["reminder"])
     async def timer(self, ctx, time, *, reminder="No reminder"):
         timerTime = []
-        minute = True
-        hour = False
-        day = False
-        second = False
+        unit = "minute"
         for char in time:
             if char.lower() == "m":
-                minute = True
+                unit = "minute"
             elif char.lower() == "h":
-                hour = True
-                minute = False
+                unit = "hour"
             elif char.lower() == "d":
-                day = True
-                minute = False
+                unit = "day"
             elif char.lower() == "s":
-                second = True
-                minute = False
+                unit = "second"
             elif isinstance(char, str):
                 timerTime.append(char)
             else:
                 pass
         time = "".join(timerTime)
         time = int(time)
-        if minute:
+        if unit == "minute":
             await ctx.send(f"{ctx.author.mention} your timer has been set for {time} minutes!")
             await asyncio.sleep(time * 60)
-        elif hour:
+        elif unit == "hour":
             await ctx.send(f"{ctx.author.mention} your timer has been set for {time} hours!")
             await asyncio.sleep(time * 3600)
-        elif day:
+        elif unit == "day":
             await ctx.send(f"{ctx.author.mention} your timer has been set for {time} days!")
             await asyncio.sleep(time * 86400)
-        elif second:
+        elif unit == "second":
             await ctx.send(f"{ctx.author.mention} your timer has been set for {time} seconds!")
             await asyncio.sleep(time)
-        else:
-            await ctx.send(f"{ctx.author.mention} your timer has been set for {time} minutes!")
-            await asyncio.sleep(time * 60)
         await ctx.send(f"{ctx.author.mention} your timer is up!\nReminder: {reminder}")
 
     @commands.Cog.listener()
-    @commands.guild_only()
     async def on_message(self, message):
         if message.guild is not None:
             if isinstance(message.author, discord.Member):
@@ -443,7 +429,7 @@ class MemberCog(commands.Cog):
                                 mentions += 1
                             if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
                                 mentions += 1
-                        if mentions >= 5:
+                        if mentions >= 3:
                             ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
                             await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
                         elif mentions >= 1:
@@ -452,10 +438,10 @@ class MemberCog(commands.Cog):
                             else:
                                 self.spammers[str(message.author.id)] = 1
                         if str(message.author.id) in self.spammers.keys():
-                            if self.spammers[str(message.author.id)] >= 5:
+                            if self.spammers[str(message.author.id)] >= 3:
                                 ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
                                 await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
-                            await asyncio.sleep(10)
+                            await asyncio.sleep(15)
                             self.spammers[str(message.author.id)] = 0
 
     @commands.command()

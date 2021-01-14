@@ -181,9 +181,9 @@ class Player(commands.Cog):
                     await ctx.send(embed=discord.Embed(description=f"You cannot buy this item {ctx.author.mention}!",
                                                        color=discord.Color.red()))
                 else:
-                    if float(players[str(ctx.author.id)]['money']) >= float(costs[item.lower()]):
+                    if float(players[str(ctx.author.id)]['money']) >= int(costs[item.lower()]):
                         players[str(ctx.author.id)]["items"][item] += 1
-                        costs[item.lower()] = float(costs[item.lower()])
+                        costs[item.lower()] = int(costs[item.lower()])
                         players[str(ctx.author.id)]['money'] -= costs[item.lower()]
                         costs[item.lower()] *= 1.1
                         await ctx.send(
@@ -191,7 +191,7 @@ class Player(commands.Cog):
                                                 color=discord.Color.green()))
                     else:
                         await ctx.send(embed=discord.Embed(
-                            description=f"You cannot afford to buy this item {ctx.author.mention}! You need ${value['cost']}, and you only have ${players[str(ctx.author.id)]['money']}!",
+                            description=f"You cannot afford to buy this item {ctx.author.mention}! You need ${float(costs[item.lower()])}, and you only have ${players[str(ctx.author.id)]['money']}!",
                             color=discord.Color.red()))
         storage["players"] = players
         json.dump(storage, open("servers.json", "w"), indent=4)

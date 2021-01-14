@@ -23,62 +23,59 @@ class ServerCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def disable(self, ctx, command):
-        found = False
-        disabled = True
-        with open('servers.json', 'r') as f:
-            storage = json.load(f)
-            commandsList = storage[str(ctx.guild.id)]["commands"]
-        for Command, condition in commandsList.items():
-            if Command == command.lower():
-                found = True
-                if condition == "True":
-                    commandsList[Command] = 'False'
-                    embed = discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
-                                          description=None, color=discord.Color.green())
-                    await ctx.send(embed=embed)
-                    storage[str(ctx.guild.id)]["commands"] = commandsList
-                    disabled = False
+        if ctx.author.guild_permissions.administrator or ctx.author.id == 751667811931390012:
+            found = False
+            disabled = True
+            with open('servers.json', 'r') as f:
+                storage = json.load(f)
+                commandsList = storage[str(ctx.guild.id)]["commands"]
+            for Command, condition in commandsList.items():
+                if Command == command.lower():
+                    found = True
+                    if condition == "True":
+                        commandsList[Command] = 'False'
+                        await ctx.send(embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
+                                              description=None, color=discord.Color.green()))
+                        storage[str(ctx.guild.id)]["commands"] = commandsList
+                        disabled = False
 
-        with open('servers.json', 'w') as f:
-            json.dump(storage, f, indent=4)
+            with open('servers.json', 'w') as f:
+                json.dump(storage, f, indent=4)
 
-        if not found:
-            await ctx.send(f"I could not find that command, {ctx.author.mention}!")
+            if not found:
+                await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
-        if disabled and found:
-            embed = discord.Embed(title=f"***<a:no:771786741312782346> {command} is already disabled.***",
-                                  description=None, color=discord.Color.red())
-            await ctx.send(embed=embed)
+            if disabled and found:
+                await ctx.send(embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already disabled.***",
+                                      description=None, color=discord.Color.red()))
 
-    @commands.has_permissions(administrator=True)
     @commands.command()
     async def enable(self, ctx, command):
-        found = False
-        enabled = True
-        with open('servers.json', 'r') as f:
-            storage = json.load(f)
-            commandsList = storage[str(ctx.guild.id)]["commands"]
-        for Command, condition in commandsList.items():
-            if Command == command.lower():
-                found = True
-                if condition == "False":
-                    commandsList[Command] = 'True'
-                    embed = discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
-                                          description=None, color=discord.Color.green())
-                    await ctx.send(embed=embed)
-                    storage[str(ctx.guild.id)]["commands"] = commandsList
-                    enabled = False
+        if ctx.author.guild_permissions.administrator or ctx.author.id == 751667811931390012:
+            found = False
+            enabled = True
+            with open('servers.json', 'r') as f:
+                storage = json.load(f)
+                commandsList = storage[str(ctx.guild.id)]["commands"]
+            for Command, condition in commandsList.items():
+                if Command == command.lower():
+                    found = True
+                    if condition == "False":
+                        commandsList[Command] = 'True'
+                        await ctx.send(embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
+                                              description=None, color=discord.Color.green()))
+                        storage[str(ctx.guild.id)]["commands"] = commandsList
+                        enabled = False
 
-        with open('servers.json', 'w') as f:
-            json.dump(storage, f, indent=4)
+            with open('servers.json', 'w') as f:
+                json.dump(storage, f, indent=4)
 
-        if not found:
-            await ctx.send(f"I could not find that command, {ctx.author.mention}!")
+            if not found:
+                await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
-        if enabled and found:
-            embed = discord.Embed(title=f"***<a:no:771786741312782346> {command} is already enabled.***",
-                                  description=None, color=discord.Color.red())
-            await ctx.send(embed=embed)
+            if enabled and found:
+                await ctx.send(embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already enabled.***",
+                                      description=None, color=discord.Color.red()))
 
     @commands.command(aliases=["setwelcomechannel"])
     @commands.has_permissions(manage_guild=True)
@@ -121,14 +118,36 @@ class ServerCog(commands.Cog):
                                       "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False",
                                                    "welcome": "False",
                                                    "invitecheck": "False", "linkcheck": "False", "antispam": "False",
-                                                   "ranking": "True", "economy": "True", "moderation": "True"},
+                                                   "ranking": "True"},
                                       "blacklist": {},
                                       "goodbye": {},
+                                      "welcome": {},
                                       "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
                                       "levelroles": {}}
+            with open('servers.json', 'w') as f:
+                json.dump(storage, f, indent=4)
+        if guild.id == 336642139381301249:
+            storage[str(guild.id)] = {"prefix": '%',
+                                      "commands": {"goodbye": "False", "nitro": "False", "nonocheck": "False",
+                                                   "welcome": "False",
+                                                   "invitecheck": "False", "linkcheck": "False", "antispam": "False",
+                                                   "ranking": "False"},
+                                      "blacklist": {},
+                                      "goodbye": {},
+                                      "welcome": {},
+                                      "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
+                                      "levelroles": {}}
+            with open('servers.json', 'w') as f:
+                json.dump(storage, f, indent=4)
 
+    @commands.Cog.listener()
+    async def on_guild_leave(self, guild):
+        with open('servers.json', 'r') as f:
+            storage = json.load(f)
+            storage.pop(str(guild.id))
         with open('servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
+
 
     @commands.command(aliases=["mutechannel", "lockdown", "lock"])
     @commands.has_permissions(manage_guild=True)

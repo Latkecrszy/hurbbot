@@ -6,6 +6,7 @@ from discord.ext.commands.cooldowns import BucketType
 from itertools import cycle
 from io import StringIO
 import sys
+import traceback
 
 
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
@@ -329,31 +330,33 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=["eval", "exec"])
     async def execute(self, ctx, *, expression):
+        if "while True" not in expression and ctx.author.id != 776919872286097462:
+            if expression.startswith("```py"):
+                expression = [char for char in expression]
+                for _ in range(5):
+                    expression.pop(0)
+                expression = "".join(expression)
+            elif expression.startswith("```"):
+                expression = [char for char in expression]
+                for _ in range(3):
+                    expression.pop(0)
+                expression = "".join(expression)
+            if expression.endswith("```"):
+                expression = [char for char in expression]
+                for _ in range(3):
+                    expression.pop(-1)
+                expression = "".join(expression)
+            print(expression)
+            old_stdout = sys.stdout
+            sys.stdout = mystdout = StringIO()
+            try:
+                exec(expression)
+                sys.stdout = old_stdout
+                embed = discord.Embed(description=f"```py{expression}```\n\n```py{mystdout.getvalue()}``")
+                await ctx.send(embed=embed)
+            except:
+                pass
 
-        if expression.startswith("```py"):
-            expression = [char for char in expression]
-            for _ in range(5):
-                expression.pop(0)
-            expression = "".join(expression)
-        elif expression.startswith("```"):
-            expression = [char for char in expression]
-            for _ in range(3):
-                expression.pop(0)
-            expression = "".join(expression)
-        if expression.endswith("```"):
-            expression = [char for char in expression]
-            for _ in range(3):
-                expression.pop(-1)
-            expression = "".join(expression)
-        print(expression)
-        old_stdout = sys.stdout
-        sys.stdout = mystdout = StringIO()
-        exec(expression)
-
-        sys.stdout = old_stdout
-
-        message = mystdout.getvalue()
-        await ctx.send(f"```py\n{message}```")
 
 
 def setup(bot):

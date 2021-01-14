@@ -23,10 +23,24 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
 
 
 def getprefix(_bot, message):
-    storage = json.load(open("servers.json"))
     if message.guild is None:
         return "%"
     else:
+        storage = json.load(open("servers.json"))
+        if str(message.guild.id) not in storage:
+            storage[str(message.guild.id)] = {"prefix": '%',
+                                              "commands": {"goodbye": "False", "nitro": "False", "nonocheck": "False",
+                                                           "welcome": "False",
+                                                           "invitecheck": "False", "linkcheck": "False",
+                                                           "antispam": "False",
+                                                           "ranking": "False"},
+                                              "blacklist": {},
+                                              "goodbye": {},
+                                              "welcome": {},
+                                              "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
+                                              "levelroles": {}}
+            json.dump(storage, open("servers.json", "w"), indent=4)
+        storage = json.load(open("servers.json"))
         return commands.when_mentioned_or(storage[str(message.guild.id)]["prefix"])(_bot, message)
 
 
@@ -57,7 +71,7 @@ async def prefix(ctx, new_prefix=None):
             embed=discord.Embed(description=f"The prefix for this server is `{storage[str(ctx.guild.id)]['prefix']}`"))
     else:
         storage[str(ctx.guild.id)]['prefix'] = new_prefix
-        with open('servers', 'w') as f:
+        with open('servers.json', 'w') as f:
             json.dump(storage, f, indent=4)
 
         await ctx.send(f"{ctx.guild.name}'s prefix has been changed to `{new_prefix}`")

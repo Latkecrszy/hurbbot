@@ -226,7 +226,8 @@ class HelpCog(commands.Cog):
                                 "`%leaderboard`": ["None", "Take a look at the leaderboard for the server.", "`%leaderboard`"],
                                 "`%levelupchannel`": ["channel name/none", "Set a message to send level up messages in, or set it to none to have them send in the user's active channel.", "`%levelupchannel #level-up`"],
                                 "%levelrole": ["add/remove, level, role", "Sets a role to assign once a member reaches a certain level.", "%levelrole add 5 cool person"],
-                                "`%rankcolor`": ["emoji", "Set an emoji to display your rank as, or even set it to a word if you want!", "`%rankcolor ✨`"]}
+                                "`%rankcolor`": ["emoji", "Set an emoji to display your rank as, or even set it to a word if you want!", "`%rankcolor ✨`"],
+                                "`%xpspeed`": ["speed", "Set your server's XP speed to anything between 0 and 2. Speed it up, or slow it down? The choice is yours to make.", "`%xpsped 1.25`"]}
                 for key, value in rankFeatures.items():
                     rankEmbed.add_field(name=key, value=f"**Parameters**: *{value[0]}*\n**What it does**: *{value[1]}*\n**Example**: {value[2]}", inline=False)
                 rankEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/716377034728931331/796249376161923082/ranking.png")
@@ -280,7 +281,7 @@ class HelpCog(commands.Cog):
             serverEmbed.add_field(name="kick <member> <optional: reason>",
                                   value="kicks a member from your server. They will be able to rejoin. You must have admin privileges to do this.")
             serverEmbed.add_field(name="ban <member> <optional: reason>",
-                                  value="bans a member from your server. You can undo this in server settings. You must have admin privileges to do this.")
+                                  value="bans a member from your server. You can undo this in server await settings. You must have admin privileges to do this.")
             serverEmbed.add_field(name="enable <command>",
                                   value="Enables a given command and allows it to be used in your server.")
             serverEmbed.add_field(name="disable <command>",

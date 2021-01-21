@@ -3,8 +3,7 @@ from pymongo import MongoClient
 
 dotenv.load_dotenv()
 LINK = os.environ.get("LINK", None)
-cluster = MongoClient(LINK)
-db = cluster["hurb"]
-collection = db["settings"]
+cluster = AsyncIOMotorClient(LINK)
+settings = cluster["hurb"]["settings"]
 post = {"_id": 0, "name": "seth"}
-stuff = collection.find_one_and_replace(post).inserted_id
+stuff = await settings.find_one_and_replace(post).inserted_id

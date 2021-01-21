@@ -4,6 +4,8 @@ import json
 from discord.ext.commands.cooldowns import BucketType
 import random
 
+cards = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+
 
 class Blackjack(commands.Cog):
     def __init__(self, bot):
@@ -12,12 +14,12 @@ class Blackjack(commands.Cog):
 
     def deal(self, id, person):
         person = f"{person}_hand"
-        self.info[str(id)][person] = [random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]), random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"])]
+        self.info[str(id)][person] = [random.choice(cards), random.choice(cards)]
         return self.info[str(id)][person]
 
     def hitHand(self, id, person):
         person = f"{person}_hand"
-        self.info[str(id)][person].append(random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]))
+        self.info[str(id)][person].append(random.choice(cards))
         return self.info[str(id)][person]
 
     def total(self, hand):
@@ -35,54 +37,29 @@ class Blackjack(commands.Cog):
         return value
 
     async def blackJackCheck(self, ctx):
-        playerHand = self.info[str(ctx.author.id)]["player_hand"]
-        dealerHand = self.info[str(ctx.author.id)]["dealer_hand"]
+        playerHand, dealerHand = self.info[str(ctx.author.id)]["player_hand"], self.info[str(ctx.author.id)]["dealer_hand"]
         if self.total(playerHand) == 21 or self.total(dealerHand) == 21:
-            playerDisplayHand = ""
-            for i in playerHand:
-                playerDisplayHand += f"`{i}` "
-            dealerDisplayHand = ""
-            for i in dealerHand:
-                dealerDisplayHand += f"`{i}` "
-            # playerTotal = self.total(playerHand)
-            # dealerTotal = self.total(dealerHand)
+            playerDisplayHand = "".join(f"`{i}` " for i in playerHand)
+            dealerDisplayHand = "".join(f"`{i}` " for i in dealerHand)
+            embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:")
+            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
+                            value=f"Total ==> `{self.total(playerHand)}`", inline=True)
+            embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
+                            value=f"Total ==> `{self.total(dealerHand)}`", inline=True)
             if self.total(playerHand) == 21:
                 if self.total(dealerHand) == 21:
-                    embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:",
-                                          color=discord.Color.gold())
-                    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-                    embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
-                                    value=f"Total ==> `{self.total(playerHand)}`", inline=True)
-                    embed.add_field(name=f"**Hurb**:\nCards ==> {playerDisplayHand}",
-                                    value=f"Total ==> `{self.total(dealerHand)}`", inline=True)
-                    embed.add_field(name="It's a tie! You both got blackjack!", value="Your balance stayed the same.",
-                                    inline=False)
-                    await ctx.send(embed=embed)
+                    embed.add_field(name="It's a tie! You both got blackjack!", value="Your balance stayed the same.", inline=False)
                     self.info.pop(str(ctx.author.id))
-
-                elif self.total(dealerHand) != 21:
-                    embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:",
-                                          color=discord.Color.green())
-                    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-                    embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
-                                    value=f"Total ==> `{self.total(playerHand)}`", inline=True)
-                    embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
-                                    value=f"Total ==> `{self.total(dealerHand)}`", inline=True)
+                else:
                     if len(self.info[str(ctx.author.id)]["player_hand"]) == 2:
-                        embed.add_field(name="You won! You got a blackjack!",
-                                        value=f"You won ${int(self.info[str(ctx.author.id)]['bet']) * 1.5}!",
-                                        inline=False)
-                        await ctx.send(embed=embed)
+                        embed.add_field(name="You won! You got a blackjack!", value=f"You won ${int(self.info[str(ctx.author.id)]['bet']) * 1.5}!", inline=False)
                         storage = json.load(open("servers.json"))
                         players = storage["players"]
-
                         players[str(ctx.author.id)]['money'] += self.info[str(ctx.author.id)]['bet'] * 1.5
                         self.info.pop(str(ctx.author.id))
                     else:
-                        embed.add_field(name="You won! You reached 21 before the dealer!",
-                                        value=f"You won ${int(self.info[str(ctx.author.id)]['bet'])}!",
-                                        inline=False)
-                        await ctx.send(embed=embed)
+                        embed.add_field(name="You won! You reached 21 before the dealer!", value=f"You won ${int(self.info[str(ctx.author.id)]['bet'])}!", inline=False)
                         storage = json.load(open("servers.json"))
                         players = storage["players"]
 
@@ -93,23 +70,16 @@ class Blackjack(commands.Cog):
                 return True
 
             elif self.total(dealerHand) == 21:
-                embed = discord.Embed(title=f"{ctx.author.display_name}'s blackjack game:", color=discord.Color.red())
-                embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-                embed.add_field(name=f"**{ctx.author.display_name}**:\nCards ==> {playerDisplayHand}",
-                                value=f"Total ==> `{self.total(playerHand)}`", inline=True)
-                embed.add_field(name=f"**Hurb**:\nCards ==> {dealerDisplayHand}",
-                                value=f"Total ==> `{self.total(dealerHand)}`", inline=True)
                 embed.add_field(name="The dealer reached 21 before you did. You lost.",
                                 value=f"You lost ${self.info[str(ctx.author.id)]['bet']}.",
                                 inline=False)
-                await ctx.send(embed=embed)
                 storage = json.load(open("servers.json"))
                 players = storage["players"]
                 storage["players"] = players
                 json.dump(storage, open("servers.json", "w"), indent=4)
-                json.dump(storage, open("servers.json", "w"), indent=4)
                 self.info.pop(str(ctx.author.id))
                 return True
+            await ctx.send(embed=embed)
 
         else:
             return False

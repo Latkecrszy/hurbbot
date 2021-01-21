@@ -1,8 +1,15 @@
 import discord
 from discord.ext import commands
 import asyncio
-import json
 import random
+import os
+from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import MongoClient
+import dotenv
+
+dotenv.load_dotenv()
+
+LINK = os.environ.get("LINK", None)
 
 mutedMembers = []
 kicked = []
@@ -15,19 +22,6 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
                discord.Color.green(), discord.Color.greyple(), discord.Color.light_grey(), discord.Color.magenta(),
                discord.Color.orange(), discord.Color.purple(), discord.Color.teal(),
                discord.Color.red()]
-
-
-def is_me(command):
-    def predicate(ctx):
-        with open('servers.json', 'r') as f:
-            storage = json.load(f)
-            commandsList = storage[str(ctx.guild.id)]["commands"]
-            if commandsList[command] == "True":
-                return True
-            else:
-                return False
-
-    return commands.check(predicate)
 
 
 def muteTimeCalc(muteTime):
@@ -83,6 +77,7 @@ class MemberCog(commands.Cog):
         self.mutedRoles = {}
         self.spammers = {}
 
+
     @commands.command()
     @commands.has_permissions(manage_guild=True)
     async def mute(self, ctx, member: discord.Member, *, reason="There was no reason for this muting."):
@@ -124,13 +119,16 @@ class MemberCog(commands.Cog):
                     description=f"***<a:check:771786758442188871>  {member.mention} has been muted for {muteTime} seconds.***",
                     colour=discord.Colour.green())
                 embed.set_footer(text=f"Reason: {reason}")
-                await ctx.send(embed=embed)
+                try:
+                    await member.add_roles(role, reason=reason)
+                    await ctx.send(embed=embed)
+                except discord.errors.Forbidden:
+                    await ctx.send(embed=discord.Embed(
+                        description=f"I do not have the required permissions to mute that person {ctx.author.mention}! To fix this, please try either moving my role higher than the mute role, or giving me the `manage_roles` permission."))
                 for roles in member.roles:
-                    if roles != ctx.guild.default_role:
+                    if roles != ctx.guild.default_role and roles != role:
                         self.mutedRoles[str(member)].append(roles)
                         await member.remove_roles(roles)
-
-                await member.add_roles(role, reason=reason)
                 await asyncio.sleep(int(muteTime))
                 await self.unmute(ctx, member)
             else:
@@ -178,14 +176,14 @@ class MemberCog(commands.Cog):
                                                   color=discord.Color.red()))
             await ctx.guild.kick(member)
             embed = discord.Embed(
-                description=f"***<:check:742198670912651316> {member.mention} has been kicked by {ctx.author.mention}.***",
+                description=f"***<a:check:771786758442188871> {member.mention} has been kicked by {ctx.author.mention}.***",
                 color=discord.Color.green())
             embed.set_footer(text=f"Reason: {reason}")
             await ctx.send(embed=embed)
 
         elif member.guild_permissions.administrator:
             embed = discord.Embed(
-                description=f"***<:x_:742198871085678642> {member.mention} has failed to be kicked by {ctx.author.mention} because they are an admin/mod.***",
+                description=f"***<a:no:771786741312782346> {member.mention} has failed to be kicked by {ctx.author.mention} because they are an admin/mod.***",
                 color=discord.Color.red())
             await ctx.send(embed=embed)
 
@@ -202,13 +200,13 @@ class MemberCog(commands.Cog):
                 pass
             await ctx.guild.ban(member)
             embed = discord.Embed(
-                description=f"***<:check:742198670912651316> {member.mention} has been banned by {ctx.author.mention}.***",
+                description=f"***<a:check:771786758442188871> {member.mention} has been banned by {ctx.author.mention}.***",
                 color=discord.Color.green())
             embed.set_footer(text=f"Reason: {reason}")
             await ctx.send(embed=embed)
         except:
             embed = discord.Embed(
-                title=f"*<:x_:742198871085678642> {member} has failed to be banned by {ctx.author.display_name} because they are an admin/mod.*",
+                title=f"*<a:no:771786741312782346> {member} has failed to be banned by {ctx.author.display_name} because they are an admin/mod.*",
                 description=None, color=discord.Color.red())
             await ctx.send(embed=embed)
 
@@ -235,45 +233,41 @@ class MemberCog(commands.Cog):
             await member.send(embed=discord.Embed(title=f"You have been warned in **{ctx.guild}** by **{ctx.author}**.",
                                                   description=f"Reason: {reason}"))
             embed = discord.Embed(
-                description=f"***<:check:742198670912651316> {member.mention} has been warned.***",
+                description=f"***<a:check:771786758442188871> {member.mention} has been warned.***",
                 colour=discord.Colour.green())
             await ctx.send(embed=embed)
         else:
             await ctx.send(embed=discord.Embed(
-                title=f"***<:x_:742198871085678642> {member.display_name} cannot be warned, as they are an administrator.***",
+                title=f"***<a:no:771786741312782346> {member.display_name} cannot be warned, as they are an administrator.***",
                 color=discord.Color.red()))
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        with open("servers.json", "r") as f:
-            storage = json.load(f)
-        if "welcome" in storage[str(member.guild.id)]:
-            welcomeChannels = storage[str(member.guild.id)]["welcome"]
-            if "id" in welcomeChannels:
-                channel = member.guild.get_channel(int(welcomeChannels["id"]))
-                message = welcomeChannels["message"]
+        storage = await self.bot.cluster.find_one({"id": str(member.guild.id)})
+        if "welcome" in storage:
+            if "id" in storage["welcome"]:
+                channel = member.guild.get_channel(int(storage["welcome"]["id"]))
+                message = storage["welcome"]["message"]
                 if message.find("{member}"):
                     await channel.send(message.format(member=member.mention))
                 for role in member.roles:
                     if str(role).lower() == "muted":
                         mutedMembers.append(str(member))
 
-            with open("servers.json") as f:
-                storage = json.load(f)
+            await self.bot.cluster.find_one_and_replace({"id": str(member.guild.id)}, storage)
 
-            if "autoroles" in storage[str(member.guild.id)].keys():
-                autoroles = storage[str(member.guild.id)]["autoroles"]
-                for role in autoroles[str(member.guild.id)]:
+            if "autoroles" in storage.keys():
+                autoroles = storage["autoroles"]
+                for role in autoroles:
                     addRole = discord.utils.get(member.guild.roles, name=role)
                     if addRole is not None:
                         await member.add_roles(addRole)
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        with open("servers.json", "r") as f:
-            storage = json.load(f)
-        if "goodbye" in storage[str(member.guild.id)].keys():
-            goodbyeChannels = storage[str(member.guild.id)]["goodbye"]
+        storage = await self.bot.cluster.find_one({"id": str(member.guild.id)})
+        if "goodbye" in storage.keys():
+            goodbyeChannels = storage["goodbye"]
             if "id" in goodbyeChannels:
                 channel = member.guild.get_channel(int(goodbyeChannels["id"]))
                 message = goodbyeChannels["message"]
@@ -326,12 +320,10 @@ class MemberCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def modmute(self, ctx, member: discord.Member):
-
-        with open("servers.json", "r") as f:
-            storage = json.load(f)
-        if "mutedmods" not in storage[str(ctx.guild.id)].keys():
-            storage[str(ctx.guild.id)]["mutedmods"] = {}
-        mutedMods = storage[str(ctx.guild.id)]["mutedmods"]
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+        if "mutedmods" not in storage.keys():
+            storage["mutedmods"] = {}
+        mutedMods = storage["mutedmods"]
         if str(member.id) == "670493561921208320":
             if str(ctx.author.id) == "670493561921208320":
                 embed = discord.Embed(
@@ -339,48 +331,45 @@ class MemberCog(commands.Cog):
             else:
                 embed = discord.Embed(
                     description=f"Uh NOPE {ctx.author.mention}, you ain't pullin that one on my creator. You know what? I'm gonna mute YOU instead.")
-                mutedMods[str(ctx.author)] = str(ctx.guild)
+                mutedMods[str(ctx.author.id)] = str(ctx.guild.id)
         elif str(member.id) == "736283988628602960":
             embed = discord.Embed(
                 description=f"HA you stupid idiot you thought you could mute me? NO son, u gettin the mute instead.",
                 color=discord.Color.red())
-            mutedMods[str(ctx.author.id)] = str(ctx.guild)
+            mutedMods[str(ctx.author.id)] = str(ctx.guild.id)
         elif str(member.id) not in mutedMods.keys():
             embed = discord.Embed(
-                description=f"*<:check:742198670912651316> {member.mention} has been modmuted by {ctx.author.mention}.*",
+                description=f"*<a:check:771786758442188871> {member.mention} has been modmuted by {ctx.author.mention}.*",
                 color=discord.Color.green())
             mutedMods[str(member.id)] = str(ctx.guild.id)
         else:
             embed = discord.Embed(
-                description=f"*<:x_:742198871085678642> {member.mention} is already muted {ctx.author.mention}!*",
+                description=f"*<a:no:771786741312782346> {member.mention} is already muted {ctx.author.mention}!*",
                 color=discord.Color.red())
         await ctx.send(embed=embed)
-        storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
-        with open("servers.json", "w") as f:
-            json.dump(storage, f, indent=4)
+        storage["mutedmods"] = mutedMods
+        await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
     @commands.command(aliases=["unmodmute"])
     @commands.has_permissions(administrator=True)
     async def modunmute(self, ctx, member: discord.Member):
-        with open("servers.json", "r") as f:
-            storage = json.load(f)
-        if "mutedmods" not in storage[str(ctx.guild.id)].keys():
-            storage[str(ctx.guild.id)]["mutedmods"] = {}
-        mutedMods = storage[str(ctx.guild.id)]["mutedmods"]
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+        if "mutedmods" not in storage.keys():
+            storage["mutedmods"] = {}
+        mutedMods = storage["mutedmods"]
         if str(member.id) in mutedMods.keys() and str(ctx.author.id) not in mutedMods.keys():
             embed = discord.Embed(
-                description=f"*<:check:742198670912651316> {member.mention} has been unmuted by {ctx.author.mention}.*",
+                description=f"*<a:check:771786758442188871> {member.mention} has been unmuted by {ctx.author.mention}.*",
                 color=discord.Color.green())
             mutedMods.pop(str(member.id))
         else:
             embed = discord.Embed(
-                description=f"*<:x_:742198871085678642>{member.mention} is not muted {ctx.author.mention}!*",
+                description=f"*<a:no:771786741312782346>{member.mention} is not muted {ctx.author.mention}!*",
                 color=discord.Color.red())
 
         await ctx.send(embed=embed)
-        storage[str(ctx.guild.id)]["mutedmods"] = mutedMods
-        with open("servers.json", "w") as f:
-            json.dump(storage, f, indent=4)
+        storage["mutedmods"] = mutedMods
+        await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
     @commands.command(aliases=["reminder"])
     async def timer(self, ctx, time, *, reminder="No reminder"):
@@ -415,34 +404,53 @@ class MemberCog(commands.Cog):
             await asyncio.sleep(time)
         await ctx.send(f"{ctx.author.mention} your timer is up!\nReminder: {reminder}")
 
+    async def spamcheck(self, message, storage):
+        if storage["commands"]["antispam"] == "True":
+            mentions = 0
+            content = message.content.split(" ")
+            for i in content:
+                if i.find(f"<") != -1 and i.find(f">") != -1 and i.find(f"@") != -1:
+                    mentions += 1
+                if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
+                    mentions += 1
+            if mentions >= 3:
+                ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
+                await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
+            elif mentions >= 1:
+                if str(message.author.id) in self.spammers.keys():
+                    self.spammers[str(message.author.id)] += 1
+                else:
+                    self.spammers[str(message.author.id)] = 1
+            if str(message.author.id) in self.spammers.keys():
+                if self.spammers[str(message.author.id)] >= 3:
+                    ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
+                    await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
+                await asyncio.sleep(15)
+                self.spammers[str(message.author.id)] = 0
+
+    async def blacklistcheck(self, message, storage):
+        ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
+        for key, value in storage["blacklist"].items():
+            if key in message.content.lower():
+                reason = f"Sending the word {key} in {message.guild}."
+                await message.delete()
+                if value == "ban":
+                    await self.ban(ctx, message.author, reason=reason)
+                elif value == "kick":
+                    await self.kick(ctx, message.author, reason=reason)
+                elif value == "mute":
+                    await self.mute(ctx, message.author, reason=reason)
+                elif value == "warn":
+                    await self.warn(ctx, message.author, reason=reason)
+                break
+
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.guild is not None:
-            if isinstance(message.author, discord.Member):
-                if not message.author.guild_permissions.administrator:
-                    storage = json.load(open("servers.json"))
-                    if storage[str(message.guild.id)]["commands"]["antispam"] == "True":
-                        mentions = 0
-                        content = message.content.split(" ")
-                        for i in content:
-                            if i.find(f"<") != -1 and i.find(f">") != -1 and i.find(f"@") != -1:
-                                mentions += 1
-                            if i.find("@everyone") != -1 or i.find(str(message.guild.default_role)) != -1:
-                                mentions += 1
-                        if mentions >= 3:
-                            ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
-                            await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
-                        elif mentions >= 1:
-                            if str(message.author.id) in self.spammers.keys():
-                                self.spammers[str(message.author.id)] += 1
-                            else:
-                                self.spammers[str(message.author.id)] = 1
-                        if str(message.author.id) in self.spammers.keys():
-                            if self.spammers[str(message.author.id)] >= 3:
-                                ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
-                                await self.mute(ctx, message.author, reason=f"Spam pinging in {message.channel}")
-                            await asyncio.sleep(15)
-                            self.spammers[str(message.author.id)] = 0
+        if message.guild is not None and not isinstance(message.author, discord.User):
+            if not message.author.guild_permissions.administrator:
+                storage = await self.bot.cluster.find_one({"id": str(message.guild.id)})
+                await self.blacklistcheck(message, storage)
+                await self.spamcheck(message, storage)
 
     @commands.command()
     async def avatar(self, ctx, *, member: discord.Member = None):
@@ -450,30 +458,10 @@ class MemberCog(commands.Cog):
             member = ctx.author
         await ctx.send(member.avatar_url)
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if not isinstance(message.author, discord.User):
-            if message.guild is not None and not message.author.guild_permissions.administrator:
-                storage = json.load(open("servers.json"))
-                for key, value in storage[str(message.guild.id)]["blacklist"].items():
-                    if key in message.content.lower():
-                        reason = f"Sending the word {key} in {message.guild}."
-                        ctx = await self.bot.get_context(message, cls=discord.ext.commands.context.Context)
-                        await message.delete()
-                        if value == "ban":
-                            await self.ban(ctx, message.author, reason=reason)
-                        elif value == "kick":
-                            await self.kick(ctx, message.author, reason=reason)
-                        elif value == "mute":
-                            await self.mute(ctx, message.author, reason=reason)
-                        elif value == "warn":
-                            await self.warn(ctx, message.author, reason=reason)
-                        break
-
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def blacklist(self, ctx, condition, word=None, *, punishment=None):
-        storage = json.load(open("servers.json"))
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
         if condition.lower() == "add" or condition.lower() == "set":
             punishments = ["ban", "kick", "mute", "warn"]
             word = word.lower()
@@ -482,24 +470,31 @@ class MemberCog(commands.Cog):
                     description=f"Please specify a punishment when ||{word}|| is said {ctx.author.mention}! The punishments to choose from are `{'`, `'.join(punishments)}`, and `delete`.",
                     color=discord.Color.red()))
             elif punishment.lower() in punishments or punishment.lower() == "delete":
-                storage[str(ctx.guild.id)]["blacklist"][word] = punishment.lower()
+                storage["blacklist"][word] = punishment.lower()
+                print(storage)
+                await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
+                print(storage)
                 await ctx.send(embed=discord.Embed(description=f"||{word}|| has been added to the blacklist.",
                                                    color=discord.Color.green()))
+
             else:
                 await ctx.send(embed=discord.Embed(
-                    description=f"Please choose a valid punishment {ctx.author.mention}! Valid punishments are `{'`, `'.join(punishments)}`, and `delete`.", color=discord.Color.red()))
+                    description=f"Please choose a valid punishment {ctx.author.mention}! Valid punishments are `{'`, `'.join(punishments)}`, and `delete`.",
+                    color=discord.Color.red()))
         elif condition.lower() == "remove":
-            if word.lower() in storage[str(ctx.guild.id)]["blacklist"].keys():
-                storage[str(ctx.guild.id)]["blacklist"].pop(word.lower())
+            if word.lower() in storage["blacklist"].keys():
+                storage["blacklist"].pop(word.lower())
                 await ctx.send(embed=discord.Embed(description=f"{word} has been removed from the blacklist.",
                                                    color=discord.Color.green()))
+                await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
             else:
                 await ctx.send(embed=discord.Embed(description=f"{word} is not in the blacklist {ctx.author.mention}!",
                                                    color=discord.Color.red()))
         elif condition.lower() == "view":
-            if storage[str(ctx.guild.id)]["blacklist"]:
+            print(storage["blacklist"])
+            if storage["blacklist"]:
                 embed = discord.Embed(title=f"Blacklisted Words")
-                for word, punishment in storage[str(ctx.guild.id)]["blacklist"].items():
+                for word, punishment in storage["blacklist"].items():
                     embed.add_field(name=f"Word: ||{word}||", value=f"Punishment: **{punishment}**.")
 
                 await ctx.send(embed=embed)
@@ -507,8 +502,9 @@ class MemberCog(commands.Cog):
                 await ctx.send(embed=discord.Embed(description=f"There are no blacklisted words in {ctx.guild}!",
                                                    color=discord.Color.red()))
         else:
-            await ctx.send(embed=discord.Embed(description=f"Please choose a valid condition for blacklisting: `add`, `remove`, or `view`.", color=discord.Color.red()))
-        json.dump(storage, open("servers.json", "w"), indent=4)
+            await ctx.send(embed=discord.Embed(
+                description=f"Please choose a valid condition for blacklisting: `add`, `remove`, or `view`.",
+                color=discord.Color.red()))
 
 
 def setup(bot):

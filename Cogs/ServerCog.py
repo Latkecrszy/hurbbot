@@ -2,7 +2,13 @@ import discord
 import json
 from discord.ext import commands
 import random
+from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
+import dotenv
+import os
+
+dotenv.load_dotenv()
+LINK = os.environ.get("LINK", None)
 
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
                discord.Color.dark_green(), discord.Color.dark_grey(), discord.Color.dark_grey(),
@@ -14,6 +20,19 @@ embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark
                discord.Color.red()]
 
 
+def calcDate(guild):
+    months = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
+              "8": "August", "9": "September", "10": "October", "11": "November", "12": "December"}
+    created = str(guild.created_at).split(" ")
+    newCreate = created[1].split(".")
+    del created[1]
+    created.append(newCreate)
+    created[1][0].split(":")
+    createTime = created[0].split("-")
+    createMonth = months[str(int(createTime[1]))]
+    return f"{createMonth} {createTime[2]}, {createTime[0]}"
+
+
 class ServerCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -21,73 +40,61 @@ class ServerCog(commands.Cog):
         self.everyoneStatus = {}
 
     @commands.command()
-    @commands.has_permissions(administrator=True)
     async def disable(self, ctx, command):
-        if ctx.author.guild_permissions.administrator or ctx.author.id == 751667811931390012:
-            found = False
-            disabled = True
-            with open('servers.json', 'r') as f:
-                storage = json.load(f)
-                commandsList = storage[str(ctx.guild.id)]["commands"]
-            for Command, condition in commandsList.items():
-                if Command == command.lower():
-                    found = True
-                    if condition == "True":
-                        commandsList[Command] = 'False'
-                        await ctx.send(embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
-                                              description=None, color=discord.Color.green()))
-                        storage[str(ctx.guild.id)]["commands"] = commandsList
-                        disabled = False
-
-            with open('servers.json', 'w') as f:
-                json.dump(storage, f, indent=4)
-
-            if not found:
+        if ctx.author.guild_permissions.administrator or ctx.author.id == 670493561921208320:
+            storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+            command = command.lower()
+            if command in storage["commands"]:
+                if storage["commands"][command] == "True":
+                    await ctx.send(
+                        embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
+                                            description=None, color=discord.Color.green()))
+                    storage['commands'][command] = "False"
+                else:
+                    await ctx.send(
+                        embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already disabled.***",
+                                            color=discord.Color.red()))
+            else:
                 await ctx.send(f"I could not find that command, {ctx.author.mention}!")
-
-            if disabled and found:
-                await ctx.send(embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already disabled.***",
-                                      description=None, color=discord.Color.red()))
+            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
     @commands.command()
     async def enable(self, ctx, command):
-        if ctx.author.guild_permissions.administrator or ctx.author.id == 751667811931390012:
+        if ctx.author.guild_permissions.administrator or ctx.author.id == 670493561921208320:
             found = False
             enabled = True
-            with open('servers.json', 'r') as f:
-                storage = json.load(f)
-                commandsList = storage[str(ctx.guild.id)]["commands"]
+            storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+            commandsList = storage["commands"]
             for Command, condition in commandsList.items():
                 if Command == command.lower():
                     found = True
                     if condition == "False":
                         commandsList[Command] = 'True'
-                        await ctx.send(embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
-                                              description=None, color=discord.Color.green()))
-                        storage[str(ctx.guild.id)]["commands"] = commandsList
+                        await ctx.send(
+                            embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
+                                                description=None, color=discord.Color.green()))
+                        storage["commands"] = commandsList
                         enabled = False
 
-            with open('servers.json', 'w') as f:
-                json.dump(storage, f, indent=4)
+            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
             if not found:
                 await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
             if enabled and found:
-                await ctx.send(embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already enabled.***",
-                                      description=None, color=discord.Color.red()))
+                await ctx.send(
+                    embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already enabled.***",
+                                        description=None, color=discord.Color.red()))
 
     @commands.command(aliases=["setwelcomechannel"])
     @commands.has_permissions(manage_guild=True)
     async def welcome(self, ctx, channel: discord.TextChannel, *, message=None):
-        with open("servers.json", "r") as f:
-            storage = json.load(f)
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
         if message is not None:
-            if "welcome" in storage[str(ctx.guild.id)].keys():
-                storage[str(ctx.guild.id)].pop("welcome")
-            storage[str(ctx.guild.id)]["welcome"] = {"id": str(channel.id), "message": str(message)}
-            with open("servers.json", "w") as f:
-                json.dump(storage, f, indent=4)
+            if "welcome" in storage.keys():
+                storage.pop("welcome")
+            storage["welcome"] = {"id": str(channel.id), "message": str(message)}
+            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
             await ctx.send(
                 f"Ok, {ctx.author.mention}, I've set the welcome channel for this server to {channel.mention}!")
         else:
@@ -96,14 +103,12 @@ class ServerCog(commands.Cog):
     @commands.command(aliases=["setgoodbyechannel"])
     @commands.has_permissions(manage_guild=True)
     async def goodbye(self, ctx, channel: discord.TextChannel, *, message=None):
-        with open("servers.json", "r") as f:
-            storage = json.load(f)
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
         if message is not None:
-            if "goodbye" in storage[str(ctx.guild.id)].keys():
-                storage[str(ctx.guild.id)].pop("goodbye")
-            storage[str(ctx.guild.id)]["goodbye"] = {"id": str(channel.id), "message": str(message)}
-            with open("servers.json", "w") as f:
-                json.dump(storage, f, indent=4)
+            if "goodbye" in storage.keys():
+                storage.pop("goodbye")
+            storage["goodbye"] = {"id": str(channel.id), "message": str(message)}
+            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
             await ctx.send(
                 f"Ok, {ctx.author.mention}, I've set the goodbye channel for this server to {channel.mention}!")
         else:
@@ -111,43 +116,24 @@ class ServerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        with open('servers.json', 'r') as f:
-            storage = json.load(f)
-        if str(guild.id) not in storage.keys():
-            storage[str(guild.id)] = {"prefix": '%',
-                                      "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False",
-                                                   "welcome": "False",
-                                                   "invitecheck": "False", "linkcheck": "False", "antispam": "False",
-                                                   "ranking": "True"},
-                                      "blacklist": {},
-                                      "goodbye": {},
-                                      "welcome": {},
-                                      "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
-                                      "levelroles": {}}
-            with open('servers.json', 'w') as f:
-                json.dump(storage, f, indent=4)
-        if guild.id == 336642139381301249:
-            storage[str(guild.id)] = {"prefix": '%',
-                                      "commands": {"goodbye": "False", "nitro": "False", "nonocheck": "False",
-                                                   "welcome": "False",
-                                                   "invitecheck": "False", "linkcheck": "False", "antispam": "False",
-                                                   "ranking": "False"},
-                                      "blacklist": {},
-                                      "goodbye": {},
-                                      "welcome": {},
-                                      "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
-                                      "levelroles": {}}
-            with open('servers.json', 'w') as f:
-                json.dump(storage, f, indent=4)
+        storage = {"prefix": '%',
+                   "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False",
+                                "welcome": "False",
+                                "invitecheck": "False", "linkcheck": "False", "antispam": "False",
+                                "ranking": "True"},
+                   "blacklist": {},
+                   "goodbye": {},
+                   "welcome": {},
+                   "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
+                   "levelroles": {},
+                   "rank": {},
+                   "id": str(guild.id)}
+        await self.bot.cluster.insert_one(storage)
 
     @commands.Cog.listener()
-    async def on_guild_leave(self, guild):
-        with open('servers.json', 'r') as f:
-            storage = json.load(f)
-            storage.pop(str(guild.id))
-        with open('servers.json', 'w') as f:
-            json.dump(storage, f, indent=4)
-
+    async def on_guild_remove(self, guild):
+        cluster = self.bot.cluster
+        await cluster.find_one_and_delete({"id": str(guild.id)})
 
     @commands.command(aliases=["mutechannel", "lockdown", "lock"])
     @commands.has_permissions(manage_guild=True)
@@ -217,21 +203,9 @@ class ServerCog(commands.Cog):
 
         embed.add_field(name=f"<a:emojis:779163904592445461>  {len(guild.emojis)} Emojis",
                         value=f"**<a:catroll:779406198935781376>  {len(guild.roles)} Roles**")
-        embed.add_field(name=f"🗓️ Date Created", value=self.calcDate(guild))
+        embed.add_field(name=f"🗓️ Date Created", value=calcDate(guild))
         embed.set_author(name=f"{guild} Info", icon_url=guild.icon_url)
         await ctx.send(embed=embed)
-
-    def calcDate(self, guild):
-        months = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
-                  "8": "August", "9": "September", "10": "October", "11": "November", "12": "December"}
-        created = str(guild.created_at).split(" ")
-        newCreate = created[1].split(".")
-        del created[1]
-        created.append(newCreate)
-        created[1][0].split(":")
-        createTime = created[0].split("-")
-        createMonth = months[str(int(createTime[1]))]
-        return f"{createMonth} {createTime[2]}, {createTime[0]}"
 
     @commands.command()
     @commands.has_permissions(manage_guild=True)
@@ -244,30 +218,22 @@ class ServerCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def autorole(self, ctx, *, role: discord.Role):
-        with open("servers.json") as f:
-            storage = json.load(f)
-        if "autoroles" not in storage[str(ctx.guild.id)].keys():
-            storage[str(ctx.guild.id)]["autoroles"] = []
-        storage[str(ctx.guild.id)]["autoroles"].append(str(role.id))
-        with open("servers.json",
-                  "w") as f:
-            json.dump(storage, f, indent=4)
-
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+        storage["autoroles"] = [] if "autoroles" not in storage.keys() else storage["autoroles"].append(str(role.id))
         await ctx.send(embed=discord.Embed(
             description=f"{role.mention} has been set as an autorole for this server {ctx.author.mention}!"))
+        await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def removeautorole(self, ctx, *, role: discord.Role):
-        with open("servers.json") as f:
-            storage = json.load(f)
-        autoroles = storage[str(ctx.guild.id)]["autoroles"]
-        for i in range(len(autoroles[str(ctx.guild.id)])):
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+        autoroles = storage["autoroles"]
+        for i in range(len(autoroles)):
             if str(i).lower() == str(role).lower():
-                autoroles[str(ctx.guild.id)].pop(i)
-        storage[str(ctx.guild.id)]["autoroles"] = autoroles
-        with open("servers.json", "w") as f:
-            json.dump(autoroles, f, indent=4)
+                autoroles.pop(i)
+        storage["autoroles"] = autoroles
+        await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
         await ctx.send(embed=discord.Embed(
             description=f"{role.mention} has been removed as an autorole for this server {ctx.author.mention}!"))
@@ -305,22 +271,19 @@ class ServerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        with open("servers.json") as f:
-            storage = json.load(f)
-
-        if "commandCount" not in storage[str(ctx.guild.id)].keys():
-            storage[str(ctx.guild.id)]["commandCount"] = 0
-        storage[str(ctx.guild.id)]["commandCount"] += 1
-        json.dump(storage, open("servers.json", "w"), indent=4)
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+        if "commandCount" not in storage.keys():
+            storage["commandCount"] = 0
+        storage["commandCount"] += 1
+        await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
     @commands.command()
     async def Commands(self, ctx, condition=None):
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
         if condition is None:
-            storage = json.load(open("servers.json"))
             await ctx.send(
-                f"`{storage[str(ctx.guild.id)]['commandCount']}` commands have been sent in `{ctx.guild.name}`.")
+                f"`{storage['commandCount']}` commands have been sent in `{ctx.guild.name}`.")
         elif condition.lower() == "all":
-            storage = json.load(open("servers.json"))
             totalCommands = 0
             for value in storage.values():
                 try:
@@ -333,7 +296,36 @@ class ServerCog(commands.Cog):
     async def commandCount(self, ctx):
         await ctx.send(len(self.bot.commands))
 
-
+    @commands.command()
+    async def settings(self, ctx):
+        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+        embed = discord.Embed(title=f"Settings in {ctx.guild}")
+        enabled = [command for command, value in storage['commands'].items() if value == "True"]
+        disabled = [command for command, value in storage['commands'].items() if value == "False"]
+        embed.add_field(name=f"Prefix:", value=f"`{storage['prefix']}`")
+        embed.add_field(name=f"Enabled features:", value=f'`{"`, `".join(enabled)}`', inline=False)
+        embed.add_field(name=f"Disabled features:", value=f'`{"`, `".join(disabled)}`', inline=False)
+        if 'xpspeed' in storage:
+            embed.add_field(name=f"XP speed:", value=f"`{storage['xpspeed']}%`", inline=False)
+        if 'levelupmessage' in storage:
+            embed.add_field(name=f"Level up message:", value=f"`{storage['levelupmessage']}`", inline=False)
+        if 'levelupchannel' in storage:
+            if storage['levelupchannel']:
+                embed.add_field(name="Level up channel:",
+                                value=f"{ctx.guild.get_channel(int(storage['levelups'])).mention}", inline=False)
+        if 'levelroles' in storage:
+            if storage['levelroles']:
+                embed.add_field(name=f"Level roles:", value='\n'.join(
+                    [f"{ctx.guild.get_role(int(role)).mention} is earned at level {level}." for level, role in
+                     storage['levelroles'].items()]), inline=False)
+        if storage['blacklist']:
+            embed.add_field(name=f"Blacklisted Words:", value=f"||{'||, ||'.join(storage['blacklist'].keys())}||",
+                            inline=False)
+        if storage['commands']['welcome'] == "True":
+            embed.add_field(name=f"Welcome message:", value=storage["welcome"]["message"])
+        if storage['commands']['goodbye'] == "True":
+            embed.add_field(name=f"Welcome message:", value=storage["goodbye"]["message"])
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

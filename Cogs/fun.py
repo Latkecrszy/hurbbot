@@ -83,31 +83,31 @@ class Fun(commands.Cog):
             embed = discord.Embed(title=f"You tied! We both chose {choice}!")
         elif choice == "rock" and botChoice == "paper":
             embed = discord.Embed(
-                title=f"<:check:742198670912651316> I won! Paper triumphs! HAHA ***LOSER*** You suck lol")
+                title=f"<a:check:771786758442188871> I won! Paper triumphs! HAHA ***LOSER*** You suck lol")
         elif choice == "rock" and botChoice == "scissors":
             embed = discord.Embed(
-                title=f"<:x_:742198871085678642> Oh fucking shit, you won. Rock beats scissors. I'll beat the shit out of you next time.")
+                title=f"<a:no:771786741312782346> Oh fucking shit, you won. Rock beats scissors. I'll beat the shit out of you next time.")
             embed.set_image(
                 url="https://external-preview.redd.it/WWKFVkxfVnaWZkeOS0MT0BOfLtfk7V1NlXBSfLY2N7c.jpg?auto=webp&s=a52bcb55f2fdd09346665cc650bbdca01dd9c595")
         elif choice == "paper" and botChoice == "rock":
             embed = discord.Embed(
-                title=f"<:x_:742198871085678642> Oh fucking shit, you won. Paper beats rock. I'll beat the shit out of you next time.")
+                title=f"<a:no:771786741312782346> Oh fucking shit, you won. Paper beats rock. I'll beat the shit out of you next time.")
             embed.set_image(
                 url="https://external-preview.redd.it/WWKFVkxfVnaWZkeOS0MT0BOfLtfk7V1NlXBSfLY2N7c.jpg?auto=webp&s=a52bcb55f2fdd09346665cc650bbdca01dd9c595")
         elif choice == "paper" and botChoice == "scissors":
             embed = discord.Embed(
-                title=f"<:check:742198670912651316> I won! Scissors triumphs! HAHA ***LOSER*** You suck lol")
+                title=f"<a:check:771786758442188871> I won! Scissors triumphs! HAHA ***LOSER*** You suck lol")
         elif choice == "scissors" and botChoice == "paper":
             embed = discord.Embed(
-                title=f"<:x_:742198871085678642> Oh fucking shit, you won. Scissors beats paper. I'll beat the shit out of you next time.")
+                title=f"<a:no:771786741312782346> Oh fucking shit, you won. Scissors beats paper. I'll beat the shit out of you next time.")
             embed.set_image(
                 url="https://external-preview.redd.it/WWKFVkxfVnaWZkeOS0MT0BOfLtfk7V1NlXBSfLY2N7c.jpg?auto=webp&s=a52bcb55f2fdd09346665cc650bbdca01dd9c595")
         elif choice == "scissors" and botChoice == "rock":
             embed = discord.Embed(
-                title=f"<:check:742198670912651316> I won! Rock triumphs! HAHA ***LOSER*** You suck lol")
+                title=f"<a:check:771786758442188871> I won! Rock triumphs! HAHA ***LOSER*** You suck lol")
         else:
             embed = discord.Embed(
-                title=f"<:x_:742198871085678642> What the fuck were you THINKING man that ain't an option.")
+                title=f"<a:no:771786741312782346> What the fuck were you THINKING man that ain't an option.")
         await ctx.send(embed=embed)
 
     @commands.command()

@@ -1,14 +1,16 @@
 import asyncio
 import discord
 from discord.ext import commands
-import json
+import dotenv
+import os
+from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import MongoClient
+
+dotenv.load_dotenv()
+LINK = os.environ.get("LINK", None)
 
 
-def predicate(message, command):
-    with open('servers.json', 'r') as f:
-        storage = json.load(f)
-        commandsList = storage[str(message.guild.id)]["commands"]
-        return commandsList[command] == "True"
+
 
 
 async def nonocheck(message):
@@ -46,13 +48,10 @@ async def invitecheck(message):
         await warning.delete()
 
 
-async def modMuteCheck(message):
-    with open("servers.json",
-              "r") as f:
-        storage = json.load(f)
-    if "mutedmods" in storage[str(message.guild.id)].keys():
-        if str(message.author.id) in storage[str(message.guild.id)]["mutedmods"].keys():
-            if storage[str(message.guild.id)]["mutedmods"][str(message.author.id)] == str(message.guild.id):
+async def modMuteCheck(message, storage):
+    if "mutedmods" in storage.keys():
+        if str(message.author.id) in storage["mutedmods"].keys():
+            if storage["mutedmods"][str(message.author.id)] == str(message.guild.id):
                 await message.delete()
 
 
@@ -60,29 +59,19 @@ class MessageCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.guild is not None:
-            storage = json.load(open("servers.json"))
-            if str(message.guild.id) not in storage:
-                storage[str(message.guild.id)] = {"prefix": '%',
-                                      "commands": {"goodbye": "False", "nitro": "False", "nonocheck": "False",
-                                                   "welcome": "False",
-                                                   "invitecheck": "False", "linkcheck": "False", "antispam": "False",
-                                                   "ranking": "False"},
-                                      "blacklist": {},
-                                      "goodbye": {},
-                                      "welcome": {},
-                                      "levelupmessage": "Congrats {member}! You leveled up to level {level}!",
-                                      "levelroles": {}}
-                json.dump(storage, open("servers.json", "w"), indent=4)
-            if predicate(message, "nonocheck"):
+            storage = await self.bot.cluster.find_one({"id": str(message.guild.id)})
+            commandsList = storage["commands"]
+            if commandsList['nonocheck'] == "True":
                 await nonocheck(message)
-            if predicate(message, "linkcheck"):
+            if commandsList['linkcheck'] == "True":
                 await linkcheck(message)
-            if predicate(message, "invitecheck"):
+            if commandsList['invitecheck'] == "True":
                 await invitecheck(message)
-            await modMuteCheck(message)
+            await modMuteCheck(message, storage)
 
 
 def setup(bot):

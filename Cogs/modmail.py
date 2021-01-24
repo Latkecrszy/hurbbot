@@ -13,7 +13,9 @@ class ModMail(commands.Cog):
             storage = self.bot.cluster.find_one({"id": str(ctx.guild.id)})
             if "modmail" not in storage:
                 storage['modmail'] = {}
-            await ctx.send(embed=discord.Embed(description=f"Welcome to Hurb ModMail setup! We'll make this quick for you."))
+            embed = discord.Embed(title=f"Welcome to Hurb ModMail setup! We'll make this quick for you.")
+            embed.add_field(name=f"1. Set a channel")
+            await ctx.send()
 
 
 

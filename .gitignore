@@ -2,5 +2,6 @@
 __pycache__
 .DS_Store
 slash_commands.py
-voice.py
+Cogs/voice.py
 mongo_playground.py
+Cogs/nitro.py

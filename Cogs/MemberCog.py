@@ -2,67 +2,36 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
-import os
-from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import MongoClient
-import dotenv
-
-dotenv.load_dotenv()
-
-LINK = os.environ.get("LINK", None)
-
 mutedMembers = []
-kicked = []
-
-embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
-               discord.Color.dark_green(), discord.Color.dark_grey(), discord.Color.dark_grey(),
-               discord.Color.dark_magenta(),
-               discord.Color.blue(), discord.Color.dark_orange(), discord.Color.dark_purple(), discord.Color.dark_red(),
-               discord.Color.dark_teal(), discord.Color.darker_grey(), discord.Color.default(), discord.Color.gold(),
-               discord.Color.green(), discord.Color.greyple(), discord.Color.light_grey(), discord.Color.magenta(),
-               discord.Color.orange(), discord.Color.purple(), discord.Color.teal(),
-               discord.Color.red()]
 
 
 def muteTimeCalc(muteTime):
     muteList = []
-    minute = False
-    hour = False
-    day = False
+    multiplier = 1
     for char in muteTime:
         if char.lower() == "m":
-            minute = True
+            multiplier = 60
         elif char.lower() == "h":
-            hour = True
+            multiplier = 3600
         elif char.lower() == "d":
-            day = True
+            multiplier = 86400
         elif char.lower() == "s":
-            pass
-        elif isinstance(char, str):
+            multiplier = 1
+        elif char.isnumeric():
             muteList.append(char)
-        else:
-            pass
-    muteTime = "".join(muteList)
-    muteTime = int(muteTime)
-    if minute:
-        muteTime *= 60
-    if hour:
-        muteTime *= 3600
-    if day:
-        muteTime *= 86400
+    muteTime = int("".join(muteList))
+    muteTime *= multiplier
     return muteTime
 
 
 async def muteRole(ctx):
     role = discord.utils.get(ctx.guild.roles, name="muted")
-    if not role or role is None:
+    if role is None:
         role = discord.utils.get(ctx.guild.roles, name="Muted")
-    if not role or role is None:
-        newRole = await ctx.guild.create_role(name="muted", color=discord.Color.dark_grey())
+    if role is None:
+        role = await ctx.guild.create_role(name="muted", color=discord.Color.dark_grey())
         for channel in ctx.guild.text_channels:
-            await channel.set_permissions(newRole, overwrite=discord.PermissionOverwrite(send_messages=False))
-        role = newRole
-
+            await channel.set_permissions(role, overwrite=discord.PermissionOverwrite(send_messages=False))
     for channel in ctx.guild.text_channels:
         perms = channel.overwrites_for(role)
         if perms.send_messages:
@@ -82,16 +51,16 @@ class MemberCog(commands.Cog):
     @commands.has_permissions(manage_guild=True)
     async def mute(self, ctx, member: discord.Member, *, reason="There was no reason for this muting."):
         if not member.guild_permissions.administrator:
-            if not discord.utils.get(member.roles, name="muted"):
-                role = await muteRole(ctx)
+            role = await muteRole(ctx)
+            if role not in member.roles:
                 embed = discord.Embed(
                     description=f"***<a:check:771786758442188871>  {member.mention} has been muted.***",
                     color=discord.Color.green())
-                self.mutedRoles[str(member)] = []
+                self.mutedRoles[str(member.id)] = []
                 embed.set_footer(text=f"Reason:  {reason}")
                 for roles in member.roles:
                     if roles != ctx.guild.default_role:
-                        self.mutedRoles[str(member)].append(roles)
+                        self.mutedRoles[str(member)].append(roles) if roles != ctx.guild.default_role else None
                         await member.remove_roles(roles)
                 await member.add_roles(role, reason=reason)
                 await ctx.send(embed=embed)
@@ -114,7 +83,7 @@ class MemberCog(commands.Cog):
             if not discord.utils.get(member.roles, name="muted"):
                 role = await muteRole(ctx)
                 muteTime = muteTimeCalc(muteTime)
-                self.mutedRoles[str(member)] = []
+                self.mutedRoles[str(member.id)] = []
                 embed = discord.Embed(
                     description=f"***<a:check:771786758442188871>  {member.mention} has been muted for {muteTime} seconds.***",
                     colour=discord.Colour.green())
@@ -127,7 +96,7 @@ class MemberCog(commands.Cog):
                         description=f"I do not have the required permissions to mute that person {ctx.author.mention}! To fix this, please try either moving my role higher than the mute role, or giving me the `manage_roles` permission."))
                 for roles in member.roles:
                     if roles != ctx.guild.default_role and roles != role:
-                        self.mutedRoles[str(member)].append(roles)
+                        self.mutedRoles[str(member.id)].append(roles)
                         await member.remove_roles(roles)
                 await asyncio.sleep(int(muteTime))
                 await self.unmute(ctx, member)
@@ -145,13 +114,13 @@ class MemberCog(commands.Cog):
     @commands.has_permissions(manage_guild=True)
     async def unmute(self, ctx, member: discord.Member):
         role = await muteRole(ctx)
-        if str(member) in self.mutedRoles.keys() or role in member.roles:
+        if str(member.id) in self.mutedRoles.keys() or role in member.roles:
             await member.remove_roles(role)
-            if str(member) in self.mutedRoles.keys():
-                for roles in self.mutedRoles[str(member)]:
+            if str(member.id) in self.mutedRoles.keys():
+                for roles in self.mutedRoles[str(member.id)]:
                     await member.add_roles(roles)
-                for x in range(len(self.mutedRoles[str(member)])):
-                    self.mutedRoles[str(member)].pop(0)
+                for x in range(len(self.mutedRoles[str(member.id)])):
+                    self.mutedRoles[str(member.id)].pop(0)
             await ctx.send(
                 embed=discord.Embed(
                     description=f"***<a:check:771786758442188871>  {member.mention} has been unmuted.***",
@@ -181,11 +150,10 @@ class MemberCog(commands.Cog):
             embed.set_footer(text=f"Reason: {reason}")
             await ctx.send(embed=embed)
 
-        elif member.guild_permissions.administrator:
-            embed = discord.Embed(
+        else:
+            await ctx.send(embed=discord.Embed(
                 description=f"***<a:no:771786741312782346> {member.mention} has failed to be kicked by {ctx.author.mention} because they are an admin/mod.***",
-                color=discord.Color.red())
-            await ctx.send(embed=embed)
+                color=discord.Color.red()))
 
     @commands.has_permissions(ban_members=True)
     @commands.command()
@@ -205,10 +173,9 @@ class MemberCog(commands.Cog):
             embed.set_footer(text=f"Reason: {reason}")
             await ctx.send(embed=embed)
         except:
-            embed = discord.Embed(
+            await ctx.send(embed=discord.Embed(
                 title=f"*<a:no:771786741312782346> {member} has failed to be banned by {ctx.author.display_name} because they are an admin/mod.*",
-                description=None, color=discord.Color.red())
-            await ctx.send(embed=embed)
+                description=None, color=discord.Color.red()))
 
     @commands.has_permissions(ban_members=True)
     @commands.command()
@@ -219,17 +186,16 @@ class MemberCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_nicknames=True)
     async def rename(self, ctx, member: discord.Member = None, *, new_name):
+        await member.edit(nick=new_name)
         await ctx.send(
             embed=discord.Embed(
                 description=f"***{member.display_name} has been renamed to {member.mention} by {ctx.author.mention}.***",
-                color=random.choice(embedColors)))
-        await member.edit(nick=new_name)
+                color=discord.Color.green()))
 
     @commands.command()
     @commands.has_permissions(manage_guild=True)
     async def warn(self, ctx, member: discord.Member, *, reason):
         if not member.guild_permissions.administrator:
-
             await member.send(embed=discord.Embed(title=f"You have been warned in **{ctx.guild}** by **{ctx.author}**.",
                                                   description=f"Reason: {reason}"))
             embed = discord.Embed(
@@ -257,8 +223,7 @@ class MemberCog(commands.Cog):
             await self.bot.cluster.find_one_and_replace({"id": str(member.guild.id)}, storage)
 
             if "autoroles" in storage.keys():
-                autoroles = storage["autoroles"]
-                for role in autoroles:
+                for role in storage["autoroles"]:
                     addRole = discord.utils.get(member.guild.roles, name=role)
                     if addRole is not None:
                         await member.add_roles(addRole)

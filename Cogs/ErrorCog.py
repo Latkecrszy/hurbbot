@@ -11,9 +11,7 @@ class ErrorCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        if isinstance(error, CommandNotFound):
-            print("Error: Command not found.")
-        elif isinstance(error, commands.MissingRequiredArgument):
+        if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(f'''Error: Missing one or more required argument.''')
         elif isinstance(error, BadArgument):
             await ctx.send("Please enter a proper argument for this command.")
@@ -23,7 +21,7 @@ class ErrorCog(commands.Cog):
                 description=None, color=discord.Color.red()))
         elif isinstance(error, CommandOnCooldown):
             await ctx.send(embed=discord.Embed(
-                title=f"Whoa there, a little too quick on the commands. You still need to wait {int(error.retry_after)} seconds!",
+                description=f"Whoa there {ctx.author.mention}, a little too quick on the commands. You still need to wait {round(error.retry_after, 3)} seconds!",
                 color=discord.Color.red()))
         elif isinstance(error, CommandInvokeError):
             error = getattr(error, "original", error)
@@ -35,8 +33,10 @@ class ErrorCog(commands.Cog):
                 pass
             elif str(ctx.command) in ["blackjack", "bj", "beg", "withdraw", "deposit", "roulette", "r", "slots", "balance", "hourly", "daily"]:
                 await ctx.send(embed=discord.Embed(
-                    description=f"You do not yet have an account with this bot {ctx.author.mention}! To start one, just say `%start`, and an account will be made for you. Or, if you think that this was a mistake, or that your account has been deleted, please submit a bug report with the `%bug <message>` command.",
+                    description=f"You do not yet have an account {ctx.author.mention}! To start one, just say `%start`, and an account will be made for you. Or, if you think that this was a mistake, or that your account has been deleted, please submit a bug report with the `%bug <message>` command.",
                     color=discord.Color.red()))
+        elif isinstance(error, CommandNotFound):
+            pass
         else:
             await ctx.send(embed=discord.Embed(
                 title=f"<a:no:771786741312782346> Sorry, something went wrong in the command. Please check that you are inputting correct arguments, and try again!",

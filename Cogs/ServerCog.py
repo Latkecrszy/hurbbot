@@ -1,14 +1,7 @@
 import discord
-import json
-from discord.ext import commands
+from discord.ext import commands, tasks
 import random
-from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
-import dotenv
-import os
-
-dotenv.load_dotenv()
-LINK = os.environ.get("LINK", None)
 
 embedColors = [discord.Color.blue(), discord.Color.blurple(), discord.Color.dark_blue(), discord.Color.dark_gold(),
                discord.Color.dark_green(), discord.Color.dark_grey(), discord.Color.dark_grey(),
@@ -116,6 +109,7 @@ class ServerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
+        print(f"Working, just joined {guild}")
         storage = {"prefix": '%',
                    "commands": {"goodbye": "False", "nitro": "True", "nonocheck": "False",
                                 "welcome": "False",
@@ -134,6 +128,12 @@ class ServerCog(commands.Cog):
     async def on_guild_remove(self, guild):
         cluster = self.bot.cluster
         await cluster.find_one_and_delete({"id": str(guild.id)})
+
+    @tasks.loop(seconds=120)
+    async def displayservercount(self):
+        guild = self.bot.get_guild(716377034728931328)
+        channel = guild.get_channel(802221728591249408)
+        await channel.send(len(self.bot.guilds))
 
     @commands.command(aliases=["mutechannel", "lockdown", "lock"])
     @commands.has_permissions(manage_guild=True)
@@ -326,6 +326,14 @@ class ServerCog(commands.Cog):
         if storage['commands']['goodbye'] == "True":
             embed.add_field(name=f"Welcome message:", value=storage["goodbye"]["message"])
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def permissions(self, ctx: commands.Context, condition=None, permission=None, new=None):
+        if condition is None:
+            condition = ctx.channel
+        if str(condition).lower() == "set":
+            pass
+
 
 
 def setup(bot):

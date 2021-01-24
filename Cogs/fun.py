@@ -77,38 +77,13 @@ class Fun(commands.Cog):
     @commands.command()
     async def rps(self, ctx, choice):
         choice = choice.lower()
-        choices = ["rock", "paper", "scissors"]
-        botChoice = random.choice(choices)
+        botChoice = random.choice(["rock", "paper", "scissors"])
         if choice == botChoice:
-            embed = discord.Embed(title=f"You tied! We both chose {choice}!")
-        elif choice == "rock" and botChoice == "paper":
-            embed = discord.Embed(
-                title=f"<a:check:771786758442188871> I won! Paper triumphs! HAHA ***LOSER*** You suck lol")
-        elif choice == "rock" and botChoice == "scissors":
-            embed = discord.Embed(
-                title=f"<a:no:771786741312782346> Oh fucking shit, you won. Rock beats scissors. I'll beat the shit out of you next time.")
-            embed.set_image(
-                url="https://external-preview.redd.it/WWKFVkxfVnaWZkeOS0MT0BOfLtfk7V1NlXBSfLY2N7c.jpg?auto=webp&s=a52bcb55f2fdd09346665cc650bbdca01dd9c595")
-        elif choice == "paper" and botChoice == "rock":
-            embed = discord.Embed(
-                title=f"<a:no:771786741312782346> Oh fucking shit, you won. Paper beats rock. I'll beat the shit out of you next time.")
-            embed.set_image(
-                url="https://external-preview.redd.it/WWKFVkxfVnaWZkeOS0MT0BOfLtfk7V1NlXBSfLY2N7c.jpg?auto=webp&s=a52bcb55f2fdd09346665cc650bbdca01dd9c595")
-        elif choice == "paper" and botChoice == "scissors":
-            embed = discord.Embed(
-                title=f"<a:check:771786758442188871> I won! Scissors triumphs! HAHA ***LOSER*** You suck lol")
-        elif choice == "scissors" and botChoice == "paper":
-            embed = discord.Embed(
-                title=f"<a:no:771786741312782346> Oh fucking shit, you won. Scissors beats paper. I'll beat the shit out of you next time.")
-            embed.set_image(
-                url="https://external-preview.redd.it/WWKFVkxfVnaWZkeOS0MT0BOfLtfk7V1NlXBSfLY2N7c.jpg?auto=webp&s=a52bcb55f2fdd09346665cc650bbdca01dd9c595")
-        elif choice == "scissors" and botChoice == "rock":
-            embed = discord.Embed(
-                title=f"<a:check:771786758442188871> I won! Rock triumphs! HAHA ***LOSER*** You suck lol")
-        else:
-            embed = discord.Embed(
-                title=f"<a:no:771786741312782346> What the fuck were you THINKING man that ain't an option.")
-        await ctx.send(embed=embed)
+            await ctx.send(embed=discord.Embed(title=f"You tied! We both chose {choice}!"))
+        elif (choice == "rock" and botChoice == "paper") or (choice == "paper" and botChoice == "scissors") or (choice == "scissors" and botChoice == "rock"):
+            await ctx.send(embed=discord.Embed(title=f"<a:check:771786758442188871> I won! Paper triumphs!"))
+        elif (choice == "rock" and botChoice == "scissors") or (choice == "paper" and botChoice == "rock") or (choice == "scissors" and botChoice == "paper"):
+            await ctx.send(embed=discord.Embed(title=f"<a:no:771786741312782346> Dang it... you won. I'll get you next time!", color=discord.Color.red()))
 
     @commands.command()
     async def gif(self, ctx, num=1, *, img):
@@ -116,13 +91,8 @@ class Fun(commands.Cog):
         async with aiohttp.ClientSession() as cs:
             link = f"http://api.giphy.com/v1/gifs/search?q={img}&api_key=HIxNUDiCJmENIyZimfquvn7g20ILt4Dc&limit={img}"
             async with cs.get(link) as r:
-                res = await r.json()  # returns dict
+                res = await r.json()
                 await ctx.send(res["data"][num-1]["url"])
-
-    @gif.error
-    async def gif_error(self, ctx, error):
-        await ctx.send(embed=discord.Embed(title=f"Sorry, I couldn't find that gif. Try again with different keywords!",
-                                           color=discord.Color.red()))
 
     @commands.command()
     async def say(self, ctx, *, message):
@@ -130,23 +100,8 @@ class Fun(commands.Cog):
         await ctx.send(message)
 
     @commands.command()
-    @commands.is_owner()
-    async def servers(self, ctx):
-        embed = discord.Embed(title=f"My Servers:")
-        members = 0
-        message = ''''''
-        for i in range(len(self.bot.guilds)):
-            server = self.bot.guilds[i]
-            message += f"#{i+1} **{server.name}**\n\n"
-            members += len([member for member in server.members])
-        embed.add_field(name=f"Serving {len(self.bot.guilds)} servers", value=f"And {members} members!")
-        embed.set_thumbnail(url=ctx.guild.me.avatar_url)
-        await ctx.send(message)
-        await ctx.send(embed=embed)
-
-    @commands.command()
     async def botinfo(self, ctx):
-        embed = discord.Embed(title=f"My Servers:")
+        embed = discord.Embed(title=f"My Info:")
         members = 0
         for server in self.bot.guilds:
             members += len([member for member in server.members])

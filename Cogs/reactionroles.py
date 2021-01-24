@@ -18,7 +18,12 @@ class ReactionRoleCog(commands.Cog):
             await ctx.message.delete()
             storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)}, "reaction_roles")
             if storage is None:
-                storage = await self.bot.cluster.reaction_insert_one({"id": str(ctx.guild.id), "roles": {}}, "reaction_roles")
+                await self.bot.cluster.insert_one({"id": str(ctx.guild.id), "roles": {}}, "reaction_roles")
+                storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)}, "reaction_roles")
+            if 'roles' not in storage:
+                storage['roles'] = {}
+                await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage, 'reaction_roles')
+                storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)}, "reaction_roles")
             reactionroles = storage["roles"]
             if str(emoji).startswith("<"):
                 emoji = await self.emojiConverter.convert(ctx, str(emoji))
@@ -51,6 +56,10 @@ class ReactionRoleCog(commands.Cog):
         if str(payload.user_id) != "736283988628602960":
             storage = await self.bot.cluster.find_one({"id": str(payload.guild_id)}, "reaction_roles")
             if storage is not None:
+                if 'roles' not in storage:
+                    storage['roles'] = {}
+                    await self.bot.cluster.find_one_and_replace({"id": str(payload.guild_id)}, storage, 'reaction_roles')
+                    storage = await self.bot.cluster.find_one({"id": str(payload.guild_id)}, "reaction_roles")
                 reactionroles = storage["roles"]
                 if reactionroles is not None:
                     if str(payload.message_id) in reactionroles.keys():

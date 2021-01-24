@@ -35,7 +35,7 @@ class MessageCog(commands.Cog):
                     messages[str(message.author.id)] = {"messages": 1, "xp": random.randint(1, 5),
                                                         "level": 1}
                 messages[str(message.author.id)]["messages"] += 1
-                await self.levelupcheck(message, messages)
+                await self.levelupcheck(message, messages, storage)
                 storage["rank"] = messages
                 await self.bot.cluster.find_one_and_replace({"id": str(message.guild.id)}, storage)
                 if await self.cog_check(message):
@@ -44,10 +44,9 @@ class MessageCog(commands.Cog):
                         storage['xpspeed'] = 1.0
                     messages[str(message.author.id)]["xp"] += random.randint(5, 20)*float(storage['xpspeed'])
                     messages[str(message.author.id)]["color"] = "🟦" if "color" not in messages[str(message.author.id)].keys() else messages[str(message.author.id)]["color"]
-                    await self.levelupcheck(message, messages)
+                    await self.levelupcheck(message, messages, storage)
 
-    async def levelupcheck(self, message, messages):
-        storage = await self.bot.cluster.find_one({"id": str(message.guild.id)})
+    async def levelupcheck(self, message, messages, storage):
         if "levelups" in storage.keys():
             channel = discord.utils.get(message.guild.channels, name=str(storage["levelups"]))
             channel = message.channel if channel is None else channel
@@ -66,6 +65,7 @@ class MessageCog(commands.Cog):
             await channel.send(content)
             messages[str(message.author.id)]["level"] += 1
             messages[str(message.author.id)]["xp"] = 0
+            storage["rank"] = messages
         storage["rank"] = messages
         await self.bot.cluster.find_one_and_replace({"id": str(message.guild.id)}, storage)
 

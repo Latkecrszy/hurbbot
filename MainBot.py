@@ -114,14 +114,19 @@ async def backup():
 
 
 @bot.command()
-async def fixroles(ctx):
-    collection = bot.cluster.client.reaction_roles
+async def prune(ctx):
+    collection = bot.cluster.client.settings
     results = collection.find().to_list(length=50000)
+    servers = 0
     for document in await results:
-        if 'roles' not in document.keys():
-            await collection.find_one_and_delete({"id": document['id']})
+        servers += 1
+        if 'commands' not in document.keys() and 'prefix' not in document.keys():
+            await collection.find_one_and_delete(document)
             print("found a bad one")
-    await ctx.send("Done :)")
+    await ctx.send(servers)
+
+
+
 
 
 
@@ -129,7 +134,7 @@ backup.start()
 
 extensions = ["ServerCog", "fun", "blackjack", "ErrorCog", "JokeCog", "MemberCog", "HangmanCog", "SlotsAndRouletteCog",
               "HelpCog",
-              "NQNCog", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles",
+              "nitro", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles",
               "onmessagecommands", "pong", "voice", "pets"]
 
 for extension in extensions:

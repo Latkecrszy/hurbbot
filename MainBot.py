@@ -1,10 +1,7 @@
 import discord
-import json
 from discord.ext import commands, tasks
 from itertools import cycle
 import os
-import aiohttp
-from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
 from dotenv import load_dotenv
 from Bots.Cogs.mongoclient import MotorClient as client
@@ -135,7 +132,7 @@ backup.start()
 extensions = ["ServerCog", "fun", "blackjack", "ErrorCog", "JokeCog", "MemberCog", "HangmanCog", "SlotsAndRouletteCog",
               "HelpCog",
               "nitro", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles",
-              "onmessagecommands", "pong", "voice", "pets"]
+              "onmessagecommands", "pong", "voice", "pets", "modmail"]
 
 for extension in extensions:
     bot.load_extension(f"Cogs.{extension}")

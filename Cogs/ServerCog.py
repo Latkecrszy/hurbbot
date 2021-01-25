@@ -324,7 +324,7 @@ class ServerCog(commands.Cog):
         if storage['commands']['welcome'] == "True":
             embed.add_field(name=f"Welcome message:", value=storage["welcome"]["message"])
         if storage['commands']['goodbye'] == "True":
-            embed.add_field(name=f"Welcome message:", value=storage["goodbye"]["message"])
+            embed.add_field(name=f"Goodbye message:", value=storage["goodbye"]["message"])
         await ctx.send(embed=embed)
 
     @commands.command()

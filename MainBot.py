@@ -39,9 +39,10 @@ bot.cluster = client()
 print("Loading..")
 bot.statuses = [discord.Game("Blackjack (and winning) | %blackjack"), discord.Game("%help or @Hurb help"),
                 discord.Game("bad jokes | %joke"), discord.Game("screw rick rolls, I do react roles | %reactionrole"),
-                discord.Game("hangman (he died) | %hangman"), discord.Game("get BANNED"),
+                discord.Game("hangman (he died) | %hangman"), discord.Game("get BANNED | %ban"),
                 discord.Game("OMG LOOK AT THESE DOGGOS!!! | %doggo"),
-                discord.Game("Check out the website | hurb.gg")]
+                discord.Game("Check out the website! | hurb.gg"),
+                discord.Game("DM to contact mods | ModMail")]
 bot.status = cycle(bot.statuses)
 
 
@@ -111,16 +112,11 @@ async def backup():
 
 
 @bot.command()
-async def prune(ctx):
-    collection = bot.cluster.client.settings
-    results = collection.find().to_list(length=50000)
-    servers = 0
-    for document in await results:
-        servers += 1
-        if 'commands' not in document.keys() and 'prefix' not in document.keys():
-            await collection.find_one_and_delete(document)
-            print("found a bad one")
-    await ctx.send(servers)
+async def find_commands(ctx):
+    for command in bot.commands:
+        commands_list = open("Cogs/help_commands.json").read()
+        if str(command).lower() not in commands_list:
+            await ctx.send(f"{command} isn't in the list!")
 
 
 

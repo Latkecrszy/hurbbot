@@ -60,7 +60,7 @@ class MemberCog(commands.Cog):
                 embed.set_footer(text=f"Reason:  {reason}")
                 for roles in member.roles:
                     if roles != ctx.guild.default_role:
-                        self.mutedRoles[str(member)].append(roles) if roles != ctx.guild.default_role else None
+                        self.mutedRoles[str(member.id)].append(roles) if roles != ctx.guild.default_role else None
                         await member.remove_roles(roles)
                 await member.add_roles(role, reason=reason)
                 await ctx.send(embed=embed)
@@ -246,8 +246,7 @@ class MemberCog(commands.Cog):
     async def info(self, ctx, member: discord.Member = None):
         if member is None:
             member = ctx.author
-        embed = discord.Embed(title=f"{member.display_name}'s info for {ctx.guild.name}:",
-                              color=random.choice(embedColors))
+        embed = discord.Embed(title=f"{member.display_name}'s info for {ctx.guild.name}:")
         created = str(member.created_at).split(" ")
         time = created[0].split("-")
         months = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
@@ -436,9 +435,7 @@ class MemberCog(commands.Cog):
                     color=discord.Color.red()))
             elif punishment.lower() in punishments or punishment.lower() == "delete":
                 storage["blacklist"][word] = punishment.lower()
-                print(storage)
                 await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
-                print(storage)
                 await ctx.send(embed=discord.Embed(description=f"||{word}|| has been added to the blacklist.",
                                                    color=discord.Color.green()))
 
@@ -456,7 +453,6 @@ class MemberCog(commands.Cog):
                 await ctx.send(embed=discord.Embed(description=f"{word} is not in the blacklist {ctx.author.mention}!",
                                                    color=discord.Color.red()))
         elif condition.lower() == "view":
-            print(storage["blacklist"])
             if storage["blacklist"]:
                 embed = discord.Embed(title=f"Blacklisted Words")
                 for word, punishment in storage["blacklist"].items():

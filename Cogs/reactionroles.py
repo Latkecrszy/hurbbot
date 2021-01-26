@@ -53,7 +53,7 @@ class ReactionRoleCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if str(payload.user_id) != "736283988628602960":
+        if not self.bot.get_user(payload.user_id).bot:
             storage = await self.bot.cluster.find_one({"id": str(payload.guild_id)}, "reaction_roles")
             if storage is not None:
                 if 'roles' not in storage:

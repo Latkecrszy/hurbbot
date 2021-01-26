@@ -44,7 +44,6 @@ class ErrorCog(commands.Cog):
             channel = self.bot.get_channel(755174796530155550)
             await channel.send(embed=discord.Embed(description=f"```py\n{error}```"))
             await channel.send("<@670493561921208320>")
-            raise error
 
     @commands.command()
     @commands.cooldown(1, 60, BucketType.user)

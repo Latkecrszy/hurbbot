@@ -1,1 +1,1 @@
-worker: python hurb.py
+worker: python MainBot.py

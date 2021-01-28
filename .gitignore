@@ -5,3 +5,5 @@ slash_commands.py
 Cogs/voice.py
 mongo_playground.py
 Cogs/nitro.py
+Cogs/votecog.py
+Cogs/pets.py

@@ -53,6 +53,7 @@ async def modMuteCheck(message, storage):
         if str(message.author.id) in storage["mutedmods"].keys():
             if storage["mutedmods"][str(message.author.id)] == str(message.guild.id):
                 await message.delete()
+                pass
 
 
 class MessageCommands(commands.Cog):

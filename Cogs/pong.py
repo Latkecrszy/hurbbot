@@ -147,12 +147,6 @@ class PongCog(commands.Cog):
                 embed.set_footer(text=f"This game has ended. Winner: {self.points[str(message.id)][0]['name'] if self.points[str(message.id)][0]['points'] > self.points[str(message.id)][1]['points'] else self.points[str(message.id)][1]['name']}")
                 await message.edit(embed=embed)
 
-
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        error = getattr(error, "original", error)
-        raise error
-
     def getpos(self, id, player, direction):
         board = self.boards[str(id)]
         top = 0

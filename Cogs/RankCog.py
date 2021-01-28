@@ -23,30 +23,31 @@ class MessageCog(commands.Cog):
     async def on_message(self, message):
         if message.guild is not None:
             storage = await self.bot.cluster.find_one({"id": str(message.guild.id)})
-            if storage["commands"]["ranking"] == "True":
-                if message.author.bot:
-                    return
-                if "rank" not in storage:
-                    storage["rank"] = {}
-                    await self.bot.cluster.find_one_and_replace({"id": str(message.guild.id)}, storage)
-                messages = storage["rank"]
-
-                if str(message.author.id) not in messages.keys():
-                    messages[str(message.author.id)] = {"messages": 1, "xp": random.randint(1, 5),
-                                                        "level": 1}
-                messages[str(message.author.id)]["messages"] += 1
-                await self.levelupcheck(message, messages, storage)
-                storage["rank"] = messages
+            if message.author.bot:
+                return
+            if "rank" not in storage:
+                storage["rank"] = {}
                 await self.bot.cluster.find_one_and_replace({"id": str(message.guild.id)}, storage)
-                if await self.cog_check(message):
-                    messages = storage["rank"]
-                    if "xpspeed" not in storage:
-                        storage['xpspeed'] = 1.0
-                    messages[str(message.author.id)]["xp"] += random.randint(5, 20)*float(storage['xpspeed'])
-                    messages[str(message.author.id)]["color"] = "🟦" if "color" not in messages[str(message.author.id)].keys() else messages[str(message.author.id)]["color"]
-                    await self.levelupcheck(message, messages, storage)
+            messages = storage["rank"]
+
+            if str(message.author.id) not in messages.keys():
+                messages[str(message.author.id)] = {"messages": 1, "xp": random.randint(1, 5),
+                                                    "level": 1}
+            messages[str(message.author.id)]["messages"] += 1
+            await self.levelupcheck(message, messages, storage)
+            storage["rank"] = messages
+            if await self.cog_check(message):
+                messages = storage["rank"]
+                if "xpspeed" not in storage:
+                    storage['xpspeed'] = 1.0
+                messages[str(message.author.id)]["xp"] += random.randint(5, 20)*float(storage['xpspeed'])
+                messages[str(message.author.id)]["color"] = "🟦" if "color" not in messages[str(message.author.id)].keys() else messages[str(message.author.id)]["color"]
+                await self.levelupcheck(message, messages, storage)
+            await self.bot.cluster.find_one_and_replace({"id": str(message.guild.id)}, storage)
 
     async def levelupcheck(self, message, messages, storage):
+        if storage["commands"]["ranking"] != "True":
+            return
         if "levelups" in storage.keys():
             channel = discord.utils.get(message.guild.channels, name=str(storage["levelups"]))
             channel = message.channel if channel is None else channel
@@ -62,7 +63,10 @@ class MessageCog(commands.Cog):
                 role = message.guild.get_role(int(storage['levelroles'][str(next_level)]))
                 await message.author.add_roles(role)
             content = storage["levelupmessage"].format(member=message.author.mention, level=next_level)
-            await channel.send(content)
+            try:
+                await channel.send(content)
+            except discord.errors.Forbidden:
+                pass
             messages[str(message.author.id)]["level"] += 1
             messages[str(message.author.id)]["xp"] = 0
             storage["rank"] = messages
@@ -73,9 +77,9 @@ class MessageCog(commands.Cog):
 class Rank(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.resetting = None
+        self.resetting = {}
 
-    @commands.command()
+    @commands.command(aliases=["level"])
     @commands.cooldown(1, 10, BucketType.user)
     async def rank(self, ctx, member: discord.Member = None):
         member = ctx.author if member is None else member
@@ -183,7 +187,7 @@ class Rank(commands.Cog):
                     break
                 else:
                     embed.add_field(name=f"**#{num}** - {value.display_name}",
-                                    value=f"**XP:** {members[str(value.id)]['xp']}\n**Messages:** {members[str(value.id)]['messages']}\n**Level:** {members[str(value.id)]['level']}")
+                                    value=f"**XP:** {int(members[str(value.id)]['xp'])}\n**Messages:** {members[str(value.id)]['messages']}\n**Level:** {members[str(value.id)]['level']}")
                     num += 1
             embed.set_thumbnail(url=guild.icon_url)
             embed.set_footer(text=f"Your Position: {await self.position(ctx.author, storage)}")
@@ -242,25 +246,23 @@ class Rank(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def reset(self, ctx, member: discord.Member):
-        self.resetting = {"member": member, "guild": ctx.guild, "reseter": ctx.author}
+        self.resetting[str(ctx.author.id)] = {"member": member}
         await ctx.send(
             f"Are you sure that you want to reset {member.mention}'s XP? This cannot be undone, and they're probably going to hate you from now on. Reply with `yes` to reset, and with anything else to cancel.")
 
     @commands.Cog.listener()
     @commands.has_permissions(administrator=True)
     async def on_message(self, message):
-        if self.resetting is not None:
-            if message.author == self.resetting["reseter"] and message.guild == self.resetting["guild"]:
+        if str(message.author.id) in self.resetting:
+            if message.guild == self.resetting[str(message.author.id)]['member'].guild:
                 if str(message.content).lower() == "yes":
                     storage = await self.bot.cluster.find_one({"id": str(message.guild.id)})
-                    storage["rank"].pop(str(self.resetting["member"].id))
-
+                    storage["rank"].pop(str(self.resetting[str(message.author.id)]['member'].id))
                     await self.bot.cluster.find_one_and_replace({"id": str(message.guild.id)}, storage)
-                    await message.channel.send(f"{self.resetting['member'].mention}'s XP has been reset.")
-                    self.resetting = None
+                    await message.channel.send(f"{self.resetting[str(message.author.id)]['member'].mention}'s XP has been reset.")
                 elif str(message.content).lower() == "no":
                     await message.channel.send(f"{self.resetting['member'].mention} has been spared :pray:")
-                    self.resetting = None
+                self.resetting.pop(str(message.author.id))
 
     @commands.command()
     @commands.has_permissions(manage_guild=True)

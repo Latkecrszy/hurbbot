@@ -19183,7 +19183,7 @@
             "bank": 0
         },
         "704760796269379645": {
-            "money": 500,
+            "money": 600,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -19421,7 +19421,7 @@
             "bank": 0
         },
         "755836957572988968": {
-            "money": 36381,
+            "money": 36881,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -19547,7 +19547,7 @@
             "bank": 0
         },
         "787822181853691954": {
-            "money": 6999,
+            "money": 5350,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -19558,7 +19558,7 @@
                 "Autodoggo": 0,
                 "Autocatto": 0
             },
-            "bank": 100326
+            "bank": 102575
         },
         "700079633827233873": {
             "money": 4268,
@@ -19575,7 +19575,7 @@
             "bank": 0
         },
         "581138544010199058": {
-            "money": 130,
+            "money": 230,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -19722,6 +19722,18 @@
         },
         "797050584053186570": {
             "money": 1197,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "692802828514885742": {
+            "money": 2366,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,

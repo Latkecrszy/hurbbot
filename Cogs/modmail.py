@@ -11,13 +11,13 @@ class ModMail(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(administrator=True)
-    async def modmail(self, ctx, condition, id: Optional[int] = None, *, extra=None):
-        condition = condition.lower()
+    async def modmail(self, ctx, condition=None, id: Optional[int] = None, *, extra=None):
+        condition = condition.lower() if condition is not None else condition
         storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
         if "modmail" not in storage:
             storage['modmail'] = {
                 'message': "Thank you for contacting the staff! We'll get back to you as soon as we can!", 'users': {}}
-        if condition == "setup" or condition == "help":
+        if condition == "setup" or condition == "help" or condition is None:
             embed = discord.Embed(title=f"Welcome to Hurb ModMail setup! We'll make this quick for you.")
             embed.add_field(name=f"1. Set a channel.",
                             value=f"The first step is to set a channel to send modmail messages to. Use the `%modmail channel <channel>` command to do this.\nExample: `%modmail channel #modmail-messages`",

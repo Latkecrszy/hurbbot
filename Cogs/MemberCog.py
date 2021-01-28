@@ -140,9 +140,12 @@ class MemberCog(commands.Cog):
     @commands.command()
     async def kick(self, ctx, member: discord.Member, *, reason="There was no reason for this kicking."):
         if not member.guild_permissions.administrator:
-            await member.send(embed=discord.Embed(title=f"You have been kicked from {ctx.guild.name} by {ctx.author}.",
-                                                  description=f"Reason: {reason}",
-                                                  color=discord.Color.red()))
+            try:
+                await member.send(embed=discord.Embed(title=f"You have been kicked from {ctx.guild.name} by {ctx.author}.",
+                                                    description=f"Reason: {reason}",
+                                                    color=discord.Color.red()))
+            except discord.errors.HTTPException:
+                pass
             await ctx.guild.kick(member)
             embed = discord.Embed(
                 description=f"***<a:check:771786758442188871> {member.mention} has been kicked by {ctx.author.mention}.***",

@@ -111,12 +111,12 @@ async def backup():
         await backup_collection.insert_one({key: value for key, value in document.items() if key != "_id"})
 
 
-@bot.command()
-async def find_commands(ctx):
-    for command in bot.commands:
-        commands_list = open("Cogs/help_commands.json").read()
-        if str(command).lower() not in commands_list:
-            await ctx.send(f"{command} isn't in the list!")
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.errors.CommandNotFound):
+        pass
+    else:
+        raise error
 
 
 

@@ -15,7 +15,7 @@ class ChatBot(commands.Cog):
         if parameter is None:
             self.chatting[str(ctx.author.id)] = str(ctx.channel)
             await ctx.send(embed=discord.Embed(
-                description=f"Your chatting session with Hurb has been started in this channel! Type `%chatbot end` to end the session."))
+                description=f"Your chatting session with Hurb has been started in this channel! Type `%chatbot end` to end the session.\n**Note: The ChatBot is broken for now due to the API having issues**"))
         elif parameter.lower() == "end":
             self.chatting.pop(str(ctx.author.id))
             await ctx.send(embed=discord.Embed(description=f"Your chat session with Hurb has ended."))

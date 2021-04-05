@@ -36,60 +36,41 @@ class ServerCog(commands.Cog):
     async def disable(self, ctx, command):
         if ctx.author.guild_permissions.administrator or ctx.author.id == 670493561921208320:
             storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
-            command = command.lower()
-            if command in storage["commands"]:
-                if storage["commands"][command] == "True":
-                    await ctx.send(
-                        embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
-                                            description=None, color=discord.Color.green()))
-                    storage['commands'][command] = "False"
-                else:
-                    await ctx.send(
-                        embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already disabled.***",
-                                            color=discord.Color.red()))
+            print(storage)
+
+            if command.lower() in storage['commands']:
+                storage['commands'][command.lower()] = "False"
+
+                await ctx.send(
+                    embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been disabled.***",
+                                        description=None, color=discord.Color.green()))
+                await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
             else:
                 await ctx.send(f"I could not find that command, {ctx.author.mention}!")
-            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
     @commands.command()
     async def enable(self, ctx, command):
         if ctx.author.guild_permissions.administrator or ctx.author.id == 670493561921208320:
-            found = False
-            enabled = True
             storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
-            commandsList = storage["commands"]
-            for Command, condition in commandsList.items():
-                if Command == command.lower():
-                    found = True
-                    if condition == "False":
-                        commandsList[Command] = 'True'
-                        await ctx.send(
-                            embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
-                                                description=None, color=discord.Color.green()))
-                        storage["commands"] = commandsList
-                        enabled = False
+            if command.lower() in storage['commands']:
+                storage['commands'][command.lower()] = "True"
 
-            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
-
-            if not found:
-                await ctx.send(f"I could not find that command, {ctx.author.mention}!")
-
-            if enabled and found:
                 await ctx.send(
-                    embed=discord.Embed(title=f"***<a:no:771786741312782346> {command} is already enabled.***",
-                                        description=None, color=discord.Color.red()))
+                    embed=discord.Embed(title=f"***<a:check:771786758442188871> {command} has been enabled.***",
+                                        description=None, color=discord.Color.green()))
+                await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
+            else:
+                await ctx.send(f"I could not find that command, {ctx.author.mention}!")
 
     @commands.command(aliases=["setwelcomechannel"])
     @commands.has_permissions(manage_guild=True)
     async def welcome(self, ctx, channel: discord.TextChannel, *, message=None):
         storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
         if message is not None:
-            if "welcome" in storage.keys():
-                storage.pop("welcome")
             storage["welcome"] = {"id": str(channel.id), "message": str(message)}
-            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
             await ctx.send(
-                f"Ok, {ctx.author.mention}, I've set the welcome channel for this server to {channel.mention}!")
+                f"Ok, {ctx.author.mention}, I've set the welcome channel for this server to {channel.mention}, and your message is now:\n{message}")
+            await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
         else:
             await ctx.send(f"Please specify a message to display when people arrive, {ctx.author.mention}!")
 
@@ -123,17 +104,6 @@ class ServerCog(commands.Cog):
                    "rank": {},
                    "id": str(guild.id)}
         await self.bot.cluster.insert_one(storage)
-
-    @commands.Cog.listener()
-    async def on_guild_remove(self, guild):
-        cluster = self.bot.cluster
-        await cluster.find_one_and_delete({"id": str(guild.id)})
-
-    @tasks.loop(seconds=120)
-    async def displayservercount(self):
-        guild = self.bot.get_guild(716377034728931328)
-        channel = guild.get_channel(802221728591249408)
-        await channel.send(len(self.bot.guilds))
 
     @commands.command(aliases=["mutechannel", "lockdown", "lock"])
     @commands.has_permissions(manage_guild=True)
@@ -190,7 +160,7 @@ class ServerCog(commands.Cog):
             guild = ctx.guild
         embed = discord.Embed(color=random.choice(embedColors))
 
-        embed.add_field(name="<:owner:779163811172319232>  Server owner", value=guild.owner.mention)
+        embed.add_field(name=":crown:  Server owner", value=guild.owner.mention)
         if guild.premium_subscription_count != 0:
             embed.add_field(name="<a:boost:779165947361624087>  Server Boost Level",
                             value=f"Level {guild.premium_tier} with {guild.premium_subscription_count} Boosts")  # 3
@@ -217,26 +187,22 @@ class ServerCog(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_roles=True)
-    async def autorole(self, ctx, *, role: discord.Role):
+    async def autorole(self, ctx, condition, *, role: discord.Role):
         storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
-        storage["autoroles"] = [] if "autoroles" not in storage.keys() else storage["autoroles"].append(str(role.id))
-        await ctx.send(embed=discord.Embed(
-            description=f"{role.mention} has been set as an autorole for this server {ctx.author.mention}!"))
+        if condition.lower() == "add" or condition.lower() == "set":
+            storage["autoroles"] = [] if "autoroles" not in storage.keys() else storage["autoroles"].append(str(role.id))
+            await ctx.send(embed=discord.Embed(
+                description=f"{role.mention} has been set as an autorole for this server {ctx.author.mention}!"))
+        elif condition.lower() == "remove":
+            autoroles = storage["autoroles"]
+            for i in range(len(autoroles)):
+                if str(i).lower() == str(role.id).lower():
+                    autoroles.pop(i)
+            storage["autoroles"] = autoroles
+            await ctx.send(embed=discord.Embed(
+                description=f"{role.mention} has been removed from this server's autoroles {ctx.author.mention}!"))
         await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
-    @commands.command()
-    @commands.has_permissions(manage_roles=True)
-    async def removeautorole(self, ctx, *, role: discord.Role):
-        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
-        autoroles = storage["autoroles"]
-        for i in range(len(autoroles)):
-            if str(i).lower() == str(role).lower():
-                autoroles.pop(i)
-        storage["autoroles"] = autoroles
-        await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
-
-        await ctx.send(embed=discord.Embed(
-            description=f"{role.mention} has been removed as an autorole for this server {ctx.author.mention}!"))
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
@@ -303,8 +269,10 @@ class ServerCog(commands.Cog):
         enabled = [command for command, value in storage['commands'].items() if value == "True"]
         disabled = [command for command, value in storage['commands'].items() if value == "False"]
         embed.add_field(name=f"Prefix:", value=f"`{storage['prefix']}`")
-        embed.add_field(name=f"Enabled features:", value=f'`{"`, `".join(enabled)}`', inline=False)
-        embed.add_field(name=f"Disabled features:", value=f'`{"`, `".join(disabled)}`', inline=False)
+        if enabled:
+            embed.add_field(name=f"Enabled features:", value=f'`{"`, `".join(enabled)}`', inline=False)
+        if disabled:
+            embed.add_field(name=f"Disabled features:", value=f'`{"`, `".join(disabled)}`', inline=False)
         if 'xpspeed' in storage:
             embed.add_field(name=f"XP speed:", value=f"`{storage['xpspeed']}%`", inline=False)
         if 'levelupmessage' in storage:
@@ -321,19 +289,13 @@ class ServerCog(commands.Cog):
         if storage['blacklist']:
             embed.add_field(name=f"Blacklisted Words:", value=f"||{'||, ||'.join(storage['blacklist'].keys())}||",
                             inline=False)
-        if storage['commands']['welcome'] == "True":
+        if 'autoroles' in storage and storage['autoroles']:
+            embed.add_field(name=f"Autoroles:", value='\n'.join([f"{ctx.guild.get_role(int(role)).mention}" for role in storage['autoroles']]))
+        if storage['commands']['welcome'] == "True" and 'welcome' in storage:
             embed.add_field(name=f"Welcome message:", value=storage["welcome"]["message"])
-        if storage['commands']['goodbye'] == "True":
+        if storage['commands']['goodbye'] == "True" and 'goodbye' in storage:
             embed.add_field(name=f"Goodbye message:", value=storage["goodbye"]["message"])
         await ctx.send(embed=embed)
-
-    @commands.command()
-    async def permissions(self, ctx: commands.Context, condition=None, permission=None, new=None):
-        if condition is None:
-            condition = ctx.channel
-        if str(condition).lower() == "set":
-            pass
-
 
 
 def setup(bot):

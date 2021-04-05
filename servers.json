@@ -19031,7 +19031,7 @@
     },
     "players": {
         "670493561921208320": {
-            "money": 143940,
+            "money": 143960,
             "items": {
                 "Airpods": 2,
                 "iPhone": 3,
@@ -19183,7 +19183,7 @@
             "bank": 0
         },
         "704760796269379645": {
-            "money": 600,
+            "money": 4618,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -19194,7 +19194,7 @@
                 "Autodoggo": 0,
                 "Autocatto": 0
             },
-            "bank": 0
+            "bank": 105291
         },
         "732048782576975955": {
             "money": 893,
@@ -19365,7 +19365,7 @@
             "bank": 3000
         },
         "654824761116852273": {
-            "money": 7110,
+            "money": 7820,
             "items": {
                 "Airpods": 1,
                 "iPhone": 0,
@@ -19421,7 +19421,7 @@
             "bank": 0
         },
         "755836957572988968": {
-            "money": 36881,
+            "money": 36697,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -19547,7 +19547,7 @@
             "bank": 0
         },
         "787822181853691954": {
-            "money": 5350,
+            "money": 0,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,
@@ -19558,7 +19558,7 @@
                 "Autodoggo": 0,
                 "Autocatto": 0
             },
-            "bank": 102575
+            "bank": 0
         },
         "700079633827233873": {
             "money": 4268,
@@ -19734,6 +19734,222 @@
         },
         "692802828514885742": {
             "money": 2366,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "693987130036453398": {
+            "money": 2424,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "524276748301631509": {
+            "money": 1748,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "758270253284589629": {
+            "money": 1098,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "625019655207256065": {
+            "money": 1954,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "711106335671844894": {
+            "money": 837,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "386801716462485504": {
+            "money": 1069,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 1,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "694890863918055515": {
+            "money": 779,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "762941962168696832": {
+            "money": 2157,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "729238749833199616": {
+            "money": 1333,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "705101789564764270": {
+            "money": 716,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "240110682589102081": {
+            "money": 1140,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 659
+        },
+        "538492827072462850": {
+            "money": 1681,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "729199039194726421": {
+            "money": 699,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "436513462043148289": {
+            "money": 1932,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "665601164993101869": {
+            "money": 837,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "618858865701683240": {
+            "money": 1400,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "539942269307060234": {
+            "money": 1998,
+            "items": {
+                "Airpods": 0,
+                "iPhone": 0,
+                "Pencil": 0,
+                "Hangman": 0,
+                "Pokemon card": 0,
+                "Bumper Sticker": 0
+            },
+            "bank": 0
+        },
+        "770008433793302597": {
+            "money": 1212,
             "items": {
                 "Airpods": 0,
                 "iPhone": 0,

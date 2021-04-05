@@ -10,17 +10,18 @@ LINK = os.environ.get("LINK", None)
 
 class MotorClient:
     def __init__(self):
-        self.client = AsyncIOMotorClient(LINK)['hurb']
+        self.client = AsyncIOMotorClient(LINK).hurb
 
     async def find_one_and_replace(self, find, replace, collection=None):
         try:
             if collection is None:
-                settings = self.client.settings
+                settings = self.client['settings']
             else:
                 settings = self.client[collection]
-            results = await settings.find_one_and_replace(find, replace, return_document=ReturnDocument.AFTER)
-            return results
+            return await settings.find_one_and_replace(find, replace, return_document=ReturnDocument.AFTER)
+
         except errors.AutoReconnect:
+            print("reconnecting...")
             self.client = AsyncIOMotorClient(LINK).hurb
             await self.find_one_and_replace(find, replace)
 
@@ -58,12 +59,8 @@ class MotorClient:
 
     async def insert_one(self, insert, collection=None):
         try:
-            if collection is None:
-                settings = self.client.settings
-            else:
-                settings = self.client[collection]
-            results = await settings.insert_one(insert)
-            return results
+            settings = self.client.settings if collection is None else self.client[collection]
+            return await settings.insert_one(insert)
         except errors.AutoReconnect:
             self.client = AsyncIOMotorClient(LINK).hurb
             await self.insert_one(insert)
@@ -71,12 +68,8 @@ class MotorClient:
 
     async def find_one_and_delete(self, find, collection=None):
         try:
-            if collection is None:
-                settings = self.client.settings
-            else:
-                settings = self.client[collection]
-            results = await settings.find_one_and_delete(find)
-            return results
+            settings = self.client.settings if collection is None else self.client[collection]
+            return await settings.find_one_and_delete(find)
         except errors.AutoReconnect:
             self.client = AsyncIOMotorClient(LINK).hurb
             await self.find_one_and_delete(find)

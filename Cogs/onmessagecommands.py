@@ -1,16 +1,6 @@
 import asyncio
 import discord
 from discord.ext import commands
-import dotenv
-import os
-from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import MongoClient
-
-dotenv.load_dotenv()
-LINK = os.environ.get("LINK", None)
-
-
-
 
 
 async def nonocheck(message):
@@ -59,7 +49,6 @@ async def modMuteCheck(message, storage):
 class MessageCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
 
     @commands.Cog.listener()
     async def on_message(self, message):

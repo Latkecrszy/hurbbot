@@ -1,7 +1,7 @@
-import discord
 from discord.ext import commands
-import asyncio
-import random
+import asyncio, os, discord, pymongo
+from Bots.Cogs.mongoclient import MotorClient as client
+from motor.motor_asyncio import AsyncIOMotorClient
 mutedMembers = []
 
 
@@ -192,7 +192,7 @@ class MemberCog(commands.Cog):
         await member.edit(nick=new_name)
         await ctx.send(
             embed=discord.Embed(
-                description=f"***{member.display_name} has been renamed to {member.mention} by {ctx.author.mention}.***",
+                description=f"***{member} has been renamed to {member.mention} by {ctx.author.mention}.***",
                 color=discord.Color.green()))
 
     @commands.command()
@@ -214,22 +214,22 @@ class MemberCog(commands.Cog):
     async def on_member_join(self, member):
         storage = await self.bot.cluster.find_one({"id": str(member.guild.id)})
         if "welcome" in storage:
+            print(storage)
             if "id" in storage["welcome"]:
                 channel = member.guild.get_channel(int(storage["welcome"]["id"]))
                 message = storage["welcome"]["message"]
-                if message.find("{member}"):
-                    await channel.send(message.format(member=member.mention))
+                await channel.send(message.format(member=member.mention))
                 for role in member.roles:
                     if str(role).lower() == "muted":
                         mutedMembers.append(str(member))
 
             await self.bot.cluster.find_one_and_replace({"id": str(member.guild.id)}, storage)
 
-            if "autoroles" in storage.keys():
-                for role in storage["autoroles"]:
-                    addRole = discord.utils.get(member.guild.roles, name=role)
-                    if addRole is not None:
-                        await member.add_roles(addRole)
+        if "autoroles" in storage.keys():
+            for role in storage["autoroles"]:
+                addRole = discord.utils.get(member.guild.roles, name=role)
+                if addRole is not None:
+                    await member.add_roles(addRole)
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
@@ -428,7 +428,10 @@ class MemberCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def blacklist(self, ctx, condition, word=None, *, punishment=None):
-        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
+        LINK = os.environ.get("LINK", None)
+        Client = pymongo.MongoClient(LINK)
+        db = Client['hurb']
+        storage = db.settings.find_one({"id": str(ctx.guild.id)})
         if condition.lower() == "add" or condition.lower() == "set":
             punishments = ["ban", "kick", "mute", "warn"]
             word = word.lower()
@@ -438,10 +441,15 @@ class MemberCog(commands.Cog):
                     color=discord.Color.red()))
             elif punishment.lower() in punishments or punishment.lower() == "delete":
                 storage["blacklist"][word] = punishment.lower()
-                await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
+                print(storage)
+                print(storage['blacklist'])
+                LINK = os.environ.get("LINK", None)
+                Client = pymongo.MongoClient(LINK)
+                db = Client['hurb']
+                result = db.settings.find_one_and_replace({'id': str(ctx.guild.id)}, storage)
                 await ctx.send(embed=discord.Embed(description=f"||{word}|| has been added to the blacklist.",
                                                    color=discord.Color.green()))
-
+                print("done")
             else:
                 await ctx.send(embed=discord.Embed(
                     description=f"Please choose a valid punishment {ctx.author.mention}! Valid punishments are `{'`, `'.join(punishments)}`, and `delete`.",

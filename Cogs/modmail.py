@@ -66,11 +66,7 @@ class ModMail(commands.Cog):
             await member.send(f"Your ModMail message with {ctx.guild} has been closed. If you would like to start a new ModMail message, just send me another message.")
             await ctx.send(embed=discord.Embed(description=f"{member}'s ModMail message has been closed."))
             storage['modmail']['users'].pop(str(member.id))
-        print(storage)
-        results = await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
-        print(results)
-        storage = await self.bot.cluster.find_one({"id": str(ctx.guild.id)})
-        print(storage)
+        await self.bot.cluster.find_one_and_replace({"id": str(ctx.guild.id)}, storage)
 
     @commands.Cog.listener()
     async def on_message(self, start_message):
@@ -99,7 +95,6 @@ class ModMail(commands.Cog):
         if message.author not in guild.members:
             await message.channel.send(f"You are not in {guild} {message.author.mention}!")
         storage = await self.bot.cluster.find_one({"id": str(guild.id)})
-        print(storage)
         if 'modmail' not in storage:
             await message.channel.send(
                 f"Unfortunately, {guild} does not yet have ModMail set up through me. Feel free to ask them to set it up so you can contact them effortlessly!")

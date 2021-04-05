@@ -104,10 +104,26 @@ class Fun(commands.Cog):
         embed = discord.Embed(title=f"My Info:")
         members = 0
         for server in self.bot.guilds:
-            members += len([member for member in server.members])
+            members += len(server.members)
         embed.add_field(name=f"Serving {len(self.bot.guilds)} servers", value=f"And {members} members!")
         embed.set_thumbnail(url=ctx.guild.me.avatar_url)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def servers(self, ctx):
+        members = 0
+        embeds = 0
+        embed = discord.Embed()
+        for guild in self.bot.guilds:
+            if embeds == 25:
+                await ctx.send(embed=embed)
+                embed = discord.Embed()
+                embeds = 0
+            members += len(guild.members)
+            embed.add_field(name=str(guild), value=f"Members: {len(guild.members)}")
+            embeds += 1
+        await ctx.send(embed=embed)
+
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.guild)
@@ -301,7 +317,6 @@ class Fun(commands.Cog):
                 for _ in range(3):
                     expression.pop(-1)
                 expression = "".join(expression)
-            print(expression)
             old_stdout = sys.stdout
             sys.stdout = mystdout = StringIO()
             try:
@@ -311,6 +326,15 @@ class Fun(commands.Cog):
                 await ctx.send(embed=embed)
             except:
                 pass
+
+    @commands.command(aliases=['oobify'])
+    async def oob(self, ctx, *, message):
+        vowels = ["a", "e", "i", "o", "u"]
+        message = list(message)
+        for x in range(len(message)):
+            if message[x].lower() in vowels:
+                message[x] = "oob"
+        await ctx.send("".join(message), tts=True)
 
 
 

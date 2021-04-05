@@ -1,13 +1,13 @@
+import sys
+sys.path.append("/root")
 import discord
 from discord.ext import commands, tasks
 from itertools import cycle
 import os
-import asyncio
-from dotenv import load_dotenv
 from Bots.Cogs.mongoclient import MotorClient as client
 
 
-load_dotenv()
+# load_dotenv()
 intents = discord.Intents.default()
 intents.members = True
 
@@ -90,14 +90,8 @@ async def on_member_join(member):
                 await webhook.edit(name="Welcomer")
         for webhook in await channel.webhooks():
             if webhook.name == "Welcomer":
-                message = await webhook.send(avatar_url="https://image.flaticon.com/icons/png/512/1026/1026658.png",
-                                             content=f"Hello {member.mention}! Welcome to Art Gatherings! Make sure to check out {bot.get_channel(id=751671495335608413).mention} to get some roles, and if you want, write a short intro about yourself in {bot.get_channel(id=768124436149698580).mention} to help us get to know you. But before you do all that, be sure to ping __**one**__ mod to let them know to verify you. Enjoy the server!")
-                await asyncio.sleep(60)
-                try:
-                    await message.delete()
-                except:
-                    pass
-                break
+                await webhook.send(avatar_url="https://image.flaticon.com/icons/png/512/1026/1026658.png",
+                                   content=f"Hello {member.mention}! Welcome to Art Gatherings! Make sure to check out {bot.get_channel(id=751671495335608413).mention} to get some roles, and if you want, write a short intro about yourself in {bot.get_channel(id=768124436149698580).mention} to help us get to know you. But before you do all that, be sure to ping __**one**__ mod to let them know to verify you. Enjoy the server!")
 
 
 @tasks.loop(hours=12)
@@ -110,25 +104,11 @@ async def backup():
     for document in await results:
         await backup_collection.insert_one({key: value for key, value in document.items() if key != "_id"})
 
-
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.errors.CommandNotFound):
-        pass
-    else:
-        raise error
-
-
-
-
-
-
 backup.start()
 
-extensions = ["ServerCog", "fun", "blackjack", "ErrorCog", "JokeCog", "MemberCog", "HangmanCog", "SlotsAndRouletteCog",
-              "HelpCog",
-              "nitro", "BuyRoleCog", "players", "ChatBotCog", "RankCog", "votecog", "reactionroles",
-              "onmessagecommands", "pong", "voice", "pets", "modmail"]
+extensions = ["ServerCog", "fun", "blackjack", "JokeCog", "ErrorCog", "MemberCog", "HangmanCog", "SlotsAndRouletteCog",
+              "HelpCog", "nitro", "BuyRoleCog", "players", "RankCog", "reactionroles", "onmessagecommands",
+              "pong", "modmail"]
 
 for extension in extensions:
     bot.load_extension(f"Cogs.{extension}")

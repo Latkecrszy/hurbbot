@@ -261,7 +261,7 @@ class Rank(commands.Cog):
                     await self.bot.cluster.find_one_and_replace({"id": str(message.guild.id)}, storage)
                     await message.channel.send(f"{self.resetting[str(message.author.id)]['member'].mention}'s XP has been reset.")
                 elif str(message.content).lower() == "no":
-                    await message.channel.send(f"{self.resetting['member'].mention} has been spared :pray:")
+                    await message.channel.send(f"{self.resetting[str(message.author.id)]['member'].mention} has been spared :pray:")
                 self.resetting.pop(str(message.author.id))
 
     @commands.command()

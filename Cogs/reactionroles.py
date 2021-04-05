@@ -81,6 +81,9 @@ class ReactionRoleCog(commands.Cog):
     async def on_raw_reaction_remove(self, payload):
         storage = await self.bot.cluster.find_one({"id": str(payload.guild_id)}, "reaction_roles")
         if storage is not None:
+            if 'roles' not in storage:
+                print(f"storage: {storage}")
+                return
             reactionroles = storage["roles"]
             if reactionroles is not None:
                 if str(payload.message_id) in reactionroles.keys():

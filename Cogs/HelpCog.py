@@ -30,7 +30,11 @@ class HelpCog(commands.Cog):
             except IndexError:
                 pass
         embed.set_thumbnail(url=thumbnail)
-        embed.set_footer(text=f"______________________________________\nUse ⬅️ and ️➡️ to switch pages | Page {page} / {round(len(commands)/4)}")
+        if round(len(commands)/4) < len(commands)/4:
+            maxPage = round(len(commands)/4)+1
+        else:
+            maxPage = round(len(commands)/4)
+        embed.set_footer(text=f"______________________________________\nUse ⬅️ and ️➡️ to switch pages | Page {page} / {maxPage}")
         return embed
 
     @commands.command()
@@ -80,8 +84,7 @@ class HelpCog(commands.Cog):
         elif 'config' in command:
             title = "Config"
         if title is None:
-            await self.help(ctx)
-            return
+            return await self.help(ctx)
         message = await ctx.send(embed=self.embed(Commands[title.lower()], 1, f"{title} Help", urls[title]))
         await message.add_reaction("⬅️")
         await message.add_reaction("➡️")
